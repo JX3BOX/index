@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d0ae8c7"],{"0b10":function(n,t,e){"use strict";e.r(t);var c={name:"Fb",props:[],components:{},data:function(){return{}},computed:{},watch:{},methods:{},filters:{},created:function(){},mounted:function(){}},o=e("2877"),u=Object(o.a)(c,(function(){var n=this.$createElement;return(this._self._c||n)("div",[this._v("副本主题")])}),[],!1,null,null,null);t.default=u.exports}}]);
-//# sourceMappingURL=chunk-2d0ae8c7.8fc69f69.js.map

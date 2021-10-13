@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-2d0cc4a4"],{"4cfe":function(n,t,e){"use strict";e.r(t);var c={name:"Yaozong",props:[],components:{},data:function(){return{}},computed:{},watch:{},methods:{},filters:{},created:function(){},mounted:function(){}},o=e("2877"),u=Object(o.a)(c,(function(){var n=this.$createElement;return(this._self._c||n)("div",[this._v("药宗设定集")])}),[],!1,null,null,null);t.default=u.exports}}]);
-//# sourceMappingURL=chunk-2d0cc4a4.b8dd54f4.js.map
