@@ -162,6 +162,13 @@ function getPzs(params) {
     });
 }
 
+// 获取游戏公告列表
+function getGameNews(params) {
+    return $cms().get(`/api/cms/game/news`, {
+        params: params,
+    });
+}
+
 export {
     getPosts,
     getGossip,
@@ -183,5 +190,5 @@ export {
     getWikiPosts,
     getDbms,
     getBattles,
-    getPzs,
+    getPzs,getGameNews
 };
