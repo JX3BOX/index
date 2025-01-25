@@ -122,7 +122,6 @@ export default {
         },
         loadGameData: function () {
             getGameNews({client: this.client}).then((res) => {
-                // 正式服
                 this.game_data = res?.data.data.list
                     .map((item) => {
                         item.time = dayjs(item.post_date).toDate();
