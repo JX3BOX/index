@@ -60,6 +60,9 @@ export default {
     .m-baizhan-wrapper {
         min-width: 750px;
         width: 100%;
+        max-height: 60vh;
+        overflow-y: auto;
+        .scrollbar(4px);
     }
 }
 </style>

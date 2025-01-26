@@ -12,6 +12,7 @@ import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import { getConfigBanner, getUserDecoration, getPublicDecoration } from "@/service/cms.js";
+import { getUserConfig } from "@/service/user"
 
 const DECORATION_KEY = "user_decoration_calendar";
 const DECORATION_LIST = "public_decoration";
@@ -71,6 +72,7 @@ export default {
                     // 3.不存在活动，使用用户主题
                     if (User.isLogin()) {
                         this.loadUserDecoration();
+                        this.loadUserConfig();
                     }
                 }
             });
@@ -123,6 +125,16 @@ export default {
                     sessionStorage.setItem(DECORATION_LIST, JSON.stringify(this.public_decoration));
                 });
             }
+        },
+
+        // D.获取用户配置
+        // ========================
+        loadUserConfig() {
+            getUserConfig().then((res) => {
+                if (res.data.data) {
+                    this.link = res.data.data.fav_link || "/dashboard";
+                }
+            });
         },
     },
 };

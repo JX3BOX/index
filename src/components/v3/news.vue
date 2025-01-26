@@ -35,12 +35,13 @@
 </template>
 
 <script>
-import { getGameNews } from "@/service/spider";
+// import { getGameNews } from "@/service/spider";
 import { getPostsFree } from "@/service/index";
 import dateFormat from "@/utils/dateFormat.js";
-import { getChangelog } from "@/service/cms";
+import { getChangelog, getGameNews } from "@/service/cms";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
 import { all_map } from "@jx3box/jx3box-common/data/jx3_zlp.json";
+import dayjs from "dayjs";
 export default {
     name: "IndexNews",
     components: {},
@@ -120,41 +121,16 @@ export default {
             this.mode = val;
         },
         loadGameData: function () {
-            getGameNews(this.client).then((res) => {
-                // 正式服
-                // if (this.client == "std") {
-                const data = this.client == "std" ? res?.data : res?.data?.reverse();
-                this.game_data = res?.data
+            getGameNews({client: this.client}).then((res) => {
+                this.game_data = res?.data.data.list
                     .map((item) => {
-                        item.url = this.linkFormat(item.url);
-                        // 如果当前为1月，且新闻时间为12月，则年份-1
-                        item.time =
-                            !new Date().getMonth() && item.item?.split("/")[0] == 12
-                                ? (item.time = new Date(new Date().getFullYear() - 1 + "/" + item.time))
-                                : new Date(new Date().getFullYear() + "/" + item.time);
+                        item.time = dayjs(item.post_date).toDate();
                         item.type = "game";
+                        item.title = item.post_title;
+                        item.url = item.post_url;
                         return item;
                     })
                     .slice(0, 5);
-                // }
-                // else {
-                //     // 怀旧服
-                //     let data = res?.data;
-                //     let list = [];
-                //     for (let group in data) {
-                //         list.push(...data[group].list);
-                //     }
-                //     this.game_data = list
-                //         .map((item) => {
-                //             item.time = new Date(Number(item.inputtime * 1000));
-                //             item.type = "game";
-                //             return item;
-                //         })
-                //         .sort((a, b) => {
-                //             return ~~b.inputtime - ~~a.inputtime;
-                //         })
-                //         .slice(0, 5);
-                // }
             });
         },
         loadBoxData: function () {

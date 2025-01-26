@@ -47,6 +47,11 @@ function getBoxCoin(id) {
     return $pay({ mute: true }).get(`api/event/${id}/trigger`);
 }
 
+// 获取活动详情
+function getEventDetail(id) {
+    return $pay({ mute: true }).get(`api/event/${id}/info`);
+}
+
 function getFaceList(params) {
     return $next().get(`/api/face`, {
         params: params,
@@ -58,4 +63,4 @@ function getEmotions(params) {
     })
 }
 
-export { getPosts, getTeams, getJokes, searchRaids, getBoxCoin, getItemPrice, getFaceList, getEmotions,getPostsFree };
+export { getPosts, getTeams, getJokes, searchRaids, getBoxCoin, getItemPrice, getFaceList, getEmotions,getPostsFree, getEventDetail };

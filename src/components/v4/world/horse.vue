@@ -444,7 +444,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@//assets/css/v4/world/horse.less";
+@import "~@/assets/css/v4/world/horse.less";
 
 .u-chitu-tip,
 .u-dilu-tip {

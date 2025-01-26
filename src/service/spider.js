@@ -29,6 +29,12 @@ function getMeirentu(server = "蝶恋花") {
     });
 }
 
+function getMeirentuNew(params) {
+    return $cms().get(`/api/cms/pvx/beauty-paint`, {
+        params,
+    });
+}
+
 // 游戏公告
 function getGameNews(client) {
     return $spider.get("/api/spider/jx3news", {
@@ -119,4 +125,5 @@ export {
     getHomeReputation,
     getItem,
     getItems,
+    getMeirentuNew
 };

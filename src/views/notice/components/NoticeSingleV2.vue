@@ -136,4 +136,23 @@ export default {
         }
     }
 }
+
+// 适配小程序端
+.v-miniprogram {
+    .p-notice-v2 {
+        background: none;
+    }
+    .m-backList, .m-thx, .m-single-comment {
+        .none;
+    }
+
+    .m-notice-single {
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .c-footer {
+        .none;
+    }
+}
 </style>

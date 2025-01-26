@@ -28,4 +28,9 @@ function setMeta(key, val) {
     );
 }
 
-export { getProfile, getMeta, setMeta };
+// 获取用户全局配置
+function getUserConfig() {
+    return $cms().get(`/api/cms/user/conf`);
+}
+
+export { getProfile, getMeta, setMeta, getUserConfig };

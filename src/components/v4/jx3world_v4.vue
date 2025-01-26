@@ -17,6 +17,7 @@
             <horse></horse>
             <lucky-pet :date="date" :client="client"></lucky-pet>
             <reputation v-if="isCurrentWeek" :date="date" :client="client"></reputation>
+            <mrt></mrt>
             <!-- <activity :activities="activities"></activity> -->
             <!-- <furniture v-if="isCurrentWeek" :date="date" :client="client"></furniture> -->
         </div>
@@ -36,6 +37,7 @@ import { formatTime } from "@/utils";
 import { getDailyFromOs } from "@/service/spider";
 import dailyKeys from "@/assets/data/daily_keys.json";
 import baizhan from "@/components/v4/world/baizhan_mini.vue";
+import mrt from "@/components/v4/world/meirentu.vue";
 export default {
     name: "JX3WorldV4",
     components: {
@@ -47,6 +49,7 @@ export default {
         // activity,
         reputation,
         baizhan,
+        mrt,
     },
     provide() {
         return {

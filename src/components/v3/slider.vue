@@ -149,7 +149,7 @@ export default {
         },
         showSlider(val) {
             // 判断val是否是gif图片
-            if (val.indexOf(".gif") > -1) {
+            if (val.indexOf(".gif") > -1||val.indexOf(".webp") > -1) {
                 return val;
             }
             if (this.ratio > 1 && this.w >= 1920) {

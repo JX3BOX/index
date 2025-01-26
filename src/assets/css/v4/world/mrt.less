@@ -1,0 +1,39 @@
+.m-world-mrt {
+    i::after {
+        content: "" !important;
+    }
+    .el-divider__text {
+        .flex;
+        align-items: center;
+        .el-select {
+            max-width: 70px;
+            .el-input .el-select__caret {
+                font-size: 12px;
+                margin: 0;
+            }
+            .el-input__icon {
+                width: 20px;
+                height: 28px;
+                line-height: 28px;
+            }
+            .el-input__inner {
+                border: none;
+                padding: 0;
+                height: 28px;
+                line-height: 28px;
+            }
+            input {
+                font-size: 12px;
+                padding: 0;
+            }
+        }
+    }
+    .m-mrt-item {
+        .flex;
+        justify-content: space-between;
+        width: 100%;
+        &.active {
+            color: #fba524;
+        }
+    }
+}

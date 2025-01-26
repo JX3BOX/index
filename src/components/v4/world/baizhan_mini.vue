@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { isPhone } from "@/utils/index";
 import baizhan from "@/components/v4/world/baizhan.vue";
 export default {
     name: "baizhan_mini",
@@ -22,6 +23,7 @@ export default {
         return {
             visible: false,
             banner: "https://cdn.jx3box.com/upload/post/2024/11/7/294981_597969.png?x-oss-process=image/auto-orient,1/resize,m_fill,w_640,h_320/quality,Q_100",
+            isPhone: false,
         };
     },
     computed: {},
@@ -32,7 +34,20 @@ export default {
         },
     },
     created: function () {},
-    mounted: function () {},
+    mounted: function () {
+        const self = this;
+        self.isPhone = isPhone();
+        let timer = null;
+        window.addEventListener("resize", () => {
+            if (timer === null) {
+                timer = setTimeout(() => {
+                    self.isPhone = isPhone();
+                    clearTimeout(timer);
+                    timer = null;
+                }, 0);
+            }
+        });
+    },
 };
 </script>
 <style lang="less">
@@ -50,7 +65,7 @@ export default {
         align-items: center;
         margin-top: 10px;
 
-        i{
+        i {
             margin-right: 3px;
         }
         i:after {
