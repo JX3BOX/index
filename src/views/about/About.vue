@@ -61,7 +61,7 @@ export default {
                 {
                     key: "cooperation",
                     label: "渠道合作",
-                    value: "admin@jx3box.com",
+                    value: "rx6@qq.com",
                 },
                 {
                     key: "join",

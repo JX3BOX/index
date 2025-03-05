@@ -27,7 +27,7 @@ export default {
             group: [
                 {
                     name: "官方邮箱",
-                    email: "admin@jx3box.com",
+                    email: "service@jx3box.com",
                     icon: "el-icon-message",
                 },
                 {
