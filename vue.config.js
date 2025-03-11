@@ -37,6 +37,18 @@ const pages = {
         template: "public/index.html",
         filename: "post/index.html",
     },
+    search: {
+        title: "搜索" + Setting.suffix,
+        entry: "src/pages/search.js",
+        template: "public/index.html",
+        filename: "search/index.html",
+    },
+    jx3: {
+        title: "剑网3.com",
+        entry: "src/pages/jx3.js",
+        template: "public/index.html",
+        filename: "jx3/index.html",
+    }
 };
 
 module.exports = {
@@ -189,7 +201,8 @@ module.exports = {
         preload_styles.push(
             path.resolve(__dirname, "./node_modules/csslab/base.less"),
             path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
-            path.resolve(__dirname, "./src/assets/css/var.less")
+            path.resolve(__dirname, "./src/assets/css/var.less"),
+            path.resolve(__dirname, "./src/assets/css/search/var.less")
         );
 
         function addStyleResource(rule) {

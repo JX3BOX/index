@@ -18,10 +18,19 @@ let store = {
         },
         timezone: "Asia/Shanghai", // 时区
         showAlert: false,
+
+        type : 'all',
+        q : '',
     },
     mutations: {
         setShowAlert(state, payload) {
             state.showAlert = payload;
+        },
+        changeQuery : function (state,payload){
+            state.q = payload
+        },
+        changeType : function (state,payload){
+            state.type = payload
         },
     },
     getters: {
