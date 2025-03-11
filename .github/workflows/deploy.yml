@@ -25,6 +25,6 @@ jobs:
                 key: ${{ secrets.DEPLOY_KEY }}
                 script: |
                     cd /www/wwwroot/jx3box/jx3box-v2
-                    cd pve
+                    cd index
                     git checkout gh-pages
                     git pull origin gh-pages

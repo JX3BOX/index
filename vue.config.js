@@ -54,6 +54,7 @@ const pages = {
 module.exports = {
     //❤️ Multiple pages ~
     pages: pages,
+    productionSourceMap: false,
 
     //❤️ Proxy ~
     devServer: {
