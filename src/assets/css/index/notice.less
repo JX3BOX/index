@@ -1,0 +1,42 @@
+.m-notice {
+    .u-list {
+        padding: 12px;
+    }
+    .u-admin {
+        .mt(2px);
+        a:hover {
+            color: @pink;
+        }
+    }
+
+    a {
+        .pointer;
+        &.isHighlight {
+            .bold;
+        }
+        // color:#0880d7;
+    }
+
+    .u-more {
+        i {
+            .color(#ccc, #0366d6);
+        }
+    }
+
+    .u-admin {
+        a {
+            .color(#0366d6,#f39);
+        }
+        span {
+            .color(#333);
+            margin: 0 5px;
+        }
+    }
+}
+@media screen and (max-width: 1279px) {
+    .m-notice {
+        .u-list {
+            padding: 10px;
+        }
+    }
+}

@@ -1,0 +1,70 @@
+.m-calendar {
+    overflow: hidden;
+    // box-shadow: 0 0 2px rgba(0,0,0,.08);
+    // border: 1px solid rgba(63, 68, 72, 0.2);
+    padding-top:10px;
+    padding-bottom:40px;
+    // background-color:#fff;
+    // border-bottom-right-radius: 5px;
+    // border-bottom-left-radius: 5px;
+    &-content {
+        display: flex;
+    }
+    &-event {
+        .mt(10px);
+    }
+}
+.m-calendar-item {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    // color: #ccc;
+    color:@color;
+    .pr;
+
+    .u-date {
+        line-height: 20px;
+        font-size: 12px;
+    }
+
+    &.current {
+        color: #3d454d;
+
+        .u-date {
+            margin: 0 auto;
+            color: #fff;
+            background: #3d454d;
+            border-radius: 50%;
+            .size(20px);
+        }
+    }
+
+    .u-week {
+        .mb(5px);
+    }
+    .u-link {
+        font-size: 12px;
+        transform: scale(0.8);
+        //font-weight: 600;
+        background-color:@bg-gray;
+        padding:3px 8px;
+        .r(3px);
+        // width: 100%;
+        // text-align: center;
+        // .nobreak;
+        white-space: nowrap;
+        top:100%;
+        margin-top:8px;
+        .pa;
+        left: 50%;
+        transform: translateX(-50%) scale(0.8);
+
+        .arrow(t,5px,@bg-gray,@x:50%);
+        // color:#fff;
+    }
+}
+
+.m-calendar-event{
+    .none;
+    padding:0 10px 5px 10px;
+}

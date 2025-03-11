@@ -1,0 +1,88 @@
+.m-index-popup .m-card {
+    .size(1200px, 600px);
+    .pa;
+    .lt(50%, 50%);
+    .r(3px);
+    transform: translate(-50%, -50%);
+    background-image: url("@{img}festival/seven/bg.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // 第一屏
+    .m-first {
+        .pr;
+        .pointer;
+        .u-look {
+            .pa;
+            .h(30px);
+            .lb(50%,130px);
+            .ml(-110px);
+        }
+    }
+    // 第二屏
+    .m-second {
+        .pr;
+        .full;
+        .animation {
+            .h(100%);
+            .pa;
+        }
+        .u-left {
+            .lt(0);
+        }
+        .u-right {
+            .rt(0);
+        }
+        .u-good {
+            .h(60px);
+            .lt(50%,130px);
+            .ml(-80px);
+        }
+        .u-txt {
+            .h(24px);
+            .lt(50%,240px);
+            .ml(-200px);
+        }
+        .u-boxcion {
+            .lt(50%,340px);
+            .ml(-120px);
+            .u-img {
+                .h(24px);
+            }
+            .u-cion {
+                .db;
+                .w(140px);
+                .x;
+                .pa;
+                .bold;
+                .lt(130px,0);
+                .fz(24px,1);
+                color: #3d454d;
+            }
+        }
+        .u-close {
+            .h(24px);
+            .lb(50%,120px);
+            .pointer;
+            .ml(220px);
+        }
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-index-popup .m-card .m-second {
+        .u-txt{
+            .none;
+        }
+        .u-good{
+            .ml(-65px);
+        }
+        .u-boxcion{
+            top:300px;
+            margin-left: -170px;
+        }
+        .u-close {
+            .lb(50%,120px);
+            .ml(-50px);
+        }
+    }
+}

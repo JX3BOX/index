@@ -1,0 +1,51 @@
+.m-tv-list {
+    .wp {
+        .flex;
+        .w(100%);
+        .auto(x);
+        flex-direction: column;
+        max-width: 1200px;
+        gap: 60px;
+    }
+    .m-item {
+        .size(100%,320px);
+        position: relative;
+        .u-img,
+        .u-mark {
+            .pa;
+            .r(18px);
+            width: calc(100% - 35px);
+            height: calc(100% - 30px);
+        }
+        .u-img {
+            .r(18px);
+            .z(2);
+            .lt(0,0);
+            box-sizing: border-box;
+            border: 2px solid #24292e; 
+        }
+        .u-mark {
+            .z(1);
+            .rb(0,0);
+            background-color: #24292e;
+        }
+    }
+    .m-null {
+        .size(100%,320px);
+        position: relative;
+        .u-text {
+            .pa;
+            .full;
+            .z(2);
+            .r(18px);
+            .bold;
+            .flex;
+            .fz(30px);
+            letter-spacing: 6px;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            background-color: #24292e;
+        }
+    }
+}

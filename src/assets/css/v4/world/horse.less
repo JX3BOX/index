@@ -1,0 +1,119 @@
+.m-world-horse {
+    i::after {
+        content: "" !important;
+    }
+    .u-horse {
+        font-size: 12px;
+        line-height: 28px;
+        .u-label {
+            .flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            a {
+                color: #777;
+                &:hover {
+                    color: #fba524;
+                    box-shadow: none;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+            }
+        }
+        .el-divider__text {
+            .flex;
+            align-items: center;
+            .el-select {
+                max-width: 70px;
+                .el-input .el-select__caret {
+                    font-size: 12px;
+                    margin: 0;
+                }
+                .el-input__icon {
+                    width: 20px;
+                    height: 28px;
+                    line-height: 28px;
+                }
+                .el-input__inner {
+                    border: none;
+                    padding: 0;
+                    height: 28px;
+                    line-height: 28px;
+                }
+                input {
+                    font-size: 12px;
+                    padding: 0;
+                }
+            }
+        }
+        .u-item {
+            .flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            // @media screen and (max-width: 320px) {
+            //     width: 260px;
+            // }
+        }
+        .u-no-item {
+            text-align: center;
+        }
+        .u-horse-name-wrap {
+            .flex;
+            max-width: 130px;
+            overflow: hidden;
+            overflow-x: auto;
+            .scrollbar();
+            // @media screen and (max-width: 320px) {
+            //     max-width: 110px;
+            // }
+            .u-horse-name {
+                .flex;
+                align-items: center;
+                justify-content: center;
+                .size(30px, 30px);
+                flex-shrink: 0;
+                cursor: pointer;
+                border-radius: 3px;
+                &:hover {
+                    background-color: #eee;
+                    box-shadow: none;
+                }
+                &.no-link {
+                    cursor: default;
+                    &:hover {
+                        background-color: transparent;
+                        box-shadow: none;
+                    }
+                }
+            }
+            i {
+                .flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+            }
+            .el-icon-refresh {
+                cursor: pointer;
+                color: #fba524;
+            }
+        }
+        .u-times-info {
+            .nobreak;
+            .u-map-name {
+                margin-right: 5px;
+            }
+            .flex;
+            justify-content: flex-end;
+            align-items: center;
+            .u-times-lately {
+                color: #fba524;
+            }
+            .is-exist {
+                opacity: 0.5;
+            }
+            .u-times{
+                padding-right:5px;
+            }
+        }
+    }
+}

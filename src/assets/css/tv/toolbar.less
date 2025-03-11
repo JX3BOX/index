@@ -1,0 +1,151 @@
+.m-tv-toolbar {
+    // 操作条
+    .m-toolbar {
+        .pf;
+        .lb(50%,116px);
+        .size(680px,48px);
+        .ml(-340px);
+        .r(28px);
+        .z(9);
+        .flex;
+        box-sizing: border-box;
+        justify-content: space-between;
+        gap: 40px;
+        align-items: center;
+        padding: 0 30px;
+        background-color: #262930;
+    }
+    // 筛选
+    .m-toolbar-filter {
+        .flex;
+        .bold;
+        gap: 20px;
+        .color(#fff);
+        .u-button {
+            .pointer;
+            flex-shrink: 0;
+            color: #ab7fce;
+            &.active {
+                color: #fba524;
+            }
+        }
+    }
+    // 分页
+    .m-toolbar-pagination {
+        .flex;
+        .bold;
+        align-items: center;
+        .u-turn {
+            .none;
+            .mr(10px);
+            color: #ab7fce;
+            flex-shrink: 0;
+        }
+        .u-jump {
+            .pointer;
+            color: #fff;
+            flex-shrink: 0;
+            &:hover,
+            &.active {
+                color: #fba524;
+            }
+        }
+    }
+    // 弹出窗
+    .m-popup {
+        .pa;
+        .flex;
+        .r(8px);
+        .lb(0,58px);
+        .bold;
+        width: calc(100% - 60px);
+        margin: 0 30px;
+        box-sizing: border-box;
+        padding: 20px;
+        background-color: #262930;
+    }
+    // 弹出-筛选
+    .m-popup-filter {
+        .flex;
+        .size(420px,auto);
+        flex-direction: column;
+        gap: 10px;
+        color: #ab7fce;
+        .m-item {
+            .flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            .u-all,
+            .u-nav {
+                .pointer;
+                &:hover,
+                &.active {
+                    color: #fba524;
+                }
+            }
+            .u-title {
+                width: 100%;
+            }
+            .u-nav {
+                color: #fff;
+            }
+        }
+    }
+    // 弹出-跳转
+    .m-popup-jump {
+        padding: 5px 12px;
+        align-items: center;
+        left: auto;
+        right: 0;
+        width: auto;
+        gap: 10px;
+        color: #fff;
+        .u-label {
+            flex-shrink: 0;
+        }
+        .u-pagination {
+            .none;
+        }
+        .u-input {
+            .w(60px);
+            .el-input__inner {
+                padding: 0 10px;
+            }
+        }
+        .u-button {
+            .pointer;
+            .r(3px);
+            flex-shrink: 0;
+            padding: 0 10px;
+            background-color: #ab7fce;
+        }
+    }
+    // 覆盖element样式
+    .el-pagination .btn-next,
+    .el-pagination .btn-prev,
+    .el-dialog,
+    .el-pager li {
+        background: none;
+        color: #ab7fce;
+        &:hover {
+            color: #fff;
+        }
+        &.active {
+            .color(#fba524,#fba524);
+        }
+    }
+    // 遮罩
+    .m-toolbar-mark {
+        .pf;
+        .full;
+        .lt(0);
+        .z(8);
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}

@@ -1,0 +1,39 @@
+.m-news {
+    .mt(0) !important;
+}
+.m-news-header {
+
+    // TODO:remove
+    .flex;
+    justify-content: space-between;
+
+    .u-icon{
+        .fz(16px);
+    }
+
+    .mt(0);
+    .u-mode-list {
+        .ml(5px);
+        .mt(1px);
+        .fz(12px);
+        transform: scale(0.9);
+        .flex;
+        gap: 5px;
+    }
+
+    .u-mode {
+        border: 1px solid #eee;
+        padding: 0 5px;
+        .r(2px);
+        color: #aaa;
+        .pointer;
+        &:hover {
+            color:#aaa;
+            border-color: #ccc;
+        }
+        &.is-active{
+            color: #fba524;
+            border-color: #fba524;
+        }
+    }
+}

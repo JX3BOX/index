@@ -1,0 +1,130 @@
+.m-rankbox {
+    .mt(20px);
+}
+
+.m-rank {
+    .mt(20px);
+
+    .u-more {
+        .fr;
+        .fz(12px, 26px);
+        .pointer;
+        font-weight: normal;
+        color: #999;
+        &:hover {
+            color: @pink;
+        }
+    }
+
+    .u-list {
+        list-style: none;
+        margin: 0;
+        // padding: 15px 5px;
+        padding: 8px 5px 15px 10px;
+    }
+
+    li {
+        display: block;
+        .fz(12px, 34px);
+        height: 34px;
+        // border-bottom: 1px dotted @border-hr;
+        .nobreak;
+        .pr;
+    }
+
+    .u-order {
+        background-color: #eee;
+        .dbi;
+        .r(3px);
+        .fz(16px, 32px);
+        transform: scale(0.5);
+        color: #888;
+        .w(32px);
+        .h(32px);
+        .y;
+        box-sizing: border-box;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        .x;
+        .mr(3px);
+    }
+
+    .t1 {
+        color: #fff;
+        background-color: rgb(255,124,184);
+    }
+    .t2 {
+        color: #fff;
+        background-color: rgb(0,215,223);
+    }
+    .t3 {
+        color: #fff;
+        background-color:rgb(255,228,112);
+    }
+
+    .u-icon {
+        .y;
+        .size(24px);
+        .r(4px);
+        .mr(8px);
+        .ml(2px);
+    }
+
+    .u-xf {
+        .y;
+        .size(18px);
+        .mr(8px);
+        .ml(2px);
+    }
+
+    .u-trending {
+        .mr(8px);
+        .ml(5px);
+        &.el-icon-caret-top{
+            color:#fc3c3c;
+        }
+        &.el-icon-caret-bottom{
+            color:#49c10f;
+        }
+    }
+
+    .u-link {
+        .db;
+        &:hover {
+            .u-name {
+                color:@pink;
+                box-shadow:0 1px 0 @pink;
+            }
+        }
+    }
+    .u-name {
+        color: #666;
+    }
+
+    .u-per {
+        .fr;
+        .pa;
+        .rt(0);
+        background-color:#fff;
+        .z(1);
+        padding: 0 5px;
+        // background-color: @bg-gray;
+    }
+
+    .u-count {
+        .fz(10px);
+        .db;
+        color: #ccc;
+        margin-right: 2px;
+        font-style:normal;
+        transform: scale(0.75);
+        font-family: Tahoma, Verdana, Geneva, sans-serif;
+    }
+}
+
+@media screen and (max-width:@phone){
+    .m-rank{
+        .u-icon{
+            .ml(0);
+        }
+    }
+}

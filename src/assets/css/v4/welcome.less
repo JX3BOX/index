@@ -1,0 +1,77 @@
+@keyframes light-sweep {
+    0% {
+        left: -150%;
+    }
+    100% {
+        left: 110%;
+    }
+}
+.m-welcome {
+    height: 110px;
+    .pr;
+    box-sizing: border-box;
+    z-index: 1;
+    border-radius: 7.5px;
+
+    // &:hover .u-pic::before {
+    //     animation: light-sweep 0.8s ease-in-out forwards;
+    // }
+
+    .u-pic {
+        .size(100%,100px);
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        .pr;
+        box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.05);
+        border-radius: 7.5px;
+
+        // &::before {
+        //     content: "";
+        //     position: absolute;
+        //     top: 0;
+        //     left: -150%; /* 光束初始位置 */
+        //     width: 120%;
+        //     height: 100%;
+        //     background: linear-gradient(
+        //         120deg,
+        //         rgba(255, 255, 255, 0) 0%,
+        //         rgba(255, 255, 255, 0.6) 50%,
+        //         rgba(255, 255, 255, 0) 100%
+        //     );
+        //     transform: skewX(-30deg);
+        // }
+    }
+
+    .u-frame {
+        .pa;
+        .lt(0);
+        .dbi;
+        .size(100%);
+        // background-image: url("../../img/calendar-border.png");
+        // background-repeat: no-repeat;
+        // background-size: 100% 100%;
+        // z-index: 9;
+    }
+
+    .u-hook {
+        .w(9px);
+        .db;
+        .pa;
+        bottom: -15px;
+        img {
+            .w(100%);
+        }
+    }
+    .u-hook-left {
+        left: 30px;
+    }
+    .u-hook-right {
+        right: 30px;
+    }
+}
+
+@media screen and (max-width: @ipad) {
+    .m-welcome {
+        .none;
+    }
+}

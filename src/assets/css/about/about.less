@@ -1,0 +1,59 @@
+@import "./animation.less";
+
+.m-about-main {
+    position: relative;
+    .pt(64px);
+    height: calc(100vh - 64px);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
+    transition: 0.15s ease-in-out;
+}
+
+.m-about-content {
+    padding-top: 20px; //calc(100vh - @header-height - 20px);
+    padding-bottom: 20px; //calc(100vh - @header-height - 20px);
+}
+@media screen and (max-width: @ipad-y) {
+    .m-about-content {
+        padding-top: @bread-height;
+    }
+}
+
+.m-about-button {
+    .x;
+    .mt(20px);
+    padding-bottom: 40px;
+    a {
+        display: inline-flex;
+        padding: 20px 40px;
+        .r(4px);
+        transition: 0.1s ease-in-out;
+        align-items: center;
+        i {
+            .mr(5px);
+        }
+    }
+}
+
+.m-about-bread,
+.m-about-nav--left {
+    .none;
+}
+@media screen and (max-width: @ipad-y) {
+    .m-about-bread,
+    .m-about-nav--left {
+        .db;
+    }
+    .m-about-nav--top {
+        .none;
+    }
+
+    .a-sub-nav {
+        height: auto;
+    }
+    .sub-nav-list {
+        flex-direction: column;
+    }
+}

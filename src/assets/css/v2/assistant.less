@@ -1,0 +1,47 @@
+@import '../includes/button.css';
+.m-welcome{
+    // background: url("/temp/welcome.png") left top no-repeat;
+    background-size:100% 100%;
+}
+
+.m-assistant {
+    visibility: hidden;
+    .r(5px);
+    .h(116px);
+    .pr;
+    // background: url("../../img/right/dailybg.png") right top @bg-black no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    //background-image: url("../../img/assistant/v0.webp");
+
+    .u-assistant{
+        .w(160px);
+        .x;
+        .mt(6px);
+        display: flex;
+        flex-direction: column;
+        white-space: nowrap;
+    }
+
+
+    .u-label{
+        .db;
+        .fz(12px,1.8);
+        // transform:scale(8/12);
+        color:@color;
+        // background:linear-gradient(to right,transparent,#fff,transparent);
+        background-color:rgba(255,255,255,.7);
+        border:0.5px solid rgba(255,255,255,.7);
+        .r(2px);
+        .mt(12px);
+        .x;
+        padding: 4px 0;
+    }
+}

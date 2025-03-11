@@ -1,0 +1,35 @@
+// Flex
+
+// Flex display
+.df {
+    display: flex;
+}
+.dfi {
+    display: inline-flex;
+}
+
+// Flex wrap
+.flex-wrap(@wrap:wrap){
+    flex-wrap: @wrap;
+}
+
+// Flex align
+.flex(x){
+    justify-content:center;
+}
+.flex-x(@x:space-between){
+    justify-content:@x;
+}
+.flex(y){
+    align-items:center;
+}
+.flex-y(@y:flex-start){
+    align-items:@y;
+}
+.flex(o){
+    justify-content:center;
+    align-items:center;
+}
+.flexs(o){
+    align-content:center;
+}

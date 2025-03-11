@@ -1,0 +1,51 @@
+.m-emotion{
+    display: flex;
+    .pr;
+    overflow: hidden;
+    height: 120px;
+}
+.m-emotion-list{
+    flex-grow: 1;
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: auto;
+    .scrollbar(3px);
+    align-items: center;
+    justify-content: space-around;
+    padding:10px;
+    gap:10px;
+    .u-item{
+        flex:1;
+        .size(100px);
+        .x;
+        img{
+            .auto(x);
+            .size(100px);
+            object-fit: cover;
+            border:1px solid #eee;
+            .r(4px);
+        }
+        transition: 0.1s ease-in-out;
+        &:hover{
+            transform: scale(110%);
+            // filter:brightness(110%) saturate(120%);
+        }
+    }
+}
+.m-emotion-title,.m-emotion-more{
+    background-color:@bg-light;
+    .retext(y);
+    .fz(12px);
+    color:#666;
+    letter-spacing: 5px;
+    padding:0 8px;
+    text-align: center;
+}
+.m-emotion-title{
+    border-right:1px solid #eee;
+}
+.m-emotion-more{
+    border-left:1px solid #eee;
+    // .pa;.rt(0);
+    .h(100%);
+}

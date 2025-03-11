@@ -1,0 +1,44 @@
+@img : 'https://img.jx3box.com/';
+@cdn : 'https://cdn.jx3box.com/';
+
+@w : 1440px;
+// FN
+@import './includes/flex.less';
+.arrow(t,@width,@color,@x:50%){
+    &:before{
+        bottom: 100%;
+        left: @x;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-style: solid;
+        border-color: transparent;
+        border-bottom-color:@color;
+        border-width: unit(@width,px);
+        @margin:-@width;
+        margin-left: unit(@margin,px);
+    }
+}
+
+.scrollbar(@w:2px){
+    &::-webkit-scrollbar {
+        width: @w;
+        height:@w;
+    }
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece {
+        background-color: #fafafa;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #eee;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+        display: none;
+    }
+}

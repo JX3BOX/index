@@ -1,0 +1,50 @@
+.children {
+    .pr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .h(100%);
+    margin: 0 auto;
+
+    .children-card {
+        .pr;
+        .pointer;
+
+        .children-card__img {
+            .size(auto, 80vh) !important;
+        }
+        .u-img {
+            .pa;
+            .flex;
+            .w(100%);
+            .lt(0,78%);
+            justify-content: center;
+            &.animation {
+                -webkit-animation-duration: 1.5s;
+                animation-duration: 1.5s;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+            }
+        }
+        .children-card__open {
+            .w(35%) !important;
+            animation: twinkle 2s ease-out 0s infinite;
+        }
+        .children-card__content {
+            .pa;
+            .lb(0);
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .children {
+        padding: 0;
+
+        .children-card {
+            .children-card__img {
+                .size(auto, 60vh) !important;
+            }
+        }
+    }
+}

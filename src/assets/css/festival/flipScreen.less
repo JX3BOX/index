@@ -1,0 +1,43 @@
+.m-index-popup .m-card {
+    .w(1200px);
+    .pa;
+    .lt(50%);
+    .pointer;
+    margin: -220px 0 0 -600px;
+    .u-close {
+        .pa;
+        .rt(40px,20px);
+        .size(170px,80px);
+        .z(2);
+    }
+
+    .u-card {
+        .full;
+        span {
+            .db;
+            .pa;
+            .color(#C6A575);
+            .x;
+        }
+        .u-username {
+            .w(100%);
+            .lt(0,50%);
+            .mt(-32px);
+            .fz(32px,60px);
+        }
+        .u-fontCount {
+            .w(138px);
+            .lt(50%);
+            .fz(24px,40px);
+            .mt(-38px);
+            .ml(-6px);
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .m-index-popup .m-card{
+        transform: rotate(90deg);
+        zoom: 0.5;
+    }
+}

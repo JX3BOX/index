@@ -1,0 +1,29 @@
+.m-world-daily {
+    .m-daily-content {
+        .fz(12px, 20px);
+        .mt(0);
+        .u-table-header {
+            background-color: @bg-gray;
+            border-radius: 5px;
+            .mb(6px);
+        }
+        .u-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 2fr;
+            @media screen and (max-width: 320px) {
+                grid-template-columns: 1fr 0.9fr 2fr;
+            }
+            padding: 5px 0;
+            .u-item {
+                text-align: center;
+                .x;
+            }
+            &.u-reputation {
+                .u-item:last-child {
+                    height: 20px;
+                    .nobreak;
+                }
+            }
+        }
+    }
+}

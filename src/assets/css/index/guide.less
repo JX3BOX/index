@@ -1,0 +1,178 @@
+.m-guide{
+    .mt(20px);
+    background-color: #fff;
+    border: 1px solid @border-hr;
+
+    .i-icon-new{
+        .h(12px);
+        .ml(4px);
+        .y;
+    }
+
+    .el-icon-guide{
+        .fz(16px);
+    }
+}
+@media screen and (max-width:@phone){
+    .m-guide{
+        .none;
+    }
+}
+
+.m-guide-content{
+    .el-col,.el-row{
+        .h(100%);
+    }
+}
+.m-guide-bps{
+    display: flex;
+
+    .u-guide-rank{
+        .w(300px);
+        flex-shrink: 0;
+    }
+}
+@media screen and (max-width:@phone){
+    .m-guide-content{
+        .el-col{
+            .w(100%);
+        }
+        .u-guide-block .u-list{
+            .none;
+        }
+        .u-guide-block .u-title{
+            border-top:none;
+        }
+    }
+}
+
+.u-guide-block{
+
+    border-right:1px solid #eee;
+    &.u-guide-pvp{
+        border-right:none;
+    }
+
+    .u-title{
+        margin:0;
+        .x;
+        padding:0;
+        .fz(14px,40px);
+        background-color:@bg-light;
+        border-bottom:1px solid #eee;
+        border-top:1px solid #eee;
+    }
+
+    .u-list{
+        .fz(12px,2);
+        padding:14px 20px;
+        .clearfix;
+    }
+
+    a{
+        .db;
+        .fl;
+        .mb(7px);
+        min-width:30%;
+        .u-remark{
+            color:#888;
+            .ml(5px);
+            .fz(12px);
+        }
+        img{
+            .y;
+            .size(18px);
+            .r(2px);
+            .mr(5px);
+        }
+    }
+
+    &.u-guide-bps{
+        flex-grow:1;
+        border-bottom:none;
+        a{
+            min-width:25%;
+        }
+
+        i{
+            .dbi;.size(18px);.y;
+            .mr(2px);
+            background-size:100% auto;
+            background-position: center center;
+        }
+    }
+    &.u-guide-other{
+        border-bottom:none;
+        border-right: none;
+        a{
+            // .db;
+            float:none;
+        }
+    }
+
+    .u-border-top-none{
+        border-top:none;
+    }
+
+    a:hover{
+        color:@pink;
+    }
+
+}
+
+.u-guide-pve,.u-guide-pvp,.u-guide-pvx{
+    .u-title{
+        border-top:none;
+    }
+}
+
+@media screen and (max-width:@ipad-y){
+    .u-guide-block a{
+        .nobreak;
+        .w(100%);
+    }
+}
+
+.u-guide-rank{
+    ul {
+        list-style: none;
+        padding: 15px 0 10px 5px;
+        margin: 0;
+        .ml(30px);
+    }
+    .u-title a{
+        float:none;
+        margin:0;
+    }
+    .u-item {
+        .db;
+        .fz(12px, 14px);
+        .mb(8px);
+        color: #fff;
+        .pr;
+        .r(2px);
+    }
+    .u-pic {
+        .size(20px);
+        .y;
+        .mr(5px);
+        .pa;
+        .lt(-25px, 0);
+    }
+    .u-text {
+        padding: 2px 8px;
+        .db;
+        .bold;
+    }
+    .u-desc{
+        // .fr;
+        color:#eee;
+        .ml(5px);
+        font-weight: normal;
+    }
+
+    .u-dps{
+        .pa;.rb(5px,0);
+        .fz(12px,18px);
+    }
+}

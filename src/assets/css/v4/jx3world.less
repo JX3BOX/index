@@ -1,0 +1,154 @@
+.m-world {
+    .u-right {
+        flex-direction: row-reverse;
+    }
+    .world-tip {
+        .db;
+        .fz(12px);
+        color: #aaa;
+        transform: scale(0.9);
+        .r(2px);
+    }
+}
+.m-world-content {
+    position: relative;
+    .flex;
+    flex-wrap: wrap;
+    color: #777;
+    .el-divider__text {
+        font-size: 12px;
+    }
+    .m-world-left {
+        padding: 0 20px;
+        .w(320px);
+    }
+    .m-world-right {
+        padding: 0 20px;
+        flex: 1;
+        min-width: 320px;
+        box-sizing: border-box;
+    }
+    .m-baizhan {
+        .w(780px);
+    }
+    @media screen and (max-width: @pc) {
+        .m-world-right {
+            .flex;
+            flex-direction: column;
+            .m-world-block {
+                flex: none;
+            }
+        }
+    }
+    // qq游览器下1863尺寸显示错误
+    @media screen and (max-width: 1863px) {
+        .m-world-right {
+            gap: 20px;
+            flex-direction: row;
+            .m-world-horse,
+            .m-world-pet {
+                width: calc(50% - 20px);
+            }
+        }
+    }
+    @media screen and (max-width: 1680px) {
+        .m-world-left {
+            order: 0;
+        }
+        .m-baizhan {
+            order: 2;
+            margin: 0;
+            width: 100%;
+        }
+    }
+    @media screen and (max-width: @notebook) {
+        .m-world-block {
+            width: 100%;
+        }
+        .m-world-right {
+            flex-direction: column;
+            .m-world-horse,
+            .m-world-pet {
+                width: 100%;
+            }
+        }
+    }
+    @media screen and (max-width: @ipad) {
+        .m-world-right {
+            gap: 20px;
+            flex-direction: row;
+            .m-world-horse,
+            .m-world-pet {
+                width: calc(50% - 20px);
+            }
+        }
+    }
+    @media screen and (max-width: @phone) {
+        .m-world-left {
+            .w(100%);
+            .flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            & > div {
+                flex: none;
+                .w(100%);
+            }
+            padding: 0;
+        }
+        gap: 0;
+        .m-baizhan {
+            margin: 0;
+            width: 100%;
+        }
+        .m-world-right {
+            flex-direction: column;
+            .w(100%);
+            padding: 0;
+            gap: 0;
+            min-width: 260px;
+            overflow-x: auto;
+            .m-world-horse,
+            .m-world-pet {
+                flex: none;
+                width: 100%;
+            }
+        }
+    }
+    // @media screen and (max-width: 320px) {
+    //     .m-world-right {
+    //         gap: 20px;
+    //         .m-world-horse,
+    //         .m-world-pet {
+    //             width: 260px;
+    //             .u-horse,
+    //             .el-divider,
+    //             .m-pet {
+    //                 width: 260px;
+    //             }
+    //         }
+    //     }
+    // }
+    .m-bmap-simple {
+        padding-top: 0;
+        flex: 1;
+    }
+}
+
+.m-world {
+    .el-divider {
+        .mb(20px);
+    }
+}
+.m-world-block {
+    .fz(12px,28px);
+    .u-item {
+        .flex;
+        gap: 20px;
+        justify-content: space-between;
+    }
+    a:hover {
+        box-shadow: none !important;
+        color: #fba524 !important;
+    }
+}

@@ -1,0 +1,239 @@
+// @import '../kv.less';
+
+.m-main {
+    .mt(@header-height);
+    .pr;
+    background-color: @bg-gray;
+}
+
+@left: 350px;
+.m-left {
+    .w(@left);
+    // .mr(20px);
+    .pf;
+    .lt(0, @header-height);
+    border-right: 1px solid @border-hr;
+    background-color: #fff;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    height: calc(100vh - @header-height);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-track-piece {
+        background-color: #fafafa;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #eee;
+        border-radius: 6px;
+    }
+    &::-webkit-scrollbar-button,
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+        display: none;
+    }
+}
+
+.m-content-bottom {
+    .pr;
+}
+
+@right: 300px;
+.m-right {
+    .w(@right);
+    .pa;
+    .rt(0);
+    padding: 20px 20px 20px 0;
+    box-sizing: border-box;
+}
+
+.m-primary {
+    padding: 20px;
+    margin-left: @left;
+    // margin-right: @right;
+}
+
+@media screen and (max-width: @smallpc) {
+    .m-primary {
+        // .mr(0);
+        margin-right: 0;
+    }
+    // .m-left,
+    .m-right {
+        .ps;
+        .mt(20px);
+        .w(auto);
+        padding: 0;
+
+        .m-rank {
+            background-color: #fff;
+            border: 1px solid @border-hr;
+            .r(4px);
+            .mb(20px);
+
+            .u-list {
+                padding-top: 10px;
+                padding-left: 15px;
+            }
+            .u-per {
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1279px) {
+    .m-primary {
+        margin-left: 0;
+    }
+    .m-left {
+        .h(auto);
+        .ps;
+        // .mt(20px);
+        .w(auto);
+        background: none;
+        padding: 0;
+        border: none;
+
+        .m-sideblock {
+            background-color: #fff;
+            border: 1px solid @border-hr;
+            .mt(20px);
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .m-primary {
+        padding: 15px;
+    }
+}
+
+.m-sideblock {
+    .r(4px);
+}
+
+.m-right .m-sideblock {
+    background-color: #fff;
+    border: 1px solid @border-hr;
+}
+
+.m-sideblock-header {
+    i {
+        .mr(5px);
+        .fz(16px);
+        .y(-1px);
+    }
+    .u-title {
+        .fz(13px);
+        .bold;
+        color: @color;
+    }
+    border-bottom: 1px solid #e4e7ed;
+    padding: 8px 10px;
+
+    .u-more {
+        .fr;
+        .fz(12px);
+        i {
+            .fz(16px);
+        }
+        color: #ccc;
+        &:hover {
+            color: @color;
+        }
+    }
+}
+.m-left {
+    .m-sideblock-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+@media screen and (max-width: 1279px) {
+    .m-left {
+        .m-sideblock-header {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+.m-sideblock-list {
+    // .u-list {
+    padding: 10px;
+    margin: 0;
+
+    li {
+        .nobreak;
+        .fz(12px, 28px);
+        color: #666;
+        padding: 0 5px;
+    }
+    a {
+        // color: @primary;
+        // color: #0059bd;
+    }
+    a:hover {
+        color: @pink;
+        box-shadow: 0 1px 0 @pink;
+    }
+
+    em {
+        font-style: normal;
+        &:after {
+            // content:']';
+            content: "／";
+            padding-left: 4px;
+            // padding-right:3px;
+            color: #888;
+        }
+        .mr(4px);
+    }
+    i {
+        font-style: normal;
+        &:after {
+            content: "»";
+            color: #888;
+        }
+        .mr(8px);
+    }
+    // }
+}
+
+.c-footer {
+    .clear;
+}
+
+@media screen and (max-width: @phone) {
+    .m-rank,
+    .m-center {
+        .none;
+    }
+}
+
+.el-tabs--card {
+    .el-tabs__item {
+        background-color: @bg-light;
+        border-bottom: 1px solid @border !important;
+
+        &.is-active {
+            border-bottom: none !important;
+            background-color: #fff;
+            .bold;
+        }
+    }
+}
+body {
+    background-color: @bg-gray;
+}
+
+.c-footer {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -1,0 +1,42 @@
+.m-servers {
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+.m-servers-content {
+    padding-bottom: 10px;
+
+    .u-list {
+        .flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .u-item {
+        cursor: default;
+        margin-right: 2px;
+
+        color: #666;
+        &:hover {
+            color: #555;
+        }
+        .pr;
+    }
+    .u-status {
+        .db;
+        .size(12px);
+        &.on {
+            color: #c6e48b;
+            background-color: #c6e48b;
+        }
+    }
+    .u-myserver {
+        .fz(14px);
+        color: #f93;
+    }
+    .u-name {
+        .fz(12px,30px);
+        .none;
+    }
+}

@@ -1,0 +1,198 @@
+.c-sidebar-left-inner{
+    overflow: visible;
+}
+.m-nav{
+
+    // .none;
+    // .mb(20px);
+
+    .u-version{
+        max-width:85%;
+        .db;
+        .mt(10px);
+        .ml(10px);
+    }
+
+    @darkgreen:#1d3740;
+
+    .u-info{
+        .clearfix;
+        padding:5px 20px;
+        background-color:@bg-black;
+        background-color:@darkgreen;
+        .r(4px);
+        .pr;
+    }
+    .u-branch{
+        .pa;.lb(180px,0);
+        pointer-events:none;
+        .w(80%);
+    }
+    .u-girl{
+        .fl;
+        .size(80px);
+        // .mr(20px);
+    }
+    .u-info-list{
+        padding:5px 0;
+        .fz(12px,24px);
+        color:#fff;
+        // color:@color;
+        a{color:#fff;}
+        // a{color:@color;}
+        a:hover{
+            // color:#f1b2cb;
+            color:#0cf;
+        }
+        .u-pic{
+            .size(16px);
+            .y(-3px);
+            .mr(10px);
+        }
+        .u-info-item{
+            .db;
+        }
+    }
+    .u-weibo{
+        .db;
+    }
+    .u-wechat{
+        .db;
+        b{
+            // font-weight:600;
+            font-weight:400;
+        }
+    }
+
+    .clip;
+}
+
+.m-navlist{
+    .mt(20px);
+    .u-title{
+        margin: 15px 0 10px 0;
+        padding: 0 5px 10px 5px;
+        border-bottom: 1px solid #e4e7ed;
+        font-weight:normal;
+        text-rendering:optimizelegibility;
+        .fz(13px);
+        letter-spacing:0.2px;
+
+        i{.mr(5px);.lh(16px);.fz(16px);}
+
+        .u-more{
+            .fr;
+            .fz(12px);
+            color:#888;
+            &:hover{
+                color:@pink;
+            }
+        }
+    }
+    .u-list{
+        padding:0;
+        margin:0;
+
+        li{
+            .nobreak;
+            .fz(12px,28px);
+            color:#666;
+            padding:0 5px;
+        }
+        a{
+            color:@darkblue;
+        }
+        a:hover{
+            color:@pink;
+            box-shadow:0 1px 0 @pink;
+        }
+
+        em{
+            font-style:normal;
+            // &:before{
+            //     content:'[';
+            //     padding-right:3px;
+            // }
+            &:after{
+                // content:']';
+                content:'／';
+                padding-left:4px;
+                // padding-right:3px;
+                color:#888;
+            }
+            .mr(4px);
+        }
+        i{
+            font-style:normal;
+            &:after{
+                content:"»";
+                color:#888;
+            }
+            .mr(8px);
+        }
+    }
+}
+
+@media screen and (max-width:@ipad){
+    .c-sidebar-left{
+        .ps;
+        .w(auto);
+        .mt(@header-height);
+
+        .c-sidebar-left-inner{
+            display:flex;
+            flex-direction: row;
+        }
+
+        .m-nav{
+            .w(290px);
+            .mr(20px);
+            .u-branch{
+                .none;
+            }
+        }
+        .m-notice,.m-gamenews{
+            box-sizing: border-box;
+            flex:1;
+            .mt(10px);
+        }
+        .m-gamenews{
+            .mr(20px);
+        }
+        .m-activity{
+            .none;
+        }
+    }
+    .c-main.without-right{
+        .mt(0) !important;
+    }
+}
+@media screen and (max-width:@ipad-y){
+    .c-sidebar-left{
+        // padding:0 20px;
+        // transform: translateX(0) !important;
+        .none;
+        .m-gamenews{
+            .mr(0);
+        }
+    }
+    // .m-slider{
+    //     .mt(@header-height);
+    // }
+}
+@media screen and (max-width:@phone){
+    .c-sidebar-left{
+        transform: translateX(0) !important;
+        .db;
+        padding:0 20px;
+
+        .c-sidebar-left-inner,.m-gamenews{
+            .db;
+        }
+        .m-nav{
+            .u-version{.auto(x);}
+            .w(auto);
+            .mr(0);
+        }
+    }
+}

@@ -1,0 +1,331 @@
+@import "../index/slick.less";
+.m-slider-box {
+    .r(5px);
+    overflow: hidden;
+}
+.m-tv-station {
+    background-color: @bg-black;
+    padding: 0 10px;
+}
+@media screen and (max-width: @phone) {
+    .m-tv-station {
+        padding-bottom: 10px;
+    }
+}
+.m-slider {
+    .h(280px);
+    .w(100%);
+
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    // border:1px solid @border-hr;
+    overflow: hidden;
+    box-sizing: content-box;
+    .u-slider {
+        .h(100%);
+        .pr;
+        overflow: hidden;
+    }
+
+    .u-pic {
+        .db;
+        .size(100%);
+        .pr;
+        .h(100%);
+        img {
+            .h(100%);
+            .auto(x);
+            .db;
+            // .r(4px);
+            max-width: none;
+            .pa;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .r(4px);
+    }
+
+    .slick-track,
+    .slick-list {
+        .h(100%);
+    }
+    .slick-slide > div {
+        .h(100%);
+    }
+    .slick-dots {
+        bottom: 10px;
+    }
+    .slick-dots li.slick-active button:before {
+        color: #fff;
+    }
+    .slick-arrow {
+        .z(1);
+    }
+    .slick-prev {
+        left: 20px;
+    }
+    .slick-next {
+        right: 20px;
+    }
+    .slick-prev:before,
+    .slick-next:before {
+        .fz(40px);
+    }
+}
+@h: 45px;
+// @h: 30px;
+.m-slider-thumbnail {
+    background-color: @bg-black;
+    padding: 8px;
+    // .none;
+    display: flex;
+    // margin-top: 10px;
+    // .pa;
+    // .lb(0,0);
+    .w(100%);
+    // .size(100%,@h + 20px);
+    // padding:10px;
+
+    // .rt(80px,0);
+    // flex-direction: column;
+    // .size(280px,100%);
+
+    // transform: translateY(150%);
+    transition: all 0.15s ease-in-out;
+    // background:linear-gradient(to top,#fff,#ffffff22);
+    // background-color:rgba(0,0,0,.5);
+
+    box-sizing: border-box;
+
+    .u-thumbnail {
+        // .r(3px);
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: hidden;
+        cursor: pointer;
+        background-color: @bg-black;
+
+        &:not(:last-of-type) {
+            .mr(8px);
+        }
+
+        // border: 2px solid #ddd;
+        .u-pic {
+            .db;
+            .x;
+            .pr;
+            .h(@h);
+
+            img {
+                .db;
+                .auto(x);
+                .h(@h);
+                max-width: none;
+                .pa;
+                .lt(50%,0);
+                transform: translateX(-50%);
+                filter: brightness(0.6) grayscale(0.5);
+                transition: all 0.1s ease-in-out;
+            }
+        }
+
+        .pr;
+        &:before {
+            content: "";
+            display: block;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            width: 0;
+            .pa;
+            .rt(0);
+            .z(5);
+            transition: all 0.3s ease-in-out;
+        }
+        &:after {
+            content: "";
+            display: block;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+            width: 0;
+            .pa;
+            .lb(0);
+            .z(5);
+            transition: all 0.3s ease-in-out;
+        }
+
+        // .tm(0.8);
+        // filter: saturate(80%) blur(0.1px);
+        &.active {
+            // filter: saturate(120%);
+            // transform: scale(1.2);
+            // outline: 2px solid rgb(249, 128, 3);
+            z-index: 5;
+            // .tm(1);
+            // img{
+            //     border:2px solid #a1e2f2;
+            //     // border-bottom:1px solid #0cf;
+            //     box-sizing: border-box;
+            // }
+            // border:1px dashed #fff;box-sizing: border-box;
+
+            // border-color:#ffbc43;
+            border-color: @color-link;
+
+            .u-pic {
+                img {
+                    filter: brightness(1.1);
+                }
+            }
+
+            &:before {
+                width: 100%;
+            }
+            &:after {
+                width: 100%;
+            }
+        }
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-slider {
+        .h(168px);
+    }
+    .m-slider-thumbnail {
+        .none;
+    }
+}
+@media screen and (max-width: 375px) {
+    .m-slider {
+        .h(160px);
+    }
+}
+.m-slider-box {
+    .w(100%);
+    .pr;
+    overflow: hidden;
+    .mb(20px);
+
+    &:hover {
+        .m-slider-thumbnail {
+            transform: translateY(0);
+        }
+    }
+}
+
+// 2k
+@media screen and (max-width: 2000px) {
+    .m-slider-box {
+        .w(100%);
+        .pr;
+        overflow: hidden;
+        .mb(20px);
+    }
+}
+
+.m-tv {
+    .flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.box() {
+    font-size: 12px;
+    padding: 0 6px 0 5px;
+    margin: 5px 0;
+    border-radius: 2px;
+    white-space: nowrap;
+    .flex;
+    align-items: center;
+}
+.m-tv-left {
+    .flex;
+    align-items: center;
+    overflow: hidden;
+
+    .u-tv-rec {
+        .h(24px);
+    }
+
+    @red: #e51c21;
+    .u-tv-label {
+        color: #fff;
+        background-color: #292828;
+        border: 1px solid @red;
+        line-height: 20px;
+        .box();
+        flex-shrink: 0;
+
+        i {
+            .db;
+            .size(6px);
+            .r(6px);
+            background-color: @red;
+            .mr(5px);
+        }
+    }
+    .u-tv-notice {
+        .fz(12px);
+        .ml(10px);
+        overflow: hidden;
+        .nobreak;
+        a {
+            .nobreak;
+            color: #aaa;
+            &:hover {
+                color: @red;
+            }
+        }
+    }
+}
+
+.m-tv-right {
+    .flex;
+    gap: 10px;
+
+    .u-tv-link {
+        img,
+        svg {
+            fill: #fff;
+            .mr(3px);
+            .size(14px);
+        }
+
+        line-height: 18px;
+        overflow: hidden;
+
+        .box();
+        color: #fff;
+        border: 1px solid #fff;
+        transition: 0.2 ease-in-out;
+    }
+
+    .u-tv-bilibili {
+        @bili: #e35f82;
+        background-color: @bili;
+        &:hover {
+            background-color: lighten(@bili, 5%);
+        }
+    }
+    .u-tv-weibo {
+        @weibo: #e59501;
+        background-color: @weibo;
+        &:hover {
+            background-color: lighten(@weibo, 5%);
+        }
+    }
+
+    .u-tv-douyin {
+        @douyin: #1d6775;
+        background: linear-gradient(90deg, rgba(29, 103, 117, 1) 0%, rgba(138, 36, 56, 1) 100%);
+        &:hover {
+            background-color: lighten(@douyin, 5%);
+        }
+
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-tv-right {
+        .none;
+    }
+}

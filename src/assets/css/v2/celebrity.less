@@ -1,0 +1,153 @@
+.m-celebrity-header {
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-color: @bg-black;
+
+  .r(6px);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  color: #fff;
+
+  .h(100px);
+  box-sizing: border-box;
+  padding: 10px !important;
+
+  .u-time {
+    .fz(13px);
+  }
+
+  .pr;
+
+  .u-wechat {
+    .pa;
+    .rt(10px);
+    .size(80px);
+  }
+
+  .u-list {
+    .mt(10px);
+  }
+
+  .u-item {
+    .fz(12px, 2);
+    .db;
+
+    a {
+      color: #fff;
+    }
+
+    a:hover {
+      color: @blue;
+    }
+
+    em {
+      font-style: normal;
+      color: #ccc;
+    }
+
+    svg,
+    img {
+      .size(16px);
+      .y(-3px);
+      .mr(5px);
+    }
+
+    a:hover {
+      color: rgb(132, 230, 255);
+    }
+  }
+
+  .isHighlight {
+    .bold;
+  }
+}
+
+.m-celebrity-content {
+  padding-bottom: 10px;
+  .fz(12px, 20px);
+  .mt(10px);
+
+  table {
+    .w(100%);
+    border-collapse: collapse;
+  }
+
+  th {
+    .mb(5px);
+  }
+
+  // tr th:first-child,
+  // tr td:first-child {
+  //   width: 10px;
+  //   padding-left: 10px;
+  // }
+
+  .current-item {
+    font-weight: bold;
+    color: #fba524;
+  }
+
+  .pre-item {
+    color: #ccc;
+  }
+
+  th,
+  td {
+    padding: 4px 0;
+    .x;
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      margin-right: 5px;
+      height: 18px;
+    }
+  }
+}
+
+.m-celebrity {
+  .celebrity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .desc {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .fz(12px, 20px);
+
+      .map {
+        color: #fba524;
+      }
+      .arrow {
+        margin: 0 5px;
+      }
+
+      .el-icon-info,
+      .el-icon-right {
+        .fz(16px, 20px);
+        .ml(5px);
+        .mr(5px)
+      }
+    }
+
+  }
+
+  .u-title i {
+    .mr(0);
+  }
+}
+
+.celebrity-notice-tooltip {
+  max-width: 380px;
+
+  div:not(:first-child, :last-child) {
+    margin: 5px 0;
+  }
+}

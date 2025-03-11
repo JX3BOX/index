@@ -1,0 +1,67 @@
+.m-world-pet {
+    .m-pet {
+        .flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .u-item {
+        .flex;
+        align-items: center;
+        padding: 0;
+        &:hover {
+            background: @bg-gray;
+            .u-pet-name {
+                color: #ffa500;
+            }
+        }
+    }
+    .u-npc {
+        color: #999;
+    }
+    .u-pet {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: rgb(119, 119, 119);
+    }
+    .u-pet-icon {
+        @s: 24px;
+        .size(@s);
+        .r(100%);
+        overflow: hidden;
+        img {
+            .size(100%);
+            .db;
+            .r(100%);
+
+            &:hover {
+                filter: brightness(110%) saturate(110%);
+            }
+        }
+        .db;
+        .pr;
+        &:after {
+            content: "";
+            .db;
+            .size(100%);
+            .pa;
+            .lt(0);
+            border: 1px solid transparent;
+            box-sizing: border-box;
+            .r(100%);
+        }
+
+        &.u-quality-2:after {
+            border-color: #00d24b;
+        }
+        &.u-quality-3:after {
+            border-color: #007eff;
+        }
+        &.u-quality-4:after {
+            border-color: #ff2dff;
+        }
+        &.u-quality-5:after {
+            border-color: #ffa500;
+        }
+    }
+}

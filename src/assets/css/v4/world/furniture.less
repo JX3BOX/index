@@ -1,0 +1,102 @@
+.m-world-furniture {
+    .fz(12px, 20px) !important;
+    .u-title {
+        text-align: center;
+        background-color: @bg-gray;
+        border-radius: 5px;
+        padding: 5px 0;
+    }
+    .u-item {
+        padding: 5px 5px;
+    }
+    .u-furniture {
+        a {
+            color: rgb(119, 119, 119);
+        }
+    }
+
+    .m-reputation {
+        .flex;
+        flex-direction: column;
+        margin-top: 5px;
+    }
+    .u-reputation-item {
+        .flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2px 0;
+        &:hover {
+            background: @bg-gray;
+            .u-reputation-name {
+                color: #ffa500;
+            }
+        }
+    }
+    .u-desc {
+        color: #999;
+    }
+    .u-reputation {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: rgb(119, 119, 119);
+    }
+    .u-reputation-icon {
+        @s: 24px;
+        .size(@s);
+        .r(100%);
+        overflow: hidden;
+        .mr(5px);
+        img {
+            .size(100%);
+            .db;
+            .r(100%);
+
+            &:hover {
+                filter: brightness(110%) saturate(110%);
+            }
+        }
+        .db;
+        .pr;
+        &:after {
+            content: "";
+            .db;
+            .size(100%);
+            .pa;
+            .lt(0);
+            border: 1px solid transparent;
+            box-sizing: border-box;
+            .r(100%);
+        }
+
+        &.u-quality-2:after {
+            border-color: #00d24b;
+        }
+        &.u-quality-3:after {
+            border-color: #007eff;
+        }
+        &.u-quality-4:after {
+            border-color: #ff2dff;
+        }
+        &.u-quality-5:after {
+            border-color: #ffa500;
+        }
+    }
+    @media screen and (max-width: @pc) {
+        width: 100%;
+        .m-furniture-list {
+            width: 100%;
+            .flex;
+            flex-wrap: wrap;
+            .m-furniture-item {
+                flex: 1;
+                min-width: 300px;
+            }
+        }
+    }
+    @media screen and (max-width: 1880px) {
+        .m-furniture-list {
+            gap: 20px;
+        }
+    }
+}

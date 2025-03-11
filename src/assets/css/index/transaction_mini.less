@@ -1,0 +1,105 @@
+.m-index-transaction {
+    .u-title {
+        .fl;
+        .lh(28px);
+    }
+    .u-server {
+        .ml(10px);
+        .fl;
+        .w(120px);
+    }
+
+    .u-search {
+        .w(200px);
+        .fl;
+        .ml(10px);
+    }
+
+    .u-more {
+        .mt(5px);
+    }
+}
+
+.m-transaction-box {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.m-price-list {
+    padding: 10px;
+
+    .u-group-title {
+        .fz(12px);
+        .mb(8px);
+        font-weight: normal;
+        color: #666666;
+        padding-left: 10px;
+    }
+
+    .u-item {
+        .db;
+        .clearfix;
+        .mb(10px);
+        background-color: @bg-gray;
+        transition: 0.1s ease-in-out;
+
+        &:hover {
+            background-color: #e8edfd;
+        }
+        .u-trending {
+            &.up {
+                color: #fc3c3c;
+            }
+            &.down {
+                color: #49c10f;
+            }
+            &.keep {
+                color: #aaa;
+            }
+        }
+    }
+
+    .u-icon {
+        .fl;
+        .mr(10px);
+        .size(32px);
+    }
+
+    .u-content {
+        .fz(12px, 32px);
+        // .bold;
+        display: flex;
+        justify-content: space-between;
+        .nobreak;
+        color:@color;
+    }
+
+    .u-name {
+        .db;
+        .fl;
+        max-width: 100px;
+        overflow: hidden;
+        .nobreak;
+        .mr(20px);
+        flex-shrink: 0;
+    }
+
+    .u-price {
+        .fr;
+        color: @color;
+        flex-shrink: 1;
+    }
+
+    .u-trending {
+        &.up {
+            color: #fc3c3c;
+        }
+        &.down {
+            color: #49c10f;
+        }
+        &.keep {
+            color: #aaa;
+        }
+    }
+}

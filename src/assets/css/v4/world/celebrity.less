@@ -1,0 +1,89 @@
+.m-celebrity-wrap {
+    .el-select i::after {
+        content: "" !important;
+    }
+    .el-divider__text {
+        .flex;
+        align-items: center;
+        .el-select {
+            max-width: 70px;
+            .el-input .el-select__caret {
+                font-size: 12px;
+                margin: 0;
+            }
+            .el-input__icon {
+                width: 20px;
+                height: 28px;
+                line-height: 28px;
+            }
+            .el-input__inner {
+                border: none;
+                padding: 0;
+                height: 28px;
+                line-height: 28px;
+            }
+            input {
+                font-size: 12px;
+                padding: 0;
+            }
+        }
+    }
+    .m-celebrity-content {
+        .fz(12px, 20px);
+        .mt(0);
+        .u-table-header {
+            background-color: @bg-gray;
+            // border-radius: 5px;
+        }
+        .u-table-body {
+            .mt(6px);
+        }
+        .u-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 2fr;
+            padding: 5px 0;
+            .u-item {
+                position: relative;
+                text-align: center;
+                .x;
+                padding:0 5px;
+                span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .u-icon {
+                    position: absolute;
+                    left: -5px;
+                    top: -5px;
+                    display: inline-block;
+                    height: 20px;
+                    line-height: 21px;
+                    padding: 4px 0;
+                    &::after {
+                        content: "»";
+                        color: #fba524;
+                    }
+                }
+
+                img {
+                    margin-right: 3px;
+                    height: 18px;
+                }
+            }
+        }
+    }
+
+    .current-item {
+        font-weight: bold;
+        color: #fba524;
+    }
+}
+
+.celebrity-notice-tooltip {
+    max-width: 380px;
+
+    div:not(:first-child, :last-child) {
+        margin: 5px 0;
+    }
+}

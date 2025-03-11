@@ -1,0 +1,109 @@
+// @import "../kv.less";
+@import "./sideblock.less";
+
+@left: 360px;
+@right: 380px;
+.m-main {
+    .mt(@header-height);
+    .pr;
+    background-color: #f6f8fa;
+    // max-width: @w;
+    .auto(x);
+    // display: flex;
+    // flex-direction: row-reverse;
+    // gap:20px;
+}
+
+.m-left {
+    .w(@left);
+    // flex-basis: @left;
+    // flex-shrink: 0;
+    .z(9);
+    .pa;
+    .lt(0, 0);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.m-primary {
+    padding: 20px 20px 20px 0;
+    // flex-basis: 1100px;
+    // flex-shrink: 1;
+    margin-left: @left;
+    .m-show {
+        display: flex;
+        margin-top: 20px;
+        justify-content: space-between;
+        // min-width: 1100px;
+        gap:20px;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+        &::-webkit-scrollbar-track,
+        &::-webkit-scrollbar-track-piece {
+            background-color: #fafafa;
+            border-radius: 6px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #eee;
+            border-radius: 6px;
+        }
+        &::-webkit-scrollbar-button,
+        &::-webkit-scrollbar-corner,
+        &::-webkit-resizer {
+            display: none;
+        }
+    }
+    .m-content{
+        .mt(20px);
+    }
+    .m-section {
+        display: flex;
+    }
+    .m-right {
+        .w(@right);
+        .ml(20px);
+        .r(5px);
+        // background-color: #fff;
+        // border: 1px solid rgba(63, 68, 72, 0.2);
+    }
+    .m-center {
+        flex: 1;
+    }
+}
+
+.el-tabs--card {
+    .el-tabs__item {
+        background-color: @bg-light;
+        border-bottom: 1px solid @border !important;
+
+        &.is-active {
+            border-bottom: none !important;
+            background-color: #fff;
+            .bold;
+        }
+    }
+}
+.c-footer {
+    background-color: @bg-black;
+    .clear;
+    margin: 40px 0 0 0;
+    border-radius: 0;
+    padding: 20px;
+}
+
+body {
+    background-color: #f6f8fa;
+}
+.m-fixed {
+    .pf;
+    .w(@left - 40px);
+    top: @header-height;
+    margin: 0;
+    background-color: #f6f8fa;
+}
+
+
+
+@import "./responsive.less";

@@ -1,0 +1,36 @@
+.christmas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .h(100%);
+    margin: 0 auto;
+
+    .christmas-card {
+        .pr;
+        .pointer;
+
+        .christmas-card__img {
+            .size(auto, 80vh) !important;
+        }
+
+        .christmas-card__open {
+            .pa;
+            .lt(50%, 92%);
+            .w(35%) !important;
+            transform: translate(-50%, -92%);
+            animation: twinkle 2s ease-out 0s infinite;
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .christmas {
+        padding: 0;
+
+        .christmas-card {
+            .christmas-card__img {
+                .size(auto, 60vh) !important;
+            }
+        }
+    }
+}

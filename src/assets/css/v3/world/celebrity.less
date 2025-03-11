@@ -1,0 +1,108 @@
+.m-celebrity-content {
+    .fz(12px);
+    .lh(20px);
+    .mb(10px);
+
+    table {
+        .w(100%);
+        border-collapse: collapse;
+    }
+
+    th {
+        .mb(5px);
+    }
+
+    .current-item {
+        font-weight: bold;
+        color: #fba524;
+    }
+
+    .pre-item {
+        color: #ccc;
+    }
+
+    th,
+    td {
+        position: relative;
+        padding: 4px 0;
+        .x;
+
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .el-icon-caret-right {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            display: inline-block;
+            height: 20px;
+            line-height: 21px;
+            padding: 4px 0;
+        }
+
+        img {
+            margin-right: 3px;
+            height: 18px;
+        }
+        &:first-of-type {
+            // padding-left: 10px;
+            width: 16%;
+        }
+        &:nth-child(2) {
+            width: 34%;
+        }
+        &:last-of-type {
+            // padding-right: 10px;
+            width: 50%;
+        }
+        .el-icon-caret-right {
+            margin-right: 0;
+            &::after {
+                content: "";
+            }
+        }
+    }
+}
+
+.m-celebrity {
+    .celebrity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .desc {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .fz(12px, 20px);
+
+            .map {
+                color: #fba524;
+            }
+            .arrow {
+                margin: 0 5px;
+            }
+
+            .el-icon-info,
+            .el-icon-right {
+                .fz(16px, 20px);
+                .ml(5px);
+                .mr(5px);
+            }
+        }
+    }
+
+    .u-title i {
+        .mr(0);
+    }
+}
+
+.celebrity-notice-tooltip {
+    max-width: 380px;
+
+    div:not(:first-child, :last-child) {
+        margin: 5px 0;
+    }
+}

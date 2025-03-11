@@ -1,0 +1,130 @@
+.m-notice-single {
+    // background-color: #fff;
+
+    .m-single-header {
+        padding-left: 0;
+        padding-right: 0;
+
+        a {
+            .underline(@color-link);
+        }
+    }
+
+    .m-single-exceprt {
+        padding: 10px;
+        border: 1px dashed #eee;
+        background-color: @bg-light;
+        .r(4px);
+        .fz(14px, 2);
+        color: #666;
+    }
+}
+.m-notice {
+    .u-notice-title {
+        .u-title {
+            color: #333;
+            &:hover {
+                color: @color-link;
+            }
+        }
+        .mb(10px);
+    }
+    .u-desc {
+        color: #666;
+    }
+    .u-notice-header {
+        margin-top: 0;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #bbb;
+        font-weight: 400;
+    }
+    .u-notice-misc {
+        text-align: left;
+        position: absolute;
+        left: 190px;
+        bottom: 30px;
+    }
+
+    .u-notice-date {
+        .pr;
+        .ml(8px);
+        .pl(8px);
+        font-size: 12px;
+        color: #bbb;
+        &::before {
+            content: "";
+            .pa;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background-color: #bbb;
+        }
+    }
+
+    @media screen and (max-width: @phone) {
+        .u-notice-misc {
+            text-align: left;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+        }
+        .u-desc {
+            .none;
+        }
+        .u-notice-title {
+            .fz(14px);
+        }
+    }
+    @media screen and (max-width: @ipad) {
+        .u-notice-misc {
+            text-align: left;
+            position: absolute;
+            left: 0;
+            bottom: 5px;
+        }
+    }
+}
+
+.m-notice-search {
+    .pl(0);
+}
+
+.m-notice-single {
+    padding: 0 20px;
+}
+.m-single-header {
+    border-bottom: 1px solid #eee;
+    .mb(30px);
+    padding-bottom: 30px;
+}
+.m-single-title {
+    .x;
+    .fz(2rem);
+}
+.m-single-info {
+    .x;
+    .mt(0);
+    .u-sub-block {
+        float: none;
+        .mr(20px);
+        i {
+            .mr(5px);
+        }
+    }
+}
+.m-single-post {
+    padding: 20px;
+}
+.m-thx {
+    .mt(20px);
+}
+@media screen and (max-width: @smallpc) {
+    .m-notice-single {
+        max-width: 100%;
+    }
+}
+
+.p-notice-admin {
+    top: @header-height !important;
+}

@@ -1,0 +1,96 @@
+@left: 360px;
+@right: 380px;
+body {
+    background-color: #f6f8fa;
+}
+.m-main {
+    .mt(@header-height);
+    background-color: #f6f8fa;
+    .auto(x);
+    .flex;
+}
+.m-left {
+    flex-basis: @left;
+    .w(@left);
+    // .fl;
+    // .z(9);
+    .pf;
+    .lt(0, @header-height);
+    // bottom: 60px;
+    padding: 20px;
+    box-sizing: border-box;
+    // overflow: auto;
+    height: calc(100vh - @header-height);
+    overflow-y: auto;
+}
+.m-primary {
+    margin-left: @left;
+    width: calc(100vw - @left - 40px);
+    padding: 20px 20px 20px 0;
+    // margin-left: @left;
+}
+.m-primary__main {
+    position: relative;
+    overflow-x: hidden;
+    .flex;
+    gap: 20px;
+    .m-primary__main-left {
+        flex: 1;
+        width: calc(100% - 330px); // 这里注释了我那边是有问题的，包括中间部分tab宽度，以及右侧不显示
+    }
+    .m-primary__main-right {
+        flex: 0;
+        width: 320px;
+        min-width: 320px;
+    }
+    @media screen and (max-width: @phone) {
+        flex-direction: column;
+        .m-primary__main-left,
+        .m-primary__main-right {
+            width: 100%;
+        }
+    }
+}
+@media screen and (max-width: @ipad) {
+    .m-main {
+        .flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: @ipad) {
+    .m-left {
+        flex: none;
+        position: static;
+        padding-top: 0;
+        .w(auto);
+        height: unset;
+        order: 2;
+    }
+}
+@media screen and (max-width: @ipad) {
+    .m-primary {
+        .w(auto);
+        margin-left: 0;
+        padding: 20px;
+        order: 1;
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: @ipad) {
+    .c-footer {
+        order: 99;
+    }
+
+    .wechat-miniprogram {
+        .m-main {
+            margin-top: 0;
+        }
+
+        .m-left {
+            top: 0;
+        }
+    }
+}
+
+@import "./sideblock.less";
