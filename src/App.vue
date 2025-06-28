@@ -21,6 +21,7 @@
                         <community />
                     </div>
                     <div class="m-primary__main-right">
+                        <minirec />
                         <banner />
                         <jx3world v-if="isStd" />
                     </div>
@@ -46,6 +47,8 @@ import banner from "@/components/v3/banner.vue";
 import feedback from "@/components/v3/feedback.vue";
 import follow from "@/components/v3/follow.vue";
 import joke from "@/components/index/joke.vue";
+// 右侧
+import minirec from "@/components/v4/minirec/right.vue";
 
 // 首屏
 import live from "@/components/v3/live.vue";
@@ -107,6 +110,7 @@ export default {
         //face,
         posts,
         community,
+        minirec,
 
         festival,
         forceAlert,
