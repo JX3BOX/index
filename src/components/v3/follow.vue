@@ -42,7 +42,7 @@ export default {
     gap: 20px;
     padding: 20px 10px;
 
-    .u-item{
+    .u-item {
         .flex(x);
     }
     .u-img {
@@ -50,27 +50,28 @@ export default {
         .size(100px);
         .r(6px);
     }
-    .u-txt{
+    .u-txt {
         .db;
         .x;
         .fz(12px);
-        span{
+        span {
             .db;
             transform: scale(0.8);
-            color:#999;
+            color: #999;
         }
-        b{
-            .bold;.db;
+        b {
+            .bold;
+            .db;
             line-height: 1.6;
         }
     }
-
 }
 .m-index-qqbot {
-    .u-home{
+    padding-bottom: 20px;
+    .u-home {
         .flex;
-    justify-content: center;
-    align-items: center;
+        justify-content: center;
+        align-items: center;
     }
 
     .u-pic {
