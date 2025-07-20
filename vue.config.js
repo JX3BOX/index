@@ -2,6 +2,7 @@ const path = require("path");
 const pkg = require("./package.json");
 const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
 const Setting = require("./setting.json");
+const VueProxyPlugin = require("@jx3box/jx3box-fe-proxy");
 
 function resolve(dir) {
     return path.join(__dirname, dir);
@@ -59,71 +60,31 @@ module.exports = {
     //❤️ Proxy ~
     devServer: {
         proxy: {
-            "/api/vip": {
-                target: "https://pay.jx3box.com",
+             ...VueProxyPlugin.generateBuiltinProxy(),
+            // 专门为直接的 /api/next2/ 路径配置代理到 dev.next2.jx3box.com
+            '/api/next2': {
+                target: 'https://dev.next2.jx3box.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api/next2': '/api/next2'
+                },
                 onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
-            "/api/event": {
-                target: "https://pay.jx3box.com",
+            '/api/summary-any': {
+                target: 'https://dev.next2.jx3box.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api/next2': '/api/next2'
+                },
                 onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
-            },
-            "/api/inspire": {
-                target: "https://pay.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/messages": {
-                target: "https://helper.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/summary": {
-                target: "https://next2.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/comment": {
-                target: "https://next2.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/team/battle": {
-                target: "https://team.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/team": {
-                target: "https://team.api.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/xoyo/daily": {
-                target: "https://team.api.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            "/api/cms": {
-                target: process.env["DEV_SERVER"] == "true" ? "http://localhost:7100" : "https://cms.jx3box.com",
-            },
-            "/api": {
-                target: "https://next2.jx3box.com",
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
+            }
         },
         disableHostCheck: true,
+        port: process.env.DEV_PORT || 12028, // 设置端口号
     },
 
     outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : "dist", // 指定构建输出的目录

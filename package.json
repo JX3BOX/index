@@ -22,6 +22,7 @@
         "@jx3box/jx3box-data": "^3.8.3",
         "@jx3box/jx3box-editor": "^2.2.36",
         "@jx3box/jx3box-emotion": "^1.2.13",
+        "@jx3box/jx3box-fe-proxy": "^1.0.1",
         "animate.css": "^4.1.1",
         "axios": "^0.26.1",
         "core-js": "^3.21.1",
