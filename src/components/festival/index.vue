@@ -34,9 +34,9 @@ export default {
             return !!~~this.$store.state.config.festival_test;
         },
         url() {
-            let url = __Root + "author/" + User.getInfo().uid + `/holiday-card/${this.event_id}`;
+            let url = `${__Root}card?uid=${User.getInfo().uid}&event_id=${this.event_id}`;
             if (this.record_id) {
-                url += `?id=${this.record_id}`;
+                url += `&id=${this.record_id}`;
             }
             return url;
         },
