@@ -44,7 +44,17 @@
                         <img class="u-pic" :src="item.img | getBoxIcon" :class="{ hidden: !canSee(item.uuid) }" />
                         <img class="u-pic-hover" svg-inline :src="item.hover | getBoxIcon" />
                         <span class="u-txt">{{ showAbbr ? item.abbr : item.name }}</span>
-                        <i v-if="item.hasMark" class="u-mark" :class="item.markcls">{{ item.mark }}</i>
+                        <!-- <i v-if="item.hasMark" class="u-mark" :class="item.markcls">{{ item.mark }}</i> -->
+                        <LottieMark
+                            v-if="item.hasMark"
+                            class="u-mark"
+                            :class-name="item.markcls"
+                            :mark="item.mark"
+                            width="auto"
+                            height="15px"
+                            font-size="12px"
+                            radius="6px"
+                        />
                         <span class="u-control">
                             <i
                                 class="u-break el-icon-scissors"
@@ -108,6 +118,7 @@ import { getMeta, setMeta } from "@/service/user.js";
 import { getHelperPnt, getMenu } from "@/service/setting.js";
 import Mini_bread from "../content/mini_bread.vue";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
+import LottieMark from "@/components/common/LottieMark.vue";
 // ==============================
 
 const KEY = "boxmatrix";
@@ -120,6 +131,7 @@ export default {
     components: {
         draggable,
         "mini-bread": Mini_bread,
+        LottieMark,
     },
     data: function () {
         return {
