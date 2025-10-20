@@ -141,8 +141,8 @@ export default {
     width: 100%;
     height: 100%;
     svg {
-        width: 150px !important;
-        height: 30px !important;
+        width: 75px !important;
+        height: 15px !important;
     }
 }
 .corner-mark-text {
