@@ -116,6 +116,7 @@ export default {
                 loop: true,
                 autoplay: true,
                 animationData: data,
+                preserveAspectRatio: "none"
             });
             this.animation.addEventListener("DOMLoaded", () => this.$emit("ready", this.animation));
             this.animation.addEventListener("complete", () => this.$emit("complete"));
@@ -139,6 +140,10 @@ export default {
     inset: 0;
     width: 100%;
     height: 100%;
+    svg {
+        width: 150px !important;
+        height: 30px !important;
+    }
 }
 .corner-mark-text {
     position: relative; // 覆盖在动画之上，但不脱离文档流
