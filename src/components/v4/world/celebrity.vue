@@ -3,6 +3,7 @@
         <el-divider content-position="left">
             名望
             <template v-if="type === '2'"> &nbsp;·&nbsp;河西瀚漠 </template>
+            <template v-if="type === '3'"> &nbsp;·&nbsp;伊丽川 </template>
             &nbsp;·&nbsp;
             <el-select v-model="type" @change="typeChange">
                 <el-option v-for="type in types" :key="type.value" :label="type.label" :value="type.value"></el-option>
@@ -59,8 +60,12 @@ export default {
                 h: dayjs.tz().hour(),
                 m: dayjs.tz().minute(),
             },
-            type: "2",
+            type: "3",
             types: [
+                {
+                    label: "穹野卫",
+                    value: "3",
+                },
                 {
                     label: "披风会",
                     value: "2",
@@ -167,7 +172,6 @@ export default {
         },
         // 处理云从社
         getYun(date) {
-            // console.log(date.h + ":" + date.m);
             // 循环事件
             const circleList = this.celebrityList.filter((item) => item.key !== "y8");
             const currentKey = "y" + (date.h % 2 === 0 ? "0" : "1");
@@ -250,7 +254,7 @@ export default {
 
             this.list = combineList.slice(0, this.showNum);
         },
-        // 处理披风会
+        // 处理披风会/穹野卫
         getPi(date) {
             // 3小时循环事件
             // 当前时间
