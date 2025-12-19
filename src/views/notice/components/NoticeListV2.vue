@@ -13,7 +13,9 @@
                     {{ item.name }}
                 </span>
             </div>
-            <el-input class="u-search" v-model.lazy="search" placeholder="请输入关键词搜索" clearable></el-input>
+            <el-input class="u-search" v-model.lazy="search" placeholder="请输入关键词搜索" clearable>
+                <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            </el-input>
         </div>
         <!-- 列表 -->
         <div class="m-notice-box">
@@ -25,10 +27,13 @@
                     :to="{ name: 'single', params: { id: item.ID } }"
                     target="_blank"
                 >
-                    <img class="u-icon" svg-inline src="/src/assets/img/notice/up.svg" v-if="item.post_subtype == 3" />
-                    <img class="u-icon" svg-inline src="/src/assets/img/notice/post.svg" v-else />
-                    <span class="u-title"> {{ item.post_title }}</span>
-                    <span class="u-time"> {{ showDate(item.post_modified) }}</span>
+                    <div class="u-line">
+                        <span class="u-block"></span>
+                    </div>
+                    <div class="m-list-box">
+                        <span class="u-title"> {{ item.post_title }}</span>
+                        <span class="u-time"> {{ showDate(item.post_modified) }}</span>
+                    </div>
                 </router-link>
             </div>
             <!-- 分页和跳转 -->
@@ -71,7 +76,7 @@ export default {
             page: 1, //当前页数
             total: 1, //总条目数
             pages: 1, //总页数
-            per: 10, //每页条目
+            per: 5, //每页条目
             index: "", // 跳转页面
 
             client: this.$store.state.client, //版本选择
@@ -162,7 +167,7 @@ export default {
             this.index = "";
         },
         // 切换类型
-        change({key, value}) {
+        change({ key, value }) {
             this.type = value;
             this.page = 1;
 
@@ -189,7 +194,11 @@ export default {
             immediate: true,
             handler: function (height) {
                 if (height > 1024) {
-                    this.per = 20;
+                    this.per = 7;
+                    this.page = 1;
+                }
+                if (height > 1440) {
+                    this.per = 12;
                     this.page = 1;
                 }
             },
@@ -206,7 +215,6 @@ export default {
             this.type = "";
             this.loadPosts();
         }
-
     },
 };
 </script>
