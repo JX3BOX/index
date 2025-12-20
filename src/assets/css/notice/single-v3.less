@@ -43,9 +43,44 @@
                 color: #fff;
                 padding: 4px 12px;
                 background-color: #3778e5;
+                &.u-edit {
+                    .ml(20px);
+                    background-color: transparent;
+                    opacity: 0.8;
+                }
             }
             .u-update {
                 .tm(0.5);
+            }
+            .c-admin-button {
+                .fr;
+            }
+        }
+    }
+    .u-left-title {
+        .pf;
+        .z(2);
+        .size(40px,auto);
+        .fz(16px);
+        .x(right);
+        right: 50%;
+        bottom: 0;
+        color: #fff;
+        writing-mode: vertical-rl;
+        user-select: none;
+        pointer-events: none;
+        width: calc(50% + 340px);
+        transform: translateX(-50%);
+        span {
+            .flex;
+            justify-content: flex-end;
+            width: 24px;
+            gap: 5px;
+            &::after {
+                content: "";
+                .db;
+                .size(100%,10px);
+                background-color: #3778e5;
             }
         }
     }

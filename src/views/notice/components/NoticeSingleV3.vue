@@ -4,8 +4,13 @@
         <div class="m-top-img">
             <img src="" alt="" srcset="" />
         </div>
+        <!-- 右边操作区域 -->
         <!-- 返回列表 -->
         <div class="u-back" @click="goBack">返回</div>
+        <!-- 侧边标题 -->
+        <div class="u-left-title" v-show="show" :style="bottom">
+            <span> {{ post.post_title }}</span>
+        </div>
         <!-- 标题 -->
         <header class="m-single-header">
             <h1 class="m-single-title">{{ post.post_title }}</h1>
@@ -18,12 +23,7 @@
                 <span class="u-update" title="发布时间">
                     <time>最后更新 : {{ showDate(post.post_modified) }}</time>
                 </span>
-                <span class="u-views u-sub-block" v-if="isAdmin">
-                    <i class="el-icon-view"></i>
-                    {{ stat.views || "-" }}
-                </span>
-
-                <a class="u-edit u-sub-block" :href="edit_link" v-if="isEditor">
+                <a :href="edit_link" class="u-type u-edit" v-if="isEditor || isAdmin">
                     <i class="u-icon-edit el-icon-edit-outline"></i>
                     <span>编辑</span>
                 </a>
@@ -71,6 +71,7 @@ import { getPost } from "@/service/cms.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { showDate } from "@jx3box/jx3box-common/js/moment";
 import { __visibleMap } from "@jx3box/jx3box-common/data/jx3box.json";
+import { editLink } from "@jx3box/jx3box-common/js/utils";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import Adminbutton from "@jx3box/jx3box-common-ui/src/bread/Adminbutton.vue";
@@ -81,13 +82,13 @@ export default {
     data: function () {
         return {
             show: false,
+            top: 0,
+            bottom: {},
 
             loading: true,
             post: {},
             author: {},
             stat: {},
-            isAdmin: false,
-            isEditor: false,
         };
     },
     components: {
@@ -97,11 +98,11 @@ export default {
         Admin,
     },
     computed: {
-        // style() {
-        //     return {
-        //         top: this.top + "px",
-        //     };
-        // },
+        style() {
+            return {
+                top: this.top + "px",
+            };
+        },
         user_id: function () {
             return this.post?.post_author || 0;
         },
@@ -122,6 +123,12 @@ export default {
         },
         id() {
             return this.$route.params.id;
+        },
+        isAdmin() {
+            return User.isAdmin() || User.isSuperAdmin();
+        },
+        isEditor() {
+            return User.isEditor();
         },
     },
 
@@ -149,17 +156,35 @@ export default {
             });
             postStat("notice", this.id);
         },
+        handlerScroll() {
+            let clientHeight = document.documentElement.clientHeight;
+            let osTop = document.documentElement.scrollTop || document.body.scrollTop;
+            if (osTop >= clientHeight) {
+                this.show = true;
+
+                const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+                const _clientHeight = window.innerHeight;
+                const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                if (scrollTop + _clientHeight >= scrollHeight - 80) {
+                    this.bottom = {
+                        bottom: "80px",
+                    };
+                } else {
+                    this.bottom = {
+                        bottom: "0px",
+                    };
+                }
+            } else {
+                this.show = false;
+            }
+        },
     },
     mounted() {
         this.load();
-
-        this.isAdmin = User.isAdmin();
-        this.isEditor = User.isEditor();
-
-        // document.addEventListener("scroll", this.handlerScroll);
+        document.addEventListener("scroll", this.handlerScroll);
     },
     beforeDestroy() {
-        // document.removeEventListener("scroll", this.handlerScroll);
+        document.removeEventListener("scroll", this.handlerScroll);
     },
 };
 </script>
