@@ -18,7 +18,8 @@
     }
     .wp {
         position: relative;
-        max-width: 1200px;
+        max-width: calc(100% - 400px);
+        min-width: 1000px;
         .auto(x);
         .z(1);
     }
@@ -54,9 +55,6 @@
 }
 @media screen and (min-width: 2048px) and (max-width: 4096px) {
     .p-notice-v2 {
-        .wp {
-            max-width: 2000px;
-        }
         .m-notice-content {
             gap: 40px;
         }
@@ -65,9 +63,6 @@
 
 @media screen and (min-width: 1980px) and (max-width: 2048px) {
     .p-notice-v2 {
-        .wp {
-            max-width: 1440px;
-        }
         .m-notice-content {
             gap: 30px;
         }

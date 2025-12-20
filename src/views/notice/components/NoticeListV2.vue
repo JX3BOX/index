@@ -31,8 +31,18 @@
                         <span class="u-block"></span>
                     </div>
                     <div class="m-list-box">
-                        <span class="u-title"> {{ item.post_title }}</span>
-                        <span class="u-time"> {{ showDate(item.post_modified) }}</span>
+                        <div class="u-info">
+                            <h3 class="u-title">{{ item.post_title }}</h3>
+                            <p class="u-desc">{{ showDate(item.post_modified) }}</p>
+                            <!-- {{ showDate(item.post_modified) }} -->
+                        </div>
+                        <div class="u-time">
+                            <span class="u-date">
+                                {{ newTime(item.post_modified).day }}
+                                <b>{{ newTime(item.post_modified).month }}</b>
+                            </span>
+                            <span class="u-year">{{ newTime(item.post_modified).year }}</span>
+                        </div>
                     </div>
                 </router-link>
             </div>
@@ -64,7 +74,8 @@
 </template>
 <script>
 import { getPosts } from "@/service/cms";
-import { join, pull, cloneDeep, concat } from "lodash";
+import dayjs from "dayjs";
+import "dayjs/locale/en";
 import { showDate } from "@/utils/moment";
 export default {
     name: "NoticeList",
@@ -178,6 +189,15 @@ export default {
             });
         },
         showDate,
+        newTime(time) {
+            const d = dayjs(time).locale("en");  
+            if (!d.isValid()) return null;
+            return {
+                day: d.format("DD/MM"),
+                month: d.format("MMM."),
+                year: d.format("YYYY"),
+            };
+        },
     },
     watch: {
         params: {

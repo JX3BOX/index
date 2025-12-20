@@ -2,27 +2,31 @@
     .flex;
     flex-direction: column;
     gap: 20px;
+
     .m-list {
         .flex;
         .pointer;
         gap: 5px;
-
+        color: #000;
+        // 左侧的线
         .u-line {
             width: 4px;
             background-color: #fff;
+            transition: all 0.3s ease-in-out;
             .u-block {
                 .db;
+                .none;
                 .size(4px,15%);
+                transition: all 0.3s ease-in-out;
                 background-color: #3778e5;
             }
         }
+        // 公告内容
         .m-list-box {
             .pr;
             flex: 1;
             padding: 40px 40px 40px 20px;
             background-color: #fff;
-            // border-top: 6px solid #282c31;
-            // border-right: 6px solid #282c31;
             border-radius: 0 70px 0 0;
             &::after {
                 content: "";
@@ -30,40 +34,59 @@
                 .size(50%,100%);
                 .rt(0);
                 .z(1);
+                .tm(0);
+                transition: all 0.5s ease;
                 background: url("../../img/notice/vector.svg") no-repeat right top;
                 background-size: auto 50px;
             }
+            .u-time {
+                .pa;
+                .rt(45px,0);
+                .flex;
+                user-select: none;
+                pointer-events: none;
+                height: 100%;
+                color: #d7e4fa;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-end;
+                .u-date {
+                    .fz(40px);
+                    b {
+                        .fz(24px);
+                    }
+                }
+                .u-year {
+                    .fz(16px);
+                }
+            }
         }
-        // .color(#282c31);
-        // .size(100%,43px);
-        // .lh(43px);
-        // .r(20px);
-        // position: relative;
-        // box-sizing: border-box;
-        // justify-content: space-between;
-        // padding: 0 68px;
-        // letter-spacing: 1px;
-        // background-color: #fff;
-        // box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.1);
-        // transition: all 0.5s ease-in-out;
+        &:hover {
+            .m-list-box::after {
+                opacity: 1;
+            }
+            .u-line {
+                background-color: #3778e5;
+                .u-block {
+                    height: 100%;
+                }
+            }
+        }
 
-        // &:hover {
-        //     color: #fff;
-        //     background-color: #282c31;
-        //     .u-icon path {
-        //         fill: #fff;
-        //     }
-        //     .u-time {
-        //         .color(#fff);
-        //     }
-        // }
-        // .u-title {
-        //     .db;
-        //     .break(1);
-        // }
-        // .u-time {
-        //     .color(#888);
-        // }
+        .u-title {
+            .db;
+            .bold;
+            .fz(24px);
+            .break(1);
+            margin: 0 0 24px 0;
+        }
+        .u-desc {
+            .fz(16px,20px);
+            .tm(0.4);
+            .break(2);
+            margin: 0;
+            height: 40px;
+        }
     }
 }
 // 分页
