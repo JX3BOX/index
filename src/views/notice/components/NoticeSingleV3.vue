@@ -52,8 +52,15 @@
                 :adminBoxcoinEnable="false"
                 :userBoxcoinEnable="false"
             />
+            <right-affix
+                :postId="id"
+                :postType="post.post_type"
+                :postTitle="post.post_title"
+                :showComment="id"
+                @toComment="toComment($event)"
+            ></right-affix>
 
-            <div class="m-single-comment">
+            <div class="m-single-comment" ref="commentView">
                 <el-divider content-position="left">评论</el-divider>
                 <Comment :id="id" category="post" v-if="id && !post.comment" />
                 <el-alert title="作者没有开启评论功能" type="warning" show-icon v-else></el-alert>
@@ -76,7 +83,7 @@ import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import Adminbutton from "@jx3box/jx3box-common-ui/src/bread/Adminbutton.vue";
 import Admin from "@jx3box/jx3box-common-ui/src/bread/Admin.vue";
-
+import RightAffix from "@jx3box/jx3box-common-ui/src/single/right-affix.vue";
 export default {
     name: "NoticeSingleV3",
     data: function () {
@@ -96,6 +103,7 @@ export default {
         Comment,
         Adminbutton,
         Admin,
+        RightAffix,
     },
     computed: {
         style() {
@@ -155,6 +163,18 @@ export default {
                 this.stat = res.data;
             });
             postStat("notice", this.id);
+        },
+        toComment() {
+            this.$nextTick(() => {
+                const element = this.$refs.commentView;
+                if (element) {
+                    const offsetTop = element.offsetTop;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth",
+                    });
+                }
+            });
         },
         handlerScroll() {
             let osTop = document.documentElement.scrollTop || document.body.scrollTop;
