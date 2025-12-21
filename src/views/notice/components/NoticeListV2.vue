@@ -28,7 +28,7 @@
                     target="_blank"
                 >
                     <div class="u-line">
-                        <span class="u-block"></span>
+                        <span class="u-block" v-if="item.sticky"></span>
                     </div>
                     <div class="m-list-box">
                         <div class="u-info">

@@ -157,15 +157,14 @@ export default {
             postStat("notice", this.id);
         },
         handlerScroll() {
-            let clientHeight = document.documentElement.clientHeight;
             let osTop = document.documentElement.scrollTop || document.body.scrollTop;
-            if (osTop >= clientHeight) {
+            if (osTop >= 1000) {
                 this.show = true;
 
                 const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-                const _clientHeight = window.innerHeight;
+                const clientHeight = window.innerHeight;
                 const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-                if (scrollTop + _clientHeight >= scrollHeight - 80) {
+                if (scrollTop + clientHeight >= scrollHeight - 80) {
                     this.bottom = {
                         bottom: "80px",
                     };
