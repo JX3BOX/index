@@ -13,7 +13,6 @@ body {
     max-width: calc(100% - 400px);
     .auto(x);
     .pt(64px);
-    .fz(14px);
     .m-top-img {
         .size(100%,180px);
         margin: 40px 0;
@@ -102,9 +101,9 @@ body {
         .u-title-top {
             .pa;
             .rt(0);
-            .size(130px);
+            .size(128px,138px);
             background: url("../../img/notice/top-bg.png") #121417 no-repeat top right;
-            background-size: 100% 130px;
+            background-size: 128px 138px;
         }
     }
     .c-right-affix {
@@ -116,4 +115,31 @@ body {
 }
 .c-admin.p-notice-admin {
     top: 64px !important;
+}
+@media screen and (max-width: @ipad) {
+    .m-notice-content {
+        width: 100%;
+        max-width: calc(100% - 40px);
+
+        .m-single-header {
+            .m-single-title {
+                .fz(18px,32px);
+            }
+            .m-single-info {
+                .pr;
+                .c-admin-button {
+                    .pa;
+                    .rb(0,-50px);
+                    .z(2);
+                    zoom: 0.6;
+                }
+            }
+        }
+        .m-single-box {
+            padding: 20px 30px 20px 20px;
+            .u-title-top {
+                zoom: 0.3;
+            }
+        }
+    }
 }

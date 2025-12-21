@@ -14,7 +14,7 @@
             background-color: #fff;
             transition: all 0.3s ease-in-out;
             .u-block {
-                .db; 
+                .db;
                 .size(4px,15%);
                 transition: all 0.3s ease-in-out;
                 background-color: #3778e5;
@@ -40,7 +40,7 @@
             }
             .u-time {
                 .pa;
-                .rt(45px,0);
+                .rt(45px,10px);
                 .flex;
                 user-select: none;
                 pointer-events: none;
@@ -77,6 +77,7 @@
             .bold;
             .fz(24px);
             .break(1);
+            max-width: calc(100% - 180px);
             margin: 0 0 24px 0;
         }
         .u-desc {
@@ -208,6 +209,9 @@
 }
 
 @media screen and (max-width: @ipad) {
+    .m-notice-content {
+        padding: 100px 20px 20px 20px;
+    }
     .m-notice-toolbar {
         flex-wrap: wrap;
         justify-content: flex-start;
@@ -215,8 +219,43 @@
 
         .m-buttons {
             padding: 10px 0;
+            gap: 14px;
             overflow-x: auto;
             overflow-y: visible;
+        }
+        .u-search {
+            width: 100%;
+        }
+    }
+    .m-notice-list {
+        .m-list {
+            .m-list-box {
+                padding: 0 10px 20px 10px;
+                .u-info {
+                    .pt(45px);
+                    h3 {
+                        .fz(14px);
+                        margin: 0;
+                        .nobreak;
+                    }
+                    .u-desc {
+                        .none;
+                    }
+                }
+                .u-time {
+                    right: 24px;
+                    top: -5px;
+
+                    .u-date {
+                        .fz(24px);
+                    }
+                }
+            }
+        }
+    }
+    .p-notice-pagination {
+        .m-jump {
+            .none;
         }
     }
 }
