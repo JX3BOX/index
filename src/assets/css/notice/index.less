@@ -1,6 +1,6 @@
 .p-notice-v2 {
-    background: url(../../img/notice/v3-bg.png) #121417 fixed;
-    background-size: cover;
+    background: url(../../img/notice/v3-bg.png) #121417;
+    background-size: 25px 25px;
 
     .m-bg {
         .pf;
@@ -30,6 +30,18 @@
     }
     input[type="number"] {
         -moz-appearance: textfield;
+    }
+}
+.m-top-img {
+    .pr;
+    .size(100%,280px);
+    margin: 40px 0;
+    .u-img {
+        .pa;
+        .size(calc(100% + 360px),100%);
+        .lt(-180px,0);
+        background: url("~@/assets/img/notice/normal_banner.png") left top no-repeat;
+        background-size: 100% 280px;
     }
 }
 // 底部
@@ -70,7 +82,11 @@
 }
 
 @media screen and (max-width: @ipad) {
+    .m-top-img {
+        .none;
+    }
     .p-notice-v2 {
+        .pt(100px);
         .m-bg {
             .none;
         }

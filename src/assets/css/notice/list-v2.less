@@ -24,7 +24,7 @@
         .m-list-box {
             .pr;
             flex: 1;
-            padding: 40px 40px 40px 20px;
+            padding: 40px 40px 30px 20px;
             background-color: #fff;
             border-radius: 0 70px 0 0;
             &::after {
@@ -38,6 +38,7 @@
                 background: url("../../img/notice/vector.svg") no-repeat right top;
                 background-size: auto 50px;
             }
+
             .u-time {
                 .pa;
                 .rt(45px,10px);
@@ -80,12 +81,14 @@
             max-width: calc(100% - 180px);
             margin: 0 0 24px 0;
         }
-        .u-desc {
-            .fz(16px,20px);
-            .tm(0.4);
-            .break(2);
-            margin: 0;
-            height: 40px;
+        .u-tag {
+            .db;
+            .size(100px,32px);
+            .fz(14px,32px);
+            .x;
+            .mb(12px);
+            color: #fff;
+            background-color: #3778e5;
         }
     }
 }
@@ -144,7 +147,9 @@
     .flex;
     box-sizing: border-box;
     min-height: calc(100vh - 48px);
-    padding: 168px 0 30px 0;
+    max-width: calc(100% - 400px);
+    padding: 40px 0;
+    .auto(x);
     flex-direction: column;
     gap: 24px;
 }
@@ -210,7 +215,8 @@
 
 @media screen and (max-width: @ipad) {
     .m-notice-content {
-        padding: 100px 20px 20px 20px;
+        padding: 20px;
+        max-width: 100%;
     }
     .m-notice-toolbar {
         flex-wrap: wrap;
@@ -230,16 +236,17 @@
     .m-notice-list {
         .m-list {
             .m-list-box {
-                padding: 0 10px 20px 10px;
+                padding: 20px 10px;
                 .u-info {
-                    .pt(45px);
-                    h3 {
+                    .u-title {
                         .fz(14px);
                         margin: 0;
-                        .nobreak;
+                        .break(1);
+                        max-width: calc(100% - 40px);
                     }
-                    .u-desc {
-                        .none;
+                    .u-tag {
+                        .fz(12px,24px);
+                        .size(80px,24px);
                     }
                 }
                 .u-time {

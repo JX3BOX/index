@@ -2,9 +2,8 @@
     <div class="m-notice-content m-notice-content-single">
         <!-- 头图 -->
         <div class="m-top-img">
-            <img src="" alt="" srcset="" />
+            <div class="u-img"></div>
         </div>
-        <!-- 右边操作区域 -->
         <!-- 返回列表 -->
         <div class="u-back" @click="goBack">返回</div>
         <!-- 侧边标题 -->
@@ -58,6 +57,7 @@
                 :postTitle="post.post_title"
                 :showComment="id"
                 @toComment="toComment($event)"
+                :style="style"
             ></right-affix>
 
             <div class="m-single-comment" ref="commentView">
@@ -89,7 +89,7 @@ export default {
     data: function () {
         return {
             show: false,
-            top: 0,
+            style: {},
             bottom: {},
 
             loading: true,
@@ -106,11 +106,6 @@ export default {
         RightAffix,
     },
     computed: {
-        style() {
-            return {
-                top: this.top + "px",
-            };
-        },
         user_id: function () {
             return this.post?.post_author || 0;
         },
@@ -178,12 +173,18 @@ export default {
         },
         handlerScroll() {
             let osTop = document.documentElement.scrollTop || document.body.scrollTop;
+            if (osTop >= 604) {
+                this.style = { top: "64px" };
+            } else {
+                this.style = { top: 604 - osTop + "px" };
+            }
             if (osTop >= 1000) {
                 this.show = true;
 
                 const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
                 const clientHeight = window.innerHeight;
                 const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+
                 if (scrollTop + clientHeight >= scrollHeight - 80) {
                     this.bottom = {
                         bottom: "80px",

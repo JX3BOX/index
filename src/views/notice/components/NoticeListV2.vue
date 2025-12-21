@@ -1,5 +1,9 @@
 <template>
     <div class="m-notice-content">
+        <!-- 头图 -->
+        <div class="m-top-img">
+            <div class="u-img"></div>
+        </div>
         <!-- 筛选 & 搜索 -->
         <div class="m-notice-toolbar">
             <div class="m-buttons">
@@ -32,9 +36,8 @@
                     </div>
                     <div class="m-list-box">
                         <div class="u-info">
+                            <span class="u-tag">{{ showTag(item) }}</span>
                             <h3 class="u-title">{{ item.post_title }}</h3>
-                            <p class="u-desc">{{ showDate(item.post_modified) }}</p>
-                            <!-- {{ showDate(item.post_modified) }} -->
                         </div>
                         <div class="u-time">
                             <span class="u-date">
@@ -190,13 +193,16 @@ export default {
         },
         showDate,
         newTime(time) {
-            const d = dayjs(time).locale("en");  
+            const d = dayjs(time).locale("en");
             if (!d.isValid()) return null;
             return {
                 day: d.format("DD/MM"),
                 month: d.format("MMM."),
                 year: d.format("YYYY"),
             };
+        },
+        showTag(row) {
+            return this.buttons.find((item) => item.value == row.post_subtype)?.name;
         },
     },
     watch: {

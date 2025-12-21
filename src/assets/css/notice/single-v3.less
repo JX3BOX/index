@@ -13,10 +13,7 @@ body {
     max-width: calc(100% - 400px);
     .auto(x);
     .pt(64px);
-    .m-top-img {
-        .size(100%,180px);
-        margin: 40px 0;
-    }
+
     .u-back {
         .pointer;
         .size(240px,40px);
@@ -37,7 +34,7 @@ body {
             margin: 20px 0;
             color: #fff;
             align-items: center;
-            gap: 5px;
+            gap: 14px;
             &::before {
                 content: "";
                 .db;
@@ -109,7 +106,7 @@ body {
     .c-right-affix {
         .r(0);
         right: 50%;
-        top: 500px;
+        top: 604px;
         margin-right: calc(-50% + 320px);
     }
 }
@@ -118,6 +115,7 @@ body {
 }
 @media screen and (max-width: @ipad) {
     .m-notice-content {
+        .pt(0);
         width: 100%;
         max-width: calc(100% - 40px);
 
@@ -127,6 +125,7 @@ body {
             }
             .m-single-info {
                 .pr;
+                .fz(14px);
                 .c-admin-button {
                     .pa;
                     .rb(0,-50px);
@@ -140,6 +139,10 @@ body {
             .u-title-top {
                 zoom: 0.3;
             }
+        }
+        .u-left-title,
+        .c-right-affix {
+            .none;
         }
     }
 }
