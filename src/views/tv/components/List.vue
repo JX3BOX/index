@@ -15,14 +15,17 @@
 </template>
 
 <script>
-import { resolveImagePath } from "@jx3box/jx3box-common/js/utils.js";
 export default {
     name: "List",
     props: ["data"],
     data: function () {
         return {};
     },
-    methods: { resolveImagePath },
+    methods: {
+        resolveImagePath(str) {
+            return str.replace(/oss\.jx3box\.com/g, "cdn.jx3box.com");
+        },
+    },
 };
 </script>
 
