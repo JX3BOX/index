@@ -69,14 +69,13 @@ body {
         .size(40px,auto);
         .fz(16px);
         .x(right);
-        right: 50%;
+        right: 0;
         bottom: 0;
         color: #fff;
+        margin-right: calc(100% - 370px);
         writing-mode: vertical-rl;
         user-select: none;
-        pointer-events: none;
-        width: calc(50% + 340px);
-        transform: translateX(-50%);
+        pointer-events: none; 
         span {
             .flex;
             justify-content: flex-end;
@@ -99,15 +98,16 @@ body {
             .pa;
             .rt(0);
             .size(80px,80px);
-            border-radius: 0 0 0 80px ;
+            border-radius: 0 0 0 80px;
             background: url("../../img/notice/top-bg.svg") #121417 top right no-repeat;
         }
     }
     .c-right-affix {
         .r(0);
-        right: 50%;
+        .w(34px);
+        left: 0;
         top: 604px;
-        margin-right: calc(-50% + 320px);
+        margin-left: calc(100% - 366px);
     }
 }
 .c-admin.p-notice-admin {
