@@ -1,5 +1,5 @@
 <template>
-    <div class="m-notice-content m-notice-content-single">
+    <div class="m-notice-content m-notice-content-single m-notice-content-v3">
         <!-- 头图 -->
         <div class="m-top-img">
             <div class="u-img"></div>
@@ -22,7 +22,7 @@
                 <span class="u-update" title="发布时间">
                     <time>最后更新 : {{ showDate(post.post_modified) }}</time>
                 </span>
-                <a :href="edit_link" class="u-type u-edit" v-if="isEditor || isAdmin">
+                <a :href="edit_link" class="u-type u-edit" v-if="isAdmin">
                     <i class="u-icon-edit el-icon-edit-outline"></i>
                     <span>编辑</span>
                 </a>
@@ -210,4 +210,14 @@ export default {
 </script>
 <style lang="less">
 @import "~@/assets/css/notice/single-v3.less";
+.m-notice-content-v3 {
+    .u-edit {
+        display:inline-flex;
+        align-items: center;
+        gap:5px;
+        &:hover {
+            color:gold !important;
+        }
+    }
+}
 </style>
