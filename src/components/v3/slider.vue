@@ -81,6 +81,7 @@
 import { buildTarget, resolveImagePath, getThumbnail, convertUrlToProtocol } from "@jx3box/jx3box-common/js/utils";
 import { getConfigBanner } from "@/service/cms";
 import Mini_bread from "../content/mini_bread.vue";
+import _ from "lodash";
 export default {
     name: "slider",
     components: {
@@ -97,7 +98,7 @@ export default {
                 tv: "",
                 bilibili: "",
                 weibo: "",
-                douyin: ""
+                douyin: "",
             },
         };
     },
@@ -139,8 +140,16 @@ export default {
                 per: 8,
                 status: 1,
             }).then((res) => {
-                this.data = res.data.data.list;
+                this.data = this.sortWithPowerShuffle(res.data.data.list);
             });
+        },
+        sortWithPowerShuffle(list) {
+            return _.chain(list)
+                .groupBy("power")
+                .toPairs() // [[power, items]]
+                .orderBy(([power]) => Number(power), "desc")
+                .flatMap(([, items]) => _.shuffle(items))
+                .value();
         },
         init: function () {
             this.loadData().then(() => {
@@ -149,7 +158,7 @@ export default {
         },
         showSlider(val) {
             // 判断val是否是gif图片
-            if (val.indexOf(".gif") > -1||val.indexOf(".webp") > -1) {
+            if (val.indexOf(".gif") > -1 || val.indexOf(".webp") > -1) {
                 return val;
             }
             if (this.ratio > 1 && this.w >= 1920) {
@@ -159,7 +168,7 @@ export default {
             }
         },
         showThumbnail(val) {
-            if (val.includes('.gif') || val.includes('.webp')) {
+            if (val.includes(".gif") || val.includes(".webp")) {
                 return val;
             }
             return getThumbnail(val, "index_banner"); //[220, 60]
