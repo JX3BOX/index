@@ -20,7 +20,7 @@
                     </el-tab-pane>
                     <el-tab-pane
                         :label="item.name"
-                        :name="item.name"
+                        :name="item.mark"
                         v-for="(item, i) in categoryList"
                         :key="i"
                     ></el-tab-pane>
@@ -51,7 +51,7 @@
                         ></el-image>
                         <div class="u-info">
                             <i class="el-icon-collection-tag"></i>
-                            <span class="u-type" target="_blank">{{ item.category }}</span>
+                            <span class="u-type" target="_blank">{{ getCategoryName(item.category )}}</span>
                             ／
                             <span class="u-author" :href="authorLink(item.user_id)" target="_blank">{{
                                 item.user_name || "匿名"
@@ -204,6 +204,10 @@ export default {
         br2nl: function (val) {
             // 将<br> <br />转换为换行
             return val.replace(/<br\s*\/?>/g, "\n");
+        },
+        getCategoryName(mark) {
+            const category = this.categoryList.find((item) => item.mark === mark);
+            return category ? category.name : "未知分类";
         },
     },
     watch: {
