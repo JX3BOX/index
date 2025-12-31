@@ -42,7 +42,7 @@
                         :class="{ 'u-doing': !item.status }"
                     >
                         <img class="u-pic" :src="item.img | getBoxIcon" :class="{ hidden: !canSee(item.uuid) }" />
-                        <img class="u-pic-hover" svg-inline :src="item.hover | getBoxIcon" />
+                        <!-- <img class="u-pic-hover" svg-inline :src="item.hover | getBoxIcon" /> -->
                         <span class="u-txt">{{ showAbbr ? item.abbr : item.name }}</span>
                         <!-- <i v-if="item.hasMark" class="u-mark" :class="item.markcls">{{ item.mark }}</i> -->
                         <LottieMark
