@@ -26,7 +26,7 @@
 						<span class="u-text">{{ item.title ||item.content || "无标题" }}</span>
 					</a>
 					<span class="u-link">
-						<span class="u-date">{{ item.updated_at }}</span> @ {{ item.author }}
+						<span class="u-date">{{ item.updated_at }}</span> <template v-if="item.name != 'wiki'">@ {{ item.author }}</template>
 					</span>
 				</div>
 				<el-image class="u-img" :src="resolveImagePath(item.convert_image)" fit="cover" v-if="item.convert_image" :preview-src-list="[resolveImagePath(item.convert_image)]"></el-image>
