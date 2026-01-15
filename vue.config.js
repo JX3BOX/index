@@ -110,6 +110,17 @@ module.exports = {
         (process.env.STATIC_PATH == "root" && "/") ||
         //for lost
         "/",
+    transpileDependencies: [
+        "htmlparser2",
+        "cheerio",
+        "dom-serializer",
+        "domelementtype",
+        "domhandler",
+        "domutils",
+        "entities",
+        "parse5",
+        "parse5-htmlparser2-tree-adapter",
+    ],
     chainWebpack: (config) => {
         // // it can improve the speed of the first screen, it is recommended to turn on preload
         // Object.keys(pages).forEach((name) => {
