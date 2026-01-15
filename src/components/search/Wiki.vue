@@ -7,7 +7,7 @@
                     ><span class="u-text">{{ item.title || "无标题" }}</span></a
                 >
                 <span class="u-link"
-                    ><time class="u-date">{{ formatDate(item.updated) }} @ {{ item.user_nickname || "匿名" }}</time><span class="u-type">{{ formatType(item.type) }} » {{ item.source.name }} › {{item.remark}}</span></span
+                    ><time class="u-date">{{ formatDate(item.updated) }} </time><span class="u-type">{{ formatType(item.type) }} » {{ item.source.name }} › {{item.remark}}</span></span
                 >
             </li>
         </ul>
