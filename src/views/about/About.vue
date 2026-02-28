@@ -42,17 +42,19 @@
                 </div>
             </div>
         </div>
+        <CommonFooter></CommonFooter>
     </div>
 </template>
 
 <script>
 import SubNav from "./components/SubNav.vue";
+import CommonFooter from "@/components/common/CommonFooter.vue";
 import { __cdn, __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { isPhone } from "@/utils/index";
 export default {
     name: "About",
     props: [],
-    components: { SubNav },
+    components: { SubNav, CommonFooter },
     data: function () {
         return {
             isPhone: false,
