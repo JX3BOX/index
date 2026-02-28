@@ -70,7 +70,7 @@ import { getConfig } from "@/service/setting.js";
 import _ from "lodash";
 import "animate.css";
 import driver from "@/utils/driver.js";
-import { isMiniProgram } from "@jx3box/jx3box-common/js/utils";
+import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "App",
@@ -143,7 +143,7 @@ export default {
             const footer = document.querySelector(".c-footer");
             main.appendChild(footer);
         }
-        if (!isMiniProgram()) {
+        if (!isMiniProgram() && !isApp()) {
             this.$nextTick(() => {
                 if (this.isLogin) {
                     getMeta("new_user_guide").then((res) => {
