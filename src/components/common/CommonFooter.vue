@@ -70,6 +70,20 @@
                 </a>
             </section>
 
+            <section class="c-footer-v4__links">
+                <h3 class="c-footer-v4__title">更多入口</h3>
+                <a
+                    v-for="item in extraLinks"
+                    :key="item.name"
+                    class="c-footer-v4__link"
+                    :href="item.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ item.name }}
+                </a>
+            </section>
+
             <section class="c-footer-v4__download">
                 <h3 class="c-footer-v4__title">下载中心</h3>
                 <div class="c-footer-v4__download-grid">
@@ -109,22 +123,6 @@
                     <span class="c-footer-v4__bot-action">添加</span>
                 </a>
             </section>
-        </div>
-
-        <div class="c-footer-v4__extra">
-            <h3 class="c-footer-v4__title">更多入口</h3>
-            <div class="c-footer-v4__extra-links">
-                <a
-                    v-for="item in extraLinks"
-                    :key="item.name"
-                    class="c-footer-v4__extra-link"
-                    :href="item.href"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ item.name }}
-                </a>
-            </div>
         </div>
 
         <div class="c-footer-v4__bottom">
@@ -230,8 +228,12 @@ export default {
 
 .c-footer-v4__main {
     display: grid;
-    grid-template-columns: minmax(240px, 1.2fr) minmax(140px, 0.8fr) minmax(140px, 0.8fr) minmax(320px, 1.2fr);
-    gap: 20px;
+    grid-template-columns: minmax(280px, 1.5fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(300px, 1.1fr);
+    gap: 20px 24px;
+}
+
+.c-footer-v4__brand {
+    padding-right: 40px;
 }
 
 .c-footer-v4__logo-wrap {
@@ -474,21 +476,6 @@ export default {
     font-size: 13px;
 }
 
-.c-footer-v4__extra {
-    margin-top: 14px;
-}
-
-.c-footer-v4__extra-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-}
-
-.c-footer-v4__extra-link {
-    color: #95a0b3;
-    font-size: 14px;
-}
-
 .c-footer-v4__bottom {
     margin-top: 20px;
     padding-top: 14px;
@@ -526,7 +513,7 @@ export default {
     }
 
     .c-footer-v4__main {
-        grid-template-columns: minmax(220px, 1fr) minmax(120px, 0.8fr) minmax(120px, 0.8fr) minmax(260px, 1fr);
+        grid-template-columns: minmax(240px, 1.5fr) minmax(100px, 0.7fr) minmax(100px, 0.7fr) minmax(100px, 0.7fr) minmax(240px, 1fr);
     }
 
     .c-footer-v4__logo {
@@ -553,8 +540,7 @@ export default {
     }
 
     .c-footer-v4__link,
-    .c-footer-v4__download-item,
-    .c-footer-v4__extra-link {
+    .c-footer-v4__download-item {
         font-size: 13px;
     }
 
