@@ -111,6 +111,7 @@ module.exports = {
         //for lost
         "/",
     transpileDependencies: [
+        "@jx3box/jx3box-editor",
         "htmlparser2",
         "cheerio",
         "dom-serializer",
