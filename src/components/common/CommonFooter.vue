@@ -78,7 +78,7 @@
                         <el-popover trigger="hover" placement="top" popper-class="c-footer-v4__popover">
                             <div class="c-footer-v4__download-qrcode">
                                 <img class="c-footer-v4__download-qrcode-img" :src="item.qrcode" :alt="item.name" />
-                                <span class="c-footer-v4__download-qrcode-text">扫码下载 {{ item.name }}</span>
+                                <span class="c-footer-v4__download-qrcode-text">{{ item.name }}</span>
                             </div>
                             <a
                                 slot="reference"
