@@ -1,139 +1,198 @@
 <template>
-    <footer class="c-footer-v4 c-footer">
-        <div class="c-footer-v4__main">
-            <section class="c-footer-v4__brand">
-                <div class="c-footer-v4__logo-wrap">
-                    <div class="c-footer-v4__logo">
-                        <img class="u-pic" svg-inline src="@/assets/img/logo.svg" />
+    <footer class="tw-box-border tw-bg-gray-900 tw-px-6 tw-py-12 tw-text-gray-400 md:tw-px-10 lg:tw-px-16 xl:tw-px-20">
+        <div class="tw-mx-auto tw-max-w-7xl">
+            <div
+                class="tw-grid tw-grid-cols-1 tw-gap-10 tw-border-b tw-border-gray-800 tw-pb-10 lg:tw-grid-cols-12 lg:tw-gap-8"
+            >
+                <section class="lg:tw-col-span-4">
+                    <div class="tw-flex tw-items-center tw-space-x-3">
+                        <img class="tw-h-9 tw-w-9" svg-inline src="@/assets/img/footer/logo.svg" alt="JX3BOX" />
+                        <span class="tw-text-2xl tw-font-bold tw-tracking-tight tw-text-white">JX3BOX</span>
                     </div>
-                    <div class="c-footer-v4__name">JX3BOX</div>
-                </div>
-                <p class="c-footer-v4__desc">
-                    <!-- TODO: 文案待调整 -->
-                    在这里，开发者与玩家共同构建大唐江湖。我们坚持开源协作，致力于通过技术手段优化玩家的游戏体验。
-                </p>
-                <div class="c-footer-v4__socials">
-                    <div v-for="item in socials" :key="item.name" class="c-footer-v4__social-wrap">
-                        <el-popover
-                            v-if="item.qrcode"
-                            trigger="hover"
-                            placement="top"
-                            popper-class="c-footer-v4__popover"
-                        >
-                            <div class="c-footer-v4__qrcode">
-                                <img class="c-footer-v4__qrcode-img" :src="item.qrcode" :alt="item.name" />
-                                <span class="c-footer-v4__qrcode-text">{{ item.name }}</span>
-                            </div>
-                            <a slot="reference" class="c-footer-v4__social" :title="item.name" href="javascript:;">
-                                <img svg-inline :class="`u-${item.key}`" :src="item.icon" :alt="item.name" />
-                            </a>
-                        </el-popover>
-                        <a
-                            v-else
-                            class="c-footer-v4__social"
-                            :href="item.href"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            :title="item.name"
-                        >
-                            <img svg-inline :class="`u-${item.key}`" :src="item.icon" :alt="item.name" />
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="c-footer-v4__links">
-                <h3 class="c-footer-v4__title">关于我们</h3>
-                <a
-                    v-for="item in aboutLinks"
-                    :key="item.name"
-                    class="c-footer-v4__link"
-                    :href="item.href"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ item.name }}
-                </a>
-            </section>
-
-            <section class="c-footer-v4__links">
-                <h3 class="c-footer-v4__title">法律合规</h3>
-                <a
-                    v-for="item in legalLinks"
-                    :key="item.name"
-                    class="c-footer-v4__link"
-                    :href="item.href"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ item.name }}
-                </a>
-            </section>
-
-            <section class="c-footer-v4__links">
-                <h3 class="c-footer-v4__title">更多入口</h3>
-                <a
-                    v-for="item in extraLinks"
-                    :key="item.name"
-                    class="c-footer-v4__link"
-                    :href="item.href"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ item.name }}
-                </a>
-            </section>
-
-            <section class="c-footer-v4__download">
-                <h3 class="c-footer-v4__title">下载中心</h3>
-                <div class="c-footer-v4__download-grid">
-                    <!-- TODO: 下载图片待完善 -->
-                    <div v-for="item in downloadLinks" :key="item.name" class="c-footer-v4__download-wrap">
-                        <el-popover trigger="hover" placement="top" popper-class="c-footer-v4__popover">
-                            <div class="c-footer-v4__download-qrcode">
-                                <img class="c-footer-v4__download-qrcode-img" :src="item.qrcode" :alt="item.name" />
-                                <span class="c-footer-v4__download-qrcode-text">{{ item.name }}</span>
-                            </div>
+                    <p class="tw-mt-5 tw-max-w-sm tw-text-sm tw-leading-7 tw-text-gray-400">
+                        一站式剑三工具与资源聚合站，由热心侠士自发结伴、持续研发、用心运营；江湖路远，幸甚有你。
+                    </p>
+                    <div class="tw-mt-6 tw-flex tw-flex-wrap tw-gap-3">
+                        <div v-for="item in socials" :key="item.name">
+                            <el-popover
+                                v-if="item.qrcode"
+                                trigger="hover"
+                                placement="top"
+                                popper-class="c-footer-v4__popover"
+                            >
+                                <div class="tw-flex tw-w-36 tw-flex-col tw-items-center tw-p-3">
+                                    <img
+                                        class="tw-h-32 tw-w-32 tw-rounded-md tw-object-cover"
+                                        :src="item.qrcode"
+                                        :alt="item.name"
+                                    />
+                                    <span class="tw-mt-2 tw-text-xs tw-text-gray-300">{{
+                                        item.label || item.name
+                                    }}</span>
+                                </div>
+                                <a
+                                    slot="reference"
+                                    class="tw-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-gray-700 tw-bg-gray-800 tw-transition hover:tw-border-blue-500 hover:tw-bg-blue-600"
+                                    :title="item.name"
+                                    href="javascript:;"
+                                >
+                                    <img class="tw-h-5 tw-w-5" svg-inline :src="item.icon" :alt="item.name" />
+                                </a>
+                            </el-popover>
                             <a
-                                slot="reference"
-                                class="c-footer-v4__download-item"
+                                v-else
+                                class="tw-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-gray-700 tw-bg-gray-800 tw-transition hover:tw-border-blue-500 hover:tw-bg-blue-600"
+                                :href="item.href"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                :title="item.name"
+                            >
+                                <img class="tw-h-5 tw-w-5" svg-inline :src="item.icon" :alt="item.name" />
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lg:tw-col-span-4">
+                    <div class="tw-grid tw-grid-cols-1 tw-gap-8 sm:tw-grid-cols-3">
+                        <div v-for="group in footerGroups" :key="group.title">
+                            <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">
+                                {{ group.title }}
+                            </h3>
+                            <div class="tw-mt-4 tw-space-y-3">
+                                <a
+                                    v-for="item in group.links"
+                                    :key="item.name"
+                                    class="tw-block tw-text-xs tw-text-gray-400 tw-transition hover:tw-text-blue-400"
+                                    :href="item.href"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {{ item.name }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lg:tw-col-span-4">
+                    <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">下载中心</h3>
+                    <div class="tw-mt-4 tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2">
+                        <div v-for="item in downloadLinks" :key="item.name">
+                            <el-popover
+                                v-if="item.qrcode"
+                                trigger="hover"
+                                placement="top"
+                                popper-class="c-footer-v4__popover"
+                            >
+                                <div class="tw-flex tw-flex-col tw-items-center tw-p-3">
+                                    <img
+                                        class="tw-h-32 tw-w-32 tw-rounded-md tw-object-cover"
+                                        :src="item.qrcode"
+                                        :alt="item.name"
+                                    />
+                                    <span class="tw-mt-2 tw-text-xs tw-text-gray-300">{{ item.label }}</span>
+                                </div>
+                                <a
+                                    slot="reference"
+                                    class="tw-flex tw-h-12 tw-items-center tw-rounded-xl tw-border tw-border-gray-700 tw-bg-gray-800 tw-px-4 tw-text-xs tw-text-gray-300 tw-transition hover:tw-border-blue-500 hover:tw-bg-gray-700"
+                                    :href="item.href || 'javascript:;'"
+                                    :target="item.href ? '_blank' : null"
+                                    :rel="item.href ? 'noopener noreferrer' : null"
+                                >
+                                    <span class="tw-mr-2.5 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center">
+                                        <img class="tw-h-4 tw-w-4" svg-inline :src="item.icon" :alt="item.name" />
+                                    </span>
+                                    <span>{{ item.name }}</span>
+                                </a>
+                            </el-popover>
+                            <a
+                                v-else
+                                class="tw-flex tw-h-12 tw-items-center tw-rounded-xl tw-border tw-border-gray-700 tw-bg-gray-800 tw-px-4 tw-text-xs tw-text-gray-300 tw-transition hover:tw-border-blue-500 hover:tw-bg-gray-700"
                                 :href="item.href || 'javascript:;'"
                                 :target="item.href ? '_blank' : null"
                                 :rel="item.href ? 'noopener noreferrer' : null"
                             >
-                                <span class="c-footer-v4__download-icon">
-                                    <img svg-inline :src="item.icon" :alt="item.name" />
+                                <span class="tw-mr-2.5 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center">
+                                    <img class="tw-h-4 tw-w-4" svg-inline :src="item.icon" :alt="item.name" />
                                 </span>
                                 <span>{{ item.name }}</span>
                             </a>
-                        </el-popover>
+                        </div>
                     </div>
-                </div>
-                <a
-                    class="c-footer-v4__bot"
-                    href="https://jq.qq.com/?_wv=1027&k=XkO6DVvm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img class="c-footer-v4__bot-icon" src="@/assets/img/left/qqbot2.png" alt="QQ机器人" />
-                    <div class="c-footer-v4__bot-info">
-                        <span class="c-footer-v4__bot-label">QQ 机器人服务</span>
-                        <strong>3889010020</strong>
-                    </div>
-                    <span class="c-footer-v4__bot-action">添加</span>
-                </a>
-            </section>
-        </div>
 
-        <div class="c-footer-v4__bottom">
-            <span class="c-footer-v4__copyright">© 2024 JX3BOX. 由开源社区驱动。</span>
-            <div class="c-footer-v4__record">
-                <span>湘ICP备2021002288号</span>
-                <span>湘公网安备 43019002001234号</span>
+
+                    <div
+                        class="tw-mt-4 tw-flex tw-items-center tw-justify-between tw-rounded-xl tw-border tw-p-4"
+                        style="
+                            border-color: rgba(59, 130, 246, 0.2);
+                            background-image: linear-gradient(90deg, rgba(30, 64, 175, 0.2), rgba(31, 41, 55, 0.4));
+                        "
+                    >
+                        <div class="tw-flex tw-items-center tw-space-x-3">
+                            <div
+                                class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-lg tw-text-blue-400"
+                                style="background-color: rgba(59, 130, 246, 0.2)"
+                            >
+                                <img class="tw-h-5 tw-w-5" src="@/assets/img/left/qqbot2.png" alt="QQ机器人" />
+                            </div>
+                            <div>
+                                <p
+                                    class="tw-font-bold tw-uppercase tw-tracking-wider tw-text-gray-500"
+                                    style="font-size: 10px"
+                                >
+                                    QQ 机器人服务
+                                </p>
+                                <p class="tw-mt-1 tw-font-mono tw-text-sm tw-font-semibold tw-text-white">3889010020</p>
+                            </div>
+                        </div>
+                        <a
+                            class="tw-rounded-md tw-bg-blue-600 tw-px-3 tw-py-1.5 tw-text-xs tw-font-medium tw-text-white tw-transition hover:tw-bg-blue-500"
+                            href="tencent://AddContact/?uin=3889010020&Site=www.jx3box.com&Menu=yes"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            添加
+                        </a>
+                    </div>
+                </section>
             </div>
-            <div class="c-footer-v4__bottom-links">
-                <a href="https://rx-planet.com/contact" target="_blank" rel="noopener noreferrer">联系我们</a>
-                <a href="https://www.jx3box.com/feedback" target="_blank" rel="noopener noreferrer">反馈建议</a>
+
+            <div
+                class="tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 tw-pt-6 tw-text-xs tw-text-gray-500 md:tw-flex-row"
+            >
+                <div
+                    class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-5 tw-gap-y-2 md:tw-justify-start"
+                >
+                    <span>© 2024 JX3BOX. 由开源社区驱动。</span>
+                    <a
+                        class="tw-transition hover:tw-text-gray-300"
+                        href="https://beian.miit.gov.cn/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        湘ICP备2021002288号
+                    </a>
+                    <span>湘公网安备 43019002001234号</span>
+                </div>
+                <div class="tw-flex tw-items-center tw-gap-6 tw-text-xs">
+                    <a
+                        class="tw-transition hover:tw-text-white"
+                        href="https://rx-planet.com/contact"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        联系我们
+                    </a>
+                    <a
+                        class="tw-transition hover:tw-text-white"
+                        href="https://www.jx3box.com/feedback"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        反馈建议
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
@@ -150,12 +209,12 @@ export default {
                     key: "wechat",
                     href: "",
                     icon: require("@/assets/img/wechat.svg"),
-                    qrcode: require("@/assets/img/right/qrcode.png"),
+                    qrcode: require("@/assets/img/mobile/mp.jpg"),
                 },
                 {
                     name: "B站",
                     key: "bilibili",
-                    href: "https://space.bilibili.com/398184590",
+                    href: "https://space.bilibili.com/2066064028",
                     icon: require("@/assets/img/footer/bilibili.svg"),
                 },
                 {
@@ -167,7 +226,7 @@ export default {
                 {
                     name: "抖音",
                     key: "douyin",
-                    href: "https://www.douyin.com/",
+                    href: "https://www.douyin.com/user/MS4wLjABAAAAP3OHPy-BYsW6IMiPZfP1FP3J_zYAAYNVVlk9XyoKhOs",
                     icon: require("@/assets/img/tv/douyin.svg"),
                 },
             ],
@@ -175,13 +234,13 @@ export default {
                 { name: "团队成员", href: "https://www.jx3box.com/about/" },
                 { name: "加入我们", href: "https://www.jx3box.com/notice/21899" },
                 { name: "开发文档", href: "https://www.jx3box.com/tool?subtype=4" },
-                { name: "品牌资产", href: "https://github.com/JX3BOX" },
+                { name: "代码仓库", href: "https://github.com/JX3BOX" },
             ],
             legalLinks: [
                 { name: "用户协议", href: "https://www.jx3box.com/about/license" },
                 { name: "创作公约", href: "https://www.jx3box.com/about/treaty" },
-                { name: "隐私保护", href: "https://www.jx3box.com/about/privacy" },
-                { name: "免责声明", href: "https://www.jx3box.com/about/incentives" },
+                { name: "隐私政策", href: "https://www.jx3box.com/about/privacy" },
+                { name: "创作激励", href: "https://www.jx3box.com/about/incentives" },
             ],
             extraLinks: [
                 { name: "游戏版本", href: "https://www.jx3box.com/topic" },
@@ -193,388 +252,65 @@ export default {
                     name: "App Store",
                     href: "",
                     icon: require("@/assets/img/footer/ios.svg"),
-                    qrcode: require("@/assets/img/mobile/mp.jpg"),
+                    // qrcode: require("@/assets/img/mobile/mp.jpg"),
                 },
                 {
                     name: "Android",
                     href: "",
                     icon: require("@/assets/img/footer/android.svg"),
-                    qrcode: require("@/assets/img/mobile/mp.jpg"),
+                    // qrcode: require("@/assets/img/mobile/mp.jpg"),
                 },
                 {
                     name: "鸿蒙 NEXT",
                     href: "",
                     icon: require("@/assets/img/footer/harmony.svg"),
-                    qrcode: require("@/assets/img/mobile/mp.jpg"),
+                    // qrcode: require("@/assets/img/mobile/mp.jpg"),
                 },
                 {
                     name: "小程序",
+                    label: "JX3BOX小助手",
                     href: "",
                     icon: require("@/assets/img/footer/miniprogram.svg"),
-                    qrcode: require("@/assets/img/mobile/mp.jpg"),
+                    qrcode: require("@/assets/img/mobile/miniprogram.jpg"),
                 },
             ],
         };
     },
+    computed: {
+        footerGroups() {
+            return [
+                {
+                    title: "关于我们",
+                    links: this.aboutLinks,
+                },
+                {
+                    title: "法律合规",
+                    links: this.legalLinks,
+                },
+                // {
+                //     title: "更多入口",
+                //     links: this.extraLinks,
+                // },
+            ];
+        },
+    },
 };
 </script>
 
-<style lang="less">
-.c-footer-v4 {
-    padding: 28px 30px 16px;
-    background: #242b36;
-    color: #a6aebd;
-}
-
-.c-footer-v4__main {
-    display: grid;
-    grid-template-columns: minmax(280px, 1.5fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(120px, 0.7fr) minmax(300px, 1.1fr);
-    gap: 20px 24px;
-}
-
-.c-footer-v4__brand {
-    padding-right: 40px;
-}
-
-.c-footer-v4__logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.c-footer-v4__logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .u-pic {
-        width: 56px;
-        height: 56px;
-        fill: #fff;
-    }
-}
-
-.c-footer-v4__name {
-    color: #fff;
-    font-size: 26px;
-    line-height: 1.15;
-    font-weight: 700;
-}
-
-.c-footer-v4__desc {
-    margin: 16px 0;
-    max-width: 360px;
-    font-size: 14px;
-    line-height: 1.8;
-    color: #7f8898;
-}
-
-.c-footer-v4__socials {
-    display: flex;
-    gap: 10px;
-}
-
-.c-footer-v4__social-wrap {
-    position: relative;
-}
-
-.c-footer-v4__social {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: #303744;
-    border: 1px solid #3b4351;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    img,
-    svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    svg {
-        * {
-            fill: currentColor !important;
-            stroke: none !important;
-        }
-    }
-}
-
-.c-footer-v4__qrcode {
-    padding: 10px 0;
-    width: 136px;
-    text-align: center;
-    .flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.c-footer-v4__qrcode-img {
-    width: 124px;
-    height: 124px;
-    display: block;
-    border-radius: 4px;
-}
-
-.c-footer-v4__qrcode-text {
-    display: block;
-    margin-top: 8px;
-    font-size: 12px;
-    color: #c9d1de;
-    white-space: nowrap;
-}
-
-.c-footer-v4__title {
-    margin: 4px 0 12px;
-    color: #f5f7fa;
-    font-size: 16px;
-    line-height: 1.2;
-    font-weight: 600;
-}
-
-.c-footer-v4__links {
-    display: flex;
-    flex-direction: column;
-}
-
-.c-footer-v4__link {
-    display: inline-flex;
-    width: fit-content;
-    margin-bottom: 10px;
-    color: #aeb7c6;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.c-footer-v4__download-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.c-footer-v4__download-wrap {
-    position: relative;
-}
-
-.c-footer-v4__download-item {
-    height: 48px;
-    border-radius: 10px;
-    border: 1px solid #434b58;
-    background: #313843;
-    color: #b4bccb;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    padding: 0 14px;
-    gap: 10px;
-    &:hover {
-        .c-footer-v4__download-icon {
-            filter: invert(25%) sepia(65%) saturate(2319%) hue-rotate(198deg) brightness(104%) contrast(103%);
-        }
-    }
-}
-
-.c-footer-v4__download-qrcode {
-    padding: 10px 0;
-    text-align: center;
-    width: 100%;
-    .flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+<style lang="postcss">
+@tailwind components;
+@tailwind utilities;
 
 .c-footer-v4__popover {
-    background: #2c3340;
-    border: 1px solid #3f4754;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    min-width: 140px;
-    padding: 0 !important;
-
-    .popper__arrow,
-    .popper__arrow:after {
-        display: none !important;
-    }
-}
-
-.c-footer-v4__download-qrcode-img {
-    width: 124px;
-    height: 124px;
-    border-radius: 4px;
-    display: block;
-}
-
-.c-footer-v4__download-qrcode-text {
-    display: block;
-    margin-top: 8px;
-    color: #c9d1de;
-    font-size: 12px;
-    white-space: nowrap;
-}
-
-.c-footer-v4__download-icon {
-    width: 18px;
-    height: 18px;
-    text-align: center;
-    color: inherit;
-
-    img,
-    svg {
-        width: 18px;
-        height: 18px;
-        display: block;
-        filter: invert(90%) sepia(13%) saturate(205%) hue-rotate(178deg) brightness(92%) contrast(91%);
-    }
-}
-
-.c-footer-v4__bot {
-    margin-top: 14px;
+    background: #1f2937;
+    border: 1px solid #374151;
     border-radius: 12px;
-    border: 1px solid #3f4754;
-    background: #303743;
-    padding: 14px;
-    display: flex;
-    align-items: center;
-    color: #d3d9e4;
+    box-shadow: 0 16px 40px rgba(3, 7, 18, 0.45);
+    padding: 0 !important;
 }
 
-.c-footer-v4__bot-icon {
-    width: 28px;
-    height: 28px;
-    margin-right: 10px;
-}
-
-.c-footer-v4__bot-info {
-    display: flex;
-    flex-direction: column;
-    .c-footer-v4__bot-label {
-        color: #909ab0;
-        font-size: 12px;
-    }
-    strong {
-        margin-top: 2px;
-        color: #fff;
-        font-size: 18px;
-        line-height: 1.1;
-        letter-spacing: 0.5px;
-    }
-}
-
-.c-footer-v4__bot-action {
-    margin-left: auto;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: #2d446f;
-    color: #75a8ff;
-    font-size: 13px;
-}
-
-.c-footer-v4__bottom {
-    margin-top: 20px;
-    padding-top: 14px;
-    border-top: 1px solid #3a4250;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-}
-
-.c-footer-v4__copyright,
-.c-footer-v4__record span {
-    color: #6f7888;
-    font-size: 12px;
-}
-
-.c-footer-v4__record {
-    display: flex;
-    gap: 10px;
-}
-
-.c-footer-v4__bottom-links {
-    margin-left: auto;
-    display: flex;
-    gap: 16px;
-    a {
-        color: #919bab;
-        font-size: 13px;
-    }
-}
-
-@media screen and (max-width: 1600px) {
-    .c-footer-v4 {
-        padding: 22px 24px 14px;
-    }
-
-    .c-footer-v4__main {
-        grid-template-columns: minmax(240px, 1.5fr) minmax(100px, 0.7fr) minmax(100px, 0.7fr) minmax(100px, 0.7fr) minmax(240px, 1fr);
-    }
-
-    .c-footer-v4__logo {
-        width: 48px;
-        height: 48px;
-        .u-pic {
-            width: 48px;
-            height: 48px;
-        }
-    }
-
-    .c-footer-v4__name {
-        font-size: 22px;
-    }
-
-    .c-footer-v4__title {
-        margin-bottom: 10px;
-        font-size: 15px;
-    }
-
-    .c-footer-v4__desc {
-        margin: 12px 0;
-        font-size: 14px;
-    }
-
-    .c-footer-v4__link,
-    .c-footer-v4__download-item {
-        font-size: 13px;
-    }
-
-    .c-footer-v4__download-item {
-        height: 44px;
-    }
-
-    .c-footer-v4__bot-info {
-        strong {
-            font-size: 16px;
-        }
-    }
-
-    .c-footer-v4__bot-action {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 1133px) {
-    .c-footer-v4 {
-        border-radius: 0;
-    }
-
-    .c-footer-v4__main {
-        grid-template-columns: 1fr;
-    }
-
-    .c-footer-v4__bottom {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .c-footer-v4__bottom-links {
-        margin-left: 0;
-    }
+.c-footer-v4__popover .popper__arrow,
+.c-footer-v4__popover .popper__arrow:after {
+    display: none !important;
 }
 </style>
