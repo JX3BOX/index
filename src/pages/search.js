@@ -7,6 +7,7 @@ Vue.use(ElementUI);
 // 通用UI模块
 // import JX3BOX_UI from '@jx3box/jx3box-common-ui'
 import "@jx3box/jx3box-common/css/element.css";
+import "@/assets/css/tailwind.css";
 // Vue.use(JX3BOX_UI);
 
 import store from "../store";
