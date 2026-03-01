@@ -24,21 +24,40 @@
                 </transition>
             </div>
             <div class="m-about-mobile">
+                <!-- Logo & 版本 -->
                 <div class="m-about-mobile__header">
-                    <div class="u-logo"><img :src="LogoSrc" alt="JX3BOX" /></div>
+                    <div class="u-logo-wrap">
+                        <img :src="LogoSrc" alt="JX3BOX" />
+                    </div>
                     <div class="u-title">JX3BOX</div>
-                    <div class="u-desc">版本：{{ version }}</div>
+                    <div class="u-desc">VERSION: {{ version || 'release' }}</div>
                 </div>
 
+                <!-- 核心信息列表 -->
                 <div class="m-about-mobile__content">
                     <ul class="u-list">
                         <li class="u-item" v-for="item in CopyInfo" :key="item.key">
                             <span class="u-label">{{ item.label }}</span>
-                            <a class="u-value" v-if="item.link" :href="item.link"
-                                >Join →</a>
+                            <a class="u-value u-value--link" v-if="item.link" :href="item.link">
+                                <span>Join</span>
+                                <i class="u-arrow">›</i>
+                            </a>
                             <span class="u-value" v-else>{{ item.value }}</span>
                         </li>
                     </ul>
+                </div>
+
+                <!-- 访问官网按钮 -->
+                <div class="m-about-mobile__action">
+                    <a class="u-website-btn" href="https://rx-planet.com" target="_blank">
+                        <i class="u-btn-icon">🌐</i>
+                        <span>访问公司官网</span>
+                    </a>
+                </div>
+
+                <!-- 底部页脚 -->
+                <div class="m-about-mobile__footer">
+                    <p>Powered by Fuyan Tech</p>
                 </div>
             </div>
         </div>
