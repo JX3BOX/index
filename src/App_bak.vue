@@ -3,15 +3,12 @@
         <Header :overlayEnable="true"></Header>
         <div class="m-main">
             <div class="m-left m-sidebar">
-                <!-- <welcome /> -->
-                <ai />
+                <welcome />
                 <news />
                 <jx3code />
-                <download />
-                <followus />
-                <!-- <jx3servers /> -->
+                <jx3servers />
                 <feedback />
-                <!-- <follow /> -->
+                <follow />
             </div>
             <div class="m-primary">
                 <live />
@@ -42,19 +39,16 @@
 <script>
 // 左侧
 import welcome from "@/components/v4/welcome.vue";
-import news from "@/components/v5/news.vue";
+import news from "@/components/v3/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
-import jx3code from "@/components/v5/jx3code.vue";
+import jx3code from "@/components/v3/jx3code.vue";
 import jx3servers from "@/components/v3/jx3servers.vue";
 import banner from "@/components/v3/banner.vue";
-import feedback from "@/components/v5/feedback.vue";
+import feedback from "@/components/v3/feedback.vue";
 import follow from "@/components/v3/follow.vue";
-import ai from "@/components/v5/ai.vue";
-import download from "@/components/v5/download.vue";
-import followus from "@/components/v5/followus.vue";
+import joke from "@/components/index/joke.vue";
 // 右侧
 import minirec from "@/components/v4/minirec/right.vue";
-import joke from "@/components/index/joke.vue";
 
 // 首屏
 import live from "@/components/v3/live.vue";
@@ -99,17 +93,15 @@ export default {
     },
     components: {
         // 左侧
-        // welcome,
+        welcome,
         news,
         jx3world,
         jx3code,
-        // jx3servers,
+        jx3servers,
         banner,
         feedback,
-        // follow,
-        ai,
-        download,
-        followus,
+        follow,
+
         // 右侧
         live,
         slider,
@@ -180,5 +172,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/v5/app.less";
+@import "~@/assets/css/v3/app.less";
 </style>
