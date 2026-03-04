@@ -1,15 +1,15 @@
 <template>
     <footer class="tw-box-border tw-bg-gray-900 tw-px-6 tw-py-12 tw-text-gray-400 md:tw-px-10 lg:tw-px-16 xl:tw-px-20">
-        <div class="tw-mx-auto tw-max-w-7xl">
+        <div class="tw-mx-auto tw-w-full" style="max-width: 92rem">
             <div
-                class="tw-grid tw-grid-cols-1 tw-gap-10 tw-border-b tw-border-gray-800 tw-pb-10 lg:tw-grid-cols-12 lg:tw-gap-8"
+                class="tw-grid tw-grid-cols-1 tw-gap-10 tw-pb-10 lg:tw-grid-cols-12 lg:tw-gap-8"
             >
-                <section class="lg:tw-col-span-4">
+                <section class="lg:tw-col-span-3">
                     <div class="tw-flex tw-items-center tw-space-x-3">
                         <img class="tw-h-9 tw-w-9" svg-inline src="@/assets/img/footer/logo.svg" alt="JX3BOX" />
                         <span class="tw-text-2xl tw-font-bold tw-tracking-tight tw-text-white">JX3BOX</span>
                     </div>
-                    <p class="tw-mt-5 tw-max-w-sm tw-text-sm tw-leading-7 tw-text-gray-400">
+                    <p class="tw-mt-5 tw-text-sm tw-leading-7 tw-text-gray-400" style="max-width: 20rem">
                         一站式剑三工具与资源聚合站，由热心侠士自发结伴、持续研发、用心运营；江湖路远，幸甚有你。
                     </p>
                     <div class="tw-mt-6 tw-flex tw-flex-wrap tw-gap-3">
@@ -53,7 +53,7 @@
                     </div>
                 </section>
 
-                <section class="lg:tw-col-span-4">
+                <section class="lg:tw-col-span-3">
                     <div class="tw-grid tw-grid-cols-1 tw-gap-8 sm:tw-grid-cols-3">
                         <div v-for="group in footerGroups" :key="group.title">
                             <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">
@@ -75,7 +75,7 @@
                     </div>
                 </section>
 
-                <section class="lg:tw-col-span-4">
+                <section class="lg:tw-col-span-4 lg:tw-col-start-9">
                     <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">下载中心</h3>
                     <div class="tw-mt-4 tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2">
                         <div v-for="item in downloadLinks" :key="item.name">
@@ -121,7 +121,6 @@
                         </div>
                     </div>
 
-
                     <div
                         class="tw-mt-4 tw-flex tw-items-center tw-justify-between tw-rounded-xl tw-border tw-p-4"
                         style="
@@ -134,7 +133,7 @@
                                 class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-lg tw-text-blue-400"
                                 style="background-color: rgba(59, 130, 246, 0.2)"
                             >
-                                <img class="tw-h-5 tw-w-5" src="@/assets/img/left/qqbot2.png" alt="QQ机器人" />
+                                <img class="tw-h-6 tw-w-6" src="@/assets/img/footer/qqbot.svg" alt="QQ机器人" />
                             </div>
                             <div>
                                 <p
@@ -159,25 +158,25 @@
             </div>
 
             <div
-                class="tw-flex tw-flex-col tw-items-center tw-justify-between tw-gap-4 tw-pt-6 tw-text-xs tw-text-gray-500 md:tw-flex-row"
+                class="tw-flex tw-flex-col tw-items-center tw-justify-between tw-pt-8 tw-text-gray-500 md:tw-flex-row"
+                style="border-top: 1px solid rgba(55, 65, 81, 1); font-size: 11px"
             >
                 <div
-                    class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-5 tw-gap-y-2 md:tw-justify-start"
+                    class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-6 tw-gap-y-2 md:tw-justify-start"
                 >
-                    <span>© 2024 JX3BOX. 由开源社区驱动。</span>
+                    <span>© 2019-2026 JX3BOX. 由开源社区驱动。</span>
                     <a
-                        class="tw-transition hover:tw-text-gray-300"
+                        class="tw-text-gray-500 hover:tw-underline"
                         href="https://beian.miit.gov.cn/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         湘ICP备2021002288号
                     </a>
-                    <span>湘公网安备 43019002001234号</span>
                 </div>
-                <div class="tw-flex tw-items-center tw-gap-6 tw-text-xs">
+                <div class="tw-mt-4 tw-flex tw-items-center tw-space-x-6 md:tw-mt-0">
                     <a
-                        class="tw-transition hover:tw-text-white"
+                        class="tw-text-gray-500 tw-transition-colors hover:tw-text-white"
                         href="https://rx-planet.com/contact"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -185,7 +184,7 @@
                         联系我们
                     </a>
                     <a
-                        class="tw-transition hover:tw-text-white"
+                        class="tw-text-gray-500 tw-transition-colors hover:tw-text-white"
                         href="https://www.jx3box.com/feedback"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -194,6 +193,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
     </footer>
 </template>
@@ -208,14 +208,14 @@ export default {
                     name: "公众号",
                     key: "wechat",
                     href: "",
-                    icon: require("@/assets/img/wechat.svg"),
+                    icon: require("@/assets/img/tv/wechat.svg"),
                     qrcode: require("@/assets/img/mobile/mp.jpg"),
                 },
                 {
                     name: "B站",
                     key: "bilibili",
                     href: "https://space.bilibili.com/2066064028",
-                    icon: require("@/assets/img/footer/bilibili.svg"),
+                    icon: require("@/assets/img/tv/bilibili.svg"),
                 },
                 {
                     name: "微博",
@@ -287,17 +287,17 @@ export default {
                     title: "法律合规",
                     links: this.legalLinks,
                 },
-                // {
-                //     title: "更多入口",
-                //     links: this.extraLinks,
-                // },
+                {
+                    title: "更多入口",
+                    links: this.extraLinks,
+                },
             ];
         },
     },
 };
 </script>
 
-<style lang="postcss">
+<style>
 @tailwind components;
 @tailwind utilities;
 
