@@ -1,18 +1,18 @@
 <template>
-    <footer class="tw-box-border tw-bg-gray-900 tw-px-6 tw-py-12 tw-text-gray-400 md:tw-px-10 lg:tw-px-16 xl:tw-px-20">
-        <div class="tw-mx-auto tw-w-full" style="max-width: 92rem">
+    <footer class="box-border bg-gray-900 px-6 py-12 text-gray-400 md:px-10 lg:px-16 xl:px-20">
+        <div class="mx-auto w-full" style="max-width: 92rem">
             <div
-                class="tw-grid tw-grid-cols-1 tw-gap-10 tw-pb-10 lg:tw-grid-cols-12 lg:tw-gap-8"
+                class="grid grid-cols-1 gap-10 pb-10 lg:grid-cols-12 lg:gap-8"
             >
-                <section class="lg:tw-col-span-3">
-                    <div class="tw-flex tw-items-center tw-space-x-3">
-                        <img class="tw-h-9 tw-w-9" svg-inline src="@/assets/img/footer/logo.svg" alt="JX3BOX" />
-                        <span class="tw-text-2xl tw-font-bold tw-tracking-tight tw-text-white">JX3BOX</span>
+                <section class="lg:col-span-3">
+                    <div class="flex items-center space-x-3">
+                        <img class="h-9 w-9" svg-inline src="@/assets/img/footer/logo.svg" alt="JX3BOX" />
+                        <span class="text-2xl font-bold tracking-tight text-white">JX3BOX</span>
                     </div>
-                    <p class="tw-mt-5 tw-text-sm tw-leading-7 tw-text-gray-400" style="max-width: 20rem">
+                    <p class="mt-5 text-sm leading-7 text-gray-400" style="max-width: 20rem">
                         一站式剑三工具与资源聚合站，由热心侠士自发结伴、持续研发、用心运营；江湖路远，幸甚有你。
                     </p>
-                    <div class="tw-mt-6 tw-flex tw-flex-wrap tw-gap-3">
+                    <div class="mt-6 flex flex-wrap gap-3">
                         <div v-for="item in socials" :key="item.name">
                             <el-popover
                                 v-if="item.qrcode"
@@ -20,50 +20,50 @@
                                 placement="top"
                                 popper-class="c-footer-v4__popover"
                             >
-                                <div class="tw-flex tw-w-36 tw-flex-col tw-items-center tw-p-3">
+                                <div class="flex w-36 flex-col items-center p-3">
                                     <img
-                                        class="tw-h-32 tw-w-32 tw-rounded-md tw-object-cover"
+                                        class="h-32 w-32 rounded-md object-cover"
                                         :src="item.qrcode"
                                         :alt="item.name"
                                     />
-                                    <span class="tw-mt-2 tw-text-xs tw-text-gray-300">{{
+                                    <span class="mt-2 text-xs text-gray-300">{{
                                         item.label || item.name
                                     }}</span>
                                 </div>
                                 <a
                                     slot="reference"
-                                    class="tw-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-gray-700 tw-bg-gray-800 tw-transition hover:tw-border-blue-500 hover:tw-bg-blue-600"
+                                    class="flex h-11 w-11 items-center justify-center rounded-full border border-gray-700 bg-gray-800 transition hover:border-blue-500 hover:bg-blue-600"
                                     :title="item.name"
                                     href="javascript:;"
                                 >
-                                    <img class="tw-h-5 tw-w-5" svg-inline :src="item.icon" :alt="item.name" />
+                                    <img class="h-5 w-5" svg-inline :src="item.icon" :alt="item.name" />
                                 </a>
                             </el-popover>
                             <a
                                 v-else
-                                class="tw-flex tw-h-11 tw-w-11 tw-items-center tw-justify-center tw-rounded-full tw-border tw-border-gray-700 tw-bg-gray-800 tw-transition hover:tw-border-blue-500 hover:tw-bg-blue-600"
+                                class="flex h-11 w-11 items-center justify-center rounded-full border border-gray-700 bg-gray-800 transition hover:border-blue-500 hover:bg-blue-600"
                                 :href="item.href"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 :title="item.name"
                             >
-                                <img class="tw-h-5 tw-w-5" svg-inline :src="item.icon" :alt="item.name" />
+                                <img class="h-5 w-5" svg-inline :src="item.icon" :alt="item.name" />
                             </a>
                         </div>
                     </div>
                 </section>
 
-                <section class="lg:tw-col-span-3">
-                    <div class="tw-grid tw-grid-cols-1 tw-gap-8 sm:tw-grid-cols-3">
+                <section class="lg:col-span-3">
+                    <div class="grid grid-cols-1 gap-8 sm:grid-cols-3">
                         <div v-for="group in footerGroups" :key="group.title">
-                            <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">
+                            <h3 class="text-sm font-semibold tracking-wide text-white">
                                 {{ group.title }}
                             </h3>
-                            <div class="tw-mt-4 tw-space-y-3">
+                            <div class="mt-4 space-y-3">
                                 <a
                                     v-for="item in group.links"
                                     :key="item.name"
-                                    class="tw-block tw-text-xs tw-text-gray-400 tw-transition hover:tw-text-blue-400"
+                                    class="block text-xs text-gray-400 transition hover:text-blue-400"
                                     :href="item.href"
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -75,9 +75,9 @@
                     </div>
                 </section>
 
-                <section class="lg:tw-col-span-4 lg:tw-col-start-9">
-                    <h3 class="tw-text-sm tw-font-semibold tw-tracking-wide tw-text-white">下载中心</h3>
-                    <div class="tw-mt-4 tw-grid tw-grid-cols-1 tw-gap-3 sm:tw-grid-cols-2">
+                <section class="lg:col-span-4 lg:col-start-9">
+                    <h3 class="text-sm font-semibold tracking-wide text-white">下载中心</h3>
+                    <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <div v-for="item in downloadLinks" :key="item.name">
                             <el-popover
                                 v-if="item.qrcode"
@@ -85,36 +85,36 @@
                                 placement="top"
                                 popper-class="c-footer-v4__popover"
                             >
-                                <div class="tw-flex tw-flex-col tw-items-center tw-p-3">
+                                <div class="flex flex-col items-center p-3">
                                     <img
-                                        class="tw-h-32 tw-w-32 tw-rounded-md tw-object-cover"
+                                        class="h-32 w-32 rounded-md object-cover"
                                         :src="item.qrcode"
                                         :alt="item.name"
                                     />
-                                    <span class="tw-mt-2 tw-text-xs tw-text-gray-300">{{ item.label }}</span>
+                                    <span class="mt-2 text-xs text-gray-300">{{ item.label }}</span>
                                 </div>
                                 <a
                                     slot="reference"
-                                    class="tw-flex tw-h-12 tw-items-center tw-rounded-xl tw-border tw-border-gray-700 tw-bg-gray-800 tw-px-4 tw-text-xs tw-text-gray-300 tw-transition hover:tw-border-blue-500 hover:tw-bg-gray-700"
+                                    class="flex h-12 items-center rounded-xl border border-gray-700 bg-gray-800 px-4 text-xs text-gray-300 transition hover:border-blue-500 hover:bg-gray-700"
                                     :href="item.href || 'javascript:;'"
                                     :target="item.href ? '_blank' : null"
                                     :rel="item.href ? 'noopener noreferrer' : null"
                                 >
-                                    <span class="tw-mr-2.5 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center">
-                                        <img class="tw-h-4 tw-w-4" svg-inline :src="item.icon" :alt="item.name" />
+                                    <span class="mr-2.5 flex h-4 w-4 items-center justify-center">
+                                        <img class="h-4 w-4" svg-inline :src="item.icon" :alt="item.name" />
                                     </span>
                                     <span>{{ item.name }}</span>
                                 </a>
                             </el-popover>
                             <a
                                 v-else
-                                class="tw-flex tw-h-12 tw-items-center tw-rounded-xl tw-border tw-border-gray-700 tw-bg-gray-800 tw-px-4 tw-text-xs tw-text-gray-300 tw-transition hover:tw-border-blue-500 hover:tw-bg-gray-700"
+                                class="flex h-12 items-center rounded-xl border border-gray-700 bg-gray-800 px-4 text-xs text-gray-300 transition hover:border-blue-500 hover:bg-gray-700"
                                 :href="item.href || 'javascript:;'"
                                 :target="item.href ? '_blank' : null"
                                 :rel="item.href ? 'noopener noreferrer' : null"
                             >
-                                <span class="tw-mr-2.5 tw-flex tw-h-4 tw-w-4 tw-items-center tw-justify-center">
-                                    <img class="tw-h-4 tw-w-4" svg-inline :src="item.icon" :alt="item.name" />
+                                <span class="mr-2.5 flex h-4 w-4 items-center justify-center">
+                                    <img class="h-4 w-4" svg-inline :src="item.icon" :alt="item.name" />
                                 </span>
                                 <span>{{ item.name }}</span>
                             </a>
@@ -122,31 +122,31 @@
                     </div>
 
                     <div
-                        class="tw-mt-4 tw-flex tw-items-center tw-justify-between tw-rounded-xl tw-border tw-p-4"
+                        class="mt-4 flex items-center justify-between rounded-xl border p-4"
                         style="
                             border-color: rgba(59, 130, 246, 0.2);
                             background-image: linear-gradient(90deg, rgba(30, 64, 175, 0.2), rgba(31, 41, 55, 0.4));
                         "
                     >
-                        <div class="tw-flex tw-items-center tw-space-x-3">
+                        <div class="flex items-center space-x-3">
                             <div
-                                class="tw-flex tw-h-10 tw-w-10 tw-items-center tw-justify-center tw-rounded-lg tw-text-blue-400"
+                                class="flex h-10 w-10 items-center justify-center rounded-lg text-blue-400"
                                 style="background-color: rgba(59, 130, 246, 0.2)"
                             >
-                                <img class="tw-h-6 tw-w-6" src="@/assets/img/footer/qqbot.svg" alt="QQ机器人" />
+                                <img class="h-6 w-6" src="@/assets/img/footer/qqbot.svg" alt="QQ机器人" />
                             </div>
                             <div>
                                 <p
-                                    class="tw-font-bold tw-uppercase tw-tracking-wider tw-text-gray-500"
+                                    class="font-bold uppercase tracking-wider text-gray-500"
                                     style="font-size: 10px"
                                 >
                                     QQ 机器人服务
                                 </p>
-                                <p class="tw-mt-1 tw-font-mono tw-text-sm tw-font-semibold tw-text-white">3889010020</p>
+                                <p class="mt-1 font-mono text-sm font-semibold text-white">3889010020</p>
                             </div>
                         </div>
                         <a
-                            class="tw-rounded-md tw-bg-blue-600 tw-px-3 tw-py-1.5 tw-text-xs tw-font-medium tw-text-white tw-transition hover:tw-bg-blue-500"
+                            class="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-blue-500"
                             href="tencent://AddContact/?uin=3889010020&Site=www.jx3box.com&Menu=yes"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -158,15 +158,15 @@
             </div>
 
             <div
-                class="tw-flex tw-flex-col tw-items-center tw-justify-between tw-pt-8 tw-text-gray-500 md:tw-flex-row"
+                class="flex flex-col items-center justify-between pt-8 text-gray-500 md:flex-row"
                 style="border-top: 1px solid rgba(55, 65, 81, 1); font-size: 11px"
             >
                 <div
-                    class="tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-x-6 tw-gap-y-2 md:tw-justify-start"
+                    class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-start"
                 >
                     <span>© 2019-2026 JX3BOX. 由开源社区驱动。</span>
                     <a
-                        class="tw-text-gray-500 hover:tw-underline"
+                        class="text-gray-500 hover:underline"
                         href="https://beian.miit.gov.cn/"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -174,9 +174,9 @@
                         湘ICP备2021002288号
                     </a>
                 </div>
-                <div class="tw-mt-4 tw-flex tw-items-center tw-space-x-6 md:tw-mt-0">
+                <div class="mt-4 flex items-center space-x-6 md:mt-0">
                     <a
-                        class="tw-text-gray-500 tw-transition-colors hover:tw-text-white"
+                        class="text-gray-500 transition-colors hover:text-white"
                         href="https://rx-planet.com/contact"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -184,7 +184,7 @@
                         联系我们
                     </a>
                     <a
-                        class="tw-text-gray-500 tw-transition-colors hover:tw-text-white"
+                        class="text-gray-500 transition-colors hover:text-white"
                         href="https://www.jx3box.com/feedback"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -298,8 +298,8 @@ export default {
 </script>
 
 <style>
-@tailwind components;
-@tailwind utilities;
+/* @tailwind components; */
+/* @tailwind utilities; */
 
 .c-footer-v4__popover {
     background: #1f2937;

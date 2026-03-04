@@ -63,4 +63,25 @@ function getEmotions(params) {
     })
 }
 
-export { getPosts, getTeams, getJokes, searchRaids, getBoxCoin, getItemPrice, getFaceList, getEmotions,getPostsFree, getEventDetail };
+function getPvxEvents(params = {}) {
+    return $cms({ mute: true }).get(`/api/cms/pvx/event`, {
+        params: {
+            _no_page: 1,
+            ...params,
+        },
+    });
+}
+
+export {
+    getPosts,
+    getTeams,
+    getJokes,
+    searchRaids,
+    getBoxCoin,
+    getItemPrice,
+    getFaceList,
+    getEmotions,
+    getPostsFree,
+    getEventDetail,
+    getPvxEvents,
+};
