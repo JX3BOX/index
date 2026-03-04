@@ -2,23 +2,7 @@
     <section class="m-download bg-gray-900 p-8 text-white shadow-xl relative overflow-hidden mb-6">
         <div class="m-download__content text-center relative z-10">
             <h3 class="m-download__title text-xs font-black flex items-center mb-6 tracking-widest uppercase m-0">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 mr-2 text-yellow-300"
-                    aria-hidden="true"
-                >
-                    <path d="M12 15V3"></path>
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <path d="m7 10 5 5 5-5"></path>
-                </svg>
+                <img src="@/assets/img/index/download.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-yellow-300" />
                 关注与下载
             </h3>
 

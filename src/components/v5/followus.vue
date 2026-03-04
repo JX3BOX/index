@@ -1,24 +1,7 @@
 <template>
     <section class="m-followus bg-white border border-gray-200 rounded-2xl shadow-sm p-4 flex flex-col mb-6">
         <div class="m-followus__header flex items-center mb-5 px-1 text-gray-400" style="column-gap: 0.5rem">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-            >
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
-                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
-            </svg>
+            <img src="@/assets/img/index/follow.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-indigo-500" />
             <span class="text-xs font-bold uppercase tracking-widest">关注我们</span>
         </div>
 
@@ -42,21 +25,9 @@
                     </div>
                 </div>
 
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
-                    aria-hidden="true"
-                >
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
+                <i
+                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                ></i>
             </a>
 
             <a
@@ -78,21 +49,9 @@
                     </div>
                 </div>
 
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
-                    aria-hidden="true"
-                >
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
+                <i
+                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                ></i>
             </a>
 
             <a
@@ -113,22 +72,9 @@
                         <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@Douyin</span>
                     </div>
                 </div>
-
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
-                    aria-hidden="true"
-                >
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
+                <i
+                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                ></i>
             </a>
         </div>
     </section>

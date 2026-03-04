@@ -2,26 +2,7 @@
     <section class="m-news bg-white p-6 shadow-sm border border-gray-200 border-opacity-60 mb-6">
         <div class="m-news__header flex items-center justify-between mb-6 gap-3">
             <h3 class="text-xs font-black flex items-center text-gray-800 uppercase tracking-widest m-0">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    class="w-4 h-4 mr-2 text-indigo-500 flex-shrink-0"
-                >
-                    <path d="M15 18h-5"></path>
-                    <path d="M18 14h-8"></path>
-                    <path
-                        d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"
-                    ></path>
-                    <rect width="8" height="4" x="10" y="6" rx="1"></rect>
-                </svg>
+                <img src="@/assets/img/index/news.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-indigo-500" />
                 公告资讯
             </h3>
 
@@ -46,7 +27,7 @@
                 v-for="(item, i) in data"
                 :key="`${mode}-${item.url || i}`"
                 class="m-news__item group cursor-pointer block no-underline"
-                :href="item.url"
+                :href="item.url || more_link"
                 target="_blank"
                 rel="noopener noreferrer"
             >
@@ -85,10 +66,10 @@ export default {
     name: "IndexNewsV5",
     data: function () {
         return {
-            mode: "game",
+            mode: "box",
             mode_list: [
-                { label: "官方", value: "game" },
                 { label: "魔盒", value: "box" },
+                { label: "官方", value: "game" },
                 { label: "技改", value: "skill_change" },
             ],
 
