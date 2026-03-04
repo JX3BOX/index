@@ -49,7 +49,7 @@
                         </template>
                     </div>
 
-                    <div class="m-activity-v5__cards px-3 w-full">
+                    <div class="m-activity-v5__cards mx3 px-3 w-full">
                         <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
                             <a
                                 v-for="item in activitiesByMonth[month]"
@@ -298,6 +298,10 @@ export default {
 
     .m-activity-v5__months::-webkit-scrollbar {
         display: none;
+    }
+
+    .m-activity-v5__months {
+        column-gap: 0.5rem;
     }
 
     .m-activity-v5__month-item {

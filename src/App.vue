@@ -2,7 +2,7 @@
     <div id="app">
         <Header :overlayEnable="true"></Header>
         <div class="m-main">
-            <div class="m-left m-sidebar">
+            <div class="m-left m-sidebar font-sans">
                 <!-- <welcome /> -->
                 <ai />
                 <news />
@@ -29,9 +29,9 @@
                         <jx3world v-if="isStd" />
                     </div>
                 </div>
-                <Footer></Footer>
             </div>
         </div>
+        <Footer></Footer>
         <festival />
 
         <forceAlert />
@@ -69,6 +69,7 @@ import festival from "@/components/festival/index.vue";
 import forceAlert from "@/components/index/force_alert.vue";
 
 import importantMsg from "@/components/v4/important_msg.vue";
+import CommonFooter from "./components/common/CommonFooter.vue";
 
 // 系统
 import User from "@jx3box/jx3box-common/js/user";
@@ -124,6 +125,8 @@ export default {
         festival,
         forceAlert,
         importantMsg,
+
+        Footer: CommonFooter,
     },
     methods: {},
     created: function () {

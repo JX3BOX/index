@@ -1,6 +1,6 @@
 <template>
     <section
-        class="m-joke-v5 relative overflow-hidden flex items-center px-4 py-3 my-6 bg-yellow-100 border border-yellow-200 shadow-sm group"
+        class="m-joke-v5 relative overflow-hidden flex items-center px-4 py-4 my-6 bg-yellow-100 border border-yellow-200 shadow-sm group"
     >
         <a class="u-label flex-shrink-0 text-black font-black px-2 py-1 mr-4 no-underline" href="/joke" target="_blank">
             今日骚话
@@ -8,7 +8,7 @@
 
         <div class="u-content flex-1 min-w-0 relative z-10">
             <el-carousel
-                height="40px"
+                height="52px"
                 direction="vertical"
                 :autoplay="true"
                 :interval="5000"
@@ -105,8 +105,8 @@ export default {
         font-weight: 700;
         font-style: italic;
         letter-spacing: -0.01em;
-        line-height: 20px;
-        max-height: 40px;
+        line-height: 24px;
+        max-height: 48px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -125,8 +125,7 @@ export default {
         word-break: break-word;
 
         img {
-            .pr;
-            top: 4px;
+            vertical-align: text-bottom;
             margin-left: 1px;
         }
     }
@@ -137,7 +136,7 @@ export default {
     }
 
     .el-carousel__container {
-        height: 40px !important;
+        height: 52px !important;
     }
 
     .el-carousel__item {

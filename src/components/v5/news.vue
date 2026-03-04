@@ -1,10 +1,15 @@
 <template>
     <section class="m-news bg-white p-6 shadow-sm border border-gray-200 border-opacity-60 mb-6">
         <div class="m-news__header flex items-center justify-between mb-6 gap-3">
-            <h3 class="text-xs font-black flex items-center text-gray-800 uppercase tracking-widest m-0">
+            <a
+                :href="more_link"
+                class="text-xs font-black flex items-center text-gray-800 uppercase tracking-widest m-0"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img src="@/assets/img/index/news.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-indigo-500" />
                 公告资讯
-            </h3>
+            </a>
 
             <div class="m-news__modes flex bg-gray-100 p-1 rounded-xl w-auto" role="tablist" aria-label="公告分类">
                 <button
@@ -42,14 +47,14 @@
                 </div>
             </a>
 
-            <a
+            <!-- <a
                 class="text-xs text-gray-500 no-underline font-bold hover:text-indigo-600 inline-block"
                 :href="more_link"
                 target="_blank"
                 rel="noopener noreferrer"
             >
                 查看全部
-            </a>
+            </a> -->
         </div>
     </section>
 </template>
@@ -66,13 +71,18 @@ export default {
     name: "IndexNewsV5",
     data: function () {
         return {
-            mode: "box",
+            mode: "all",
             mode_list: [
+                { label: "全部", value: "all" },
                 { label: "魔盒", value: "box" },
                 { label: "官方", value: "game" },
                 { label: "技改", value: "skill_change" },
             ],
 
+            all_links: {
+                std: "https://jx3.xoyo.com/allnews/",
+                origin: "https://jx3yq.xoyo.com/index/#/latest",
+            },
             game_links: {
                 std: "https://jx3.xoyo.com/allnews/",
                 origin: "https://jx3yq.xoyo.com/index/#/latest",
@@ -98,7 +108,12 @@ export default {
         more_link: function () {
             return this[this.mode + "_links"]?.[this.client] || "/";
         },
+        all_data: function () {
+            const list = [...this.game_data.slice(0, 3), ...this.box_data.slice(0, 2)];
+            return list.slice(0, 5);
+        },
         data: function () {
+            if (this.mode === "all") return this.all_data;
             return this[this.mode + "_data"] || [];
         },
         zlp_map() {
@@ -156,8 +171,8 @@ export default {
             });
         },
         getTagText: function (item) {
-            if (this.mode === "box") return "魔盒";
-            if (this.mode === "skill_change") return "技改";
+            if (item?.type === "box" || this.mode === "box") return "魔盒";
+            if (item?.type === "skill_change" || this.mode === "skill_change") return "技改";
 
             const title = item?.title || "";
             if (title.includes("维护")) return "维护";
@@ -185,9 +200,9 @@ export default {
 .m-news {
     border-radius: 2rem;
     .m-news__item-title {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        display: block;
+        white-space: nowrap;
+        // text-overflow: ellipsis;
         overflow: hidden;
         color: #334155;
     }

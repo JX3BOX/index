@@ -1,4 +1,4 @@
-@left: 360px;
+@left: 420px;
 @right: 380px;
 body {
     background-color: #f6f8fa;
@@ -7,35 +7,38 @@ body {
     .mt(@header-height);
     background-color: #f6f8fa;
     .auto(x);
-    .flex;
+    display: flex;
+    width: 100%;
 }
 .m-left {
     flex-basis: @left;
     .w(@left);
     position: static;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 20px 40px 20px 20px;
     height: auto;
     overflow: visible;
 }
 .m-primary {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
     margin-left: 0;
-    width: calc(100vw - @left - 20px);
-    padding: 20px 0 20px 0;
+    padding: 20px 20px 20px 0;
 }
 .m-primary__main {
     position: relative;
     overflow-x: hidden;
     .flex;
-    gap: 20px;
+    gap: 40px;
+    margin-top: 40px;
     .m-primary__main-left {
         flex: 1;
-        width: calc(100% - 330px); // 这里注释了我那边是有问题的，包括中间部分tab宽度，以及右侧不显示
+        min-width: 0;
     }
     .m-primary__main-right {
-        flex: 0;
-        width: 320px;
-        min-width: 320px;
+        flex: 0 0 420px;
+        width: 420px;
+        min-width: 420px;
     }
     @media screen and (max-width: @phone) {
         flex-direction: column;
