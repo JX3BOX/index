@@ -16,12 +16,12 @@
             <div class="m-primary">
                 <live />
                 <slider />
-                <box />
-                <joke />
                 <div class="m-primary__main">
                     <div class="m-primary__main-left">
+                        <box />
+                        <joke />
+                        <activity />
                         <posts />
-                        <community />
                     </div>
                     <div class="m-primary__main-right">
                         <minirec />
@@ -42,26 +42,27 @@
 <script>
 // 左侧
 import welcome from "@/components/v4/welcome.vue";
+import jx3servers from "@/components/v3/jx3servers.vue";
+import follow from "@/components/v3/follow.vue";
+
 import news from "@/components/v5/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
 import jx3code from "@/components/v5/jx3code.vue";
-import jx3servers from "@/components/v3/jx3servers.vue";
 import banner from "@/components/v3/banner.vue";
 import feedback from "@/components/v5/feedback.vue";
-import follow from "@/components/v3/follow.vue";
 import ai from "@/components/v5/ai.vue";
 import download from "@/components/v5/download.vue";
 import followus from "@/components/v5/followus.vue";
 // 右侧
 import minirec from "@/components/v4/minirec/right.vue";
-import joke from "@/components/index/joke.vue";
+import joke from "@/components/v5/joke.vue";
 
 // 首屏
 import live from "@/components/v3/live.vue";
 import slider from "@/components/v3/slider.vue";
-import box from "@/components/v3/box.vue";
-import posts from "@/components/v3/posts.vue";
-import community from "@/components/v3/community.vue";
+import box from "@/components/v5/box.vue";
+import posts from "@/components/v5/posts.vue";
+import activity from "@/components/v5/activity.vue";
 
 //import face from "@/components/v3/face.vue";
 import festival from "@/components/festival/index.vue";
@@ -115,9 +116,9 @@ export default {
         slider,
         box,
         joke,
+        activity,
         //face,
         posts,
-        community,
         minirec,
 
         festival,
