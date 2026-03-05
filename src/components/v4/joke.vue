@@ -2,7 +2,6 @@
     <section class="m-joke-v5-purple group">
         <div class="u-container flex items-center px-6 py-3 my-6">
 
-            <!-- 标签区 -->
             <a
                 class="u-label flex-shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 mr-6 no-underline text-white font-bold rounded-xl transition-transform hover:scale-105"
                 href="/joke"
@@ -12,7 +11,6 @@
                 <span>今日骚话</span>
             </a>
 
-            <!-- 轮播内容区 -->
             <div class="u-content flex-1 min-w-0 relative z-10">
                 <el-carousel
                     height="48px"
@@ -34,15 +32,15 @@
                 </el-carousel>
             </div>
 
-            <!-- 交互反馈 -->
-            <div class="u-actions flex items-center gap-3 ml-4">
-                <span class="u-tip text-xs text-gray-400 font-medium hidden md:block opacity-0 group-hover:opacity-100 transition-opacity">投喂骚话</span>
-                <div class="u-go flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-purple-600 transition-all hover:bg-purple-600 hover:text-white group-hover:translate-x-1">
+            <div class="u-actions flex items-center gap-3 ml-10">
+                <!-- <span class="u-tip text-[12px] text-purple-500 font-bold hidden md:block opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    投喂骚话
+                </span> -->
+                <a href="/joke" target="_blank" class="u-go cursor-pointer flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-purple-600 transition-all duration-300 hover:bg-purple-600 hover:text-white group-hover:shadow-lg group-hover:shadow-purple-100">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </div>
+                </a>
             </div>
 
-            <!-- 背景装饰 -->
             <div class="u-deco absolute -bottom-2 right-12 text-7xl font-black text-purple-100 opacity-30 select-none pointer-events-none">”</div>
         </div>
     </section>
@@ -155,6 +153,17 @@ export default {
     .el-carousel__item {
         display: flex;
         align-items: center;
+    }
+
+    .u-tip {
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px rgba(91, 92, 245, 0.1);
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .u-deco{
+        right:4rem;
     }
 }
 </style>

@@ -2,19 +2,15 @@
     <div id="app">
         <Header :overlayEnable="true"></Header>
         <div class="m-main">
-            <div class="m-left m-sidebar font-sans">
-                <!-- <welcome /> -->
-                <ai />
+            <div class="m-left m-sidebar">
+                <welcome />
                 <news />
                 <jx3code />
-                <download />
+                <ai style="display:none" />
                 <followus />
-                <!-- <jx3servers /> -->
                 <feedback />
-                <!-- <follow /> -->
             </div>
             <div class="m-primary">
-                <live />
                 <slider />
                 <div class="m-primary__main">
                     <div class="m-primary__main-left">
@@ -25,15 +21,15 @@
                     </div>
                     <div class="m-primary__main-right">
                         <minirec />
-                        <banner />
+                        <!-- <jx3servers /> -->
                         <jx3world v-if="isStd" />
                     </div>
                 </div>
             </div>
         </div>
-        <Footer></Footer>
-        <festival />
+        <CommonFooter></CommonFooter>
 
+        <festival />
         <forceAlert />
         <importantMsg />
     </div>
@@ -42,34 +38,30 @@
 <script>
 // 左侧
 import welcome from "@/components/v4/welcome.vue";
-import jx3servers from "@/components/v3/jx3servers.vue";
-import follow from "@/components/v3/follow.vue";
-
-import news from "@/components/v5/news.vue";
+import news from "@/components/v4/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
-import jx3code from "@/components/v5/jx3code.vue";
-import banner from "@/components/v3/banner.vue";
-import feedback from "@/components/v5/feedback.vue";
+import jx3code from "@/components/v4/jx3code.vue";
 import ai from "@/components/v5/ai.vue";
-import download from "@/components/v5/download.vue";
 import followus from "@/components/v5/followus.vue";
-// 右侧
-import minirec from "@/components/v4/minirec/right.vue";
-import joke from "@/components/v5/joke.vue";
+import feedback from "@/components/v5/feedback.vue";
 
-// 首屏
-import live from "@/components/v3/live.vue";
-import slider from "@/components/v3/slider.vue";
+// 中间
+import slider from "@/components/v4/slider.vue";
 import box from "@/components/v5/box.vue";
-import posts from "@/components/v5/posts.vue";
+import joke from "@/components/v4/joke.vue";
 import activity from "@/components/v5/activity.vue";
+import posts from "@/components/v5/posts.vue";
 
+// 右侧
+// import jx3servers from "@/components/v3/jx3servers.vue";
+import minirec from "@/components/v4/minirec/right.vue";
 //import face from "@/components/v3/face.vue";
+
+// 公共
+import CommonFooter from "@/components/common/CommonFooter.vue";
 import festival from "@/components/festival/index.vue";
 import forceAlert from "@/components/index/force_alert.vue";
-
 import importantMsg from "@/components/v4/important_msg.vue";
-import CommonFooter from "./components/common/CommonFooter.vue";
 
 // 系统
 import User from "@jx3box/jx3box-common/js/user";
@@ -101,32 +93,30 @@ export default {
     },
     components: {
         // 左侧
-        // welcome,
+        welcome,
         news,
-        jx3world,
         jx3code,
-        // jx3servers,
-        banner,
-        feedback,
-        // follow,
         ai,
-        download,
         followus,
-        // 右侧
-        live,
+        feedback,
+
+        // 中间
         slider,
         box,
         joke,
         activity,
-        //face,
         posts,
-        minirec,
 
+        // 右侧
+        minirec,
+        // jx3servers,
+        jx3world,
+
+        // 公共
+        CommonFooter,
         festival,
         forceAlert,
         importantMsg,
-
-        Footer: CommonFooter,
     },
     methods: {},
     created: function () {
@@ -184,5 +174,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/v5/app.less";
+@import "~@/assets/css/v4/app.less";
 </style>

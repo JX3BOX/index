@@ -1,5 +1,5 @@
 <template>
-    <section class="m-activity-v5 bg-white py-8 px-4 text-gray-900 mb-6 border border-gray-200 shadow-sm font-fans">
+    <section class="m-activity-v5 bg-white py-8 px-6 text-gray-900 mb-6 border border-gray-200 shadow-sm font-fans">
         <div class="m-activity-v5__header flex justify-between items-end mb-4 px-1">
             <div class="m-activity-v5__title-wrap">
                 <div class="m-activity-v5__title-sub flex items-center text-indigo-600 mb-1">
@@ -39,9 +39,9 @@
 
                     <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
                         <template v-if="isActiveMonth(month)">
-                            <span class="u-node-ping absolute bg-blue-100 rounded-full"></span>
+                            <span class="u-node-ping absolute bg-indigo-100 rounded-full"></span>
                             <span
-                                class="u-node-main bg-blue-600 rounded-full border-4 border-white shadow-sm z-10"
+                                class="u-node-main bg-indigo-600 rounded-full border-4 border-white shadow-sm z-10"
                             ></span>
                         </template>
                         <template v-else>
@@ -75,7 +75,7 @@
                                     </span>
                                     <i
                                         v-if="isActiveMonth(month)"
-                                        class="u-star el-icon-star-on text-blue-600 u-star--xs"
+                                        class="u-star el-icon-star-on text-indigo-600 u-star--xs"
                                         aria-hidden="true"
                                     ></i>
                                 </div>
@@ -244,7 +244,7 @@ export default {
         },
         typeClass: function (month) {
             if (this.isActiveMonth(month)) {
-                return "bg-blue-600 text-white";
+                return "bg-indigo-600 text-white";
             }
             return "bg-gray-100 text-gray-500 group-hover:bg-gray-200";
         },

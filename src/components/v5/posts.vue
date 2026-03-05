@@ -54,7 +54,7 @@
                     </div>
 
                     <h4
-                        class="m-posts-v5__title text-lg font-black text-gray-800 mb-3 mt-0 leading-snug group-hover:text-yellow-600 transition-colors"
+                        class="m-posts-v5__title text-lg font-bold text-gray-800 mb-3 mt-0 leading-snug group-hover:text-yellow-600 transition-colors"
                         :title="item.title"
                     >
                         {{ item.title }}

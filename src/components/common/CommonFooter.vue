@@ -215,7 +215,7 @@ export default {
                     name: "B站",
                     key: "bilibili",
                     href: "https://space.bilibili.com/2066064028",
-                    icon: require("@/assets/img/tv/bilibili.svg"),
+                    icon: require("@/assets/img/tv/bilibili3.svg"),
                 },
                 {
                     name: "微博",
