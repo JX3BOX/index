@@ -13,7 +13,7 @@
                 <feedback />
             </div>
             <div class="m-primary">
-                <live />
+                <!-- <live /> -->
                 <slider />
                 <box />
                 <joke />
@@ -50,14 +50,20 @@ import followus from "@/components/v5/followus.vue";
 import feedback from "@/components/v5/feedback.vue";
 
 // import jx3servers from "@/components/v3/jx3servers.vue";
-import banner from "@/components/v3/banner.vue";
+
+
+// 醒目
+import slider from "@/components/v4/slider.vue";
+// import live from "@/components/v3/live.vue";
 import joke from "@/components/index/joke.vue";
+
+
 // 右侧
 import minirec from "@/components/v4/minirec/right.vue";
 
 // 首屏
-import live from "@/components/v3/live.vue";
-import slider from "@/components/v3/slider.vue";
+
+
 import box from "@/components/v3/box.vue";
 import posts from "@/components/v3/posts.vue";
 import community from "@/components/v3/community.vue";
@@ -106,12 +112,12 @@ export default {
         // download,
         followus,
         // jx3servers,
-        banner,
+        // banner,
         feedback,
 
 
         // 右侧
-        live,
+        // live,
         slider,
         box,
         joke,

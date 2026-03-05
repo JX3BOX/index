@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold">B站</span>
+                        <span class="text-xs font-bold">B站</span>
                         <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold">微博</span>
+                        <span class="text-xs font-bold">微博</span>
                         <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold">抖音</span>
+                        <span class="text-xs font-bold">抖音</span>
                         <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-sm font-bold">微信公众号</span>
+                        <span class="text-xs font-bold">微信公众号</span>
                         <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight"
                             >@剑三魔盒</span
                         >
