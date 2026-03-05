@@ -6,7 +6,7 @@
                 关注与下载
             </h3>
 
-            <div class="m-download__qrcode bg-white p-3 mb-6 shadow-2xl inline-block mx-auto">
+            <!-- <div class="m-download__qrcode bg-white p-3 mb-6 shadow-2xl inline-block mx-auto">
                 <div
                     class="m-download__qrcode-inner aspect-square bg-gray-100 flex items-center justify-center relative overflow-hidden group"
                 >
@@ -16,9 +16,9 @@
                         alt="扫码关注魔盒"
                     />
                 </div>
-            </div>
+            </div> -->
 
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-2 gap-3">
                 <button
                     class="m-download__btn flex flex-col items-center p-3 rounded-2xl transition-all"
                     type="button"

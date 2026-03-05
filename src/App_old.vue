@@ -6,6 +6,8 @@
                 <welcome />
                 <news />
                 <jx3code />
+                <ai />
+                <!-- <download /> -->
                 <!-- <jx3servers /> -->
                 <followus />
                 <feedback />
@@ -42,6 +44,8 @@ import welcome from "@/components/v4/welcome.vue";
 import news from "@/components/v4/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
 import jx3code from "@/components/v4/jx3code.vue";
+import ai from "@/components/v5/ai.vue";
+// import download from "@/components/v5/download.vue";
 import followus from "@/components/v5/followus.vue";
 import feedback from "@/components/v5/feedback.vue";
 
@@ -98,6 +102,8 @@ export default {
         news,
         jx3world,
         jx3code,
+        ai,
+        // download,
         followus,
         // jx3servers,
         banner,

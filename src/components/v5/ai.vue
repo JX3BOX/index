@@ -5,13 +5,13 @@
         <div class="m-ai__content relative z-10">
             <div class="flex items-center space-x-2 mb-4">
                 <img src="../../assets/img/index/star.svg" class="w-4 h-4 text-yellow-300" svg-inline alt="" />
-                <h3 class="text-sm font-black tracking-tight m-0">魔盒 AI 助手</h3>
+                <h3 class="text-xs font-bold tracking-tight m-0">魔盒 AI 助手</h3>
             </div>
 
             <div class="m-ai__form relative">
                 <textarea
                     v-model="question"
-                    placeholder="提问职业配装或宏..."
+                    placeholder="快捷全站检索"
                     class="m-ai__textarea w-full bg-white bg-opacity-10 border border-white border-opacity-20 p-3 pr-12 text-xs text-white outline-none transition-all resize-none h-20"
                 ></textarea>
 
@@ -54,7 +54,7 @@ export default {
 
 <style lang="less">
 .m-ai {
-    border-radius: 2rem;
+    border-radius: 1rem;
     .m-ai__textarea {
         border-radius: 1rem;
         box-sizing: border-box;
