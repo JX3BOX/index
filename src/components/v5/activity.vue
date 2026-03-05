@@ -1,5 +1,5 @@
 <template>
-    <section class="m-activity-v5 bg-white py-8 px-4 text-gray-900 mb-6 border border-gray-200 shadow-sm">
+    <section class="m-activity-v5 bg-white py-8 px-4 text-gray-900 mb-6 border border-gray-200 shadow-sm font-fans">
         <div class="m-activity-v5__header flex justify-between items-end mb-4 px-1">
             <div class="m-activity-v5__title-wrap">
                 <div class="m-activity-v5__title-sub flex items-center text-blue-600 mb-1">
@@ -49,18 +49,21 @@
                         </template>
                     </div>
 
-                    <div class="m-activity-v5__cards mx3 px-3 w-full">
+                    <div class="m-activity-v5__cards px-3 w-full">
                         <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
                             <a
                                 v-for="item in activitiesByMonth[month]"
                                 :key="item.id"
-                                class="m-activity-v5__card group p-3 rounded-xl border transition-all"
-                                :class="cardClass(month)"
+                                class="m-activity-v5__card group"
+                                :class="cardClass(month, item)"
                                 :href="item.link"
                                 :target="item.link ? '_blank' : null"
                                 :rel="item.link ? 'noopener noreferrer' : null"
                             >
-                                <div v-if="item.cover" class="m-activity-v5__cover rounded-lg overflow-hidden mb-2">
+                                <div
+                                    v-if="isActiveMonth(month) && item.cover"
+                                    class="m-activity-v5__cover rounded-lg overflow-hidden mb-2"
+                                >
                                     <img class="u-cover block w-full" :src="item.cover" :alt="item.name" />
                                 </div>
                                 <div class="m-activity-v5__card-meta flex items-center">
@@ -193,10 +196,8 @@ export default {
             if (!end || !end.isValid()) end = start;
 
             const sameDay = start.isSame(end, "day");
-            const sameMonth = start.isSame(end, "month");
 
             if (sameDay) return start.format("MM.DD");
-            if (sameMonth) return `${start.format("MM.DD")} - ${end.format("DD")}`;
             return `${start.format("MM.DD")} - ${end.format("MM.DD")}`;
         },
         getActivityStatus: function (start, end, now) {
@@ -232,11 +233,14 @@ export default {
             const left = currentMonthElement.offsetLeft - el.clientWidth / 2 + currentMonthElement.clientWidth / 2;
             el.scrollTo({ left, behavior: "smooth" });
         },
-        cardClass: function (month) {
+        cardClass: function (month, item) {
             if (this.isActiveMonth(month)) {
-                return "bg-blue-50 border-blue-200 shadow-sm";
+                return "m-activity-v5__card--active";
             }
-            return "bg-white border-gray-100 hover:border-gray-200 hover:shadow-sm";
+            if (item && item.status === "past") {
+                return "m-activity-v5__card--past";
+            }
+            return "m-activity-v5__card--normal";
         },
         typeClass: function (month) {
             if (this.isActiveMonth(month)) {
@@ -346,9 +350,41 @@ export default {
     }
 
     .m-activity-v5__cards {
-        display: flex;
-        flex-direction: column;
-        row-gap: 0.75rem;
+        display: block;
+    }
+
+    .m-activity-v5__card {
+        display: block;
+        padding: 0.75rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        background: #fff;
+        text-decoration: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .m-activity-v5__card + .m-activity-v5__card {
+        margin-top: 1rem;
+    }
+
+    .m-activity-v5__card--active {
+        border-color: #bfdbfe;
+        background: #eff6ff;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .m-activity-v5__card--past {
+        border-color: #e5e7eb;
+        background: #fff;
+    }
+
+    .m-activity-v5__card--normal {
+        border-color: #e5e7eb;
+        background: #fff;
+    }
+
+    .m-activity-v5__card--normal:hover {
+        border-color: #d1d5db;
     }
 
     .m-activity-v5__card-meta {

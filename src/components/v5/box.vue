@@ -13,22 +13,10 @@
             </div>
 
             <div class="m-box-v5__header-right flex items-center">
-                <button
-                    class="u-btn u-btn--ghost"
-                    type="button"
-                    v-if="!!options.disabled"
-                    @click="active"
-                >
+                <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
                     自定义面板
                 </button>
-                <button
-                    class="u-btn u-btn--dark"
-                    type="button"
-                    v-else
-                    @click="save"
-                >
-                    保存布局
-                </button>
+                <button class="u-btn u-btn--dark" type="button" v-else @click="save">保存布局</button>
             </div>
         </div>
 
@@ -492,12 +480,16 @@ export default {
         padding: 0;
         list-style: none;
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(5.6rem, 5.6rem));
+        gap: clamp(0.75rem, 1.6vw, 1.5rem);
+        justify-content: center;
     }
 
     .m-box-v5__item-wrapper {
-        display: block;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 5.6rem;
 
         &.hidden {
             display: none;
@@ -506,10 +498,14 @@ export default {
 
     .m-box-v5__item {
         position: relative;
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         border-radius: 2rem;
         padding: 1rem;
+        width: 100%;
+        box-sizing: border-box;
         text-decoration: none;
         transition: all 0.2s ease;
         cursor: pointer;
@@ -557,6 +553,8 @@ export default {
 
     .u-txt {
         display: block;
+        width: 100%;
+        text-align: center;
         font-size: 10px;
         font-weight: 900;
         color: #334155;
@@ -639,6 +637,7 @@ export default {
             border-radius: 1.5rem;
             cursor: move;
             padding: 1rem 0.65rem;
+            width: 100%;
         }
 
         .u-control {
@@ -659,22 +658,6 @@ export default {
             .u-break.on {
                 color: #ec4899;
             }
-        }
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .m-box-v5 {
-        .m-box-v5__list {
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-    }
-}
-
-@media screen and (min-width: 1280px) {
-    .m-box-v5 {
-        .m-box-v5__list {
-            grid-template-columns: repeat(8, minmax(0, 1fr));
         }
     }
 }
@@ -703,12 +686,19 @@ export default {
         }
 
         .m-box-v5__list {
+            grid-template-columns: repeat(auto-fit, minmax(4.8rem, 4.8rem));
             gap: 0.85rem;
+        }
+
+        .m-box-v5__item-wrapper {
+            width: 100%;
+            max-width: 4.8rem;
         }
 
         .m-box-v5__item {
             border-radius: 1.2rem;
             padding: 0.75rem 0.45rem;
+            width: 100%;
         }
 
         .m-box-v5__icon-box {
@@ -725,6 +715,20 @@ export default {
 
         .u-txt {
             font-size: 10px;
+        }
+    }
+}
+
+@media (hover: none) {
+    .m-box-v5 {
+        .m-box-v5__item:hover {
+            background: transparent;
+            transform: none;
+        }
+
+        .m-box-v5__item:hover .m-box-v5__icon-box {
+            transform: none;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
         }
     }
 }
