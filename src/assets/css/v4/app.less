@@ -20,17 +20,17 @@ body {
     // .pf;
     // .lt(0, @header-height);
     // bottom: 60px;
-    padding: 30px;
+    padding: @layout-padding;
     box-sizing: border-box;
     // overflow: auto;
     // height: calc(100vh - @header-height);
     // overflow-y: auto;
 }
 .m-primary {
-    flex:1;
+    flex: 1;
     // margin-left: @left;
     // width: calc(100vw - @left - 40px);
-    padding: 30px 30px 30px 0;
+    padding: @layout-padding @layout-padding @layout-padding 0;
     // margin-left: @left;
 }
 .m-primary__main {
@@ -40,7 +40,7 @@ body {
     gap: 20px;
     .m-primary__main-left {
         flex: 1;
-        width: calc(100% - 330px); // 这里注释了我那边是有问题的，包括中间部分tab宽度，以及右侧不显示
+        width: calc(100% - @layout-padding - @left); // 这里注释了我那边是有问题的，包括中间部分tab宽度，以及右侧不显示
     }
     .m-primary__main-right {
         flex: 0;
@@ -102,5 +102,3 @@ body {
         .mt(0);
     }
 }
-
-

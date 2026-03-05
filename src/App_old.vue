@@ -7,23 +7,21 @@
                 <news />
                 <jx3code />
                 <ai />
-                <!-- <download /> -->
-                <!-- <jx3servers /> -->
                 <followus />
                 <feedback />
             </div>
             <div class="m-primary">
-                <!-- <live /> -->
                 <slider />
-                <box />
-                <joke />
                 <div class="m-primary__main">
                     <div class="m-primary__main-left">
+                        <box />
+                        <joke />
+                        <activity />
                         <posts />
-                        <community />
                     </div>
                     <div class="m-primary__main-right">
                         <minirec />
+                        <!-- <jx3servers /> -->
                         <banner />
                         <jx3world v-if="isStd" />
                     </div>
@@ -45,29 +43,19 @@ import news from "@/components/v4/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
 import jx3code from "@/components/v4/jx3code.vue";
 import ai from "@/components/v5/ai.vue";
-// import download from "@/components/v5/download.vue";
 import followus from "@/components/v5/followus.vue";
 import feedback from "@/components/v5/feedback.vue";
 
-// import jx3servers from "@/components/v3/jx3servers.vue";
-
-
-// 醒目
+// 中间
 import slider from "@/components/v4/slider.vue";
-// import live from "@/components/v3/live.vue";
-import joke from "@/components/index/joke.vue";
-
+import box from "@/components/v5/box.vue";
+import joke from "@/components/v4/joke.vue";
+import activity from "@/components/v5/activity.vue";
+import posts from "@/components/v5/posts.vue";
 
 // 右侧
+// import jx3servers from "@/components/v3/jx3servers.vue";
 import minirec from "@/components/v4/minirec/right.vue";
-
-// 首屏
-
-
-import box from "@/components/v3/box.vue";
-import posts from "@/components/v3/posts.vue";
-import community from "@/components/v3/community.vue";
-
 //import face from "@/components/v3/face.vue";
 import festival from "@/components/festival/index.vue";
 import forceAlert from "@/components/index/force_alert.vue";
@@ -109,23 +97,20 @@ export default {
         jx3world,
         jx3code,
         ai,
-        // download,
         followus,
-        // jx3servers,
-        // banner,
+
         feedback,
 
-
-        // 右侧
-        // live,
+        // 中间
         slider,
         box,
         joke,
-        //face,
+        activity,
         posts,
-        community,
-        minirec,
 
+        // 右侧
+        minirec,
+        // jx3servers,
         festival,
         forceAlert,
         importantMsg,

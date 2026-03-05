@@ -7,8 +7,8 @@
                 </div>
                 <div class="u-header-meta">
                     <a class="u-title" href="/app" target="_blank">魔盒矩阵</a>
-                    <p class="u-subtitle">全面的大唐江湖数字化服务体系</p>
-                    <mini-bread class="u-bread" name="index_notification" />
+                    <!-- <p class="u-subtitle">全面的大唐江湖数字化服务体系</p> -->
+                    <mini-bread class="u-subtitle" name="index_notification" />
                 </div>
             </div>
 
@@ -418,7 +418,7 @@ export default {
         margin: 0;
         font-size: 1.5rem;
         line-height: 1.2;
-        font-weight: 900;
+        font-weight: 600;
         color: #1e293b;
         letter-spacing: -0.02em;
         text-decoration: none;
@@ -430,6 +430,10 @@ export default {
         font-weight: 700;
         color: #94a3b8;
         line-height: 1.4;
+        .db;
+        a{
+            color: #94a3b8;
+        }
     }
 
     .u-bread {
@@ -511,7 +515,7 @@ export default {
         cursor: pointer;
 
         &:hover {
-            background: #f8fafc;
+            // background: #f8fafc;
             transform: translateY(-1px);
         }
 
@@ -651,12 +655,12 @@ export default {
                 cursor: pointer;
 
                 &:hover {
-                    color: #ec4899;
+                    color: @v4primary;
                 }
             }
 
             .u-break.on {
-                color: #ec4899;
+                color: @v4primary;
             }
         }
     }

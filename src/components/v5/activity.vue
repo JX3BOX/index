@@ -2,7 +2,7 @@
     <section class="m-activity-v5 bg-white py-8 px-4 text-gray-900 mb-6 border border-gray-200 shadow-sm font-fans">
         <div class="m-activity-v5__header flex justify-between items-end mb-4 px-1">
             <div class="m-activity-v5__title-wrap">
-                <div class="m-activity-v5__title-sub flex items-center text-blue-600 mb-1">
+                <div class="m-activity-v5__title-sub flex items-center text-indigo-600 mb-1">
                     <i class="u-icon el-icon-date"></i>
                     <span class="u-subtitle">Timeline</span>
                 </div>
@@ -60,12 +60,12 @@
                                 :target="item.link ? '_blank' : null"
                                 :rel="item.link ? 'noopener noreferrer' : null"
                             >
-                                <div
+                                <!-- <div
                                     v-if="isActiveMonth(month) && item.cover"
                                     class="m-activity-v5__cover rounded-lg overflow-hidden mb-2"
                                 >
                                     <img class="u-cover block w-full" :src="item.cover" :alt="item.name" />
-                                </div>
+                                </div> -->
                                 <div class="m-activity-v5__card-meta flex items-center">
                                     <span
                                         class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
@@ -256,170 +256,6 @@ export default {
 </script>
 
 <style lang="less">
-.m-activity-v5 {
-    border-radius: 2rem;
-
-    .m-activity-v5__title-sub {
-        column-gap: 0.5rem;
-    }
-
-    .u-icon {
-        font-size: 18px;
-        line-height: 1;
-    }
-
-    .u-subtitle {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-    }
-
-    .m-activity-v5__controller {
-        column-gap: 0.25rem;
-    }
-
-    .u-scroll-btn {
-        width: 36px;
-        height: 36px;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
-        color: #9ca3af;
-        background: #fff;
-        transition: all 0.2s ease;
-        cursor: pointer;
-    }
-
-    .u-scroll-btn:hover {
-        color: #111827;
-        background: #f9fafb;
-    }
-
-    .m-activity-v5__line {
-        top: 42px;
-        height: 1px;
-    }
-
-    .m-activity-v5__months::-webkit-scrollbar {
-        display: none;
-    }
-
-    .m-activity-v5__months {
-        column-gap: 0.5rem;
-    }
-
-    .m-activity-v5__month-item {
-        width: 256px;
-    }
-
-    .u-month {
-        color: #9ca3af;
-        transition: color 0.2s ease;
-    }
-
-    .u-month.is-active {
-        color: #2563eb;
-    }
-
-    .u-node-ping {
-        width: 24px;
-        height: 24px;
-        animation: m-activity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-
-    .u-node-main {
-        width: 16px;
-        height: 16px;
-    }
-
-    .u-node {
-        width: 12px;
-        height: 12px;
-    }
-
-    .u-type--xs,
-    .u-star--xs {
-        font-size: 10px;
-        line-height: 1.2;
-    }
-
-    .u-date--xs,
-    .u-null--xs {
-        font-size: 11px;
-        line-height: 1.4;
-    }
-
-    .m-activity-v5__cards {
-        display: block;
-    }
-
-    .m-activity-v5__card {
-        display: block;
-        padding: 0.75rem;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.75rem;
-        background: #fff;
-        text-decoration: none;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-    }
-
-    .m-activity-v5__card + .m-activity-v5__card {
-        margin-top: 1rem;
-    }
-
-    .m-activity-v5__card--active {
-        border-color: #bfdbfe;
-        background: #eff6ff;
-        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-    }
-
-    .m-activity-v5__card--past {
-        border-color: #e5e7eb;
-        background: #fff;
-    }
-
-    .m-activity-v5__card--normal {
-        border-color: #e5e7eb;
-        background: #fff;
-    }
-
-    .m-activity-v5__card--normal:hover {
-        border-color: #d1d5db;
-    }
-
-    .m-activity-v5__card-meta {
-        column-gap: 0.375rem;
-    }
-
-    .m-activity-v5__cover {
-        aspect-ratio: 16 / 9;
-        background: #f8fafc;
-    }
-
-    .u-cover {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-}
-
-@keyframes m-activity-ping {
-    75%,
-    100% {
-        transform: scale(1.8);
-        opacity: 0;
-    }
-}
-
-@media screen and (max-width: @phone) {
-    .m-activity-v5 {
-        border-radius: 1.25rem;
-        padding: 1.25rem 0.75rem;
-
-        .m-activity-v5__month-item {
-            width: 224px;
-        }
-    }
-}
+@import "~@/assets/css/v4/activity.less";
 </style>
+
