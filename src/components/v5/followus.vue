@@ -1,13 +1,17 @@
 <template>
-    <section class="m-followus bg-white border border-gray-200 rounded-2xl shadow-sm p-4 flex flex-col mb-6">
-        <div class="m-followus__header flex items-center mb-5 px-1 text-gray-400" style="column-gap: 0.5rem">
-            <img src="@/assets/img/index/follow.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-indigo-500" />
-            <span class="text-xs font-bold uppercase tracking-widest">关注我们</span>
+    <section class="m-followus rounded-xl bg-white p-5 shadow-sm border border-gray-200 border-opacity-60 mb-6">
+        <div class="m-followus__header">
+            <div class="u-left">
+                <span class="text-xs flex items-center text-gray-800 uppercase tracking-widest m-0 font-bold"
+                    ><img src="@/assets/img/index/follow.svg" alt="" svg-inline class="w-4 h-4 mr-2 text-indigo-500" />
+                    关注我们</span
+                >
+            </div>
         </div>
 
         <div class="m-followus__list grid grid-cols-1 gap-2.5">
             <a
-                href="https://www.bilibili.com"
+                href="https://space.bilibili.com/2066064028"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-pink-400 hover:text-white"
@@ -21,7 +25,7 @@
 
                     <div class="flex flex-col">
                         <span class="text-sm font-bold">B站</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@Bilibili</span>
+                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
 
@@ -31,7 +35,7 @@
             </a>
 
             <a
-                href="https://weibo.com"
+                href="https://weibo.com/jx3box"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-red-600 hover:text-white"
@@ -45,7 +49,7 @@
 
                     <div class="flex flex-col">
                         <span class="text-sm font-bold">微博</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@Weibo</span>
+                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
 
@@ -55,7 +59,7 @@
             </a>
 
             <a
-                href="https://www.douyin.com"
+                href="https://www.douyin.com/user/MS4wLjABAAAAP3OHPy-BYsW6IMiPZfP1FP3J_zYAAYNVVlk9XyoKhOs"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-gray-900 hover:text-white"
@@ -69,7 +73,7 @@
 
                     <div class="flex flex-col">
                         <span class="text-sm font-bold">抖音</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@Douyin</span>
+                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
                 <i
@@ -90,12 +94,18 @@
 
                     <div class="flex flex-col">
                         <span class="text-sm font-bold">微信公众号</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@WeChat Official Account</span>
+                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight"
+                            >@剑三魔盒</span
+                        >
                     </div>
                 </div>
 
                 <div class="m-followus__qrcode-trigger">
-                    <img :src="qrcodeIcon" alt="二维码" class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all u-qrcode" />
+                    <img
+                        :src="qrcodeIcon"
+                        alt="二维码"
+                        class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all u-qrcode"
+                    />
                     <div class="m-followus__qrcode-popup" :class="{ 'is-left': isQrcodePopupLeft }">
                         <img :src="qrcodeImage" alt="微信公众号二维码" class="m-followus__qrcode-image" />
                     </div>
@@ -143,6 +153,12 @@ export default {
 
 <style lang="less">
 .m-followus {
+
+
+    .m-followus__header{
+        margin-bottom: 15px;
+    }
+
     .m-followus__item {
         color: #1e293b;
 

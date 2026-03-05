@@ -17,10 +17,11 @@ body {
 .m-left {
     flex-basis: @left;
     .w(@left);
+    flex-shrink: 0;
     // .fl;
     // .z(9);
-    .pf;
-    .lt(0, @header-height);
+    // .pf;
+    // .lt(0, @header-height);
     // bottom: 60px;
     padding: 20px;
     box-sizing: border-box;
@@ -29,8 +30,9 @@ body {
     overflow-y: auto;
 }
 .m-primary {
-    margin-left: @left;
-    width: calc(100vw - @left - 40px);
+    flex:1;
+    // margin-left: @left;
+    // width: calc(100vw - @left - 40px);
     padding: 20px 20px 20px 0;
     // margin-left: @left;
 }

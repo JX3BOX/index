@@ -6,9 +6,8 @@
                 <welcome />
                 <news />
                 <jx3code />
-                <jx3servers />
-                <feedback />
-                <follow />
+                <!-- <jx3servers /> -->
+                <followus />
             </div>
             <div class="m-primary">
                 <live />
@@ -42,10 +41,11 @@ import welcome from "@/components/v4/welcome.vue";
 import news from "@/components/v4/news.vue";
 import jx3world from "@/components/v4/jx3world_v4.vue";
 import jx3code from "@/components/v4/jx3code.vue";
-import jx3servers from "@/components/v3/jx3servers.vue";
+import followus from "@/components/v5/followus.vue";
+
+// import jx3servers from "@/components/v3/jx3servers.vue";
 import banner from "@/components/v3/banner.vue";
-import feedback from "@/components/v3/feedback.vue";
-import follow from "@/components/v3/follow.vue";
+// import feedback from "@/components/v3/feedback.vue";
 import joke from "@/components/index/joke.vue";
 // 右侧
 import minirec from "@/components/v4/minirec/right.vue";
@@ -97,10 +97,11 @@ export default {
         news,
         jx3world,
         jx3code,
-        jx3servers,
+        followus,
+        // jx3servers,
         banner,
-        feedback,
-        follow,
+        // feedback,
+
 
         // 右侧
         live,
