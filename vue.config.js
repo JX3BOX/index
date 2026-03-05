@@ -14,6 +14,12 @@ const pages = {
         template: "public/index.html",
         filename: "index.html",
     },
+    index_old: {
+        title: "剑网3" + Setting.suffix,
+        entry: "src/main_old.js",
+        template: "public/index.html",
+        filename: "index_old.html",
+    },
     notice: {
         title: "公告资讯" + Setting.suffix,
         entry: "src/pages/notice.js",
