@@ -21,8 +21,7 @@
                     </div>
                     <div class="m-primary__main-right">
                         <minirec />
-                        <!-- <jx3servers /> -->
-                        <jx3world v-if="isStd" />
+                        <jx3world />
                     </div>
                 </div>
             </div>
@@ -39,7 +38,7 @@
 // 左侧
 import welcome from "@/components/v4/welcome.vue";
 import news from "@/components/v4/news.vue";
-import jx3world from "@/components/v4/jx3world_v4.vue";
+import jx3world from "@/components/v5/jx3world.vue";
 import jx3code from "@/components/v4/jx3code.vue";
 import ai from "@/components/v5/ai.vue";
 import followus from "@/components/v5/followus.vue";
@@ -52,8 +51,6 @@ import joke from "@/components/v4/joke.vue";
 import activity from "@/components/v5/activity.vue";
 import posts from "@/components/v5/posts.vue";
 
-// 右侧
-// import jx3servers from "@/components/v3/jx3servers.vue";
 import minirec from "@/components/v4/minirec/right.vue";
 //import face from "@/components/v3/face.vue";
 
@@ -87,9 +84,6 @@ export default {
         isLogin() {
             return User.isLogin();
         },
-        isStd() {
-            return this.$store.state.client === "std";
-        },
     },
     components: {
         // 左侧
@@ -109,7 +103,6 @@ export default {
 
         // 右侧
         minirec,
-        // jx3servers,
         jx3world,
 
         // 公共
