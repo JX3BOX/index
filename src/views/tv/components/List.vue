@@ -23,6 +23,7 @@ export default {
     },
     methods: {
         resolveImagePath(str) {
+            if (typeof str !== "string" || !str) return "";
             return str.replace(/oss\.jx3box\.com/g, "cdn.jx3box.com");
         },
     },
