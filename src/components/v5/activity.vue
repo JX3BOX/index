@@ -22,82 +22,91 @@
         <div class="m-activity-v5__timeline relative">
             <div class="m-activity-v5__line absolute left-0 w-full bg-gray-200"></div>
 
-            <div ref="scrollRef" class="m-activity-v5__viewport">
+            <div
+                ref="scrollRef"
+                class="m-activity-v5__months flex overflow-x-auto relative z-10 py-4"
+                style="scrollbar-width: none; -ms-overflow-style: none"
+            >
                 <div
-                    class="m-activity-v5__months relative z-10 py-4"
-                    style="scrollbar-width: none; -ms-overflow-style: none"
+                    v-for="month in months"
+                    :id="`month-${month}`"
+                    :key="month"
+                    class="m-activity-v5__month-item flex-shrink-0 flex flex-col items-center"
                 >
-                    <div
-                        v-for="month in months"
-                        :id="`month-${month}`"
-                        :key="month"
-                        class="m-activity-v5__month-item flex-shrink-0 flex flex-col items-center"
-                    >
-                        <div class="u-month text-sm font-bold mb-4" :class="{ 'is-active': isActiveMonth(month) }">
-                            {{ month }}月
-                        </div>
+                    <div class="u-month text-sm font-bold mb-4" :class="{ 'is-active': isActiveMonth(month) }">
+                        {{ month }}月
+                    </div>
 
-                        <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
-                            <template v-if="isActiveMonth(month)">
-                                <span class="u-node-ping absolute bg-indigo-100 rounded-full"></span>
-                                <span
-                                    class="u-node-main bg-indigo-600 rounded-full border-4 border-white shadow-sm z-10"
-                                ></span>
-                            </template>
-                            <template v-else>
-                                <span class="u-node bg-gray-200 rounded-full border-2 border-white z-10"></span>
-                            </template>
-                        </div>
+                    <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
+                        <template v-if="isActiveMonth(month)">
+                            <span class="u-node-ping absolute bg-indigo-100 rounded-full"></span>
+                            <span
+                                class="u-node-main bg-indigo-600 rounded-full border-4 border-white shadow-sm z-10"
+                            ></span>
+                        </template>
+                        <template v-else>
+                            <span class="u-node bg-gray-200 rounded-full border-2 border-white z-10"></span>
+                        </template>
+                    </div>
 
-                        <div class="m-activity-v5__cards px-3 w-full">
-                            <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
-                                <a
-                                    v-for="item in activitiesByMonth[month]"
-                                    :key="item.id"
-                                    class="m-activity-v5__card group"
-                                    :class="cardClass(month, item)"
-                                    :href="item.link"
-                                    :target="item.link ? '_blank' : null"
-                                    :rel="item.link ? 'noopener noreferrer' : null"
-                                >
-                                    <div class="m-activity-v5__card-cover" v-if="item.cover">
+                    <div class="m-activity-v5__cards px-3 w-full">
+                        <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
+                            <a
+                                v-for="item in activitiesByMonth[month]"
+                                :key="item.id"
+                                class="m-activity-v5__card group"
+                                :class="cardClass(month, item)"
+                                :href="item.link"
+                                :target="item.link ? '_blank' : null"
+                                :rel="item.link ? 'noopener noreferrer' : null"
+                            >
+                                <div class="m-activity-v5__card-inner flex items-start">
+                                    <div class="m-activity-v5__cover rounded-lg overflow-hidden flex-shrink-0">
                                         <img
-                                            class="u-cover"
+                                            v-if="item.cover"
+                                            class="u-cover block"
                                             :class="{ 'is-inactive': !isCurrentActivity(item) }"
                                             :src="item.cover"
                                             :alt="item.name"
                                         />
+                                        <div v-else class="u-cover u-cover--placeholder">
+                                            <i class="el-icon-picture-outline"></i>
+                                        </div>
                                     </div>
 
                                     <div class="m-activity-v5__card-body">
-                                        <h4 class="u-name" :class="nameClass(item)">
+                                        <div class="m-activity-v5__card-meta flex items-center">
+                                            <span
+                                                class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
+                                                :class="typeClass(month)"
+                                            >
+                                                {{ item.type }}
+                                            </span>
+                                            <i
+                                                v-if="isActiveMonth(month)"
+                                                class="u-star el-icon-star-on text-indigo-600 u-star--xs"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </div>
+
+                                        <h4 class="u-name text-sm font-bold truncate m-0 mt-1" :class="nameClass(item)">
                                             {{ item.name }}
                                         </h4>
 
-                                        <div class="m-activity-v5__card-tags" v-if="item.tags && item.tags.length">
-                                            <span
-                                                v-for="(tag, index) in item.tags"
-                                                :key="`${item.id}-${index}`"
-                                                class="u-tag"
-                                            >
-                                                {{ tag }}
-                                            </span>
-                                        </div>
-
-                                        <div class="u-date">
-                                            <i class="el-icon-time"></i>
-                                            <span>{{ item.date }}</span>
+                                        <div class="u-date u-date--xs flex items-center text-gray-400 mt-1">
+                                            <i class="el-icon-time mr-1"></i>
+                                            {{ item.date }}
                                         </div>
                                     </div>
-                                </a>
-                            </template>
+                                </div>
+                            </a>
+                        </template>
 
-                            <div
-                                v-else
-                                class="m-activity-v5__null u-null--xs h-20 flex items-center justify-center border border-dashed border-gray-100 rounded-xl text-gray-300"
-                            >
-                                暂无安排
-                            </div>
+                        <div
+                            v-else
+                            class="m-activity-v5__null u-null--xs h-20 flex items-center justify-center border border-dashed border-gray-100 rounded-xl text-gray-300"
+                        >
+                            暂无安排
                         </div>
                     </div>
                 </div>
@@ -319,6 +328,12 @@ export default {
                 return "m-activity-v5__card--past";
             }
             return "m-activity-v5__card--normal";
+        },
+        typeClass: function (month) {
+            if (this.isActiveMonth(month)) {
+                return "bg-indigo-600 text-white";
+            }
+            return "bg-gray-100 text-gray-500 group-hover:bg-gray-200";
         },
         nameClass: function (item) {
             return this.isCurrentActivity(item) ? "is-active" : "is-inactive";
