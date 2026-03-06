@@ -29,7 +29,7 @@
         </div>
         <ul class="m-news-list m-sideblock-list" v-if="data">
             <li v-for="(item, i) in data" :key="i">
-                <em v-if="item.time" class="u-time">{{ dateFormat(item.time) }}</em>
+                <em v-if="item.time" class="u-time font-sans tabular-nums">{{ dateFormat(item.time) }}</em>
                 <a class="u-title" :href="item.url" target="_blank" rel="noopener noreferrer" :style="itemStyle(item)">{{
                     item.title
                 }}</a>

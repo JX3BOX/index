@@ -1,5 +1,5 @@
 <template>
-    <section class="p-index-world-v5">
+    <section class="p-index-world-v5 bg-white rounded-xl shadow-sm border border-gray-200 border-opacity-60 mb-6">
         <header class="m-index-world-v5__header">
             <div class="u-title">
                 <i class="u-icon el-icon-s-flag"></i>
@@ -89,12 +89,12 @@ export default {
 
 <style lang="less">
 .p-index-world-v5 {
-    margin-top: 20px;
-    background: #ffffff;
-    border-radius: 24px;
+    //margin-top: 20px;
+    // background: #ffffff;
+    // border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    // box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    // font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 .m-index-world-v5__header {
@@ -126,7 +126,7 @@ export default {
 
     .u-sync {
         font-size: 11px;
-        font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        // font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         opacity: 0.6;
         white-space: nowrap;
     }

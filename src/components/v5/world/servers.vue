@@ -289,14 +289,14 @@ export default {
 }
 
 .m-world-v5-servers__panel .u-label {
-    font-size: 13px;
+    font-size: 12px;
     color: #64748b;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .m-world-v5-servers__panel .u-latency {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
     color: #2e8b57;
     line-height: 1.2;
     white-space: nowrap;
@@ -314,8 +314,8 @@ export default {
 }
 
 .u-server-name {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .u-arrow {
@@ -332,8 +332,9 @@ export default {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
 
     .u-dot {
         width: 10px;
@@ -373,7 +374,7 @@ export default {
     width: min(420px, calc(100vw - 12px));
     background: #f3f4f6;
     border-radius: 18px;
-    padding: 14px 12px 10px;
+    padding: 20px;
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
     transform: translateY(0);
 }

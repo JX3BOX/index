@@ -10,7 +10,8 @@
                         <span class="text-2xl font-bold tracking-tight text-white">JX3BOX</span>
                     </div>
                     <p class="mt-5 text-sm leading-7 text-gray-400" style="max-width: 20rem">
-                        一站式剑三工具与资源聚合站，由热心侠士自发结伴、持续研发、用心运营；江湖路远，幸甚有你。
+                        一站式剑三工具与资源聚合站。<br>
+                        江湖路远，幸甚有你。
                     </p>
                     <div class="mt-6 flex flex-wrap gap-3">
                         <div v-for="item in socials" :key="item.name">

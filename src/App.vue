@@ -20,7 +20,6 @@
                         <posts />
                     </div>
                     <div class="m-primary__main-right">
-                        <minirec />
                         <jx3world />
                     </div>
                 </div>
@@ -50,9 +49,6 @@ import box from "@/components/v5/box.vue";
 import joke from "@/components/v4/joke.vue";
 import activity from "@/components/v5/activity.vue";
 import posts from "@/components/v5/posts.vue";
-
-import minirec from "@/components/v4/minirec/right.vue";
-//import face from "@/components/v3/face.vue";
 
 // 公共
 import CommonFooter from "@/components/common/CommonFooter.vue";
@@ -102,7 +98,6 @@ export default {
         posts,
 
         // 右侧
-        minirec,
         jx3world,
 
         // 公共

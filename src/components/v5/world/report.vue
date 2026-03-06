@@ -2,7 +2,7 @@
     <section class="m-world-v5-report">
         <div class="m-world-v5-report__card m-world-v5-report__card--baizhan">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">百战精华</h3>
+                <h3 class="m-world-v5-report__title">百战地图</h3>
             </div>
             <baizhan></baizhan>
         </div>
@@ -39,14 +39,14 @@
 
         <div class="m-world-v5-report__card m-world-v5-report__card--horse">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">实时抓马公告</h3>
+                <h3 class="m-world-v5-report__title">抓马速递</h3>
             </div>
             <horse-notice :server="selectedServer" :client="client"></horse-notice>
         </div>
 
         <div class="m-world-v5-report__card m-world-v5-report__card--pet">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">宠物追踪</h3>
+                <h3 class="m-world-v5-report__title">福缘宠物</h3>
             </div>
             <lucky-pet :date="date" :client="client"></lucky-pet>
         </div>
@@ -370,15 +370,15 @@ export default {
 
     .m-mrt-item.active {
         color: #4f46e5;
+        font-weight: 600;
     }
 
     .u-desc {
         background: #eef2ff;
-        color: #4f46e5;
+        // color: #4f46e5;
         padding: 2px 8px;
         border-radius: 6px;
         font-size: 11px;
-        font-weight: 600;
     }
 
     .u-week {
