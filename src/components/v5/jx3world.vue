@@ -34,7 +34,7 @@
 <script>
 import dayjs from "@/utils/day";
 import { formatTime } from "@/utils";
-import worldServers from "@/components/v5/world/servers.vue";
+import worldServers from "@/components/v4/servers.vue";
 import worldReport from "@/components/v5/world/report.vue";
 
 export default {

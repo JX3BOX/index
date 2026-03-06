@@ -344,13 +344,43 @@ export default {
 }
 
 .m-world-v5-report__card--reputation {
-    .u-reputation-icon {
-        width: 24px !important;
-        height: 24px !important;
+    .u-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding: 0;
     }
 
-    .u-reputation-item {
-        margin-bottom: 8px;
+    .u-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .u-pet {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .u-pet-icon {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 50% !important;
+        background: #e2e8f0;
+        overflow: hidden;
+        border: 1px solid white;
+        box-shadow: 0 2px 5px rgba(15, 23, 42, 0.18);
+    }
+
+    .u-pet-name {
+        font-size: 13px;
+        color: #111827;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
 

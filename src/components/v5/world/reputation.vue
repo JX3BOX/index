@@ -1,28 +1,17 @@
 <template>
-    <div v-if="reputationList.length" class="m-world-block m-world-furniture">
+    <div v-if="reputationList.length" class="m-world-block m-world-pet m-world-reputation">
         <el-divider content-position="left">家园声望</el-divider>
-        <div class="m-furniture-item">
-            <!-- <div class="u-title">家园声望</div> -->
-            <div class="m-reputation">
-                <a
-                    class="u-reputation-item"
-                    v-for="item in reputationList"
-                    :key="item.id"
-                    :href="getItemLink(item.id)"
-                    target="_blank"
-                >
-                    <div class="u-reputation">
-                        <el-tooltip class="box-item" effect="dark" :content="item.Desc" placement="top">
-                            <div class="u-reputation-item">
-                                <div class="u-reputation-icon" :class="`u-quality-${item.Quality}`">
-                                    <img :src="iconLink(item.IconID)" :alt="item.Name" />
-                                </div>
-                                <span class="u-reputation-name">{{ item.Name }}</span>
-                            </div>
-                        </el-tooltip>
+        <div class="m-pet">
+            <a v-for="item in reputationList" :key="item.id" class="u-item" :href="getItemLink(item.id)" target="_blank">
+                <el-tooltip class="box-item" effect="dark" :content="item.Desc" placement="top">
+                    <div class="u-pet">
+                        <div class="u-pet-icon" :class="`u-quality-${item.Quality}`">
+                            <img :src="iconLink(item.IconID)" :alt="item.Name" />
+                        </div>
+                        <span class="u-pet-name">{{ item.Name }}</span>
                     </div>
-                </a>
-            </div>
+                </el-tooltip>
+            </a>
         </div>
     </div>
 </template>
@@ -114,5 +103,12 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/v4/world/furniture.less";
+@import "~@/assets/css/v4/world/pet.less";
+
+.m-world-reputation {
+    .u-item {
+        width: 100%;
+        padding: 0;
+    }
+}
 </style>
