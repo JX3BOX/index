@@ -14,7 +14,7 @@
                 href="https://space.bilibili.com/2066064028"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-pink-400 hover:text-white"
+                class="m-followus__item flex items-center justify-between p-3 rounded-xl group bg-gray-50 hover:bg-pink-400 hover:text-white"
             >
                 <div class="flex items-center" style="column-gap: 0.75rem">
                     <div
@@ -25,12 +25,12 @@
 
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">B站</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
+                        <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
 
                 <i
-                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                    class="m-followus__arrow el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
                 ></i>
             </a>
 
@@ -38,7 +38,7 @@
                 href="https://weibo.com/jx3box"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-red-600 hover:text-white"
+                class="m-followus__item flex items-center justify-between p-3 rounded-xl group bg-gray-50 hover:bg-red-600 hover:text-white"
             >
                 <div class="flex items-center" style="column-gap: 0.75rem">
                     <div
@@ -49,12 +49,12 @@
 
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">微博</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
+                        <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
 
                 <i
-                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                    class="m-followus__arrow el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
                 ></i>
             </a>
 
@@ -62,7 +62,7 @@
                 href="https://www.douyin.com/user/MS4wLjABAAAAP3OHPy-BYsW6IMiPZfP1FP3J_zYAAYNVVlk9XyoKhOs"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="m-followus__item flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-gray-900 hover:text-white"
+                class="m-followus__item flex items-center justify-between p-3 rounded-xl group bg-gray-50 hover:bg-gray-900 hover:text-white"
             >
                 <div class="flex items-center" style="column-gap: 0.75rem">
                     <div
@@ -73,16 +73,16 @@
 
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">抖音</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
+                        <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight">@剑网3魔盒</span>
                     </div>
                 </div>
                 <i
-                    class="el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all"
+                    class="m-followus__arrow el-icon-arrow-right opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
                 ></i>
             </a>
 
             <div
-                class="m-followus__item m-followus__item--wechat flex items-center justify-between p-3 rounded-xl transition-all duration-300 group bg-gray-50 hover:bg-emerald-600 hover:text-white"
+                class="m-followus__item m-followus__item--wechat flex items-center justify-between p-3 rounded-xl group bg-gray-50 hover:text-white"
                 @mouseenter="updateQrcodePlacement"
             >
                 <div class="flex items-center" style="column-gap: 0.75rem">
@@ -94,7 +94,7 @@
 
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">微信公众号</span>
-                        <span class="text-xs opacity-50 group-hover:opacity-100 tracking-tight"
+                        <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
                             >@剑三魔盒</span
                         >
                     </div>
@@ -104,7 +104,7 @@
                     <img
                         :src="qrcodeIcon"
                         alt="二维码"
-                        class="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all u-qrcode"
+                        class="m-followus__arrow u-qrcode opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
                     />
                     <div class="m-followus__qrcode-popup" :class="{ 'is-left': isQrcodePopupLeft }">
                         <img :src="qrcodeImage" alt="微信公众号二维码" class="m-followus__qrcode-image" />
@@ -121,7 +121,7 @@ import weiboIcon from "@/assets/img/tv/weibo.svg";
 import douyinIcon from "@/assets/img/tv/douyin.svg";
 import wechatIcon from "@/assets/img/tv/wechat.svg";
 import qrcodeIcon from "@/assets/img/index/qrcode.svg";
-import qrcodeImage from "@/assets/img/right/qrcode.png";
+import qrcodeImage from "@/assets/img/mobile/mp.jpg";
 
 export default {
     name: "FollowUsV5",
@@ -153,6 +153,8 @@ export default {
 
 <style lang="less">
 .m-followus {
+    @followus-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    @followus-duration: 0.24s;
 
 
     .m-followus__header{
@@ -161,10 +163,26 @@ export default {
 
     .m-followus__item {
         color: #1e293b;
+        transition:
+            background-color @followus-duration @followus-ease,
+            color @followus-duration @followus-ease,
+            box-shadow @followus-duration @followus-ease;
 
         &:hover {
             color: #fff;
         }
+    }
+
+    .m-followus__icon {
+        transition: transform @followus-duration @followus-ease;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .m-followus__desc,
+    .m-followus__arrow {
+        transition:
+            opacity @followus-duration @followus-ease,
+            transform @followus-duration @followus-ease;
     }
 
     .m-followus__item--wechat {
@@ -188,7 +206,6 @@ export default {
         width: 14px;
         height: 14px;
         opacity: 0;
-        transition: opacity 0.2s ease;
     }
 
     .m-followus__item--wechat:hover .u-qrcode {
@@ -209,8 +226,12 @@ export default {
         justify-content: center;
         opacity: 0;
         visibility: hidden;
+        pointer-events: none;
         transform: translate(4px, -50%);
-        transition: all 0.2s ease;
+        transition:
+            opacity @followus-duration @followus-ease,
+            transform @followus-duration @followus-ease,
+            visibility 0s linear @followus-duration;
         z-index: 30;
 
         &::before {
@@ -230,7 +251,9 @@ export default {
     .m-followus__item--wechat:hover .m-followus__qrcode-popup {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
         transform: translate(0, -50%);
+        transition-delay: 0s, 0s, 0s;
     }
 
     .m-followus__qrcode-popup.is-left {

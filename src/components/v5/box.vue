@@ -672,13 +672,24 @@ export default {
         padding: 1.25rem;
 
         .m-box-v5__header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
             margin-bottom: 1.25rem;
         }
 
-        .m-box-v5__header-right,
+        .m-box-v5__header-left {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .m-box-v5__header-right {
+            width: auto;
+            flex: 0 0 auto;
+            justify-content: flex-end;
+        }
+
         .m-box-v5__footer {
             width: 100%;
             justify-content: flex-start;
@@ -686,7 +697,23 @@ export default {
         }
 
         .u-btn {
-            padding: 0.65rem 1rem;
+            padding: 0.65rem 0.9rem;
+            white-space: nowrap;
+        }
+
+        .u-header-icon-wrap {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.9rem;
+        }
+
+        .u-title {
+            font-size: 1rem;
+        }
+
+        .u-subtitle {
+            margin-top: 0.15rem;
+            font-size: 0.7rem;
         }
 
         .m-box-v5__list {

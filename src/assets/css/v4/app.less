@@ -27,7 +27,9 @@ body {
     // overflow-y: auto;
 }
 .m-primary {
-    flex: 1;
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
     // margin-left: @left;
     // width: calc(100vw - @left - 40px);
     padding: @layout-padding @layout-padding @layout-padding 0;
@@ -40,10 +42,10 @@ body {
     gap: 20px;
     .m-primary__main-left {
         flex: 1;
-        width: calc(100% - @layout-padding - @left); // 这里注释了我那边是有问题的，包括中间部分tab宽度，以及右侧不显示
+        min-width: 0;
     }
     .m-primary__main-right {
-        flex: 0;
+        flex: 0 0 320px;
         width: 320px;
         min-width: 320px;
     }

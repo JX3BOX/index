@@ -3,6 +3,9 @@
 
 .m-slider-box {
     width: calc(100vw - @left - 30px) !important;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .m-slider-box {
@@ -14,8 +17,11 @@
     // padding: 0 10px;
 }
 @media screen and (max-width: @phone) {
+    .m-slider-box {
+        width: 100% !important;
+    }
     .m-tv-station {
-        padding-bottom: 10px;
+        padding-bottom: 0;
     }
 }
 .m-slider {

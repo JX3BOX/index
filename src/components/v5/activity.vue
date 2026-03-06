@@ -22,80 +22,82 @@
         <div class="m-activity-v5__timeline relative">
             <div class="m-activity-v5__line absolute left-0 w-full bg-gray-200"></div>
 
-            <div
-                ref="scrollRef"
-                class="m-activity-v5__months flex overflow-x-auto relative z-10 py-4"
-                style="scrollbar-width: none; -ms-overflow-style: none"
-            >
+            <div ref="scrollRef" class="m-activity-v5__viewport">
                 <div
-                    v-for="month in months"
-                    :id="`month-${month}`"
-                    :key="month"
-                    class="m-activity-v5__month-item flex-shrink-0 flex flex-col items-center"
+                    class="m-activity-v5__months relative z-10 py-4"
+                    style="scrollbar-width: none; -ms-overflow-style: none"
                 >
-                    <div class="u-month text-sm font-bold mb-4" :class="{ 'is-active': isActiveMonth(month) }">
-                        {{ month }}月
-                    </div>
+                    <div
+                        v-for="month in months"
+                        :id="`month-${month}`"
+                        :key="month"
+                        class="m-activity-v5__month-item flex-shrink-0 flex flex-col items-center"
+                    >
+                        <div class="u-month text-sm font-bold mb-4" :class="{ 'is-active': isActiveMonth(month) }">
+                            {{ month }}月
+                        </div>
 
-                    <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
-                        <template v-if="isActiveMonth(month)">
-                            <span class="u-node-ping absolute bg-indigo-100 rounded-full"></span>
-                            <span
-                                class="u-node-main bg-indigo-600 rounded-full border-4 border-white shadow-sm z-10"
-                            ></span>
-                        </template>
-                        <template v-else>
-                            <span class="u-node bg-gray-200 rounded-full border-2 border-white z-10"></span>
-                        </template>
-                    </div>
+                        <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
+                            <template v-if="isActiveMonth(month)">
+                                <span class="u-node-ping absolute bg-indigo-100 rounded-full"></span>
+                                <span
+                                    class="u-node-main bg-indigo-600 rounded-full border-4 border-white shadow-sm z-10"
+                                ></span>
+                            </template>
+                            <template v-else>
+                                <span class="u-node bg-gray-200 rounded-full border-2 border-white z-10"></span>
+                            </template>
+                        </div>
 
-                    <div class="m-activity-v5__cards px-3 w-full">
-                        <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
-                            <a
-                                v-for="item in activitiesByMonth[month]"
-                                :key="item.id"
-                                class="m-activity-v5__card group"
-                                :class="cardClass(month, item)"
-                                :href="item.link"
-                                :target="item.link ? '_blank' : null"
-                                :rel="item.link ? 'noopener noreferrer' : null"
-                            >
-                                <!-- <div
-                                    v-if="isActiveMonth(month) && item.cover"
-                                    class="m-activity-v5__cover rounded-lg overflow-hidden mb-2"
+                        <div class="m-activity-v5__cards px-3 w-full">
+                            <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
+                                <a
+                                    v-for="item in activitiesByMonth[month]"
+                                    :key="item.id"
+                                    class="m-activity-v5__card group"
+                                    :class="cardClass(month, item)"
+                                    :href="item.link"
+                                    :target="item.link ? '_blank' : null"
+                                    :rel="item.link ? 'noopener noreferrer' : null"
                                 >
-                                    <img class="u-cover block w-full" :src="item.cover" :alt="item.name" />
-                                </div> -->
-                                <div class="m-activity-v5__card-meta flex items-center">
-                                    <span
-                                        class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
-                                        :class="typeClass(month)"
-                                    >
-                                        {{ item.type }}
-                                    </span>
-                                    <i
-                                        v-if="isActiveMonth(month)"
-                                        class="u-star el-icon-star-on text-indigo-600 u-star--xs"
-                                        aria-hidden="true"
-                                    ></i>
-                                </div>
+                                    <div class="m-activity-v5__card-cover" v-if="item.cover">
+                                        <img
+                                            class="u-cover"
+                                            :class="{ 'is-inactive': !isCurrentActivity(item) }"
+                                            :src="item.cover"
+                                            :alt="item.name"
+                                        />
+                                    </div>
 
-                                <h4 class="u-name text-sm font-bold truncate m-0 mt-1" :class="nameClass(month)">
-                                    {{ item.name }}
-                                </h4>
+                                    <div class="m-activity-v5__card-body">
+                                        <h4 class="u-name" :class="nameClass(item)">
+                                            {{ item.name }}
+                                        </h4>
 
-                                <div class="u-date u-date--xs flex items-center text-gray-400 mt-1">
-                                    <i class="el-icon-time mr-1"></i>
-                                    {{ item.date }}
-                                </div>
-                            </a>
-                        </template>
+                                        <div class="m-activity-v5__card-tags" v-if="item.tags && item.tags.length">
+                                            <span
+                                                v-for="(tag, index) in item.tags"
+                                                :key="`${item.id}-${index}`"
+                                                class="u-tag"
+                                            >
+                                                {{ tag }}
+                                            </span>
+                                        </div>
 
-                        <div
-                            v-else
-                            class="m-activity-v5__null u-null--xs h-20 flex items-center justify-center border border-dashed border-gray-100 rounded-xl text-gray-300"
-                        >
-                            暂无安排
+                                        <div class="u-date">
+                                            <i class="el-icon-time"></i>
+                                            <span>{{ item.date }}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </template>
+
+                            <div
+                                v-else
+                                class="m-activity-v5__null u-null--xs h-20 flex items-center justify-center border border-dashed border-gray-100 rounded-xl text-gray-300"
+                            >
+                                暂无安排
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,16 +135,31 @@ export default {
             return this.apiActivities;
         },
         activitiesByMonth: function () {
-            return this.activityList.reduce((acc, item) => {
+            const grouped = this.activityList.reduce((acc, item) => {
                 if (!acc[item.month]) acc[item.month] = [];
                 acc[item.month].push(item);
                 return acc;
             }, {});
+
+            Object.keys(grouped).forEach((month) => {
+                grouped[month] = grouped[month].slice().sort((a, b) => {
+                    const sortDiff = this.getSortValue(a.sort) - this.getSortValue(b.sort);
+                    if (sortDiff !== 0) return sortDiff;
+                    return this.getStartTimestamp(a.start) - this.getStartTimestamp(b.start);
+                });
+            });
+
+            return grouped;
+        },
+    },
+    watch: {
+        activityList: function () {
+            this.updateActiveMonth();
+            this.$nextTick(this.scrollToActiveMonth);
         },
     },
     mounted: function () {
         this.loadActivities();
-        this.$nextTick(this.scrollToActiveMonth);
     },
     methods: {
         async loadActivities() {
@@ -151,9 +168,12 @@ export default {
                     status: 1,
                 });
                 this.apiActivities = this.normalizeActivities(res);
+                this.updateActiveMonth();
             } catch (e) {
                 this.apiActivities = [];
+                this.updateActiveMonth();
             }
+            this.$nextTick(this.scrollToActiveMonth);
         },
         normalizeActivities: function (res) {
             const raw = res && res.data && res.data.data;
@@ -163,21 +183,41 @@ export default {
             return list
                 .filter((item) => item && item.start_time)
                 .map((item, index) => {
-                    const start = dayjs(item.start_time);
-                    const end = item.end_time ? dayjs(item.end_time) : start;
+                    const start = this.parseActivityTime(item.start_time, false);
+                    const end = this.parseActivityTime(item.end_time || item.start_time, true);
 
                     return {
                         id: item.id || `pvx-${index}`,
                         month: start.month() + 1,
+                        sort: this.getSortValue(item.sort),
                         name: item.name || "未命名活动",
                         type: item.type || "活动",
+                        tags: this.resolveTags(item),
                         link: item.link || "",
                         cover: this.resolveCover(item.cover),
                         date: this.formatDateRange(start, end),
+                        start,
+                        end,
                         status: this.getActivityStatus(start, end, now),
                     };
                 })
-                .sort((a, b) => a.month - b.month);
+                .sort((a, b) => a.start.valueOf() - b.start.valueOf());
+        },
+        getSortValue: function (value) {
+            const num = Number(value);
+            return Number.isFinite(num) ? num : 9999;
+        },
+        getStartTimestamp: function (start) {
+            if (start && typeof start.valueOf === "function") return start.valueOf();
+            const parsed = dayjs(start);
+            if (!parsed.isValid()) return Number.MAX_SAFE_INTEGER;
+            return parsed.valueOf();
+        },
+        resolveTags: function (item) {
+            const tags = [];
+            if (item.type) tags.push(item.type);
+            if (item.category) tags.push(item.category);
+            return tags.slice(0, 3);
         },
         resolveCover: function (cover) {
             if (!cover) return "";
@@ -191,6 +231,17 @@ export default {
             // 使用 m_lfit 保留完整画面，避免 m_fill 的中心裁切；并提高输出尺寸与质量以减少糊感
             return `${base}?x-oss-process=image/auto-orient,1/resize,m_lfit,w_960,h_540/quality,Q_95${query}`;
         },
+        parseActivityTime: function (value, endOfDay) {
+            if (!value) return dayjs("");
+            const parsed = dayjs(value);
+            if (!parsed.isValid()) return parsed;
+
+            const raw = String(value);
+            const hasExplicitTime = /(?:T|\s)\d{1,2}:\d{2}/.test(raw);
+            if (hasExplicitTime) return parsed;
+
+            return endOfDay ? parsed.endOf("day") : parsed.startOf("day");
+        },
         formatDateRange: function (start, end) {
             if (!start || !start.isValid()) return "--";
             if (!end || !end.isValid()) end = start;
@@ -201,17 +252,44 @@ export default {
             return `${start.format("MM.DD")} - ${end.format("MM.DD")}`;
         },
         getActivityStatus: function (start, end, now) {
-            if (end.isBefore(now, "day")) return "past";
-            if (
-                (start.isBefore(now, "day") || start.isSame(now, "day")) &&
-                (end.isAfter(now, "day") || end.isSame(now, "day"))
-            ) {
-                return "current";
-            }
+            if (!start || !start.isValid() || !end || !end.isValid()) return "upcoming";
+            if (end.valueOf() < now.valueOf()) return "past";
+            if (start.valueOf() <= now.valueOf() && end.valueOf() >= now.valueOf()) return "current";
             return "upcoming";
+        },
+        updateActiveMonth: function () {
+            const list = Array.isArray(this.activityList) ? this.activityList : [];
+            if (!list.length) {
+                this.activeMonth = new Date().getMonth() + 1;
+                return;
+            }
+
+            const currentItem = list.find((item) => item && item.status === "current");
+            if (currentItem && currentItem.month) {
+                this.activeMonth = Number(currentItem.month);
+                return;
+            }
+
+            const now = dayjs().valueOf();
+            const withStart = list
+                .filter((item) => item && this.getStartTimestamp(item.start) < Number.MAX_SAFE_INTEGER)
+                .slice()
+                .sort((a, b) => this.getStartTimestamp(a.start) - this.getStartTimestamp(b.start));
+
+            const upcomingItem = withStart.find((item) => this.getStartTimestamp(item.start) >= now);
+            if (upcomingItem && upcomingItem.month) {
+                this.activeMonth = Number(upcomingItem.month);
+                return;
+            }
+
+            const latestPast = withStart.length ? withStart[withStart.length - 1] : list[0];
+            this.activeMonth = Number(latestPast.month) || new Date().getMonth() + 1;
         },
         isActiveMonth: function (month) {
             return month === this.activeMonth;
+        },
+        isCurrentActivity: function (item) {
+            return item && item.status === "current";
         },
         scroll: function (direction) {
             const el = this.$refs.scrollRef;
@@ -234,7 +312,7 @@ export default {
             el.scrollTo({ left, behavior: "smooth" });
         },
         cardClass: function (month, item) {
-            if (this.isActiveMonth(month)) {
+            if (this.isCurrentActivity(item)) {
                 return "m-activity-v5__card--active";
             }
             if (item && item.status === "past") {
@@ -242,14 +320,8 @@ export default {
             }
             return "m-activity-v5__card--normal";
         },
-        typeClass: function (month) {
-            if (this.isActiveMonth(month)) {
-                return "bg-indigo-600 text-white";
-            }
-            return "bg-gray-100 text-gray-500 group-hover:bg-gray-200";
-        },
-        nameClass: function (month) {
-            return this.isActiveMonth(month) ? "text-gray-900" : "text-gray-700";
+        nameClass: function (item) {
+            return this.isCurrentActivity(item) ? "is-active" : "is-inactive";
         },
     },
 };
@@ -258,4 +330,3 @@ export default {
 <style lang="less">
 @import "~@/assets/css/v4/activity.less";
 </style>
-

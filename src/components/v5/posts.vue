@@ -1,20 +1,30 @@
 <template>
     <section class="m-posts-v5 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
-        <div class="m-posts-v5__tabs flex items-center px-6 py-5" role="tablist" aria-label="内容分类">
-            <button
-                v-for="tab in tabs"
-                :key="tab.value"
-                class="u-tab px-5 py-2 text-sm font-black rounded-xl transition-all mr-3 border-0 cursor-pointer"
-                :class="
-                    activeTab === tab.value
-                        ? 'bg-yellow-400 text-gray-900 shadow-sm'
-                        : 'bg-transparent text-gray-400 hover:text-gray-700 hover:bg-gray-100'
-                "
-                :aria-pressed="activeTab === tab.value"
-                @click="changeTab(tab.value)"
+        <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" aria-label="内容分类">
+            <div class="m-posts-v5__tab-list flex items-center" role="tablist">
+                <button
+                    v-for="tab in tabs"
+                    :key="tab.value"
+                    class="u-tab px-5 py-2 text-sm font-black rounded-xl transition-all mr-3 border-0 cursor-pointer"
+                    :class="
+                        activeTab === tab.value
+                            ? 'bg-yellow-400 text-gray-900 shadow-sm'
+                            : 'bg-transparent text-gray-400 hover:text-gray-700 hover:bg-gray-100'
+                    "
+                    :aria-pressed="activeTab === tab.value"
+                    @click="changeTab(tab.value)"
+                >
+                    {{ tab.label }}
+                </button>
+            </div>
+            <a
+                href="/community"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="u-more text-xs text-gray-400 hover:text-yellow-600 no-underline flex-shrink-0"
             >
-                {{ tab.label }}
-            </button>
+                更多 >>
+            </a>
         </div>
 
         <div v-loading="loading" class="m-posts-v5__content">
@@ -160,7 +170,7 @@ export default {
             const time = item.post_modified;
             const timestamp = new Date(time).getTime() || 0;
             const authorName = (item.author_info && item.author_info.display_name) || "匿名";
-            const avatar = showAvatar(item.author_info && item.author_info.user_avatar);
+            const avatar = showAvatar(item.author_info && item.author_info.user_avatar, 112);
 
             return {
                 key: `work-${item.ID}`,
@@ -188,7 +198,7 @@ export default {
                 typeLabel: this.categoryMap[item.category] || "讨论",
                 title: item.title || "无内容",
                 authorName: info.display_name || "匿名",
-                avatar: showAvatar(info.avatar),
+                avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
                 link,
@@ -211,7 +221,7 @@ export default {
                 typeLabel: this.categoryMap[topic.category] || "讨论",
                 title: this.br2nl(content || "无内容"),
                 authorName: info.display_name || "匿名",
-                avatar: showAvatar(info.avatar),
+                avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
                 link,
@@ -290,15 +300,25 @@ export default {
 .m-posts-v5 {
     .m-posts-v5__tabs {
         background-color: #fff;
-        border-bottom: 1px solid #f8fafc;
+        border-bottom: 1px solid #e5e7eb;
     }
 
     .m-posts-v5__item {
-        border-bottom: 1px solid #f8fafc;
+        border-bottom: 1px solid #e5e7eb;
     }
 
     .m-posts-v5__item:last-child {
         border-bottom: 0;
+    }
+
+    .u-more {
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .u-more:hover {
+        transform: translateX(2px);
     }
 
     .m-posts-v5__tabs {
