@@ -4,6 +4,7 @@ node_modules
 /src/mock
 package-lock.json
 yarn.lock
+/tmp
 
 # local env files
 .env.local

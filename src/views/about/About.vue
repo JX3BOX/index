@@ -67,7 +67,7 @@
 
 <script>
 import SubNav from "./components/SubNav.vue";
-import CommonFooter from "@/components/common/CommonFooter.vue";
+import CommonFooter from "@jx3box/jx3box-common-ui/src/CommonFooter.vue";
 import { __cdn, __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { isPhone } from "@/utils/index";
 export default {

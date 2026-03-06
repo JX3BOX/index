@@ -51,7 +51,7 @@ import activity from "@/components/v5/activity.vue";
 import posts from "@/components/v5/posts.vue";
 
 // 公共
-import CommonFooter from "@/components/common/CommonFooter.vue";
+import CommonFooter from "@jx3box/jx3box-common-ui/src/CommonFooter.vue";
 import festival from "@/components/festival/index.vue";
 import forceAlert from "@/components/index/force_alert.vue";
 import importantMsg from "@/components/v4/important_msg.vue";
