@@ -18,7 +18,7 @@
         "@jx3box/jx3box-bmap": "^0.1.15",
         "@jx3box/jx3box-comment-ui": "^2.0.9",
         "@jx3box/jx3box-common": "^8.7.6",
-        "@jx3box/jx3box-common-ui": "^9.5.25",
+        "@jx3box/jx3box-common-ui": "^9.5.26",
         "@jx3box/jx3box-data": "^3.9.2",
         "@jx3box/jx3box-editor": "^2.2.47",
         "@jx3box/jx3box-emotion": "^1.2.14",
@@ -36,6 +36,7 @@
         "lottie-web": "^5.13.0",
         "vue": "^2.6.14",
         "vue-clipboard2": "^0.3.3",
+        "vue-matomo": "^4.2.0",
         "vue-router": "^3.5.3",
         "vuedraggable": "^2.24.3",
         "vuex": "^3.6.2"

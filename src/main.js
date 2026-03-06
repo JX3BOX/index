@@ -4,9 +4,8 @@ Vue.config.productionTip = false;
 import Vue from "vue";
 import ElementUI from "element-ui";
 Vue.use(ElementUI);
+import "./icons"; // svgicon
 
-// import VueClipboard from 'vue-clipboard2'
-// Vue.use(VueClipboard)
 
 // 通用UI模块
 import JX3BOX_UI from "@jx3box/jx3box-common-ui";
@@ -17,10 +16,10 @@ Vue.use(JX3BOX_UI);
 // import Comments from "@jx3box/jx3box-comment-ui"
 // Vue.use(Comments)
 
+// 数据上报
 import reporter from "@jx3box/jx3box-common/js/reporter";
 reporter.install(Vue);
-
-import "./icons"; // svgicon
+import VueMatomo from 'vue-matomo'
 
 // 数据与路由
 // import router from "./router";
@@ -31,4 +30,9 @@ new Vue({
     // router,
     store,
     render: (h) => h(App),
+}).use(VueMatomo, {
+    host: 'https://matomo.2kog.com/',
+    siteId: 2,
 }).$mount("#app");
+
+window._paq.push(['trackPageView']);
