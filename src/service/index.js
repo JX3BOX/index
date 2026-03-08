@@ -1,4 +1,4 @@
-import { $cms, $team, $next, $pay } from "@jx3box/jx3box-common/js/https";
+import { $cms, $team, $next, $pay } from "@jx3box/jx3box-common/js/api";
 
 function getPosts(client = "std", type, per = 5, subtype) {
     let params = {

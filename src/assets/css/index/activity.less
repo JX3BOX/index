@@ -1,25 +1,199 @@
-.m-activity{
-    // .mt(20px);
-    background-color:@bg-black;
-    .r(4px);
-    .mb(10px);
-    box-shadow:0 0 3px rgba(0,0,0,.2);
-    a{
-        .db;
-        .r(3px);
-        .size(100%);
-        .clip;
-        .db;
-        img{
-            .db;
-            .r(3px);
-            max-width:none;
+@import "./var.less";
+.m-activity-v5 {
+    // width: calc(100vw - @left - @right - @layout-padding);
+    border-radius: 2rem;
+
+    .m-activity-v5__title-sub {
+        column-gap: 0.5rem;
+    }
+
+    .u-icon {
+        font-size: 18px;
+        line-height: 1;
+    }
+
+    .u-subtitle {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .m-activity-v5__controller {
+        column-gap: 0.25rem;
+    }
+
+    .u-scroll-btn {
+        width: 36px;
+        height: 36px;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        color: #9ca3af;
+        background: #fff;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        .flex(o);
+    }
+
+    .u-scroll-btn:hover {
+        color: #111827;
+        background: #f9fafb;
+    }
+
+    .m-activity-v5__line {
+        top: 42px;
+        height: 1px;
+    }
+
+    .m-activity-v5__months::-webkit-scrollbar {
+        display: none;
+    }
+
+    .m-activity-v5__months {
+        column-gap: 0.5rem;
+    }
+
+    .m-activity-v5__month-item {
+        width: 256px;
+    }
+
+    .u-month {
+        color: #9ca3af;
+        transition: color 0.2s ease;
+    }
+
+    .u-month.is-active {
+        // color: #2563eb;
+        color: @v4primary;
+    }
+
+    .u-node-ping {
+        width: 24px;
+        height: 24px;
+        animation: m-activity-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .u-node-main {
+        width: 16px;
+        height: 16px;
+    }
+
+    .u-node {
+        width: 12px;
+        height: 12px;
+    }
+
+    .u-type--xs,
+    .u-star--xs {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .u-date--xs,
+    .u-null--xs {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .m-activity-v5__cards {
+        display: block;
+    }
+
+    .m-activity-v5__card {
+        display: block;
+        padding: 0.75rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        background: #fff;
+        text-decoration: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .m-activity-v5__card + .m-activity-v5__card {
+        margin-top: 1rem;
+    }
+
+    .m-activity-v5__card--active {
+        border-color: @v4border;
+        background: @v4bg;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .m-activity-v5__card--past {
+        border-color: #e5e7eb;
+        background: #fff;
+    }
+
+    .m-activity-v5__card--normal {
+        border-color: #e5e7eb;
+        background: #fff;
+    }
+
+    .m-activity-v5__card--normal:hover {
+        border-color: #d1d5db;
+    }
+
+    .m-activity-v5__card-meta {
+        column-gap: 0.375rem;
+    }
+
+    .m-activity-v5__card-inner {
+        column-gap: 0.625rem;
+    }
+
+    .m-activity-v5__card-body {
+        flex: 1;
+        min-width: 0;
+
+        .u-name {
+            color: #111827;
         }
     }
-    // .mt(10px);
+
+    .m-activity-v5__cover {
+        width: 52px;
+        height: 52px;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        background: #f8fafc;
+    }
+
+    .u-cover {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .u-cover.is-inactive {
+        filter: grayscale(100%);
+    }
+
+    .u-cover--placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        font-size: 16px;
+        background: #f3f4f6;
+    }
 }
-@media screen and (max-width:1279px){
-    .m-activity{
-        .none;
+
+@keyframes m-activity-ping {
+    75%,
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .m-activity-v5 {
+        border-radius: 1.25rem;
+        padding: 1.25rem 0.75rem;
+
+        .m-activity-v5__month-item {
+            width: 224px;
+        }
     }
 }

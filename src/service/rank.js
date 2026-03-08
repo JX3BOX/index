@@ -1,4 +1,4 @@
-import { $next, $helper, $cms } from "@jx3box/jx3box-common/js/https";
+import { $next, $cms } from "@jx3box/jx3box-common/js/api";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat.js";
 
 function getRank(type, days = "30days") {
@@ -19,13 +19,13 @@ function getRank(type, days = "30days") {
 }
 
 function getAchievements(params) {
-    return $helper({ mute: true }).get("/api/achievements", {
+    return $cms({ mute: true }).get("/api/achievements", {
         params: params,
     });
 }
 
 function getCollections(params) {
-    return $helper({ mute: true }).get(`/api/post/collections`, {
+    return $cms({ mute: true }).get(`/api/post/collections`, {
         params: params,
     });
 }
@@ -36,7 +36,7 @@ function getNamespaces(params) {
 }
 
 function getKnowledges(params) {
-    return $helper({ mute: true }).get(`/api/knowledges`, {
+    return $cms({ mute: true }).get(`/api/knowledges`, {
         params: params,
     });
 }

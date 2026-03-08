@@ -1,4 +1,4 @@
-import { $node } from "@jx3box/jx3box-common/js/https";
+import { $node } from "@jx3box/jx3box-common/js/api";
 
 function getDatabaseStat({ client = 'std' } = {}) {
     return $node().get(`/`, {

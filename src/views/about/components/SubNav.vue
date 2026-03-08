@@ -2,7 +2,7 @@
     <nav class="a-sub-nav" :class="{ 'is--phone': side }">
         <div class="nav-logo-wrap">
             <router-link to="/">
-                <img class="u-logo" svg-inline fill="white" src="@/assets/img/logo.svg" />
+                <img class="u-logo" svg-inline fill="white" src="@/assets/img/common/logo.svg" />
                 <span class="about-title">关于我们</span>
             </router-link>
         </div>

@@ -1,6 +1,7 @@
-import { $cms, $node, $next, $helper } from "@jx3box/jx3box-common/js/https";
 import axios from "axios";
-import { __spider2, __dataPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import { $cms, $node, $next } from "@jx3box/jx3box-common/js/api";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+const { __spider2, __dataPath } = JX3BOX;
 const $spider = axios.create({
     baseURL: __spider2,
 });

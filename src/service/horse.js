@@ -1,4 +1,4 @@
-import { $next, $cms } from "@jx3box/jx3box-common/js/https";
+import { $next, $cms } from "@jx3box/jx3box-common/js/api";
 export function getGameReporter(params) {
     return $next().get("/api/game/reporter/horse", {
         params,

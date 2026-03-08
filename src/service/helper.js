@@ -1,8 +1,8 @@
-import { $helper, $next } from "@jx3box/jx3box-common/js/https";
+import { $cms, $next } from "@jx3box/jx3box-common/js/api";
 
 // 今日财富
 function getCode(client) {
-    return $helper().get(`api/config_banner/code`, {
+    return $cms().get(`api/config_banner/code`, {
         params: {
             client: client,
             status: 1,
@@ -18,17 +18,17 @@ function getItemPrice(params) {
 }
 
 function getSchoolRank(v) {
-    return $helper().get(`/api/dps_group/${v}`);
+    return $cms().get(`/api/dps_group/${v}`);
 }
 
 function getWikiPosts(params) {
-    return $helper().get(`/api/wiki/posts/newest`, {
+    return $cms().get(`/api/wiki/posts/newest`, {
         params: params,
     });
 }
 
 function getCollections(params) {
-    return $helper().get(`/api/post/collections`, {
+    return $cms().get(`/api/post/collections`, {
         params: params,
     });
 }

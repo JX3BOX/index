@@ -1,4 +1,4 @@
-import { $next, $cms } from "@jx3box/jx3box-common/js/https";
+import { $next, $cms } from "@jx3box/jx3box-common/js/api";
 const API_PREFIX = `/api/next2`;
 
 // 获取分类

@@ -1,6 +1,5 @@
 import axios from "./axios";
-import { __server, __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
-import { $cms } from "@jx3box/jx3box-common/js/https";
+import { $cms } from "@jx3box/jx3box-common/js/api";
 
 function getPost(title, page) {
     return $cms().get("/api/cms/posts", {
@@ -29,7 +28,7 @@ function getNamespace(key) {
 }
 
 function getCj(keyword, page) {
-    return axios.get(__helperUrl + "api/achievement/search", {
+    return $cms().get("api/achievement/search", {
         headers: {
             Accept: "application/prs.helper.v2+json",
         },
@@ -41,7 +40,7 @@ function getCj(keyword, page) {
 }
 
 function getItem(keyword, page) {
-    return axios.get(__helperUrl + "api/item/search", {
+    return $cms().get("api/item/search", {
         headers: {
             Accept: "application/prs.helper.v2+json",
         },

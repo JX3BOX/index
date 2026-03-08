@@ -1,56 +1,57 @@
 const pages = {
     // 首页
     index: {
-        title: "剑网3" + Setting.suffix,
+        title: "剑网3",
         entry: "src/main.js",
         template: "public/index.html",
         filename: "index.html",
     },
-    // 公告
-    notice: {
-        title: "公告资讯" + Setting.suffix,
-        entry: "src/pages/notice.js",
-        template: "public/index.html",
-        filename: "notice/index.html",
-    },
-    // 头条
-    tv: {
-        title: "魔盒电视台" + Setting.suffix,
-        entry: "src/pages/tv.js",
-        template: "public/index.html",
-        filename: "tv/index.html",
-    },
-    // 关于
-    about: {
-        title: "关于我们" + Setting.suffix,
-        entry: "src/pages/about.js",
-        template: "public/index.html",
-        filename: "about/index.html",
-    },
-    // 搜索
-    search: {
-        title: "搜索" + Setting.suffix,
-        entry: "src/pages/search.js",
-        template: "public/index.html",
-        filename: "search/index.html",
-    },
-    // 文章跳转
-    post: {
-        title: "作品" + Setting.suffix,
-        entry: "src/pages/post.js",
-        template: "public/index.html",
-        filename: "post/index.html",
-    },
-    // 铭牌跳转
-    jx3: {
-        title: "剑网3.com",
-        entry: "src/pages/jx3.js",
-        template: "public/index.html",
-        filename: "jx3/index.html",
-    }
+    // // 公告
+    // notice: {
+    //     title: "公告资讯",
+    //     entry: "src/pages/notice.js",
+    //     template: "public/index.html",
+    //     filename: "notice/index.html",
+    // },
+    // // 头条
+    // tv: {
+    //     title: "魔盒电视台",
+    //     entry: "src/pages/tv.js",
+    //     template: "public/index.html",
+    //     filename: "tv/index.html",
+    // },
+    // // 关于
+    // about: {
+    //     title: "关于我们",
+    //     entry: "src/pages/about.js",
+    //     template: "public/index.html",
+    //     filename: "about/index.html",
+    // },
+    // // 搜索
+    // search: {
+    //     title: "搜索",
+    //     entry: "src/pages/search.js",
+    //     template: "public/index.html",
+    //     filename: "search/index.html",
+    // },
+    // // 文章跳转
+    // post: {
+    //     title: "作品",
+    //     entry: "src/pages/post.js",
+    //     template: "public/index.html",
+    //     filename: "post/index.html",
+    // },
+    // // 铭牌跳转
+    // jx3: {
+    //     title: "剑网3.com",
+    //     entry: "src/pages/jx3.js",
+    //     template: "public/index.html",
+    //     filename: "jx3/index.html",
+    // }
 };
 
 const path = require("path");
+const webpack = require("webpack");
 const commonDomains = require("@jx3box/jx3box-common/data/jx3box.json");
 
 module.exports = {
@@ -106,6 +107,23 @@ module.exports = {
             },
         });
 
+        // 💝 quick svg ~
+        config.module
+            .rule("svg")
+            .exclude.add(path.join(__dirname, "src/assets/img/icon")) // 排除自定义svg目录
+            .end();
+        config.module
+            .rule("icons") // 新规则
+            .test(/\.svg$/)
+            .include.add(path.join(__dirname, "src/assets/img/icon")) // 新规则应用于我们存放svg的目录
+            .end()
+            .use("svg-sprite-loader") // 用sprite-loader接卸
+            .loader("svg-sprite-loader")
+            .options({
+                symbolId: "icon-[name]",
+            })
+            .end();
+
         //💝 in-line svg imgs ~
         config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
@@ -116,6 +134,15 @@ module.exports = {
         config.externals = {
             tinyMCE: "tinyMCE",
         }
+    },
+
+    configureWebpack: {
+        plugins: [
+            new webpack.DefinePlugin({
+                // 全局注入，用于 JS 或其他代码中
+                __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+            }),
+        ],
     },
 };
 
