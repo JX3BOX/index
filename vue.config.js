@@ -1,49 +1,47 @@
-const path = require("path");
-const pkg = require("./package.json");
-const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
-const Setting = require("./setting.json");
-const VueProxyPlugin = require("@jx3box/jx3box-fe-proxy");
-
-function resolve(dir) {
-    return path.join(__dirname, dir);
-}
 const pages = {
+    // 首页
     index: {
         title: "剑网3" + Setting.suffix,
         entry: "src/main.js",
         template: "public/index.html",
         filename: "index.html",
     },
+    // 公告
     notice: {
         title: "公告资讯" + Setting.suffix,
         entry: "src/pages/notice.js",
         template: "public/index.html",
         filename: "notice/index.html",
     },
+    // 头条
     tv: {
         title: "魔盒电视台" + Setting.suffix,
         entry: "src/pages/tv.js",
         template: "public/index.html",
         filename: "tv/index.html",
     },
+    // 关于
     about: {
         title: "关于我们" + Setting.suffix,
         entry: "src/pages/about.js",
         template: "public/index.html",
         filename: "about/index.html",
     },
-    post: {
-        title: "作品" + Setting.suffix,
-        entry: "src/pages/post.js",
-        template: "public/index.html",
-        filename: "post/index.html",
-    },
+    // 搜索
     search: {
         title: "搜索" + Setting.suffix,
         entry: "src/pages/search.js",
         template: "public/index.html",
         filename: "search/index.html",
     },
+    // 文章跳转
+    post: {
+        title: "作品" + Setting.suffix,
+        entry: "src/pages/post.js",
+        template: "public/index.html",
+        filename: "post/index.html",
+    },
+    // 铭牌跳转
     jx3: {
         title: "剑网3.com",
         entry: "src/pages/jx3.js",
@@ -52,138 +50,142 @@ const pages = {
     }
 };
 
+const path = require("path");
+const commonDomains = require("@jx3box/jx3box-common/data/jx3box.json");
+
 module.exports = {
-    //❤️ Multiple pages ~
-    pages: pages,
-    productionSourceMap: false,
-
-    //❤️ Proxy ~
-    devServer: {
-        proxy: {
-             ...VueProxyPlugin.generateBuiltinProxy(),
-            // 专门为直接的 /api/next2/ 路径配置代理到 dev.next2.jx3box.com
-            '/api/next2': {
-                target: 'https://dev.next2.jx3box.com',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api/next2': '/api/next2'
-                },
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            },
-            '/api/summary-any': {
-                target: 'https://dev.next2.jx3box.com',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api/next2': '/api/next2'
-                },
-                onProxyReq: function (request) {
-                    request.setHeader("origin", "");
-                },
-            }
-        },
-        disableHostCheck: true,
-        port: process.env.DEV_PORT || 12028, // 设置端口号
-    },
-
-    outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : "dist", // 指定构建输出的目录
 
     //❤️ define path for static files ~
-    publicPath:
-        //FOR Localhost => development
-        (process.env.NODE_ENV === "development" && "/") ||
-        (process.env.BUILD_MODE == "preview" && `/${pkg.name}/`) ||
-        //BY relative path
-        (process.env.BUILD_MODE === "preview" && `/${pkg.name}/`) ||
-        //BY origin
-        (process.env.STATIC_PATH === "origin" && `${JX3BOX.__staticPath["origin"]}${pkg.name}/`) ||
-        //BY github
-        (process.env.STATIC_PATH === "github" && `${JX3BOX.__staticPath["github"]}${pkg.name}/`) ||
-        //BY jsdelivr
-        (process.env.STATIC_PATH === "jsdelivr" && `${JX3BOX.__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) ||
-        //BY OSS=>CDN
-        (process.env.STATIC_PATH === "mirror" && `${JX3BOX.__staticPath["mirror"]}${pkg.name}/`) ||
-        //BY relative path
-        (process.env.STATIC_PATH === "repo" && `/${pkg.name}/`) ||
-        //BY root path or bind a domain
-        (process.env.STATIC_PATH == "root" && "/") ||
-        //for lost
-        "/",
-    transpileDependencies: [
-        "@jx3box/jx3box-editor",
-        "htmlparser2",
-        "cheerio",
-        "dom-serializer",
-        "domelementtype",
-        "domhandler",
-        "domutils",
-        "entities",
-        "parse5",
-        "parse5-htmlparser2-tree-adapter",
-    ],
+    publicPath: process.env.NODE_ENV === "development" ? "/" : process.env.STATIC_PATH,
+
+    //🌈多页面配置，详见 https://cli.vuejs.org/zh/config/#pages
+    pages: pages,
+
+
+    //⚛️ Proxy ~
+    devServer: {
+        host: "localhost",
+        // 与 @jx3box/jx3box-common/js/api.js 对齐：
+        // 本地开发开启 `VUE_APP_PROXY_ENABLE=1` 后，会把请求 baseURL 切到 `${VUE_APP_PROXY_PREFIX}/${serviceKey}`
+        proxy: buildEnvProxy(),
+        allowedHosts: "all",
+        port: process.env.DEV_PORT || 12028,
+    },
+
+    // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告
+    // 这些不是运行错误，开启 quietDeps 让它们不刷屏（只保留项目自身的警告）
+    css: {
+        loaderOptions: {
+            sass: {
+                sassOptions: {
+                    quietDeps: true,
+                },
+            },
+            scss: {
+                sassOptions: {
+                    quietDeps: true,
+                },
+            },
+        },
+    },
+
+    // 过滤依赖包里的已知兼容性 warning（不影响运行，但会刷屏）
+    configureWebpack: {
+        stats: {
+            warningsFilter: [/node_modules[\\\\/]+@jx3box[\\\\/]+jx3box-common[\\\\/]+/],
+        },
+    },
+
+    //❤️ Webpack configuration
     chainWebpack: (config) => {
-        // // it can improve the speed of the first screen, it is recommended to turn on preload
-        // Object.keys(pages).forEach((name) => {
-        //     config.plugin(`preload-${name}`).tap(() => [
-        //         {
-        //             rel: "preload",
-        //             // to ignore runtime.js
-        //             fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
-        //             include: "initial",
-        //         },
-        //     ]);
-        // });
-
-        // // when there are many pages, it will cause too many meaningless requests
-        // config.plugins.delete("prefetch");
-
-        // use svg locally
-        // set svg-sprite-loader
-        config.module.rule("svg").exclude.add(resolve("src/icons")).end();
-        config.module
-            .rule("icons")
-            .test(/\.svg$/)
-            .include.add(resolve("src/icons"))
-            .end()
-            .use("svg-sprite-loader")
-            .loader("svg-sprite-loader")
-            .options({
-                symbolId: "icon-[name]",
-            })
-            .end();
-
-        // // drop console.log
-        // config.optimization.minimizer("terser").tap((args) => {
-        //     args[0].terserOptions.compress.drop_console = true;
-        //     return args;
-        // });
 
         //💝 in-line small imgs ~
-        config.module
-            .rule("images")
-            .use("url-loader")
-            .loader("url-loader")
-            .tap((options) => Object.assign(options, { limit: 10240, esModule: false }));
+        config.module.rule("images").set("parser", {
+            dataUrlCondition: {
+                maxSize: 4 * 1024, // 4KiB
+            },
+        });
 
         //💝 in-line svg imgs ~
         config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
         //💖 import common less var * mixin ~
         const types = ["vue-modules", "vue", "normal-modules", "normal"];
-        var preload_styles = [];
-        preload_styles.push(
-            path.resolve(__dirname, "./node_modules/csslab/base.less"),
-            path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
-            path.resolve(__dirname, "./src/assets/css/var.less"),
-            path.resolve(__dirname, "./src/assets/css/search/var.less")
-        );
-
-        function addStyleResource(rule) {
-            rule.use("style-resource").loader("style-resources-loader").options({
-                patterns: preload_styles,
-            });
-        }
         types.forEach((type) => addStyleResource(config.module.rule("less").oneOf(type)));
+
+        config.externals = {
+            tinyMCE: "tinyMCE",
+        }
     },
 };
+
+// 注入全局样式资源（变量、mixin 等）
+// 本地css/var.less、mixin.less会覆盖node_modules里的同名文件，方便定制化
+// 注意此类文件都是变量和mixin函数，不要写全局样式，否则可能会被重复注入多次
+function addStyleResource(rule) {
+    var preload_styles = [];
+    preload_styles.push(
+        path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
+        path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
+        path.resolve(__dirname, "./assets/css/var.less"),
+        path.resolve(__dirname, "./assets/css/mixin.less"),
+        path.resolve(__dirname, "./node_modules/csslab/base.less"),
+    );
+    rule.use("style-resource").loader("style-resources-loader").options({
+        patterns: preload_styles,
+    });
+}
+
+
+function normalizeTarget(value) {
+    if (!value) return "";
+    const trimmed = String(value).trim();
+    if (!trimmed) return "";
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    return `https://${trimmed.replace(/^\/+/, "")}`;
+}
+
+function escapeRegExp(str) {
+    return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function buildEnvProxy() {
+    const nodeEnv = String(process.env.NODE_ENV || "").toLowerCase();
+    if (nodeEnv && nodeEnv !== "development") return {};
+
+    // Vue CLI 加载 .env 的时机/覆盖关系可能导致这里读不到或读到意外值：
+    // - 明确设置为 false 才禁用
+    // - 未设置/无法读取时，仍然生成代理（仅在 devServer 生效）
+    const rawEnabled = String(process.env.VUE_APP_PROXY_ENABLE || "").toLowerCase();
+    const disabled = ["0", "false", "no", "off"].includes(rawEnabled);
+    if (disabled) return {};
+
+    const prefix = process.env.VUE_APP_PROXY_PREFIX || "/__proxy";
+    const mk = (serviceKey, target) => {
+        const normalized = normalizeTarget(target);
+        if (!normalized) return {};
+        const context = `${prefix}/${serviceKey}`;
+        const contextRe = new RegExp(`^${escapeRegExp(context)}`);
+        return {
+            [context]: {
+                target: normalized,
+                changeOrigin: true,
+                secure: false,
+                cookieDomainRewrite: "",
+                pathRewrite: (p) => p.replace(contextRe, ""),
+            },
+        };
+    };
+
+    const serviceTargets = {
+        cms: process.env.VUE_APP_CMS_API || commonDomains.__cms,
+        next: process.env.VUE_APP_NEXT_API || commonDomains.__next,
+        team: process.env.VUE_APP_TEAM_API || commonDomains.__team,
+        pay: process.env.VUE_APP_PAY_API || commonDomains.__pay,
+        lua: process.env.VUE_APP_LUA_API || commonDomains.__lua,
+        node: process.env.VUE_APP_NODE_API || commonDomains.__node,
+        helper: process.env.VUE_APP_HELPER_API || commonDomains.__helperUrl,
+    };
+
+    return Object.keys(serviceTargets).reduce((acc, key) => Object.assign(acc, mk(key, serviceTargets[key])), {});
+}
