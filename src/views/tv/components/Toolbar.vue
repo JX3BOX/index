@@ -17,7 +17,7 @@
                 <el-pagination
                     class="u-pagination"
                     :current-page="pageIndex"
-                    :page-size.sync="pageSize"
+                    v-model:page-size="pageSize"
                     @current-change="changePage"
                     :pager-count="9"
                     layout="pager"
@@ -53,7 +53,7 @@
                 <el-pagination
                     class="u-pagination"
                     :current-page="pageIndex"
-                    :page-size.sync="pageSize"
+                    v-model:page-size="pageSize"
                     @current-change="changePage"
                     :pager-count="5"
                     layout="pager"

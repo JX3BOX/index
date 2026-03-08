@@ -1,16 +1,16 @@
 <template>
     <div class="m-welcome">
         <div class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
-        <i class="u-hook u-hook-left"><img src="@/assets/img/entry/index/sidebar/hook.png" /></i>
-        <i class="u-hook u-hook-right"><img src="@/assets/img/entry/index/sidebar/hook.png" /></i>
+        <i class="u-hook u-hook-left"><img src="@/assets/img/index/hook.png" /></i>
+        <i class="u-hook u-hook-right"><img src="@/assets/img/index/hook.png" /></i>
         <a class="u-frame" :href="link" target="_blank"></a>
     </div>
 </template>
 
 <script>
-import { __cdn } from "@/config/data/jx3box.json";
-import { resolveImagePath } from "@/config/js/utils";
-import User from "@/config/js/user";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import User from "@jx3box/jx3box-common/js/user";
 import { getConfigBanner, getUserDecoration, getPublicDecoration } from "@/service/cms.js";
 import { getUserConfig } from "@/service/user";
 
@@ -141,5 +141,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/welcome.less";
+@import "@/assets/css/index/welcome.less";
 </style>

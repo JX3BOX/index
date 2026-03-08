@@ -47,8 +47,8 @@
 import { getPostsFree } from "@/service/index";
 import dateFormat from "@/utils/dateFormat.js";
 import { getChangelog, getGameNews } from "@/service/cms";
-import { getLink } from "@/config/js/utils";
-import { all_map } from "@/config/data/jx3_zlp.json";
+import { getLink } from "@jx3box/jx3box-common/js/utils";
+import { all_map } from "@jx3box/jx3box-common/data/jx3_zlp.json";
 import dayjs from "dayjs";
 export default {
     name: "IndexNews",
@@ -190,5 +190,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/news.less";
+@import "@/assets/css/index/news.less";
 </style>

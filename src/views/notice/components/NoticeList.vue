@@ -56,7 +56,7 @@
                 class="m-archive-pages"
                 background
                 layout="prev, pager, next"
-                :current-page.sync="page"
+                v-model:current-page="page"
                 :page-size="per"
                 :total="total"
                 :hide-on-single-page="true"

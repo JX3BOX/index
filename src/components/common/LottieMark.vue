@@ -62,7 +62,7 @@ export default {
             this.loadAnimation();
         },
     },
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.animation) this.animation.destroy();
     },
     methods: {

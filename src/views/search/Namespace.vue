@@ -51,6 +51,8 @@ export default {
 };
 </script>
 <style scoped lang="less">
+@import "@/assets/css/search/var.less";
+
 .m-item {
 	box-shadow: 0 0 5px #dcdfe6;
 	border-radius: 4px;

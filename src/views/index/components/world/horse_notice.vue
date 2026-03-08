@@ -70,7 +70,7 @@ import dayjs from "@/utils/day";
 import horseSites from "@/assets/data/horse_sites.json";
 import { getGameReporter, getHorseReporter } from "@/service/horse";
 import horseBroadcast from "@/assets/data/horse_broadcast.json";
-import { __imgPath } from "@/config/data/jx3box.json";
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "IndexWorldHorseNoticeV5",

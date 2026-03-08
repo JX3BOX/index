@@ -39,6 +39,8 @@ export default {
 </script> 
 
 <style lang="less">
+@import "@/assets/css/search/var.less";
+
 //搜索结果
 .m-google {
     background-color: #fff;

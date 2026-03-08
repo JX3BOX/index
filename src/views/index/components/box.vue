@@ -106,15 +106,14 @@ import _ from "lodash";
 
 // BOX设置
 import box from "@/assets/data/box.json";
-import { buildTarget } from "@/config/js/utils";
-import { __cdn } from "@/config/data/jx3box.json";
+import { buildTarget } from "@jx3box/jx3box-common/js/utils";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 import draggable from "vuedraggable";
-import User from "@/config/js/user";
+import User from "@jx3box/jx3box-common/js/user";
 
 import { getMeta, setMeta } from "@/service/user.js";
 import { getHelperPnt, getMenu } from "@/service/setting.js";
 import Mini_bread from "./mini_bread.vue";
-import { reportNow } from "@/config/js/reporter";
 
 const KEY = "boxmatrix";
 
@@ -371,12 +370,12 @@ export default {
             });
         },
         onReport(href) {
-            reportNow({
-                caller: "index_matrix",
-                data: {
-                    item: `${this.prefix}:${href}`,
-                },
-            });
+            // reportNow({
+            //     caller: "index_matrix",
+            //     data: {
+            //         item: `${this.prefix}:${href}`,
+            //     },
+            // });
         },
         getBoxIcon(val) {
             const v = val ? String(val).replace(".png", ".svg") : "";

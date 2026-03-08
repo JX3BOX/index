@@ -25,7 +25,7 @@
 <script>
 import dayjs from "@/utils/day";
 import { getHomeReputation, getItems } from "@/service/spider";
-import { iconLink } from "@/config/js/utils";
+import { iconLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "Reputation",
     props: {
@@ -109,7 +109,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/world/pet.less";
+@import "@/assets/css/index/world/pet.less";
 
 .m-world-reputation {
     .u-item {

@@ -1,4 +1,3 @@
-import axios from "./axios";
 import { $cms } from "@jx3box/jx3box-common/js/api";
 
 function getPost(title, page) {

@@ -13,7 +13,7 @@
         </ul>
         <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
         <el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)">加载更多</el-button>
-        <el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page :page-size.sync="per" :total="total" :current-page="page" @current-change="changePage">
+        <el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" :current-page="page" @current-change="changePage">
         </el-pagination>
     </div>
 </template>
@@ -48,8 +48,6 @@ export default {
         hasNextPage: function () {
             return this.total > 1 && this.page < this.pages;
         },
-    },
-    filters: {
     },
     methods: {
         loadData: function (i = 1, append = false) {

@@ -21,6 +21,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "@/assets/css/search/var.less";
+
 .m-logo {
     margin: 0 auto;
     text-align: center;

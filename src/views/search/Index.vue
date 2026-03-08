@@ -20,17 +20,17 @@
 </template>
 
 <script>
-import Top from "@/components/search/Top.vue";
-import Bottom from "@/components/search/Bottom.vue";
-import Search from "@/components/search/Search.vue";
-import Wiki from "@/components/search/Wiki.vue";
-import Post from "@/components/search/Post.vue";
-import Namespace from "@/components/search/Namespace.vue";
-import Author from "@/components/search/Author.vue";
-import All from "@/components/search/All.vue";
+import Top from "./Top.vue";
+import Bottom from "./Bottom.vue";
+import Search from "./Search.vue";
+import Wiki from "./Wiki.vue";
+import Post from "./Post.vue";
+import Namespace from "./Namespace.vue";
+import Author from "./Author.vue";
+import All from "./All.vue";
 // import Cj from '@/components/search/Cj.vue'
 // import Item from '@/components/search/Item.vue'
-import Google from "@/components/search/Google.vue";
+import Google from "./Google.vue";
 
 export default {
 	name: "App",
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="less">
-@import "../../node_modules/@jx3box/jx3box-common/css/preset.css";
-@import "~@/assets/css/search/layout.less";
-@import "~@/assets/css/search/post.less";
+@import "@jx3box/jx3box-common/css/preset.css";
+@import "@/assets/css/search/layout.less";
+@import "@/assets/css/search/post.less";
 </style>

@@ -20,6 +20,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "@/assets/css/search/var.less";
+
 .m-footer {
 	font-size: 12px;
 	color: @gray;

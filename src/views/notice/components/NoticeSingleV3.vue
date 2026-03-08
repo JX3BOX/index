@@ -203,7 +203,7 @@ export default {
         this.load();
         document.addEventListener("scroll", this.handlerScroll);
     },
-    beforeDestroy() {
+    beforeUnmount() {
         document.removeEventListener("scroll", this.handlerScroll);
     },
 };

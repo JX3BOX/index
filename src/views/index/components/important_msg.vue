@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { getBreadcrumb } from "@/config/js/api_misc";
-import User from "@/config/js/user";
+import { getBreadcrumb } from "@jx3box/jx3box-common/js/system";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "importantMsg",
     components: {},

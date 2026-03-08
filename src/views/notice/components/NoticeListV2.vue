@@ -54,7 +54,7 @@
                 <el-pagination
                     class="m-pagination"
                     layout="pager"
-                    :current-page.sync="page"
+                    v-model:current-page="page"
                     :page-size="per"
                     :total="total"
                     :pager-count="5"

@@ -11,7 +11,7 @@
 
         <div class="flex items-center space-x-3 relative z-10">
             <div class="bg-white bg-opacity-20 p-2 rounded-xl">
-                <CircleIcon class="w-5 h-5" />
+                <img svg-inline class="w-5 h-5" src="@/assets/img/index/circle.svg" alt="">
             </div>
             <div class="flex flex-col items-start leading-tight">
                 <span class="text-sm font-bold tracking-wide">反馈中心</span>
@@ -24,12 +24,10 @@
 </template>
 
 <script>
-import CircleIcon from "@/assets/img/entry/index/sidebar/circle.svg";
 
 export default {
     name: "IndexFeedbackV5",
     components: {
-        CircleIcon,
     },
     data: function () {
         return {

@@ -32,7 +32,7 @@
 
 <script>
 import { getConfigBanner } from "@/service/cms";
-import { showTime } from "@/config/js/moment";
+import { showTime } from "@jx3box/jx3box-common/js/moment";
 export default {
     props: [],
     data: function () {
@@ -67,5 +67,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import "@/assets/css/views/index/jx3code.less";
+@import "@/assets/css/index/jx3code.less";
 </style>

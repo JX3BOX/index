@@ -1,11 +1,18 @@
 const pages = {
     // 首页
     index: {
-        title: "剑网3",
+        title: "剑网3魔盒",
         entry: "src/main.js",
         template: "public/index.html",
         filename: "index.html",
     },
+    // // 搜索
+    // search: {
+    //     title: "搜索",
+    //     entry: "src/pages/search.js",
+    //     template: "public/index.html",
+    //     filename: "search/index.html",
+    // },
     // // 公告
     // notice: {
     //     title: "公告资讯",
@@ -26,13 +33,6 @@ const pages = {
     //     entry: "src/pages/about.js",
     //     template: "public/index.html",
     //     filename: "about/index.html",
-    // },
-    // // 搜索
-    // search: {
-    //     title: "搜索",
-    //     entry: "src/pages/search.js",
-    //     template: "public/index.html",
-    //     filename: "search/index.html",
     // },
     // // 文章跳转
     // post: {

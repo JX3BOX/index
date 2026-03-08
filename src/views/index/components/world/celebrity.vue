@@ -47,7 +47,7 @@
 import { getCelebrities } from "@/service/cms";
 import dayjs from "@/utils/day";
 import { sortBy } from "@/utils/index";
-import JX3BOX from "@/config/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "celebrity",
     props: {
@@ -370,5 +370,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import "@/assets/css/views/index/world/celebrity.less";
+@import "@/assets/css/index/world/celebrity.less";
 </style>

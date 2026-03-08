@@ -121,12 +121,12 @@
 </template>
 
 <script>
-import bilibiliIcon from "@/assets/img/icons/bilibili-black.svg?url";
-import weiboIcon from "@/assets/img/icons/weibo.svg?url";
-import douyinIcon from "@/assets/img/icons/douyin.svg?url";
-import wechatIcon from "@/assets/img/icons/wechat.svg?url";
-import qrcodeIcon from "@/assets/img/icons/qrcode.svg?url";
-import qrcodeImage from "@/assets/img/icons/mp.jpg";
+import bilibiliIcon from "@/assets/img/index/bilibili-black.svg?url";
+import weiboIcon from "@/assets/img/index/weibo.svg?url";
+import douyinIcon from "@/assets/img/index/douyin.svg?url";
+import wechatIcon from "@/assets/img/index/wechat.svg?url";
+import qrcodeIcon from "@/assets/img/index/qrcode.svg?url";
+import qrcodeImage from "@/assets/img/index/mp.jpg";
 
 export default {
     name: "FollowUsV5",

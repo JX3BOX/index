@@ -91,9 +91,8 @@
 <script>
 import { getPosts } from "@/service/index";
 import { getTopicBucket, getMixLatest } from "@/service/community";
-import { buildTarget, showAvatar, getLink, getTypeLabel } from "@/config/js/utils";
+import { buildTarget, showAvatar, getLink, getTypeLabel } from "@jx3box/jx3box-common/js/utils";
 import { showRecently } from "@/utils/moment";
-import { reportNow } from "@/config/js/reporter";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 
 export default {
@@ -111,8 +110,8 @@ export default {
             worksData: [],
             communityData: [],
             categoryList: [],
-            displayLimit: 6,
-            sourceLimit: 18,
+            displayLimit: 8,
+            sourceLimit: 20,
             aggregate: [],
         };
     },
@@ -234,13 +233,13 @@ export default {
         },
         updateAggregateAndReport() {
             this.aggregate = this.displayData.map((item) => this.reportLink(item.link));
-            reportNow({
-                caller: "index_lastest_artwork_load",
-                data: {
-                    aggregate: this.aggregate,
-                    category: this.activeTab,
-                },
-            });
+            // reportNow({
+            //     caller: "index_lastest_artwork_load",
+            //     data: {
+            //         aggregate: this.aggregate,
+            //         category: this.activeTab,
+            //     },
+            // });
         },
         async loadCategoryList() {
             try {

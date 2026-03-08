@@ -24,7 +24,7 @@
 <script>
 import { getPets, getPetLucky } from "@/service/spider";
 import dayjs from "@/utils/day";
-import { iconLink } from "@/config/js/utils";
+import { iconLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "lucky-pet",
     props: {
@@ -72,5 +72,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/world/pet.less";
+@import "@/assets/css/index/world/pet.less";
 </style>

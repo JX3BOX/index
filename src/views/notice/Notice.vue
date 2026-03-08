@@ -94,7 +94,6 @@ export default {
             });
         },
     },
-    filters: {},
     created: function () {},
     mounted() {
         window.addEventListener("scroll", this.handleScroll);

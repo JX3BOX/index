@@ -80,5 +80,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/force_alert.less";
+@import "@/assets/css/index/force_alert.less";
 </style>

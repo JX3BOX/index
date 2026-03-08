@@ -118,7 +118,7 @@
 <script>
 import dayjs from "dayjs";
 import { getPvxEvents } from "@/service/index";
-import { __cdn } from "@/config/data/jx3box.json";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "IndexActivityV5",
@@ -343,5 +343,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/activity.less";
+@import "@/assets/css/index/activity.less";
 </style>

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { buildTarget, resolveImagePath, getThumbnail, convertUrlToProtocol } from "@/config/js/utils";
+import { buildTarget, resolveImagePath, getThumbnail, convertUrlToProtocol } from "@jx3box/jx3box-common/js/utils";
 import { getConfigBanner } from "@/service/cms";
 import _ from "lodash";
 export default {
@@ -142,5 +142,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/slider.less";
+@import "@/assets/css/index/slider.less";
 </style>

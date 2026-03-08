@@ -135,5 +135,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/world/mrt.less";
+@import "@/assets/css/index/world/mrt.less";
 </style>

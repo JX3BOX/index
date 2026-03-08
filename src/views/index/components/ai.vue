@@ -4,7 +4,7 @@
     >
         <div class="m-ai__content relative z-10">
             <div class="flex items-center space-x-2 mb-4">
-                <img src="@/assets/img/entry/index/index/star.svg" class="w-4 h-4 text-yellow-300" svg-inline alt="" />
+                <img src="@/assets/img/index/star.svg" class="w-4 h-4 text-yellow-300" svg-inline alt="" />
                 <h3 class="text-xs font-bold tracking-tight m-0">魔盒 AI 助手</h3>
             </div>
 
@@ -20,14 +20,14 @@
                     type="button"
                     @click="onSubmit"
                 >
-                    <img src="@/assets/img/entry/index/index/send.svg" svg-inline class="w-3 h-3 text-black" alt="" />
+                    <img src="@/assets/img/index/send.svg" svg-inline class="w-3 h-3 text-black" alt="" />
                 </button>
             </div>
         </div>
 
         <img
             svg-inline
-            src="@/assets/img/entry/index/index/aibg.svg"
+            src="@/assets/img/index/aibg.svg"
             class="absolute -bottom-4 -left-4 w-20 h-20 text-white text-opacity-10 rotate-12"
             alt=""
         />

@@ -54,15 +54,15 @@ import Posts from "./components/posts.vue";
 import Jx3world from "./components/jx3world.vue";
 
 // 公共
-import Festival from "./components/index.vue";
+import Festival from "./components/festival.vue";
 import ForceAlert from "./components/force_alert.vue";
 import ImportantMsg from "./components/important_msg.vue";
 
-import User from "@/config/js/user";
+import User from "@jx3box/jx3box-common/js/user";
 import { getProfile, getMeta } from "@/service/user";
 import { getConfig } from "@/service/setting.js";
 import driver from "@/utils/driver.js";
-import { isMiniProgram, isApp } from "@/config/js/utils";
+import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "Index",
@@ -144,5 +144,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "@/assets/css/views/index/app.less";
+@import "@/assets/css/index/app.less";
 </style>

@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getLink } from "@/config/js/utils";
+import { getLink } from "@jx3box/jx3box-common/js/utils";
 import { getJokes } from "@/service/index";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 

@@ -10,7 +10,7 @@
 		</ul>
 		<el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
 		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" icon="el-icon-arrow-down">加载更多</el-button>
-		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page :page-size.sync="per" :total="total" :current-page.sync="page" @current-change="changePage"> </el-pagination>
+		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" v-model:current-page="page" @current-change="changePage"> </el-pagination>
 	</div>
 </template>
 
@@ -38,14 +38,6 @@ export default {
 			return this.total > 1 && this.page < this.pages;
 		},
 	},
-	filters: {
-		icon: function (id) {
-			return __iconPath + "icon/" + id + ".png";
-		},
-		url: function (id) {
-			return __Root + "cj/#/view/" + id;
-		},
-	},
 	methods: {
 		loadData: function (i = 1, append = false) {
 			this.loading = true;
@@ -69,6 +61,12 @@ export default {
 		},
 		appendPage: function (i) {
 			this.loadData(i, true);
+		},
+        icon: function (id) {
+			return __iconPath + "icon/" + id + ".png";
+		},
+		url: function (id) {
+			return __Root + "cj/#/view/" + id;
 		},
 	},
 	watch: {

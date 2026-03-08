@@ -2,8 +2,8 @@
 	<div class="m-author m-block" v-loading="loading">
 		<ul class="u-list" v-if="data.length">
 			<li class="u-item" v-for="(item, i) in data" :key="'item-' + i">
-				<a class="u-author" v-bind:href="item | formatURL" target="_blank">
-					<img class="u-avatar" :src="item.user_avatar | formatAvatar" :alt="item.display_name" />
+				<a class="u-author" :href="formatURL(item)" target="_blank">
+					<img class="u-avatar" :src="formatAvatar(item.user_avatar)" :alt="item.display_name" />
 					<b class="u-name">{{ item.display_name }}</b>
 					<span class="u-desc">{{ item.user_bio }}</span>
 				</a>
@@ -11,7 +11,7 @@
 		</ul>
 		<el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
 		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" icon="el-icon-arrow-down">加载更多</el-button>
-		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page :page-size.sync="per" :total="total" :current-page.sync="page" @current-change="changePage"> </el-pagination>
+		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" v-model:current-page="page" @current-change="changePage"> </el-pagination>
 	</div>
 </template>
 
@@ -34,19 +34,17 @@ export default {
 		q: function () {
 			return this.$store.state.q;
 		},
-		hasNextPage: function () {
+	hasNextPage: function () {
 			return this.total > 1 && this.page < this.pages;
 		},
 	},
-	filters: {
-		formatURL: function (item) {
+	methods: {
+		formatURL(item) {
 			return authorLink(item.ID);
 		},
-		formatAvatar: function (url) {
+		formatAvatar(url) {
 			return showAvatar(url, "m");
 		},
-	},
-	methods: {
 		loadData: function (i = 1, append = false) {
 			this.loading = true;
 			getAuthor(this.q, i)
@@ -84,6 +82,8 @@ export default {
 </script>
 
 <style lang="less">
+@import "@/assets/css/search/var.less";
+
 //搜索结果
 .m-author {
 	a {
