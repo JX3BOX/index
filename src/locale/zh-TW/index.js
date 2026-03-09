@@ -97,6 +97,7 @@ export default {
         bulletin: "江湖快報",
         entry: "進入江湖情報中央大廳",
         serversTitle: "即時服況",
+        chooseServer: "選擇伺服器",
         state: {
             open: "流暢",
             busy: "繁忙",
@@ -110,7 +111,7 @@ export default {
             horse: "抓馬速遞",
             pet: "福緣寵物",
             reputation: "家園聲望",
-            meirentu: "美人圖 · {server}",
+            meirentu: "美人圖",
         },
         celebrity: {
             time: "時間",

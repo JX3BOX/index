@@ -2,20 +2,23 @@
     <div class="m-world-block m-world-baizhan--mini">
         <el-divider content-position="left">{{ $t("index.world.baizhan.divider") }}</el-divider>
         <div class="m-btn-wrapper">
+            <el-button size="small" @click="visible = true" plain>{{ $t("index.world.baizhan.mapPreview") }}</el-button>
             <el-button size="small" @click="toBaizhan" plain>{{ $t("index.world.baizhan.detail") }}</el-button>
-            <el-button size="small" @click="toBaizhanMap" plain>{{ $t("index.world.baizhan.mapPreview") }}</el-button>
         </div>
+        <baizhan-dialog v-if="visible" :visible="visible" :isPhone="isPhone" @close="visible = false"></baizhan-dialog>
     </div>
 </template>
 
 <script>
 import { isPhone } from "@/utils/index";
+import BaizhanDialog from "./baizhan_dialog.vue";
 export default {
     name: "baizhan_mini",
     props: [],
-    components: {},
+    components: { BaizhanDialog },
     data: function () {
         return {
+            visible: false,
             isPhone: false,
         };
     },
@@ -24,9 +27,6 @@ export default {
     methods: {
         toBaizhan() {
             window.open("https://www.jx3box.com/fb/baizhan", "_blank");
-        },
-        toBaizhanMap() {
-            window.open("https://www.jx3box.com/fb/baizhan?tab=map", "_blank");
         },
     },
     created: function () {},

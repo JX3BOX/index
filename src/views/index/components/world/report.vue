@@ -16,10 +16,11 @@
                     class="m-world-v5-report__celebrity-switch"
                     trigger="click"
                     @command="handleCelebrityTypeChange"
+                    @visible-change="handleCelebrityDropdownVisibleChange"
                 >
                     <span class="u-switch-text">
                         {{ celebritySwitchLabel }}
-                        <i class="u-switch-arrow el-icon-arrow-down"></i>
+                        <span class="u-switch-arrow" :class="{ 'is-open': celebrityDropdownOpen }">▾</span>
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
@@ -113,6 +114,7 @@ export default {
     },
     data() {
         return {
+            celebrityDropdownOpen: false,
             celebrityType: "3",
             celebrityTypes: [
                 {
@@ -153,6 +155,9 @@ export default {
         handleCelebrityTypeChange(type) {
             this.celebrityType = type;
         },
+        handleCelebrityDropdownVisibleChange(val) {
+            this.celebrityDropdownOpen = val;
+        },
     },
 };
 </script>
@@ -191,7 +196,7 @@ export default {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #5f6bff;
     line-height: 1.2;
@@ -201,7 +206,13 @@ export default {
 
 .m-world-v5-report__celebrity-switch .u-switch-arrow {
     font-size: 12px;
-    color: #a9b3c2;
+    font-weight: normal;
+    color: #94a3b8;
+    transition: transform 0.22s ease;
+
+    &.is-open {
+        transform: rotate(180deg);
+    }
 }
 
 .m-world-v5-report__title {

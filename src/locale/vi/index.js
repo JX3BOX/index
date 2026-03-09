@@ -98,6 +98,7 @@ export default {
         bulletin: "Bản tin giang hồ",
         entry: "Vào trung tâm tình báo",
         serversTitle: "Tình trạng máy chủ",
+        chooseServer: "Chọn máy chủ",
         state: {
             open: "Mượt",
             busy: "Bận",
@@ -111,7 +112,7 @@ export default {
             horse: "Tin bắt ngựa",
             pet: "Thú cưng may mắn",
             reputation: "Danh vọng gia viên",
-            meirentu: "Mỹ nhân đồ · {server}",
+            meirentu: "Mỹ nhân đồ",
         },
         celebrity: {
             time: "Thời gian",

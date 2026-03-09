@@ -98,6 +98,7 @@ export default {
         bulletin: "World Bulletin",
         entry: "Enter the intelligence center",
         serversTitle: "Server Status",
+        chooseServer: "Choose Server",
         state: {
             open: "Smooth",
             busy: "Busy",
@@ -111,7 +112,7 @@ export default {
             horse: "Horse Alert",
             pet: "Lucky Pets",
             reputation: "Home Reputation",
-            meirentu: "Portrait · {server}",
+            meirentu: "Portrait",
         },
         celebrity: {
             time: "Time",

@@ -4,6 +4,10 @@
             <h3 class="m-world-v5-report__title u-title">
                 <span>{{ $t("index.world.serversTitle") }}</span>
             </h3>
+            <button class="u-server-trigger" @click="toggleSheet">
+                <span class="u-server-name">{{ currentServerName || $t("index.world.chooseServer") }}</span>
+                <span class="u-arrow" :class="{ 'is-open': sheetVisible }">▾</span>
+            </button>
         </div>
 
         <div class="m-servers-content">
@@ -16,6 +20,29 @@
                 </div>
             </div>
         </div>
+
+        <transition name="w-world-v5-sheet-fade">
+            <div class="w-world-v5-sheet__mask" v-if="sheetVisible" @click.self="closeSheet">
+                <div class="w-world-v5-sheet">
+                    <div class="w-world-v5-sheet__title">{{ $t("index.world.chooseServer") }}</div>
+                    <div class="w-world-v5-sheet__list">
+                        <button
+                            class="w-world-v5-sheet__item"
+                            :class="[getHeatState(item).class, { 'is-active': item.serverName === currentServerName }]"
+                            v-for="(item, i) in visibleServers"
+                            :key="i"
+                            @click="selectServer(item.serverName)"
+                        >
+                            <span class="u-name">{{ item.serverName }}</span>
+                            <span class="u-right">
+                                <span class="u-dot"></span>
+                                <!-- <span class="u-state-text">{{ getHeatState(item).label }}</span> -->
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </section>
 </template>
 
@@ -273,6 +300,9 @@ export default {
 
 .m-world-v5-servers__header {
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     .u-title {
         margin: 0;
@@ -328,7 +358,7 @@ export default {
     border: none;
     background: transparent;
     padding: 0;
-    color: #475569;
+    color: #5f6bff;
     cursor: pointer;
 }
 
@@ -412,14 +442,14 @@ export default {
 .w-world-v5-sheet__list {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    gap: 12px;
 }
 
 .w-world-v5-sheet__item {
     border: none;
     background: #e9eaec;
     border-radius: 10px;
-    padding: 8px 8px 7px;
+    padding: 8px 12px 8px 10px;
     min-height: 52px;
     display: flex;
     align-items: center;
@@ -473,6 +503,7 @@ export default {
 
 .w-world-v5-sheet__item.is-active {
     box-shadow: inset 0 0 0 1px @v4primary;
+    background-color:@v4bg;
 }
 
 .w-world-v5-sheet-fade-enter-active,

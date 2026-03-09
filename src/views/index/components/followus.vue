@@ -34,7 +34,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">{{ $t("index.followus.bilibili.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >{{ $t("index.followus.bilibili.desc") }}</span
+                            >@剑网3魔盒</span
                         >
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">{{ $t("index.followus.weibo.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >{{ $t("index.followus.weibo.desc") }}</span
+                            >@剑网3魔盒</span
                         >
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">{{ $t("index.followus.douyin.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >{{ $t("index.followus.douyin.desc") }}</span
+                            >@剑网3魔盒</span
                         >
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">{{ $t("index.followus.wechat.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >{{ $t("index.followus.wechat.desc") }}</span
+                            >@剑三魔盒</span
                         >
                     </div>
                 </div>
