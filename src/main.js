@@ -12,22 +12,24 @@ import store from "./store";
 app.use(store);
 
 // 4.i18n
-// import { Jx3boxUiI18n, getJx3boxUiAvailableLocales } from "../index.js";
-//
-// const __langKey = (localStorage.getItem("lang") || "zh-cn").toLowerCase();
-// const __langMap = {
-    // "zh-cn": "zh-CN",
-    // "en-us": "en-US",
-    // "zh-tw": "zh-TW",
-    // vi: "vi",
-// };
-// const __preferredI18nLocale = __langMap[__langKey] || "zh-CN";
-// const __supportedI18nLocales = getJx3boxUiAvailableLocales();
-// const __i18nLocale = __supportedI18nLocales.includes(__preferredI18nLocale) ? __preferredI18nLocale : "zh-CN";
-//
-// app.use(Jx3boxUiI18n, {
-    // locale: __i18nLocale,
-// });
+import { createJx3boxUiI18n, getJx3boxUiAvailableLocales } from "@jx3box/jx3box-ui";
+const __langKey = (localStorage.getItem("lang") || "zh-cn").toLowerCase();
+const __langMap = {
+    "zh-cn": "zh-CN",
+    "en-us": "en-US",
+    "zh-tw": "zh-TW",
+    vi: "vi",
+};
+const __preferredI18nLocale = __langMap[__langKey] || "zh-CN";
+const __supportedI18nLocales = getJx3boxUiAvailableLocales();
+const __i18nLocale = __supportedI18nLocales.includes(__preferredI18nLocale) ? __preferredI18nLocale : "zh-CN";
+
+// 安装 JX3BOX-UI 的 i18n（提供 $t，避免 $jx3boxT 渲染期访问未定义的 $t 产生大量 warning）
+const __i18n = createJx3boxUiI18n({ locale: __i18nLocale });
+// UI 包内部存在大量缺失 key 的情况（不影响功能），关闭 warning 避免刷屏
+__i18n.global.missingWarn = false;
+__i18n.global.fallbackWarn = false;
+app.use(__i18n);
 
 // 5.Components
 import { createHead } from "@vueuse/head";
@@ -57,10 +59,9 @@ const __elementLocaleMap = {
     "zh-TW": zhTw,
     vi,
 };
-// TODO:国际化
-// const __elementLocale = __elementLocaleMap[__i18nLocale] || zhCn;
+const __elementLocale = __elementLocaleMap[__i18nLocale] || zhCn;
 app.use(ElementPlus, {
-    // locale: __elementLocale,
+    locale: __elementLocale,
 });
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -69,6 +70,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 // 6.3 Tailwind
 import "@jx3box/jx3box-common/css/tailwind.css";
+
+// 6.4 全局通用SVG图标
+import Icon from "@/components/common/icon.vue";
+app.component("Icon", Icon);
 
 
 // 7. 其它扩展

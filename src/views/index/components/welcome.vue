@@ -8,11 +8,13 @@
 </template>
 
 <script>
-import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import { getConfigBanner, getUserDecoration, getPublicDecoration } from "@/service/cms.js";
 import { getUserConfig } from "@/service/user";
+
+const { __cdn } = JX3BOX;
 
 const DECORATION_KEY = "user_decoration_calendar";
 const DECORATION_LIST = "public_decoration";

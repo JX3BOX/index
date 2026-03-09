@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { theme } from "../../../setting.json";
+import setting from "../../../setting.json";
 import NoticeList from "@/views/notice/components/NoticeList.vue";
 import NoticeSingle from "@/views/notice/components/NoticeSingle.vue";
 // 左侧
@@ -41,7 +41,10 @@ import gamenews from "@/components/index/gamenews.vue";
 import notice from "@/components/index/notice.vue";
 import feedback from "@/components/v2/feedback.vue";
 import qrcode from "@/components/v2/qrcode.vue";
-import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+
+const { theme } = setting;
+const { __imgPath } = JX3BOX;
 export default {
     name: "Notice",
     props: [],

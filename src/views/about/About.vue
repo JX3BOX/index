@@ -68,8 +68,10 @@
 <script>
 import SubNav from "./components/SubNav.vue";
 import CommonFooter from "@jx3box/jx3box-common-ui/src/CommonFooter.vue";
-import { __cdn, __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { isPhone } from "@/utils/index";
+
+const { __cdn, __imgPath } = JX3BOX;
 export default {
     name: "About",
     props: [],

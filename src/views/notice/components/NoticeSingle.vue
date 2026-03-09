@@ -68,12 +68,14 @@ import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { showDate } from "@jx3box/jx3box-common/js/moment";
 import { editLink, getAppID } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
-import { __visibleMap } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 // components
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import Adminbutton from "@jx3box/jx3box-common-ui/src/bread/Adminbutton.vue";
 import Admin from "@jx3box/jx3box-common-ui/src/bread/Admin.vue";
+
+const { __visibleMap } = JX3BOX;
 
 export default {
     name: "NoticeSingle",

@@ -6,9 +6,11 @@
 </template>
 
 <script>
-import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { getBoxCoin, getEventDetail } from "@/service/index";
 import User from "@jx3box/jx3box-common/js/user";
+
+const { __Root } = JX3BOX;
 export default {
     name: "Festival",
     data: function () {

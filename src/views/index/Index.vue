@@ -117,7 +117,7 @@ export default {
     mounted: function () {
         if (window.innerWidth <= 1133) {
             const main = document.querySelector(".m-main");
-            const footer = document.querySelector(".c-footer");
+            const footer = document.querySelector(".c-footer, .c-footer--v4");
             if (main && footer) main.appendChild(footer);
         }
         if (!isMiniProgram() && !isApp()) {

@@ -118,7 +118,9 @@
 <script>
 import dayjs from "dayjs";
 import { getPvxEvents } from "@/service/index";
-import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+
+const { __cdn } = JX3BOX;
 
 export default {
     name: "IndexActivityV5",

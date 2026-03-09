@@ -41,9 +41,11 @@
 
 <script>
 import { geSearch } from "@/service/search";
-import { __clients, __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import typeName from "@/assets/data/type.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+
+const { __clients, __Root, __OriginRoot } = JX3BOX;
 export default {
 	name: "All",
 	data: function () {

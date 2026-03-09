@@ -70,7 +70,9 @@
 </template>
 
 <script>
-import { __postType, __wikiType, __appType, __gameType } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+
+const { __postType, __wikiType, __appType, __gameType } = JX3BOX;
 export default {
     name: "Toolbar",
     props: ["total", "pages"],

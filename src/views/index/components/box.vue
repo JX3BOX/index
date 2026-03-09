@@ -107,13 +107,15 @@ import _ from "lodash";
 // BOX设置
 import box from "@/assets/data/box.json";
 import { buildTarget } from "@jx3box/jx3box-common/js/utils";
-import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import draggable from "vuedraggable";
 import User from "@jx3box/jx3box-common/js/user";
 
 import { getMeta, setMeta } from "@/service/user.js";
 import { getHelperPnt, getMenu } from "@/service/setting.js";
 import Mini_bread from "./mini_bread.vue";
+
+const { __cdn } = JX3BOX;
 
 const KEY = "boxmatrix";
 

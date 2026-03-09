@@ -48,8 +48,10 @@ import { getPostsFree } from "@/service/index";
 import dateFormat from "@/utils/dateFormat.js";
 import { getChangelog, getGameNews } from "@/service/cms";
 import { getLink } from "@jx3box/jx3box-common/js/utils";
-import { all_map } from "@jx3box/jx3box-common/data/jx3_zlp.json";
+import JX3_ZLP from "@jx3box/jx3box-common/data/jx3_zlp.json";
 import dayjs from "dayjs";
+
+const { all_map } = JX3_ZLP;
 export default {
     name: "IndexNews",
     components: {},

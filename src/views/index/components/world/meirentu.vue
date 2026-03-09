@@ -24,10 +24,12 @@
 <script>
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
-import { bodyMap } from "@jx3box/jx3box-data/data/role/body.json";
+import BODY from "@jx3box/jx3box-data/data/role/body.json";
 import schoolMap from "@jx3box/jx3box-data/data/xf/schoolid.json";
 import dayjs from "@/utils/day";
 import { getMeirentuNew } from "@/service/spider";
+
+const { bodyMap } = BODY;
 export default {
     props: {
         selectedServer: {

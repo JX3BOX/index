@@ -25,7 +25,9 @@ import { getWiki } from "@/service/search.js";
 import { getPostLink } from "@/utils/common.js";
 import { getTypeLabel } from "@jx3box/jx3box-common/js/utils";
 
-import { __clients } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+
+const { __clients } = JX3BOX;
 export default {
     name: "Wiki",
     props: [],
@@ -106,4 +108,3 @@ export default {
     },
 };
 </script>
-

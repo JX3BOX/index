@@ -1,5 +1,7 @@
 import { getLink } from "@jx3box/jx3box-common/js/utils";
-import { __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+
+const { __Root, __OriginRoot } = JX3BOX;
 
 const prefix = {
     std: __Root,
