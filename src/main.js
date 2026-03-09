@@ -70,11 +70,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 // 6.3 Tailwind
 import "@jx3box/jx3box-common/css/tailwind.css";
-
-// 6.4 全局通用SVG图标
-import Icon from "@/components/common/icon.vue";
-app.component("Icon", Icon);
-
+import "@/assets/css/common/tailwind.css";
 
 // 7. 其它扩展
 

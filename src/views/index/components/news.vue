@@ -1,5 +1,5 @@
 <template>
-    <div class="m-news bg-white p-5 shadow-sm border border-gray-200 border-opacity-60 mb-6">
+    <div class="m-news bg-white p-5 shadow-xs border border-gray-200 border-opacity-60 mb-6">
         <div class="m-news-header">
             <div class="u-left">
                 <a
@@ -8,7 +8,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Icon name="news" class="w-4 h-4 mr-2 text-indigo-500" />
+                    <img svg-inline src="@/assets/img/index/news.svg" class="w-4 h-4 mr-2 text-indigo-500" />
                     公告资讯
                 </a>
             </div>

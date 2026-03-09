@@ -1,5 +1,5 @@
 <template>
-    <section v-if="data && data.length" class="m-box-v5 bg-white shadow-sm border border-gray-200">
+    <section v-if="data && data.length" class="m-box-v5 bg-white shadow-xs border border-gray-200">
         <div class="m-box-v5__header flex items-center justify-between mb-8">
             <div class="m-box-v5__header-left flex items-center">
                 <div class="u-header-icon-wrap">
@@ -518,7 +518,7 @@ export default {
         width: 100%;
         box-sizing: border-box;
         text-decoration: none;
-        transition: all 0.2s ease;
+        // transition: all 0.2s ease;
         cursor: pointer;
 
         &:hover {

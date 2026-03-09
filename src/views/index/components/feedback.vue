@@ -11,7 +11,7 @@
 
         <div class="flex items-center space-x-3 relative z-10">
             <div class="bg-white bg-opacity-20 p-2 rounded-xl">
-                <img svg-inline class="w-5 h-5" src="@/assets/img/index/circle.svg" alt="">
+                <img svg-inline class="w-5 h-5" src="@/assets/img/index/circle.svg" alt="Feedback" />
             </div>
             <div class="flex flex-col items-start leading-tight">
                 <span class="text-sm font-bold tracking-wide">反馈中心</span>

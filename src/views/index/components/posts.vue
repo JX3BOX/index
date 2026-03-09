@@ -1,5 +1,5 @@
 <template>
-    <section class="m-posts-v5 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
+    <section class="m-posts-v5 bg-white rounded-2xl shadow-xs border border-gray-200 overflow-hidden mb-6">
         <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" aria-label="内容分类">
             <div class="m-posts-v5__tab-list flex items-center" role="tablist">
                 <button

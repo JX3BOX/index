@@ -1,5 +1,5 @@
 <template>
-    <section class="m-activity-v5 bg-white py-8 px-6 text-gray-900 mb-6 border border-gray-200 shadow-sm font-fans">
+    <section class="m-activity-v5 bg-white py-8 px-6 text-gray-900 mb-6 border border-gray-200 shadow-xs font-fans">
         <div class="m-activity-v5__header flex justify-between items-end mb-4 px-1">
             <div class="m-activity-v5__title-wrap">
                 <div class="m-activity-v5__title-sub flex items-center text-indigo-600 mb-1">

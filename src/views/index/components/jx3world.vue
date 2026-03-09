@@ -1,5 +1,5 @@
 <template>
-    <section class="p-index-world-v5 bg-white rounded-xl shadow-sm border border-gray-200 border-opacity-60 mb-6">
+    <section class="p-index-world-v5 bg-white rounded-xl shadow-xs border border-gray-100 border-opacity-20 mb-6">
         <header class="m-index-world-v5__header">
             <div class="u-title">
                 <el-icon class="u-icon"><Flag /></el-icon>

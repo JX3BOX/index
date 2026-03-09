@@ -1,9 +1,9 @@
 <template>
-    <section class="m-followus rounded-xl bg-white p-5 shadow-sm border border-gray-200 border-opacity-60 mb-6">
+    <section class="m-followus rounded-xl bg-white p-5 shadow-xs border border-gray-200 border-opacity-60 mb-6">
         <div class="m-followus__header">
             <div class="u-left">
                 <span class="text-xs flex items-center text-gray-800 uppercase tracking-widest m-0 font-bold"
-                    ><Icon name="followus" class="w-4 h-4 mr-2 text-indigo-500" /> 关注我们</span
+                    ><img svg-inline src="@/assets/img/index/followus.svg" class="w-4 h-4 mr-2 text-indigo-500" /> 关注我们</span
                 >
             </div>
         </div>
@@ -178,10 +178,6 @@ export default {
     .m-followus__icon {
         transition: transform @followus-duration @followus-ease;
         transform: translate3d(0, 0, 0);
-    }
-
-    .m-followus__desc {
-        color: @v4text;
     }
 
     .m-followus__desc,
