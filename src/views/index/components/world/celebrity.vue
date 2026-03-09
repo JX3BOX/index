@@ -1,9 +1,9 @@
 <template>
     <div class="m-world-block m-celebrity-wrap">
         <el-divider v-if="showHeader" content-position="left">
-            名望
-            <template v-if="type === '2'"> &nbsp;·&nbsp;河西瀚漠 </template>
-            <template v-if="type === '3'"> &nbsp;·&nbsp;伊丽川 </template>
+            {{ $t("index.world.report.celebrity") }}
+            <template v-if="type === '2'"> &nbsp;·&nbsp;{{ $t("index.world.celebrity.titleSuffix.hxxm") }} </template>
+            <template v-if="type === '3'"> &nbsp;·&nbsp;{{ $t("index.world.celebrity.titleSuffix.ylc") }} </template>
             &nbsp;·&nbsp;
             <el-select v-if="showSwitch" v-model="type" @change="typeChange">
                 <el-option v-for="type in types" :key="type.value" :label="type.label" :value="type.value"></el-option>
@@ -12,9 +12,9 @@
         <div class="m-celebrity-content">
             <div class="u-table-header">
                 <div class="u-row">
-                    <div class="u-item">时间</div>
-                    <div class="u-item">地点</div>
-                    <div class="u-item">阶段</div>
+                    <div class="u-item">{{ $t("index.world.celebrity.time") }}</div>
+                    <div class="u-item">{{ $t("index.world.celebrity.place") }}</div>
+                    <div class="u-item">{{ $t("index.world.celebrity.stage") }}</div>
                 </div>
             </div>
             <div v-if="list.length" class="u-table-body">
@@ -28,7 +28,7 @@
                             <span>{{ item.timeFormat }}</span>
                         </div>
                         <div class="u-item" v-if="type === '1'">
-                            <template v-if="item.oldKey === 'y8'"> 特殊事件 · </template>
+                            <template v-if="item.oldKey === 'y8'"> {{ $t("index.world.celebrity.specialEvent") }} </template>
                             {{ item.site }}
                         </div>
                         <div class="u-item" v-else-if="item.key === 'p3'">{{ item.site }}</div>
@@ -75,30 +75,20 @@ export default {
                 m: dayjs.tz().minute(),
             },
             type: "3",
-            types: [
-                {
-                    label: "穹野卫",
-                    value: "3",
-                },
-                {
-                    label: "披风会",
-                    value: "2",
-                },
-                {
-                    label: "云从社",
-                    value: "1",
-                },
-                {
-                    label: "楚天社",
-                    value: "0",
-                },
-            ],
             iconPath: JX3BOX.__imgPath + "pve/minimap",
         };
     },
     computed: {
         client() {
             return this.$store.state.client;
+        },
+        types() {
+            return [
+                { label: this.$t("index.world.celebrity.types.qiongyew"), value: "3" },
+                { label: this.$t("index.world.celebrity.types.pifeng"), value: "2" },
+                { label: this.$t("index.world.celebrity.types.yuncong"), value: "1" },
+                { label: this.$t("index.world.celebrity.types.chutian"), value: "0" },
+            ];
         },
     },
     methods: {

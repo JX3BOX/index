@@ -43,8 +43,8 @@ export default {
         more: "More >>",
         tabs: {
             all: "All",
-            works: "Works",
-            community: "Posts",
+            works: "Post",
+            community: "Forum",
         },
         empty: "No content",
         anonymous: "Anonymous",

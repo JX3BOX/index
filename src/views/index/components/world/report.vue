@@ -2,7 +2,7 @@
     <section class="m-world-v5-report">
         <div class="m-world-v5-report__card m-world-v5-report__card--baizhan">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">百战地图</h3>
+                <h3 class="m-world-v5-report__title">{{ $t("index.world.report.baizhanMap") }}</h3>
             </div>
             <baizhan></baizhan>
         </div>
@@ -10,7 +10,7 @@
         <div class="m-world-v5-report__card m-world-v5-report__card--celebrity">
             <div class="m-world-v5-report__header">
                 <h3 class="m-world-v5-report__title">
-                    名望<template v-if="celebrityTitleSuffix"> · {{ celebrityTitleSuffix }}</template>
+                    {{ $t("index.world.report.celebrity") }}<template v-if="celebrityTitleSuffix"> · {{ celebrityTitleSuffix }}</template>
                 </h3>
                 <el-dropdown
                     class="m-world-v5-report__celebrity-switch"
@@ -29,7 +29,7 @@
                                 :command="type.value"
                                 :class="{ 'is-active': type.value === celebrityType }"
                             >
-                                {{ type.switchLabel }}
+                                {{ $t(type.switchKey) }}
                             </el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -45,28 +45,30 @@
 
         <div class="m-world-v5-report__card m-world-v5-report__card--horse">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">抓马速递</h3>
+                <h3 class="m-world-v5-report__title">{{ $t("index.world.report.horse") }}</h3>
             </div>
             <horse-notice :server="selectedServer" :client="client"></horse-notice>
         </div>
 
         <div class="m-world-v5-report__card m-world-v5-report__card--pet">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">福缘宠物</h3>
+                <h3 class="m-world-v5-report__title">{{ $t("index.world.report.pet") }}</h3>
             </div>
             <lucky-pet :date="date" :client="client"></lucky-pet>
         </div>
 
         <div v-if="isCurrentWeek" class="m-world-v5-report__card m-world-v5-report__card--reputation">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">家园声望</h3>
+                <h3 class="m-world-v5-report__title">{{ $t("index.world.report.reputation") }}</h3>
             </div>
             <reputation :date="date" :client="client"></reputation>
         </div>
 
         <div class="m-world-v5-report__card m-world-v5-report__card--mrt">
             <div class="m-world-v5-report__header">
-                <h3 class="m-world-v5-report__title">美人图 · {{ selectedServer || "蝶恋花" }}</h3>
+                <h3 class="m-world-v5-report__title">
+                    {{ $t("index.world.report.meirentu", { server: selectedServer || "蝶恋花" }) }}
+                </h3>
             </div>
             <mrt :selected-server="selectedServer"></mrt>
         </div>
@@ -114,23 +116,23 @@ export default {
             celebrityType: "3",
             celebrityTypes: [
                 {
-                    switchLabel: "穹野卫",
-                    titleLabel: "伊丽川",
+                    switchKey: "index.world.celebrity.types.qiongyew",
+                    titleKey: "index.world.celebrity.titleSuffix.ylc",
                     value: "3",
                 },
                 {
-                    switchLabel: "披风会",
-                    titleLabel: "河西瀚漠",
+                    switchKey: "index.world.celebrity.types.pifeng",
+                    titleKey: "index.world.celebrity.titleSuffix.hxxm",
                     value: "2",
                 },
                 {
-                    switchLabel: "云从社",
-                    titleLabel: "",
+                    switchKey: "index.world.celebrity.types.yuncong",
+                    titleKey: "",
                     value: "1",
                 },
                 {
-                    switchLabel: "楚天社",
-                    titleLabel: "",
+                    switchKey: "index.world.celebrity.types.chutian",
+                    titleKey: "",
                     value: "0",
                 },
             ],
@@ -139,11 +141,12 @@ export default {
     computed: {
         celebritySwitchLabel() {
             const type = this.celebrityTypes.find((item) => item.value === this.celebrityType);
-            return type ? type.switchLabel : "穹野卫";
+            return type ? this.$t(type.switchKey) : this.$t("index.world.celebrity.types.qiongyew");
         },
         celebrityTitleSuffix() {
             const type = this.celebrityTypes.find((item) => item.value === this.celebrityType);
-            return type ? type.titleLabel : "伊丽川";
+            if (!type) return this.$t("index.world.celebrity.titleSuffix.ylc");
+            return type.titleKey ? this.$t(type.titleKey) : "";
         },
     },
     methods: {

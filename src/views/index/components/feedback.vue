@@ -14,8 +14,8 @@
                 <img svg-inline class="w-5 h-5" src="@/assets/img/index/circle.svg" alt="Feedback" />
             </div>
             <div class="flex flex-col items-start leading-tight">
-                <span class="text-sm font-bold tracking-wide">反馈中心</span>
-                <span class="m-feedback__sub text-xs">Feedback Center</span>
+                <span class="text-sm font-bold tracking-wide">{{ $t("index.feedback.title") }}</span>
+                <span class="m-feedback__sub text-xs">{{ $t("index.feedback.subtitle") }}</span>
             </div>
         </div>
 

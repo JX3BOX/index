@@ -32,7 +32,7 @@
                 <div class="u-desc">{{ diluDesc }}</div>
             </div>
             <div v-if="!diluHasExist" class="u-status is-danger">
-                <span>本CD尚未刷新</span>
+                <span>{{ $t("index.world.horse.notRefreshed") }}</span>
                 <button class="u-refresh" type="button" :disabled="diluLoading" @click="loadDiluData">
                     <i class="el-icon-refresh" :class="{ 'is-spinning': diluLoading }"></i>
                 </button>
@@ -127,7 +127,7 @@ export default {
             return this.chituHasExist && this.chituExistData.map ? `赤兔 · ${this.chituExistData.map}` : "赤兔";
         },
         chituDesc() {
-            if (!this.chituHasExist || !this.chituExistData.time) return "本CD尚未刷新";
+            if (!this.chituHasExist || !this.chituExistData.time) return this.$t("index.world.horse.notRefreshed");
             return this.chituExistData.time;
         },
         diluName() {

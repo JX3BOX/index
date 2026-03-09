@@ -1,7 +1,7 @@
 <template>
     <div class="m-world-block m-world-mrt">
         <el-divider content-position="left">
-            <span>美人图&nbsp;·&nbsp;</span>
+            <span>{{ $t("index.world.meirentu.label") }}</span>
             <el-select class="u-select" v-model="server">
                 <el-option v-for="(server, i) in servers" :key="i" :label="server" :value="server"></el-option>
             </el-select>
@@ -95,9 +95,10 @@ export default {
     },
     methods: {
         getWeek(date) {
-            var data = dayjs.tz(date).day();
-            var week = ["日", "一", "二", "三", "四", "五", "六"];
-            return "周" + week[data];
+            const dayIndex = dayjs.tz(date).day();
+            const dayKeys = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+            const key = dayKeys[dayIndex] || "sun";
+            return this.$t(`index.world.meirentu.week.${key}`);
         },
         // 获取美人图
         load() {
@@ -122,7 +123,7 @@ export default {
                         {
                             date: today,
                             week: this.getWeek(today),
-                            title: "今日暂无画像",
+                            title: this.$t("index.world.meirentu.todayNo"),
                             body: "",
                         },
                         ...list.slice(0, 2),

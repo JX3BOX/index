@@ -3,7 +3,12 @@
         <div class="m-followus__header">
             <div class="u-left">
                 <span class="text-xs flex items-center text-gray-800 uppercase tracking-widest m-0 font-bold"
-                    ><img svg-inline src="@/assets/img/index/followus.svg" class="w-4 h-4 mr-2 text-indigo-500" /> 关注我们</span
+                    ><img
+                        svg-inline
+                        src="@/assets/img/index/followus.svg"
+                        class="w-4 h-4 mr-2 text-indigo-500"
+                    />
+                    {{ $t("index.followus.title") }}</span
                 >
             </div>
         </div>
@@ -19,13 +24,17 @@
                     <div
                         class="m-followus__icon p-2 rounded-lg bg-white shadow-sm transition-transform transform group-hover:scale-110 text-pink-400"
                     >
-                        <img :src="bilibiliIcon" alt="B站" class="w-5 h-5 u-bilibili" />
+                        <img
+                            :src="bilibiliIcon"
+                            :alt="$t('index.followus.bilibili.alt')"
+                            class="w-5 h-5 u-bilibili"
+                        />
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-xs font-bold">B站</span>
+                        <span class="text-xs font-bold">{{ $t("index.followus.bilibili.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >@剑网3魔盒</span
+                            >{{ $t("index.followus.bilibili.desc") }}</span
                         >
                     </div>
                 </div>
@@ -45,13 +54,13 @@
                     <div
                         class="m-followus__icon p-2 rounded-lg bg-white shadow-sm transition-transform transform group-hover:scale-110 text-red-600"
                     >
-                        <img :src="weiboIcon" alt="微博" class="w-5 h-5" />
+                        <img :src="weiboIcon" :alt="$t('index.followus.weibo.alt')" class="w-5 h-5" />
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-xs font-bold">微博</span>
+                        <span class="text-xs font-bold">{{ $t("index.followus.weibo.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >@剑网3魔盒</span
+                            >{{ $t("index.followus.weibo.desc") }}</span
                         >
                     </div>
                 </div>
@@ -71,13 +80,13 @@
                     <div
                         class="m-followus__icon p-2 rounded-lg bg-white shadow-sm transition-transform transform group-hover:scale-110 text-gray-900"
                     >
-                        <img :src="douyinIcon" alt="抖音" class="w-5 h-5" />
+                        <img :src="douyinIcon" :alt="$t('index.followus.douyin.alt')" class="w-5 h-5" />
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-xs font-bold">抖音</span>
+                        <span class="text-xs font-bold">{{ $t("index.followus.douyin.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >@剑网3魔盒</span
+                            >{{ $t("index.followus.douyin.desc") }}</span
                         >
                     </div>
                 </div>
@@ -94,13 +103,13 @@
                     <div
                         class="m-followus__icon p-2 rounded-lg bg-white shadow-sm transition-transform transform group-hover:scale-110 text-emerald-600"
                     >
-                        <img :src="wechatIcon" alt="微信公众号" class="w-5 h-5" />
+                        <img :src="wechatIcon" :alt="$t('index.followus.wechat.alt')" class="w-5 h-5" />
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-xs font-bold">微信公众号</span>
+                        <span class="text-xs font-bold">{{ $t("index.followus.wechat.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >@剑三魔盒</span
+                            >{{ $t("index.followus.wechat.desc") }}</span
                         >
                     </div>
                 </div>
@@ -108,11 +117,15 @@
                 <div class="m-followus__qrcode-trigger">
                     <img
                         :src="qrcodeIcon"
-                        alt="二维码"
+                        :alt="$t('index.followus.wechat.qrcodeAlt')"
                         class="m-followus__arrow u-qrcode opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0"
                     />
                     <div class="m-followus__qrcode-popup" :class="{ 'is-left': isQrcodePopupLeft }">
-                        <img :src="qrcodeImage" alt="微信公众号二维码" class="m-followus__qrcode-image" />
+                        <img
+                            :src="qrcodeImage"
+                            :alt="$t('index.followus.wechat.qrcodeImageAlt')"
+                            class="m-followus__qrcode-image"
+                        />
                     </div>
                 </div>
             </div>

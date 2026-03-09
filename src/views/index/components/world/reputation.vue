@@ -1,6 +1,6 @@
 <template>
     <div v-if="reputationList.length" class="m-world-block m-world-pet m-world-reputation">
-        <el-divider content-position="left">家园声望</el-divider>
+        <el-divider content-position="left">{{ $t("index.world.reputation.divider") }}</el-divider>
         <div class="m-pet">
             <a
                 v-for="item in reputationList"

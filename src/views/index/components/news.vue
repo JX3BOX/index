@@ -9,12 +9,16 @@
                     rel="noopener noreferrer"
                 >
                     <img svg-inline src="@/assets/img/index/news.svg" class="w-4 h-4 mr-2 text-indigo-500" />
-                    公告资讯
+                    {{ $t("index.news.title") }}
                 </a>
             </div>
-            <div class="u-right flex bg-gray-100 p-1 rounded-md w-max" role="tablist" aria-label="公告分类">
+            <div
+                class="u-right flex bg-gray-100 p-1 rounded-md w-max"
+                role="tablist"
+                :aria-label="$t('index.news.categoryAria')"
+            >
                 <button
-                    v-for="item in mode_list"
+                    v-for="item in modeList"
                     :key="item.value"
                     class="u-btn px-2 py-1 text-[12px] rounded transition-all border-0 bg-transparent cursor-pointer tracking-wider"
                     :class="
@@ -58,12 +62,6 @@ export default {
     data: function () {
         return {
             mode: "all",
-            mode_list: [
-                { label: "全部", value: "all" },
-                { label: "游戏", value: "game" },
-                { label: "技改", value: "skill_change" },
-                { label: "魔盒", value: "box" },
-            ],
 
             // 游戏
             all_links: {
@@ -94,6 +92,14 @@ export default {
     computed: {
         client: function () {
             return this.$store.state.client;
+        },
+        modeList: function () {
+            return [
+                { label: this.$t("index.news.tabs.all"), value: "all" },
+                { label: this.$t("index.news.tabs.game"), value: "game" },
+                { label: this.$t("index.news.tabs.skillChange"), value: "skill_change" },
+                { label: this.$t("index.news.tabs.box"), value: "box" },
+            ];
         },
         more_link: function () {
             return this[this.mode + "_links"]?.[this.client] || "/";

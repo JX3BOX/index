@@ -1,9 +1,9 @@
 <template>
     <div class="m-world-block m-world-baizhan--mini">
-        <el-divider content-position="left">百战</el-divider>
+        <el-divider content-position="left">{{ $t("index.world.baizhan.divider") }}</el-divider>
         <div class="m-btn-wrapper">
-            <el-button size="small" @click="toBaizhan" plain>百战详情</el-button>
-            <el-button size="small" @click="toBaizhanMap" plain>地图预览</el-button>
+            <el-button size="small" @click="toBaizhan" plain>{{ $t("index.world.baizhan.detail") }}</el-button>
+            <el-button size="small" @click="toBaizhanMap" plain>{{ $t("index.world.baizhan.mapPreview") }}</el-button>
         </div>
     </div>
 </template>

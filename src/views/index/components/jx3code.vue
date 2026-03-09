@@ -7,7 +7,7 @@
             <div class="u-left">
                 <span class="u-title text-xs flex items-center text-gray-800 uppercase tracking-widest m-0">
                     <img svg-inline src="@/assets/img/index/coupon.svg" class="w-4 h-4 mr-2 text-indigo-500" />
-                    今日福利</span
+                    {{ $t("index.jx3code.title") }}</span
                 >
             </div>
             <div class="u-right">
@@ -59,7 +59,7 @@ export default {
         copy(text) {
             navigator.clipboard.writeText(text);
             this.$message({
-                message: "复制成功",
+                message: this.$t("index.jx3code.copySuccess"),
                 type: "success",
             });
         },

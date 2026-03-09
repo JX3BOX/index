@@ -6,16 +6,16 @@
                     <el-icon class="u-header-icon"><Menu /></el-icon>
                 </div>
                 <div class="u-header-meta">
-                    <a class="u-title" href="/app" target="_blank">魔盒矩阵</a>
+                    <a class="u-title" href="/app" target="_blank">{{ $t("index.box.title") }}</a>
                     <mini-bread class="u-subtitle" name="index_notification" />
                 </div>
             </div>
 
             <div class="m-box-v5__header-right flex items-center">
                 <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
-                    自定义面板
+                    {{ $t("index.box.customize") }}
                 </button>
-                <button class="u-btn u-btn--dark" type="button" v-else @click="save">保存布局</button>
+                <button class="u-btn u-btn--dark" type="button" v-else @click="save">{{ $t("index.box.save") }}</button>
             </div>
         </div>
 
@@ -66,21 +66,21 @@
                             <span class="u-control" @click.stop>
                                 <el-icon
                                     class="u-break el-icon-scissors"
-                                    title="换行"
+                                    :title="$t('index.box.tooltip.breakLine')"
                                     :class="{ on: isLF(item.uuid) }"
                                     @click.prevent="cut(item.uuid)"
                                     ><Scissor
                                 /></el-icon>
                                 <el-icon
                                     class="u-hide el-icon-delete"
-                                    title="隐藏"
+                                    :title="$t('index.box.tooltip.hide')"
                                     v-if="canSee(item.uuid)"
                                     @click.prevent="hideIt(item.uuid)"
                                     ><Hide
                                 /></el-icon>
                                 <el-icon
                                     class="u-show el-icon-view"
-                                    title="显示"
+                                    :title="$t('index.box.tooltip.show')"
                                     v-if="!canSee(item.uuid)"
                                     @click.prevent="showIt(item.uuid)"
                                     ><View
@@ -95,8 +95,8 @@
         </draggable>
 
         <div class="m-box-v5__footer">
-            <button class="u-btn u-btn--light" type="button" v-if="defined" @click="reset">恢复默认</button>
-            <button class="u-btn u-btn--light" type="button" @click="downBoxSetting" v-if="isLogin">重新同步</button>
+            <button class="u-btn u-btn--light" type="button" v-if="defined" @click="reset">{{ $t("index.box.reset") }}</button>
+            <button class="u-btn u-btn--light" type="button" @click="downBoxSetting" v-if="isLogin">{{ $t("index.box.resync") }}</button>
         </div>
     </section>
 </template>
@@ -240,8 +240,8 @@ export default {
                         localStorage.setItem(KEY, this.setting);
 
                         this.$notify({
-                            title: "成功",
-                            message: "远程数据同步至本地",
+                            title: this.$t("index.box.notify.successTitle"),
+                            message: this.$t("index.box.notify.syncToLocal"),
                             type: "success",
                         });
                     } catch (e) {
@@ -249,8 +249,8 @@ export default {
                     }
                 } else {
                     this.$notify({
-                        title: "消息",
-                        message: "服务器上没有保存相关设置",
+                        title: this.$t("index.box.notify.infoTitle"),
+                        message: this.$t("index.box.notify.noRemote"),
                         type: "info",
                     });
                 }
@@ -305,8 +305,8 @@ export default {
             }
         },
         reset: function () {
-            this.$alert("确定重置为默认排序吗？", "消息", {
-                confirmButtonText: "确定",
+            this.$alert(this.$t("index.box.notify.resetConfirmText"), this.$t("index.box.notify.resetConfirmTitle"), {
+                confirmButtonText: this.$t("index.box.notify.resetConfirmBtn"),
                 callback: (action) => {
                     if (action == "confirm") {
                         this.data = this.default_data;
@@ -323,8 +323,8 @@ export default {
                         this.$forceUpdate();
 
                         this.$notify({
-                            title: "成功",
-                            message: "魔盒矩阵已重置为默认状态",
+                            title: this.$t("index.box.notify.successTitle"),
+                            message: this.$t("index.box.notify.resetSuccess"),
                             type: "success",
                         });
                     }

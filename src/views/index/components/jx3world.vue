@@ -3,7 +3,7 @@
         <header class="m-index-world-v5__header">
             <div class="u-title">
                 <el-icon class="u-icon"><Flag /></el-icon>
-                <span>江湖快报</span>
+                <span>{{ $t("index.world.bulletin") }}</span>
             </div>
             <div class="u-sync">{{ world_tip }}</div>
         </header>
@@ -20,7 +20,7 @@
         </div>
 
         <a class="m-index-world-v5__entry" href="/pvg/gonggao/daily" target="_blank" rel="noopener noreferrer">
-            <span>进入江湖情报中央大厅</span>
+            <span>{{ $t("index.world.entry") }}</span>
             <i class="el-icon-arrow-right"></i>
         </a>
     </section>

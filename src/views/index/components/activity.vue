@@ -4,9 +4,9 @@
             <div class="m-activity-v5__title-wrap">
                 <div class="m-activity-v5__title-sub flex items-center text-indigo-600 mb-1">
                     <i class="u-icon el-icon-date"></i>
-                    <span class="u-subtitle">Timeline</span>
+                    <span class="u-subtitle">{{ $t("index.activity.subtitle") }}</span>
                 </div>
-                <h3 class="u-title text-2xl font-bold m-0">活动</h3>
+                <h3 class="u-title text-2xl font-bold m-0">{{ $t("index.activity.title") }}</h3>
             </div>
 
             <div class="m-activity-v5__controller flex">
@@ -34,7 +34,7 @@
                     class="m-activity-v5__month-item flex-shrink-0 flex flex-col items-center"
                 >
                     <div class="u-month text-sm font-bold mb-4" :class="{ 'is-active': isActiveMonth(month) }">
-                        {{ month }}月
+                        {{ $t("index.activity.month", { month }) }}
                     </div>
 
                     <div class="m-activity-v5__node relative flex items-center justify-center mb-8">
@@ -106,7 +106,7 @@
                             v-else
                             class="m-activity-v5__null u-null--xs h-20 flex items-center justify-center border border-dashed border-gray-100 rounded-xl text-gray-300"
                         >
-                            暂无安排
+                            {{ $t("index.activity.empty") }}
                         </div>
                     </div>
                 </div>
@@ -201,8 +201,8 @@ export default {
                         id: item.id || `pvx-${index}`,
                         month: start.month() + 1,
                         sort: this.getSortValue(item.sort),
-                        name: item.name || "未命名活动",
-                        type: item.type || "活动",
+                        name: item.name || this.$t("index.activity.defaultName"),
+                        type: item.type || this.$t("index.activity.defaultType"),
                         tags: this.resolveTags(item),
                         link: item.link || "",
                         cover: this.resolveCover(item.cover),

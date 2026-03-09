@@ -2,7 +2,7 @@
     <section class="m-world-v5-servers">
         <div class="m-world-v5-report__header m-world-v5-servers__header">
             <h3 class="m-world-v5-report__title u-title">
-                <span>实时服况</span>
+                <span>{{ $t("index.world.serversTitle") }}</span>
             </h3>
         </div>
 
@@ -38,22 +38,22 @@ export default {
             heatStateArr: [
                 {
                     value: "6",
-                    label: "流畅",
+                    labelKey: "index.world.state.open",
                     class: "is-open",
                 },
                 {
                     value: "7",
-                    label: "繁忙",
+                    labelKey: "index.world.state.busy",
                     class: "is-busy",
                 },
                 {
                     value: "8",
-                    label: "爆满",
+                    labelKey: "index.world.state.full",
                     class: "is-full-load",
                 },
                 {
                     value: "3",
-                    label: "维护",
+                    labelKey: "index.world.state.close",
                     class: "is-close",
                 },
             ],
@@ -89,7 +89,7 @@ export default {
             return Number.isFinite(this.avgHeat) ? `${this.avgHeat}ms` : "--";
         },
         stateText: function () {
-            if (!this.currentServer) return "未知";
+            if (!this.currentServer) return this.$t("index.world.state.unknown");
             return this.getHeatState(this.currentServer).label;
         },
         stateClass: function () {
@@ -125,18 +125,23 @@ export default {
         getHeatState(item) {
             const heat = item && item.heat !== undefined && item.heat !== null ? String(item.heat) : "";
             const matched = this.heatStateArr.find((state) => state.value === heat);
-            if (matched) return matched;
+            if (matched)
+                return {
+                    value: matched.value,
+                    label: this.$t(matched.labelKey),
+                    class: matched.class,
+                };
 
             if (item && item.connect_state) {
                 return {
                     value: "6",
-                    label: "流畅",
+                    label: this.$t("index.world.state.open"),
                     class: "is-open",
                 };
             }
             return {
                 value: "3",
-                label: "维护",
+                label: this.$t("index.world.state.close"),
                 class: "is-close",
             };
         },

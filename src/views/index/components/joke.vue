@@ -21,7 +21,7 @@
                         d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"
                     />
                 </svg>
-                <span>今日骚话</span>
+                <span>{{ $t("index.joke.title") }}</span>
             </a>
 
             <div class="u-content flex-1 min-w-0 relative z-10">
@@ -35,7 +35,9 @@
                 >
                     <el-carousel-item v-for="(item, i) in list" :key="i">
                         <a class="u-item block no-underline truncate" :href="getLink(item.id)" target="_blank">
-                            <span class="u-author text-gray-400 font-medium mr-1">{{ item.author || "匿名" }}：</span>
+                            <span class="u-author text-gray-400 font-medium mr-1"
+                                >{{ item.author || $t("index.joke.anonymous") }}：</span
+                            >
                             <span class="u-quote">“</span>
                             <span class="u-joke-text" v-if="item.html" v-html="item.html"></span>
                             <span class="u-joke-text" v-else>{{ item.content }}</span>
@@ -89,16 +91,18 @@ export default {
     data: function () {
         return {
             data: [],
-            defaultItem: {
-                id: 0,
-                author: "匿名",
-                content: "师父问我为什么110级了还没见过活人，我看了看空荡荡的帮会领地，流下了两行清泪。",
-            },
         };
     },
     computed: {
+        fallbackItem: function () {
+            return {
+                id: 0,
+                author: this.$t("index.joke.anonymous"),
+                content: this.$t("index.joke.defaultContent"),
+            };
+        },
         list: function () {
-            return this.data.length ? this.data : [this.defaultItem];
+            return this.data.length ? this.data : [this.fallbackItem];
         },
     },
     methods: {

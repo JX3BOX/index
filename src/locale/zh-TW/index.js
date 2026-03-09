@@ -1,0 +1,164 @@
+export default {
+    news: {
+        title: "公告資訊",
+        categoryAria: "公告分類",
+        tabs: {
+            all: "全部",
+            game: "遊戲",
+            skillChange: "技改",
+            box: "魔盒",
+        },
+    },
+    followus: {
+        title: "關注我們",
+        bilibili: {
+            name: "B站",
+            desc: "@劍網3魔盒",
+            alt: "B站",
+        },
+        weibo: {
+            name: "微博",
+            desc: "@劍網3魔盒",
+            alt: "微博",
+        },
+        douyin: {
+            name: "抖音",
+            desc: "@劍網3魔盒",
+            alt: "抖音",
+        },
+        wechat: {
+            name: "微信公眾號",
+            desc: "@劍三魔盒",
+            alt: "微信公眾號",
+            qrcodeAlt: "二維碼",
+            qrcodeImageAlt: "微信公眾號二維碼",
+        },
+    },
+    feedback: {
+        title: "回饋中心",
+        subtitle: "Feedback Center",
+    },
+    posts: {
+        categoryAria: "內容分類",
+        more: "更多 >>",
+        tabs: {
+            all: "全部",
+            works: "作品",
+            community: "帖子",
+        },
+        empty: "暫無內容",
+        anonymous: "匿名",
+        noTitle: "無標題",
+        discussion: "討論",
+        noContent: "無內容",
+        picture: "[圖片]",
+        reply: "回帖",
+    },
+    box: {
+        title: "魔盒矩陣",
+        customize: "自訂面板",
+        save: "保存佈局",
+        tooltip: {
+            breakLine: "換行",
+            hide: "隱藏",
+            show: "顯示",
+        },
+        reset: "恢復預設",
+        resync: "重新同步",
+        notify: {
+            successTitle: "成功",
+            syncToLocal: "遠端資料同步至本地",
+            infoTitle: "訊息",
+            noRemote: "伺服器上沒有保存相關設定",
+            resetConfirmTitle: "訊息",
+            resetConfirmText: "確定重置為預設排序嗎？",
+            resetConfirmBtn: "確定",
+            resetSuccess: "魔盒矩陣已重置為預設狀態",
+        },
+    },
+    jx3code: {
+        title: "今日福利",
+        copySuccess: "複製成功",
+    },
+    activity: {
+        subtitle: "Timeline",
+        title: "活動",
+        month: "{month}月",
+        empty: "暫無安排",
+        defaultName: "未命名活動",
+        defaultType: "活動",
+    },
+    joke: {
+        title: "今日騷話",
+        anonymous: "匿名",
+        defaultContent: "師父問我為什麼110級了還沒見過活人，我看了看空蕩蕩的幫會領地，流下了兩行清淚。",
+    },
+    world: {
+        bulletin: "江湖快報",
+        entry: "進入江湖情報中央大廳",
+        serversTitle: "即時服況",
+        state: {
+            open: "流暢",
+            busy: "繁忙",
+            full: "爆滿",
+            close: "維護",
+            unknown: "未知",
+        },
+        report: {
+            baizhanMap: "百戰地圖",
+            celebrity: "名望",
+            horse: "抓馬速遞",
+            pet: "福緣寵物",
+            reputation: "家園聲望",
+            meirentu: "美人圖 · {server}",
+        },
+        celebrity: {
+            time: "時間",
+            place: "地點",
+            stage: "階段",
+            specialEvent: "特殊事件 · ",
+            titleSuffix: {
+                hxxm: "河西瀚漠",
+                ylc: "伊麗川",
+            },
+            types: {
+                qiongyew: "穹野衛",
+                pifeng: "披風會",
+                yuncong: "雲從社",
+                chutian: "楚天社",
+            },
+        },
+        meirentu: {
+            label: "美人圖 · ",
+            todayNo: "今日暫無畫像",
+            week: {
+                sun: "週日",
+                mon: "週一",
+                tue: "週二",
+                wed: "週三",
+                thu: "週四",
+                fri: "週五",
+                sat: "週六",
+            },
+        },
+        baizhan: {
+            divider: "百戰",
+            detail: "百戰詳情",
+            mapPreview: "地圖預覽",
+        },
+        luckyPet: {
+            divider: "寵物",
+        },
+        reputation: {
+            divider: "家園聲望",
+        },
+        horse: {
+            notRefreshed: "本CD尚未刷新",
+        },
+    },
+    importantMsg: {
+        title: "重要通知",
+        confirm: "確定收到",
+    },
+};
+

@@ -1,10 +1,10 @@
 <template>
     <div :class="['m-important-msg', { hasMsg: html != '' && !show }]">
         <div class="m-msg-box">
-            <span class="u-title">重要通知</span>
+            <span class="u-title">{{ $t("index.importantMsg.title") }}</span>
             <div class="u-content" v-html="html"></div>
             <div class="u-button">
-                <el-button @click="confirm" icon="Check" type="primary">确定收到</el-button>
+                <el-button @click="confirm" icon="Check" type="primary">{{ $t("index.importantMsg.confirm") }}</el-button>
             </div>
         </div>
     </div>
