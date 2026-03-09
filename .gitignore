@@ -5,6 +5,7 @@ node_modules
 /dist
 /tmp
 /src/mock
+.gitkeep
 
 package-lock.json
 yarn.lock

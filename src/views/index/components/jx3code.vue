@@ -38,12 +38,12 @@ export default {
     data: function () {
         return {
             data: [
-                {
-                    title: "JX3BOX-TEST-1234",
-                    desc: "测试福利",
-                    link: "https://www.jx3box.com",
-                    remark: "2024-12-31 23:59:59",
-                }
+                // {
+                //     title: "jiansanhuanyingni",
+                //     desc: "剑三欢迎你",
+                //     link: "https://www.jx3box.com",
+                //     remark: "2024-12-31 23:59:59",
+                // }
             ],
         };
     },
@@ -67,7 +67,7 @@ export default {
     },
     created: function () {
         getConfigBanner({ client: this.client, type: "code", status: 1, _valid: 1 }).then((res) => {
-            // this.data = res.data.data.list || [];
+            this.data = res.data.data.list || [];
         });
     },
     components: {},
