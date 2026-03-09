@@ -3,19 +3,22 @@
         <el-divider content-position="left">百战</el-divider>
         <div class="m-btn-wrapper">
             <el-button size="small" @click="toBaizhan" plain>百战详情</el-button>
-            <el-button size="small" @click="toBaizhanMap" plain>地图预览</el-button>
+            <el-button size="small" @click="visible = true" plain>地图预览</el-button>
         </div>
+        <baizhan-dialog v-if="visible" :visible="visible" :isPhone="isPhone" @close="visible = false"></baizhan-dialog>
     </div>
 </template>
 
 <script>
 import { isPhone } from "@/utils/index";
+import BaizhanDialog from "./baizhan_dialog.vue";
 export default {
     name: "baizhan_mini",
     props: [],
-    components: {},
+    components: { BaizhanDialog },
     data: function () {
         return {
+            visible: false,
             isPhone: false,
         };
     },
@@ -24,9 +27,6 @@ export default {
     methods: {
         toBaizhan() {
             window.open("https://www.jx3box.com/fb/baizhan", "_blank");
-        },
-        toBaizhanMap() {
-            window.open("https://www.jx3box.com/fb/baizhan?tab=map", "_blank");
         },
     },
     created: function () {},

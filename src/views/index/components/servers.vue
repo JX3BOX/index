@@ -4,6 +4,10 @@
             <h3 class="m-world-v5-report__title u-title">
                 <span>实时服况</span>
             </h3>
+            <button class="u-server-trigger" @click="toggleSheet">
+                <span class="u-server-name">{{ currentServerName || "选择服务器" }}</span>
+                <span class="u-arrow" :class="{ 'is-open': sheetVisible }">▾</span>
+            </button>
         </div>
 
         <div class="m-servers-content">
@@ -16,6 +20,29 @@
                 </div>
             </div>
         </div>
+
+        <transition name="w-world-v5-sheet-fade">
+            <div class="w-world-v5-sheet__mask" v-if="sheetVisible" @click.self="closeSheet">
+                <div class="w-world-v5-sheet">
+                    <div class="w-world-v5-sheet__title">选择服务器</div>
+                    <div class="w-world-v5-sheet__list">
+                        <button
+                            class="w-world-v5-sheet__item"
+                            :class="[getHeatState(item).class, { 'is-active': item.serverName === currentServerName }]"
+                            v-for="(item, i) in visibleServers"
+                            :key="i"
+                            @click="selectServer(item.serverName)"
+                        >
+                            <span class="u-name">{{ item.serverName }}</span>
+                            <span class="u-right">
+                                <span class="u-dot"></span>
+                                <span class="u-state-text">{{ getHeatState(item).label }}</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </section>
 </template>
 
@@ -268,6 +295,9 @@ export default {
 
 .m-world-v5-servers__header {
     margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     .u-title {
         margin: 0;
@@ -323,7 +353,7 @@ export default {
     border: none;
     background: transparent;
     padding: 0;
-    color: #475569;
+    color: #5f6bff;
     cursor: pointer;
 }
 
