@@ -1,0 +1,164 @@
+export default {
+    news: {
+        title: "公告资讯",
+        categoryAria: "公告分类",
+        tabs: {
+            all: "全部",
+            game: "游戏",
+            skillChange: "技改",
+            box: "魔盒",
+        },
+    },
+    followus: {
+        title: "关注我们",
+        bilibili: {
+            name: "B站",
+            desc: "@剑网3魔盒",
+            alt: "B站",
+        },
+        weibo: {
+            name: "微博",
+            desc: "@剑网3魔盒",
+            alt: "微博",
+        },
+        douyin: {
+            name: "抖音",
+            desc: "@剑网3魔盒",
+            alt: "抖音",
+        },
+        wechat: {
+            name: "微信公众号",
+            desc: "@剑三魔盒",
+            alt: "微信公众号",
+            qrcodeAlt: "二维码",
+            qrcodeImageAlt: "微信公众号二维码",
+        },
+    },
+    feedback: {
+        title: "反馈中心",
+        subtitle: "Feedback Center",
+    },
+    posts: {
+        categoryAria: "内容分类",
+        more: "更多 >>",
+        tabs: {
+            all: "全部",
+            works: "作品",
+            community: "帖子",
+        },
+        empty: "暂无内容",
+        anonymous: "匿名",
+        noTitle: "无标题",
+        discussion: "讨论",
+        noContent: "无内容",
+        picture: "[图片]",
+        reply: "回帖",
+    },
+    box: {
+        title: "魔盒矩阵",
+        customize: "自定义面板",
+        save: "保存布局",
+        tooltip: {
+            breakLine: "换行",
+            hide: "隐藏",
+            show: "显示",
+        },
+        reset: "恢复默认",
+        resync: "重新同步",
+        notify: {
+            successTitle: "成功",
+            syncToLocal: "远程数据同步至本地",
+            infoTitle: "消息",
+            noRemote: "服务器上没有保存相关设置",
+            resetConfirmTitle: "消息",
+            resetConfirmText: "确定重置为默认排序吗？",
+            resetConfirmBtn: "确定",
+            resetSuccess: "魔盒矩阵已重置为默认状态",
+        },
+    },
+    jx3code: {
+        title: "今日福利",
+        copySuccess: "复制成功",
+    },
+    activity: {
+        subtitle: "Timeline",
+        title: "活动",
+        month: "{month}月",
+        empty: "暂无安排",
+        defaultName: "未命名活动",
+        defaultType: "活动",
+    },
+    joke: {
+        title: "今日骚话",
+        anonymous: "匿名",
+        defaultContent: "师父问我为什么110级了还没见过活人，我看了看空荡荡的帮会领地，流下了两行清泪。",
+    },
+    world: {
+        bulletin: "江湖快报",
+        entry: "进入江湖情报中央大厅",
+        serversTitle: "实时服况",
+        state: {
+            open: "流畅",
+            busy: "繁忙",
+            full: "爆满",
+            close: "维护",
+            unknown: "未知",
+        },
+        report: {
+            baizhanMap: "百战地图",
+            celebrity: "名望",
+            horse: "抓马速递",
+            pet: "福缘宠物",
+            reputation: "家园声望",
+            meirentu: "美人图 · {server}",
+        },
+        celebrity: {
+            time: "时间",
+            place: "地点",
+            stage: "阶段",
+            specialEvent: "特殊事件 · ",
+            titleSuffix: {
+                hxxm: "河西瀚漠",
+                ylc: "伊丽川",
+            },
+            types: {
+                qiongyew: "穹野卫",
+                pifeng: "披风会",
+                yuncong: "云从社",
+                chutian: "楚天社",
+            },
+        },
+        meirentu: {
+            label: "美人图 · ",
+            todayNo: "今日暂无画像",
+            week: {
+                sun: "周日",
+                mon: "周一",
+                tue: "周二",
+                wed: "周三",
+                thu: "周四",
+                fri: "周五",
+                sat: "周六",
+            },
+        },
+        baizhan: {
+            divider: "百战",
+            detail: "百战详情",
+            mapPreview: "地图预览",
+        },
+        luckyPet: {
+            divider: "宠物",
+        },
+        reputation: {
+            divider: "家园声望",
+        },
+        horse: {
+            notRefreshed: "本CD尚未刷新",
+        },
+    },
+    importantMsg: {
+        title: "重要通知",
+        confirm: "确定收到",
+    },
+};
+

@@ -13,6 +13,7 @@ app.use(store);
 
 // 4.i18n
 import { createJx3boxUiI18n, getJx3boxUiAvailableLocales } from "@jx3box/jx3box-ui";
+import { mergeAppLocaleMessages } from "@/locale";
 const __langKey = (localStorage.getItem("lang") || "zh-cn").toLowerCase();
 const __langMap = {
     "zh-cn": "zh-CN",
@@ -26,6 +27,7 @@ const __i18nLocale = __supportedI18nLocales.includes(__preferredI18nLocale) ? __
 
 // 安装 JX3BOX-UI 的 i18n（提供 $t，避免 $jx3boxT 渲染期访问未定义的 $t 产生大量 warning）
 const __i18n = createJx3boxUiI18n({ locale: __i18nLocale });
+mergeAppLocaleMessages(__i18n);
 // UI 包内部存在大量缺失 key 的情况（不影响功能），关闭 warning 避免刷屏
 __i18n.global.missingWarn = false;
 __i18n.global.fallbackWarn = false;
@@ -69,8 +71,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 // 6.3 Tailwind
-import "@jx3box/jx3box-common/css/tailwind.css";
-import "@/assets/css/common/tailwind.css";
+import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
 
