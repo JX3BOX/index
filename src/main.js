@@ -11,9 +11,15 @@ app.use(router);
 import store from "./store";
 app.use(store);
 
-// 4.i18n
+// 4.Components
+import { createHead } from "@vueuse/head";
+const head = createHead();
+app.use(head);
+
+// 5.i18n
 import { createJx3boxUiI18n, getJx3boxUiAvailableLocales } from "@jx3box/jx3box-ui";
 import { mergeAppLocaleMessages } from "@/locale";
+import { initRouterI18nHead } from "@/router/i18n-head";
 const __langKey = (localStorage.getItem("lang") || "zh-cn").toLowerCase();
 const __langMap = {
     "zh-cn": "zh-CN",
@@ -33,10 +39,8 @@ __i18n.global.missingWarn = false;
 __i18n.global.fallbackWarn = false;
 app.use(__i18n);
 
-// 5.Components
-import { createHead } from "@vueuse/head";
-const head = createHead();
-app.use(head);
+// 根据路由 meta 自动更新 title/keywords/description（同时支持语言切换）
+initRouterI18nHead(router, __i18n, head);
 
 // 6.UI
 
