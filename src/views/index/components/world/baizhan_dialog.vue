@@ -16,7 +16,8 @@
 
 <script>
 import { $node, $cms } from "@jx3box/jx3box-common/js/api";
-import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import JX3BOX from "@jx3box/jx3box-common/data/jx3box";
+const { __imgPath } = JX3BOX;
 import BaizhanMap from "./baizhan_map.vue";
 
 const effects = [
