@@ -1,9 +1,6 @@
 <template>
-    <section class="m-posts-v5 bg-white rounded-2xl shadow-xs border border-gray-200 overflow-hidden mb-6">
-        <div
-            class="m-posts-v5__tabs flex items-center justify-between px-6 py-5"
-            :aria-label="$t('index.posts.categoryAria')"
-        >
+    <section class="m-posts-v5 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
+        <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" aria-label="内容分类">
             <div class="m-posts-v5__tab-list flex items-center" role="tablist">
                 <button
                     v-for="tab in tabs"
@@ -26,11 +23,15 @@
                 rel="noopener noreferrer"
                 class="u-more text-xs text-gray-400 hover:text-yellow-600 no-underline flex-shrink-0"
             >
-                {{ $t("index.posts.more") }}
+                更多 >>
             </a>
         </div>
 
-        <div v-loading="loading" class="m-posts-v5__content">
+        <div
+            v-loading="loading"
+            class="m-posts-v5__content"
+            :class="{ 'm-posts-v5__content--scroll': activeTab === 'all' && isLogin && !!displayData.length }"
+        >
             <a
                 v-for="item in displayData"
                 :key="item.key"
@@ -77,26 +78,28 @@
                 v-if="!loading && !displayData.length"
                 class="m-posts-v5__null px-6 py-10 text-center text-sm font-bold text-gray-400"
             >
-                {{ $t("index.posts.empty") }}
+                暂无内容
             </div>
         </div>
 
-        <!-- <a
-            class="m-posts-v5__more block w-full py-6 bg-gray-50 text-center text-sm font-black text-gray-400 hover:text-yellow-600 transition-all no-underline"
-            :href="moreLink"
-            :target="target"
+        <div
+            v-if="showFeedLoadMore"
+            class="u-more px-6 py-4 border-t border-gray-100 bg-gray-50 text-center cursor-pointer"
+            :class="{ 'is-loading': feedLoadingMore }"
+            @click="loadMoreFeed"
         >
-            查看更多社区内容 ...
-        </a> -->
+            {{ feedLoadingMore ? "加载中..." : "查看更多>>" }}
+        </div>
     </section>
 </template>
 
 <script>
-import { getPosts } from "@/service/index";
+import { getPosts, getFeedList } from "@/service/index";
 import { getTopicBucket, getMixLatest } from "@/service/community";
 import { buildTarget, showAvatar, getLink, getTypeLabel } from "@jx3box/jx3box-common/js/utils";
 import { showRecently } from "@/utils/moment";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "IndexPostsV5",
@@ -107,10 +110,17 @@ export default {
             loading: false,
             worksData: [],
             communityData: [],
+            feedData: [],
             categoryList: [],
-            displayLimit: 8,
-            sourceLimit: 20,
+            displayLimit: 6,
+            sourceLimit: 18,
             aggregate: [],
+
+            feedCursor: 0,
+            feedCursorTime: "",
+            feedPageSize: 10,
+            feedHasMore: true,
+            feedLoadingMore: false,
         };
     },
     computed: {
@@ -119,12 +129,13 @@ export default {
         },
         tabs: function () {
             return [
-                { label: this.$t("index.posts.tabs.all"), value: "all" },
-                { label: this.$t("index.posts.tabs.works"), value: "works" },
-                { label: this.$t("index.posts.tabs.community"), value: "community" },
+                { label: this.isLogin ? "关注" : "全部", value: "all" },
+                { label: "作品", value: "works" },
+                { label: "帖子", value: "community" },
             ];
         },
         displayData: function () {
+            if (this.activeTab === "all" && this.isLogin) return this.feedData;
             if (this.activeTab === "works") return this.sortByTime(this.worksData).slice(0, this.displayLimit);
             if (this.activeTab === "community") return this.sortByTime(this.communityData).slice(0, this.displayLimit);
             return this.sortByTime([...this.worksData, ...this.communityData]).slice(0, this.displayLimit);
@@ -133,21 +144,22 @@ export default {
             if (this.activeTab === "community") return "/community";
             return "/bbs";
         },
-        report_link: function () {
-            const prefix = this.client == "std" ? "www" : "origin";
-            return `${prefix}:${this.moreLink}`;
-        },
         categoryMap: function () {
             return (this.categoryList || []).reduce((obj, item) => {
                 obj[item.mark] = item.name;
                 return obj;
             }, {});
         },
+        showFeedLoadMore: function () {
+            return this.activeTab === "all" && this.isLogin && !!this.displayData.length && this.feedHasMore;
+        },
+        isLogin() {
+            return User.isLogin();
+        }
     },
     methods: {
         changeTab: function (tab) {
             this.activeTab = tab;
-            this.updateAggregateAndReport();
         },
         dateFormat: function (val) {
             return val ? showRecently(val) : "--";
@@ -155,11 +167,33 @@ export default {
         sortByTime: function (list) {
             return [...(list || [])].sort((a, b) => b.timestamp - a.timestamp);
         },
+        normalizeFeedItem: function (item) {
+            const authorInfo = item.author_info || {};
+            const link = getLink(item.post_type, item.post_id || item.id);
+            const time = item.updated_at || item.created_at;
+            const timestamp = new Date(time).getTime() || 0;
+
+            return {
+                key: `feed-${item.id}`,
+                kind: "feed",
+                reportCategory: item.post_type,
+                typeLabel: getTypeLabel(item.post_type),
+                title: item.title || "无标题",
+                authorName: authorInfo.display_name || "匿名",
+                avatar: showAvatar(authorInfo.avatar, 112),
+                time,
+                timestamp,
+                link,
+                banner: item.banner || "",
+                viewText: "--",
+                replyText: "--",
+            };
+        },
         normalizeWorkItem: function (item) {
             const link = getLink(item.post_type, item.ID);
             const time = item.post_modified;
             const timestamp = new Date(time).getTime() || 0;
-            const authorName = (item.author_info && item.author_info.display_name) || this.$t("index.posts.anonymous");
+            const authorName = (item.author_info && item.author_info.display_name) || "匿名";
             const avatar = showAvatar(item.author_info && item.author_info.user_avatar, 112);
 
             return {
@@ -167,7 +201,7 @@ export default {
                 kind: "work",
                 reportCategory: item.post_type,
                 typeLabel: getTypeLabel(item.post_type),
-                title: item.post_title || this.$t("index.posts.noTitle"),
+                title: item.post_title || "无标题",
                 authorName,
                 avatar,
                 time,
@@ -185,9 +219,9 @@ export default {
                 key: `topic-${item.id}`,
                 kind: "community",
                 reportCategory: "community",
-                typeLabel: this.categoryMap[item.category] || this.$t("index.posts.discussion"),
-                title: item.title || this.$t("index.posts.noContent"),
-                authorName: info.display_name || this.$t("index.posts.anonymous"),
+                typeLabel: this.categoryMap[item.category] || "讨论",
+                title: item.title || "无内容",
+                authorName: info.display_name || "匿名",
                 avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
@@ -199,7 +233,7 @@ export default {
         async normalizeCommunityReply(item) {
             const topic = item.topic || {};
             const info = item.ext_user_info || {};
-            const text = (item.content || "").replace(/<img[^>]*>/g, this.$t("index.posts.picture"));
+            const text = (item.content || "").replace(/<img[^>]*>/g, "[图片]");
             const content = await new JX3_EMOTION(text)._renderHTML();
             const link = getLink("community", topic.id);
             const time = item.latest_reply_at || item.created_at;
@@ -208,15 +242,15 @@ export default {
                 key: `reply-${item.id || topic.id}-${time}`,
                 kind: "community",
                 reportCategory: "community",
-                typeLabel: this.categoryMap[topic.category] || this.$t("index.posts.discussion"),
-                title: this.br2nl(content || this.$t("index.posts.noContent")),
-                authorName: info.display_name || this.$t("index.posts.anonymous"),
+                typeLabel: this.categoryMap[topic.category] || "讨论",
+                title: this.br2nl(content || "无内容"),
+                authorName: info.display_name || "匿名",
                 avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
                 link,
                 viewText: "--",
-                replyText: this.$t("index.posts.reply"),
+                replyText: "回帖",
             };
         },
         formatCount: function (val) {
@@ -232,19 +266,12 @@ export default {
                 .replace(/<[^>]+>/g, "")
                 .trim();
         },
-        reportLink(link) {
-            const prefix = this.client == "std" ? "www" : "origin";
-            return `${prefix}:${link}`;
-        },
-        updateAggregateAndReport() {
-            this.aggregate = this.displayData.map((item) => this.reportLink(item.link));
-            // reportNow({
-            //     caller: "index_lastest_artwork_load",
-            //     data: {
-            //         aggregate: this.aggregate,
-            //         category: this.activeTab,
-            //     },
-            // });
+        getCurrentCursorTime() {
+            const date = new Date();
+            const pad = (v) => String(v).padStart(2, "0");
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(
+                date.getMinutes()
+            )}:${pad(date.getSeconds())}`;
         },
         async loadCategoryList() {
             try {
@@ -269,12 +296,53 @@ export default {
 
             this.communityData = this.sortByTime([...topicData, ...replyData]).slice(0, this.sourceLimit);
         },
+        async loadFeed(reset = false) {
+            if (reset) {
+                this.feedCursor = 0;
+                this.feedCursorTime = "";
+                this.feedHasMore = true;
+            }
+            const cursor = reset ? 0 : this.feedCursor;
+            const cursorTime = reset ? this.getCurrentCursorTime() : this.feedCursorTime || this.getCurrentCursorTime();
+            const res = await getFeedList({
+                client: this.client,
+                cursor,
+                cursor_time: cursorTime,
+                pageSize: this.feedPageSize,
+            });
+            const list = res?.data?.data?.list || [];
+            const page = res?.data?.data?.page || {};
+            const normalizedList = list.map((item) => this.normalizeFeedItem(item));
+            const pageCursor = Number(page.cursor);
+            const pageSize = Number(page.page_size);
+
+            this.feedCursor = Number.isFinite(pageCursor) ? pageCursor : 0;
+            this.feedCursorTime = page.cursor_time || "";
+            this.feedPageSize = Number.isFinite(pageSize) && pageSize > 0 ? pageSize : this.feedPageSize;
+            this.feedHasMore = page.has_more === true;
+            this.feedData = reset ? normalizedList : [...this.feedData, ...normalizedList];
+        },
+        async loadMoreFeed() {
+            if (this.feedLoadingMore || !this.feedHasMore) return;
+
+            this.feedLoadingMore = true;
+            try {
+                await this.loadFeed();
+            } finally {
+                this.feedLoadingMore = false;
+            }
+        },
         async loadData() {
             this.loading = true;
             try {
                 await this.loadCategoryList();
-                await Promise.all([this.loadWorks(), this.loadCommunity()]);
-                this.updateAggregateAndReport();
+                const tasks = [this.loadWorks(), this.loadCommunity()];
+
+                if (this.isLogin) {
+                    tasks.push(this.loadFeed(true));
+                }
+
+                await Promise.allSettled(tasks);
             } finally {
                 this.loading = false;
             }
@@ -295,11 +363,12 @@ export default {
 
     .m-posts-v5__item {
         border-bottom: 1px solid #e5e7eb;
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
     }
 
-    .m-posts-v5__item:last-child {
-        border-bottom: 0;
-    }
 
     .u-more {
         font-weight: 400;
@@ -309,6 +378,13 @@ export default {
 
     .u-more:hover {
         transform: translateX(2px);
+    }
+
+    .u-more.is-loading {
+        pointer-events: none;
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
 
     .m-posts-v5__tabs {
@@ -321,6 +397,11 @@ export default {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+    }
+
+    .m-posts-v5__content--scroll {
+        max-height: 36rem;
+        overflow-y: auto;
     }
 
     .m-posts-v5__avatar {
@@ -341,6 +422,19 @@ export default {
     .u-type {
         color: #d97706;
         background-color: #fffbeb;
+    }
+
+    .u-more {
+        .db;
+        padding: 10px;
+        .x;
+        .fz(12px);
+        color:#bbb;
+        background-color:#fafafa;
+        &:hover {
+            background-color: @bg-gray;
+            color:#aaa;
+        }
     }
 }
 
