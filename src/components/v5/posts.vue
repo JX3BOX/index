@@ -93,9 +93,10 @@
         <div
             v-if="showFeedLoadMore"
             class="u-more px-6 py-4 border-t border-gray-100 bg-gray-50 text-center cursor-pointer"
+            :class="{ 'is-loading': feedLoadingMore }"
             @click="loadMoreFeed"
         >
-            查看更多&raquo;
+            {{ feedLoadingMore ? "加载中..." : "查看更多>>" }}
         </div>
 
         <!-- <a
@@ -138,9 +139,10 @@ export default {
             sourceLimit: 18,
             aggregate: [],
 
-            feedPageIndex: 1,
+            feedCursor: 0,
+            feedCursorTime: "",
             feedPageSize: 10,
-            feedPageTotal: 1,
+            feedHasMore: true,
             feedLoadingMore: false,
         };
     },
@@ -176,7 +178,7 @@ export default {
             }, {});
         },
         showFeedLoadMore: function () {
-            return this.activeTab === "all" && this.isLogin && !!this.displayData.length && this.feedPageIndex < this.feedPageTotal;
+            return this.activeTab === "all" && this.isLogin && !!this.displayData.length && this.feedHasMore;
         },
         isLogin() {
             return User.isLogin();
@@ -292,6 +294,13 @@ export default {
                 .replace(/<[^>]+>/g, "")
                 .trim();
         },
+        getCurrentCursorTime() {
+            const date = new Date();
+            const pad = (v) => String(v).padStart(2, "0");
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(
+                date.getMinutes()
+            )}:${pad(date.getSeconds())}`;
+        },
         reportLink(link) {
             const prefix = this.client == "std" ? "www" : "origin";
             return `${prefix}:${link}`;
@@ -330,30 +339,38 @@ export default {
             this.communityData = this.sortByTime([...topicData, ...replyData]).slice(0, this.sourceLimit);
         },
         async loadFeed(reset = false) {
-            const pageIndex = reset ? 1 : this.feedPageIndex;
+            if (reset) {
+                this.feedCursor = 0;
+                this.feedCursorTime = "";
+                this.feedHasMore = true;
+            }
+            const cursor = reset ? 0 : this.feedCursor;
+            const cursorTime = reset ? this.getCurrentCursorTime() : this.feedCursorTime || this.getCurrentCursorTime();
             const res = await getFeedList({
-                pageIndex,
+                client: this.client,
+                cursor,
+                cursor_time: cursorTime,
                 pageSize: this.feedPageSize,
             });
             const list = res?.data?.data?.list || [];
             const page = res?.data?.data?.page || {};
             const normalizedList = list.map((item) => this.normalizeFeedItem(item));
+            const pageCursor = Number(page.cursor);
+            const pageSize = Number(page.page_size);
 
-            this.feedPageIndex = page.index
-            this.feedPageSize = page.pageSize
-            this.feedPageTotal = page.total
+            this.feedCursor = Number.isFinite(pageCursor) ? pageCursor : 0;
+            this.feedCursorTime = page.cursor_time || "";
+            this.feedPageSize = Number.isFinite(pageSize) && pageSize > 0 ? pageSize : this.feedPageSize;
+            this.feedHasMore = page.has_more === true;
             this.feedData = reset ? normalizedList : [...this.feedData, ...normalizedList];
         },
         async loadMoreFeed() {
-            if (this.feedLoadingMore || this.feedPageIndex >= this.feedPageTotal) return;
+            if (this.feedLoadingMore || !this.feedHasMore) return;
 
             this.feedLoadingMore = true;
             try {
-                this.feedPageIndex += 1;
                 await this.loadFeed();
                 this.updateAggregateAndReport();
-            } catch (e) {
-                this.feedPageIndex -= 1;
             } finally {
                 this.feedLoadingMore = false;
             }
@@ -405,6 +422,13 @@ export default {
 
     .u-more:hover {
         transform: translateX(2px);
+    }
+
+    .u-more.is-loading {
+        pointer-events: none;
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
 
     .m-posts-v5__tabs {
