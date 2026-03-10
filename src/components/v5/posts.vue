@@ -27,7 +27,11 @@
             </a>
         </div>
 
-        <div v-loading="loading" class="m-posts-v5__content">
+        <div
+            v-loading="loading"
+            class="m-posts-v5__content"
+            :class="{ 'm-posts-v5__content--scroll': activeTab === 'all' && isLogin && !!displayData.length }"
+        >
             <a
                 v-for="item in displayData"
                 :key="item.key"
@@ -86,6 +90,14 @@
             </div>
         </div>
 
+        <div
+            v-if="showFeedLoadMore"
+            class="u-more px-6 py-4 border-t border-gray-100 bg-gray-50 text-center cursor-pointer"
+            @click="loadMoreFeed"
+        >
+            查看更多&raquo;
+        </div>
+
         <!-- <a
             class="m-posts-v5__more block w-full py-6 bg-gray-50 text-center text-sm font-black text-gray-400 hover:text-yellow-600 transition-all no-underline"
             :href="moreLink"
@@ -103,38 +115,48 @@
 </template>
 
 <script>
-import { getPosts } from "@/service/index";
+import { getPosts, getFeedList } from "@/service/index";
 import { getTopicBucket, getMixLatest } from "@/service/community";
 import { buildTarget, showAvatar, getLink, getTypeLabel } from "@jx3box/jx3box-common/js/utils";
 import { showRecently } from "@/utils/moment";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "IndexPostsV5",
     data: function () {
         return {
-            tabs: [
-                { label: "全部", value: "all" },
-                { label: "作品", value: "works" },
-                { label: "帖子", value: "community" },
-            ],
             activeTab: "all",
             target: buildTarget(),
             loading: false,
             worksData: [],
             communityData: [],
+            feedData: [],
             categoryList: [],
             displayLimit: 6,
             sourceLimit: 18,
             aggregate: [],
+
+            feedPageIndex: 1,
+            feedPageSize: 10,
+            feedPageTotal: 1,
+            feedLoadingMore: false,
         };
     },
     computed: {
         client: function () {
             return this.$store.state.client;
         },
+        tabs: function () {
+            return [
+                { label: this.isLogin ? "关注" : "全部", value: "all" },
+                { label: "作品", value: "works" },
+                { label: "帖子", value: "community" },
+            ];
+        },
         displayData: function () {
+            if (this.activeTab === "all" && this.isLogin) return this.feedData;
             if (this.activeTab === "works") return this.sortByTime(this.worksData).slice(0, this.displayLimit);
             if (this.activeTab === "community") return this.sortByTime(this.communityData).slice(0, this.displayLimit);
             return this.sortByTime([...this.worksData, ...this.communityData]).slice(0, this.displayLimit);
@@ -153,6 +175,12 @@ export default {
                 return obj;
             }, {});
         },
+        showFeedLoadMore: function () {
+            return this.activeTab === "all" && this.isLogin && !!this.displayData.length && this.feedPageIndex < this.feedPageTotal;
+        },
+        isLogin() {
+            return User.isLogin();
+        }
     },
     methods: {
         changeTab: function (tab) {
@@ -164,6 +192,28 @@ export default {
         },
         sortByTime: function (list) {
             return [...(list || [])].sort((a, b) => b.timestamp - a.timestamp);
+        },
+        normalizeFeedItem: function (item) {
+            const authorInfo = item.author_info || {};
+            const link = getLink(item.post_type, item.post_id || item.id);
+            const time = item.updated_at || item.created_at;
+            const timestamp = new Date(time).getTime() || 0;
+
+            return {
+                key: `feed-${item.id}`,
+                kind: "feed",
+                reportCategory: item.post_type,
+                typeLabel: getTypeLabel(item.post_type),
+                title: item.title || "无标题",
+                authorName: authorInfo.display_name || "匿名",
+                avatar: showAvatar(authorInfo.avatar, 112),
+                time,
+                timestamp,
+                link,
+                banner: item.banner || "",
+                viewText: "--",
+                replyText: "--",
+            };
         },
         normalizeWorkItem: function (item) {
             const link = getLink(item.post_type, item.ID);
@@ -279,11 +329,46 @@ export default {
 
             this.communityData = this.sortByTime([...topicData, ...replyData]).slice(0, this.sourceLimit);
         },
+        async loadFeed(reset = false) {
+            const pageIndex = reset ? 1 : this.feedPageIndex;
+            const res = await getFeedList({
+                pageIndex,
+                pageSize: this.feedPageSize,
+            });
+            const list = res?.data?.data?.list || [];
+            const page = res?.data?.data?.page || {};
+            const normalizedList = list.map((item) => this.normalizeFeedItem(item));
+
+            this.feedPageIndex = page.index
+            this.feedPageSize = page.pageSize
+            this.feedPageTotal = page.total
+            this.feedData = reset ? normalizedList : [...this.feedData, ...normalizedList];
+        },
+        async loadMoreFeed() {
+            if (this.feedLoadingMore || this.feedPageIndex >= this.feedPageTotal) return;
+
+            this.feedLoadingMore = true;
+            try {
+                this.feedPageIndex += 1;
+                await this.loadFeed();
+                this.updateAggregateAndReport();
+            } catch (e) {
+                this.feedPageIndex -= 1;
+            } finally {
+                this.feedLoadingMore = false;
+            }
+        },
         async loadData() {
             this.loading = true;
             try {
                 await this.loadCategoryList();
-                await Promise.all([this.loadWorks(), this.loadCommunity()]);
+                const tasks = [this.loadWorks(), this.loadCommunity()];
+
+                if (this.isLogin) {
+                    tasks.push(this.loadFeed(true));
+                }
+
+                await Promise.allSettled(tasks);
                 this.updateAggregateAndReport();
             } finally {
                 this.loading = false;
@@ -305,11 +390,12 @@ export default {
 
     .m-posts-v5__item {
         border-bottom: 1px solid #e5e7eb;
+
+        &:last-of-type {
+            border-bottom: 0;
+        }
     }
 
-    .m-posts-v5__item:last-child {
-        border-bottom: 0;
-    }
 
     .u-more {
         font-weight: 400;
@@ -333,6 +419,11 @@ export default {
         overflow: hidden;
     }
 
+    .m-posts-v5__content--scroll {
+        max-height: 36rem;
+        overflow-y: auto;
+    }
+
     .m-posts-v5__avatar {
         transition: all 0.2s ease;
     }
@@ -351,6 +442,19 @@ export default {
     .u-type {
         color: #d97706;
         background-color: #fffbeb;
+    }
+
+    .u-more {
+        .db;
+        padding: 10px;
+        .x;
+        .fz(12px);
+        color:#bbb;
+        background-color:#fafafa;
+        &:hover {
+            background-color: @bg-gray;
+            color:#aaa;
+        }
     }
 }
 

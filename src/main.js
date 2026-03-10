@@ -19,7 +19,12 @@ Vue.use(JX3BOX_UI);
 // 数据上报
 import reporter from "@jx3box/jx3box-common/js/reporter";
 reporter.install(Vue);
-import VueMatomo from 'vue-matomo'
+import VueMatomo from "vue-matomo";
+
+Vue.use(VueMatomo, {
+    host: "https://matomo.2kog.com/",
+    siteId: 2,
+});
 
 // 数据与路由
 // import router from "./router";
@@ -30,9 +35,6 @@ new Vue({
     // router,
     store,
     render: (h) => h(App),
-}).use(VueMatomo, {
-    host: 'https://matomo.2kog.com/',
-    siteId: 2,
 }).$mount("#app");
 
-window._paq.push(['trackPageView']);
+window._paq.push(["trackPageView"]);

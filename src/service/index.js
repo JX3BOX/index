@@ -72,6 +72,11 @@ function getPvxEvents(params = {}) {
     });
 }
 
+// 获取订阅作品流
+function getFeedList(params) {
+    return $next().get(`/api/next2/rss/news-feed/newest/list`, { params });
+}
+
 export {
     getPosts,
     getTeams,
@@ -84,4 +89,5 @@ export {
     getPostsFree,
     getEventDetail,
     getPvxEvents,
+    getFeedList,
 };
