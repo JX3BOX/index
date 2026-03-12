@@ -17,13 +17,22 @@ export default {
             // Namespace
             const bbs = jx3box + "/namespace";
             const api = "https://cms.jx3box.com/api/cms/namespace/key";
-            const key = decodeURIComponent(pathname.slice(1));
+            const segments = pathname.split("/").filter(Boolean);
+            const lastSegment = segments[segments.length - 1] || "";
+            const key = decodeURIComponent(lastSegment);
+            if (!key) {
+                location.href = bbs;
+                return;
+            }
+
             fetch(`https://next2.jx3box.com/api/summary-any/namespace-${key}`);
             fetch(`${api}?key=${key}`)
                 .then((res) => {
                     return res.json();
                 })
                 .then((data) => {
+                    // console.log("Namespace API response:", data);
+                    // return ;
                     if (data && data.code == 0) {
                         const namespace = data.data;
                         if (namespace.source_type == "team") {

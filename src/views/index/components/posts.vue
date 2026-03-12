@@ -23,7 +23,7 @@
                 rel="noopener noreferrer"
                 class="u-more text-xs text-gray-400 hover:text-yellow-600 no-underline flex-shrink-0"
             >
-                更多 >>
+                更多 <el-icon><DArrowRight /></el-icon>
             </a>
         </div>
 
@@ -84,11 +84,11 @@
 
         <div
             v-if="showFeedLoadMore"
-            class="u-more px-6 py-4 border-t border-gray-100 bg-gray-50 text-center cursor-pointer"
+            class="u-load px-6 py-4 border-t border-gray-100 bg-gray-50 text-center cursor-pointer"
             :class="{ 'is-loading': feedLoadingMore }"
             @click="loadMoreFeed"
         >
-            {{ feedLoadingMore ? "加载中..." : "查看更多>>" }}
+            {{ feedLoadingMore ? "加载中..." : "加载更多" }}
         </div>
     </section>
 </template>
@@ -371,6 +371,7 @@ export default {
 
 
     .u-more {
+        .flex(y);
         font-weight: 400;
         letter-spacing: 0.02em;
         transition: color 0.2s ease, transform 0.2s ease;
@@ -424,13 +425,13 @@ export default {
         background-color: #fffbeb;
     }
 
-    .u-more {
-        .db;
+    .u-load {
         padding: 10px;
         .x;
         .fz(12px);
         color:#bbb;
-        background-color:#fafafa;
+        //background-color:#fafafa;
+        .flex(o);
         &:hover {
             background-color: @bg-gray;
             color:#aaa;

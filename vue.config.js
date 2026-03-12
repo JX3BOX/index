@@ -41,13 +41,13 @@ const pages = {
     //     template: "public/index.html",
     //     filename: "post/index.html",
     // },
-    // // 铭牌跳转
-    // jx3: {
-    //     title: "剑网3.com",
-    //     entry: "src/pages/jx3.js",
-    //     template: "public/index.html",
-    //     filename: "jx3/index.html",
-    // }
+    // 铭牌跳转
+    jx3: {
+        title: "剑网3.com",
+        entry: "src/pages/jx3.js",
+        template: "public/index.html",
+        filename: "jx3/index.html",
+    }
 };
 
 const path = require("path");
