@@ -4,7 +4,7 @@ const routes = [
     {
         name: "index",
         path: "/",
-        component: () => import("../views/index/Index.vue"),
+        component: () => import("@/views/index/Index.vue"),
         meta: {
             i18n: {
                 title: "pages.index.title",

@@ -154,8 +154,8 @@ function addStyleResource(rule) {
     preload_styles.push(
         path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/var.less"),
         path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
-        path.resolve(__dirname, "./assets/css/var.less"),
-        path.resolve(__dirname, "./assets/css/mixin.less"),
+        path.resolve(__dirname, "./src/assets/css/var.less"),
+        path.resolve(__dirname, "./src/assets/css/mixin.less"),
         path.resolve(__dirname, "./node_modules/csslab/base.less"),
     );
     rule.use("style-resource").loader("style-resources-loader").options({

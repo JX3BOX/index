@@ -80,12 +80,6 @@ import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
 
-// 7.1 Matomo统计上报
-import VueMatomo from 'vue-matomo'
-app.use(VueMatomo, {
-    host: 'https://matomo.2kog.com/',
-    siteId: 2
-});
 
 // Final.Mount DOM
 app.mount("#app");

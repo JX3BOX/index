@@ -16,7 +16,6 @@ export default {
         },
     },
     mounted() {
-        window._paq.push(['trackPageView']);
     },
 };
 </script>
