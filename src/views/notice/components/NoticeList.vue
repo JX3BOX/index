@@ -226,8 +226,8 @@ export default {
     .m-notice-list__body,
     .m-notice-list__pager {
         border-radius: 12px;
-        border: 1px solid #e4e9f2;
-        background: #f6f8fc;
+        //border: 1px solid #e4e9f2;
+        //background: #f6f8fc;
     }
 
     .m-notice-list__pager {
@@ -236,20 +236,21 @@ export default {
 
     .m-notice-list__header {
         padding: 20px 24px;
+        background-color:@bg-black;
     }
 
     .m-notice-list__title {
         margin: 0;
         font-size: 28px;
         font-weight: 700;
-        color: #222;
+        color: #fff;
         line-height: 1.2;
     }
 
     .m-notice-list__desc {
         margin: 10px 0 0;
         font-size: 14px;
-        color: #6c7485;
+        color: #aaa;
         line-height: 1.8;
     }
 
@@ -292,10 +293,10 @@ export default {
         }
 
         &.is-active {
-            background: #2f63dc;
+            background: @v4primary;
             color: #fff;
             font-weight: 600;
-            border-color: #2f63dc;
+            border-color: @v4primary;
         }
     }
 
@@ -304,7 +305,7 @@ export default {
     }
 
     .m-notice-list__body {
-        padding: 16px;
+        padding: 16px 0;
         min-height: 420px;
     }
 
@@ -332,6 +333,7 @@ export default {
             width: 4px;
             background: #1f2532;
             border-radius: 0;
+            .none;
         }
 
         &::after {
@@ -356,7 +358,7 @@ export default {
         }
 
         &:hover::after {
-            background: #3d6fe5;
+            background: @v4primary;
         }
     }
 
@@ -375,13 +377,13 @@ export default {
     .m-notice-list__type {
         display: inline-flex;
         align-items: center;
-        height: 30px;
-        border-radius: 2px;
-        padding: 0 14px;
-        font-size: 14px;
+        height: 28px;
+        border-radius: 3px;
+        padding: 0 12px;
+        font-size: 13px;
         font-weight: 700;
         color: #fff;
-        background: #3d73e5;
+        background: @v4primary;
     }
 
     .m-notice-list__source {
@@ -398,8 +400,8 @@ export default {
 
     .m-notice-list__item-title {
         margin: 0;
-        font-size: 24px;
-        line-height: 1.4;
+        font-size: 18px;
+        line-height: 1.6;
         color: #111827;
         font-family: Arial Black, PingFang SC, Microsoft YaHei, sans-serif;
         word-break: break-word;
@@ -409,7 +411,7 @@ export default {
         margin: 6px 0 0;
         color: #8a95a9;
         line-height: 1.6;
-        font-size: 14px;
+        font-size: 13px;
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -476,7 +478,7 @@ export default {
         padding: 0 12px;
         height: 30px;
         border-radius: 6px;
-        background: #3c68de;
+        background: @v4primary;
         color: #fff;
         cursor: pointer;
     }
