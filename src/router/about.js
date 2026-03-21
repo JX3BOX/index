@@ -1,11 +1,4 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
-
-const VueRouterPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(to) {
-    return VueRouterPush.call(this, to).catch((err) => err);
-};
+import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
@@ -59,24 +52,24 @@ const routes = [
                 component: () => import("@/views/about/Article.vue"),
                 name: "license",
                 meta: {
-                    title: '用户协议',
+                    title: "用户协议",
                     cache: true,
-                    belongs: 'terms',
-                    article_id: 21020
-                }
+                    belongs: "terms",
+                    article_id: 21020,
+                },
             },
             {
                 path: "/privacy",
                 component: () => import("@/views/about/Article.vue"),
                 name: "privacy",
                 meta: {
-                    title: '隐私政策',
+                    title: "隐私政策",
                     cache: true,
-                    belongs: 'terms',
-                    article_id: 21021
-                }
-            }
-        ]
+                    belongs: "terms",
+                    article_id: 21021,
+                },
+            },
+        ],
     },
     {
         path: "/creation",
@@ -93,36 +86,36 @@ const routes = [
                 component: () => import("@/views/about/Article.vue"),
                 name: "treaty",
                 meta: {
-                    title: '创作公约',
+                    title: "创作公约",
                     cache: true,
-                    belongs: 'creation',
-                    article_id: 21022
-                }
+                    belongs: "creation",
+                    article_id: 21022,
+                },
             },
             {
                 path: "/incentives",
                 component: () => import("@/views/about/Article.vue"),
                 name: "incentives",
                 meta: {
-                    title: '创作激励',
+                    title: "创作激励",
                     cache: true,
-                    belongs: 'creation',
-                    article_id: 28917
-                }
-            }
-        ]
+                    belongs: "creation",
+                    article_id: 28917,
+                },
+            },
+        ],
     },
 ];
 
-const router = new VueRouter({
+const router = createRouter({
+    history: createWebHistory("/about/"),
     routes,
-    mode: "history",
-    base: "/about",
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     if (to.fullPath.includes("/#")) {
         next(to.fullPath.replace("/#", ""));
+        return;
     }
     next();
 });

@@ -1,49 +1,49 @@
 <template>
     <div class="p-author">
-        <div class="u-list" v-if="data && data.length">
+        <div class="u-list" v-if="list.length">
             <el-tooltip
                 class="item"
                 effect="dark"
                 :content="item.display_name"
                 placement="top"
-                v-for="(item, i) in data"
-                :key="i"
+                v-for="item in list"
+                :key="item.ID"
             >
-                <a :href="`/author/` + item.ID" class="u-item" target="_blank">
+                <a :href="`/author/${item.ID}`" class="u-item" target="_blank" rel="noopener noreferrer">
                     <img class="u-avatar" :src="showAvatar(item.user_avatar)" :alt="item.display_name" />
                     <span class="u-name">{{ item.display_name }}</span>
                 </a>
             </el-tooltip>
         </div>
-        <div class="m-about-button"><a class="u-join" href="/dashboard/cooperation" target="_blank"><i class="el-icon-right"></i>成为签约作者</a></div>
+        <div class="m-about-button">
+            <a class="u-join" href="/dashboard/cooperation" target="_blank" rel="noopener noreferrer">
+                <i class="el-icon-right"></i>成为签约作者
+            </a>
+        </div>
     </div>
 </template>
 <script>
 import { getSuperAuthor } from "@/service/about";
 import { showAvatar } from "@jx3box/jx3box-common/js/utils";
+
 export default {
     name: "SuperAuthor",
-    props: [],
-    components: {},
-    data: function () {
+    data() {
         return {
-            data: [],
+            list: [],
         };
     },
-    computed: {},
-    watch: {},
     methods: {
         load() {
             getSuperAuthor().then((data) => {
-                this.data = data || [];
+                this.list = data || [];
             });
         },
         showAvatar(url) {
             return showAvatar(url, "m");
         },
     },
-    created: function () {},
-    mounted: function () {
+    mounted() {
         this.load();
     },
 };
@@ -66,17 +66,16 @@ export default {
         .size(38px);
         .r(50%);
         border: 2px solid #fff;
-        background-color:#fff;
+        background-color: #fff;
     }
     .u-name {
-        // .db;
         .none;
     }
-    .u-join{
-        color:#fff;
-        background-color:#f4afa6;
-        &:hover{
-            background-color:darken(#f4afa6, 10%);
+    .u-join {
+        color: #fff;
+        background-color: #f4afa6;
+        &:hover {
+            background-color: darken(#f4afa6, 10%);
         }
     }
 }

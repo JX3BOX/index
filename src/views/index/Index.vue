@@ -3,12 +3,7 @@
         <CommonHeader :overlayEnable="true" />
         <div class="m-main">
             <div class="m-left m-sidebar">
-                <Welcome />
-                <News />
-                <Jx3code />
-                <!-- <Ai style="display: none" /> -->
-                <Followus />
-                <Feedback />
+                <IndexLeftSidebar />
             </div>
             <div class="m-primary">
                 <Slider />
@@ -35,13 +30,7 @@
 
 <script>
 
-// 左侧
-import Welcome from "./components/welcome.vue";
-import News from "./components/news.vue";
-import Jx3code from "./components/jx3code.vue";
-// import Ai from "./components/ai.vue";
-import Followus from "./components/followus.vue";
-import Feedback from "./components/feedback.vue";
+import IndexLeftSidebar from "@/components/IndexLeftSidebar.vue";
 
 // 中间
 import Slider from "./components/slider.vue";
@@ -68,12 +57,7 @@ export default {
     name: "Index",
     props: [],
     components: {
-        Welcome,
-        News,
-        Jx3code,
-        // Ai,
-        Followus,
-        Feedback,
+        IndexLeftSidebar,
 
         Slider,
         Box,

@@ -11,19 +11,19 @@
             </router-link>
         </div>
         <div class="detail-content-wrap detail-text-wrap">
-            <AboutText :customType="active"></AboutText>
+            <AboutText></AboutText>
         </div>
     </div>
 </template>
 
 <script>
 import AboutText from "./components/AboutText.vue";
+
 export default {
     name: "Article",
     components: { AboutText },
     data() {
         return {
-            active: "",
             list: {
                 terms: [
                     {
@@ -49,19 +49,8 @@ export default {
         };
     },
     computed: {
-        name() {
-            return this.$route.name;
-        },
         tabs() {
             return this.list[this.$route.meta.belongs] || [];
-        },
-    },
-    watch: {
-        name: {
-            handler() {
-                this.active = this.tabs[0].type;
-            },
-            immediate: true,
         },
     },
 };

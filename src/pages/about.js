@@ -1,27 +1,27 @@
-Vue.config.productionTip = false;
+import { createApp } from "vue";
+import ElementPlus from "element-plus";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
+import "element-plus/dist/index.css";
 
-// 第三方UI组件
-import Vue from "vue";
-import ElementUI from "element-ui";
-Vue.use(ElementUI);
-
-// 通用UI模块
-import JX3BOX_UI from "@jx3box/jx3box-common-ui";
-import "@jx3box/jx3box-common/css/element.css";
+import { install as JX3BOX_UI } from "@jx3box/jx3box-ui";
 import "@jx3box/jx3box-common/css/normalize.css";
+import "@jx3box/jx3box-common/css/element-plus-theme.scss";
+import "@jx3box/jx3box-common/css/element-fonticon.css";
+import "@jx3box/jx3box-common/css/font.css";
 import "@/assets/css/tailwind.css";
-Vue.use(JX3BOX_UI);
 
 import reporter from "@jx3box/jx3box-common/js/reporter";
-reporter.install(Vue);
 
-// 数据与路由
 import router from "@/router/about";
 import store from "@/store";
-
 import App from "@/views/about/About.vue";
-new Vue({
-    router,
-    store,
-    render: (h) => h(App),
-}).$mount("#app");
+
+const app = createApp(App);
+
+app.use(router);
+app.use(store);
+app.use(JX3BOX_UI);
+app.use(ElementPlus, { locale: zhCn });
+reporter.installVue3(app);
+
+app.mount("#app");

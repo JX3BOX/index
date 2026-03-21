@@ -13,6 +13,16 @@ const routes = [
             },
         },
     },
+    {
+        name: "tv",
+        path: "/tv",
+        component: () => import("@/views/tv/TV.vue"),
+        meta: {
+            i18n: {
+                title: "魔盒电视台",
+            },
+        },
+    },
 ];
 
 const router = createRouter({

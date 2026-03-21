@@ -16,29 +16,29 @@
             </LeftSidebar>
             <SubNav class="m-about-nav--top"></SubNav>
             <div class="m-about-content">
-                <transition duration="550" name="nested" mode="out-in">
-                    <keep-alive>
-                        <router-view v-if="$route.meta.cache" class="inner"></router-view>
-                    </keep-alive>
-                    <router-view v-if="!$route.meta.cache" class="inner"></router-view>
-                </transition>
+                <router-view v-slot="{ Component }">
+                    <transition duration="550" name="nested" mode="out-in">
+                        <keep-alive v-if="isCacheRoute">
+                            <component :is="Component" class="inner"></component>
+                        </keep-alive>
+                        <component v-else :is="Component" class="inner"></component>
+                    </transition>
+                </router-view>
             </div>
             <div class="m-about-mobile">
-                <!-- Logo & 版本 -->
                 <div class="m-about-mobile__header">
                     <div class="u-logo-wrap">
-                        <img :src="LogoSrc" alt="JX3BOX" />
+                        <img :src="logoSrc" alt="JX3BOX" />
                     </div>
                     <div class="u-title">JX3BOX</div>
-                    <div class="u-desc">VERSION: {{ version || 'release' }}</div>
+                    <div class="u-desc">VERSION: {{ version || "release" }}</div>
                 </div>
 
-                <!-- 核心信息列表 -->
                 <div class="m-about-mobile__content">
                     <ul class="u-list">
-                        <li class="u-item" v-for="item in CopyInfo" :key="item.key">
+                        <li class="u-item" v-for="item in copyInfo" :key="item.key">
                             <span class="u-label">{{ item.label }}</span>
-                            <a class="u-value u-value--link" v-if="item.link" :href="item.link">
+                            <a class="u-value u-value--link" v-if="item.link" :href="item.link" target="_blank" rel="noopener noreferrer">
                                 <span>Join</span>
                                 <i class="u-arrow">›</i>
                             </a>
@@ -47,15 +47,13 @@
                     </ul>
                 </div>
 
-                <!-- 访问官网按钮 -->
                 <div class="m-about-mobile__action">
-                    <a class="u-website-btn" href="https://rx-planet.com" target="_blank">
+                    <a class="u-website-btn" href="https://rx-planet.com" target="_blank" rel="noopener noreferrer">
                         <i class="u-btn-icon">🌐</i>
                         <span>访问公司官网</span>
                     </a>
                 </div>
 
-                <!-- 底部页脚 -->
                 <div class="m-about-mobile__footer">
                     <p>Powered by Fuyan Tech</p>
                 </div>
@@ -67,20 +65,17 @@
 
 <script>
 import SubNav from "./components/SubNav.vue";
-import CommonFooter from "@jx3box/jx3box-common-ui/src/CommonFooter.vue";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
-import { isPhone } from "@/utils/index";
 
 const { __cdn, __imgPath } = JX3BOX;
+
 export default {
     name: "About",
-    props: [],
-    components: { SubNav, CommonFooter },
-    data: function () {
+    components: { SubNav },
+    data() {
         return {
-            isPhone: false,
-            LogoSrc: __imgPath + "logo/logo.svg",
-            CopyInfo: [
+            logoSrc: `${__imgPath}logo/logo.svg`,
+            copyInfo: [
                 {
                     key: "cooperation",
                     label: "渠道合作",
@@ -103,41 +98,24 @@ export default {
                     value: "湖南浮烟科技有限公司",
                 },
             ],
-            version : 'v0.0.0'
+            version: "v0.0.0",
         };
     },
     computed: {
-        client: function () {
-            return this.$store.state.client;
-        },
         name() {
             return this.$route.meta.title === "首页" ? "关于我们" : this.$route.meta.title;
         },
         backgroundImage() {
-            // return "/temp/about/" + this.$route.name + ".png";
-            const name = this.$route.name || "index";
-            return __cdn + "design/about/" + name + ".png";
+            const routeName = this.$route.name || "index";
+            return `${__cdn}design/about/${routeName}.png`;
+        },
+        isCacheRoute() {
+            return Boolean(this.$route.meta?.cache);
         },
     },
-    watch: {},
-    methods: {},
-    created: function () {},
     mounted() {
-        const self = this;
-        self.isPhone = isPhone();
-        let timer = null;
-        window.addEventListener("resize", () => {
-            if (timer === null) {
-                timer = setTimeout(() => {
-                    self.isPhone = isPhone();
-                    clearTimeout(timer);
-                    timer = null;
-                }, 0);
-            }
-        });
-
         const query = new URLSearchParams(location.search);
-        this.version = query.get('version')
+        this.version = query.get("version") || this.version;
     },
 };
 </script>

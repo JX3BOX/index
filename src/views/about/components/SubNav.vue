@@ -6,12 +6,11 @@
                 <span class="about-title">关于我们</span>
             </router-link>
         </div>
-        <ul class="sub-nav-list" :class="{ 'is-open': isOpen }">
+        <ul class="sub-nav-list">
             <router-link
                 :to="route.children ? route.children[0].path : route.path"
                 v-for="route in $router.options.routes"
                 :key="route.path"
-                custom
                 class="sub-nav-item hvr-underline-from-center"
             >
                 {{ route.meta.title }}
@@ -23,13 +22,12 @@
 <script>
 export default {
     name: "SubNav",
-    props: ["side"],
-    data() {
-        return {
-            isOpen: false,
-        };
+    props: {
+        side: {
+            type: Boolean,
+            default: false,
+        },
     },
-    computed: {},
 };
 </script>
 

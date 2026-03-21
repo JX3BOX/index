@@ -60,7 +60,7 @@
                     :total="total"
                 >
                 </el-pagination>
-                <el-input class="u-input" v-model="index" type="number" @keyup.enter.native="toJump" size="mini" />
+                <el-input class="u-input" v-model="index" type="number" @keyup.enter="toJump" />
                 <span class="u-button" @click="toJump">确认</span>
             </div>
         </div>
@@ -75,8 +75,17 @@ import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 const { __postType, __wikiType, __appType, __gameType } = JX3BOX;
 export default {
     name: "Toolbar",
-    props: ["total", "pages"],
-    data: function () {
+    props: {
+        total: {
+            type: Number,
+            default: 0,
+        },
+        pages: {
+            type: Number,
+            default: 0,
+        },
+    },
+    data() {
         return {
             source_type: "all",
 
@@ -136,7 +145,7 @@ export default {
         params: {
             deep: true,
             immediate: true,
-            handler: function (obj) {
+            handler(obj) {
                 this.$emit("update", obj);
             },
         },
@@ -151,7 +160,7 @@ export default {
         },
         // element切换页面
         changePage(i) {
-            this.pageIndex = ~~i;
+            this.pageIndex = Number(i);
         },
         // 跳转页面
         toJump() {
@@ -164,8 +173,8 @@ export default {
         },
         // 上下翻页
         turnPages(key) {
-            if (key == "next") this.index = this.pageIndex < this.pages ? this.pageIndex + 1 : this.pages;
-            if (key == "per") this.index = this.pageIndex > 1 ? this.pageIndex - 1 : 1;
+            if (key === "next") this.index = this.pageIndex < this.pages ? this.pageIndex + 1 : this.pages;
+            if (key === "per") this.index = this.pageIndex > 1 ? this.pageIndex - 1 : 1;
             this.changePage(this.index);
         },
         // 打开弹窗

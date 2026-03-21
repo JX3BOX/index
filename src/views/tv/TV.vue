@@ -1,10 +1,10 @@
 <template>
     <div class="p-tv">
-        <Header :overlayEnable="true"></Header>
+        <CommonHeader :overlayEnable="true" />
         <!-- logo -->
         <div class="m-tv-title"></div>
         <!-- 内容 -->
-        <div class="m-tv-content" :loading="loading">
+        <div class="m-tv-content" v-loading="loading">
             <!-- 列表 -->
             <List :data="list" />
             <!-- 操作条 -->
@@ -15,7 +15,7 @@
             <img class="u-img" src="@/assets/img/tv/box.png" alt="盒子娘" />
         </div>
         <!-- 底部 -->
-        <Footer darkMode></Footer>
+        <CommonFooter />
     </div>
 </template>
 
@@ -26,7 +26,7 @@ import { getConfigBanner } from "@/service/cms";
 export default {
     name: "TV",
     components: { List, Toolbar },
-    data: function () {
+    data() {
         return {
             list: [],
             params: {},
@@ -40,7 +40,7 @@ export default {
         params: {
             deep: true,
             immediate: true,
-            handler: function (obj) {
+            handler(obj) {
                 this.load(obj);
             },
         },

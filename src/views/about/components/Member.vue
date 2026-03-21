@@ -20,21 +20,14 @@
 
 <script>
 import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
-import { showDate } from "@jx3box/jx3box-common/js/moment";
+
 export default {
     name: "member",
-    props: ["list", "usergroups"],
-    data: function () {
-        return {
-            data: [],
-            duty: {
-                production: "产品",
-                designer: "设计",
-                mp: "运营",
-                developer: "开发",
-                editor: "编审",
-            },
-        };
+    props: {
+        list: {
+            type: Array,
+            default: () => [],
+        },
     },
     methods: {
         getAvatar: function (item) {
@@ -44,14 +37,7 @@ export default {
             return item?.teammate_info?.display_name;
         },
         authorLink,
-        showDate,
-        showTag(key) {
-            return this.duty[key] || key;
-        },
     },
-
-    mounted: function () {},
-    components: {},
 };
 </script>
 

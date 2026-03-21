@@ -11,9 +11,9 @@
                 {{ usergroups[item] }}
             </div>
         </div>
-        <Member class="detail-content-wrap" :list="list" :usergroups="usergroups"></Member>
+        <Member class="detail-content-wrap" :list="list"></Member>
         <div class="m-about-button">
-            <a class="u-join" href="/notice/21899" target="_blank"><i class="el-icon-right"></i>加入我们</a>
+            <a class="u-join" href="/notice/21899" target="_blank" rel="noopener noreferrer"><i class="el-icon-right"></i>加入我们</a>
         </div>
     </div>
 </template>
@@ -38,17 +38,6 @@ export default {
                 contributors: "贡献名单",
             },
         };
-    },
-    computed: {
-        teammates: function () {
-            const obj = {};
-
-            Object.entries(this.usergroups).forEach(([key, value]) => {
-                obj[key] = this.list.filter((item) => item.group === key);
-            });
-
-            return obj;
-        },
     },
     methods: {
         loadTeammates: function () {

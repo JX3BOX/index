@@ -13,13 +13,13 @@ const pages = {
     //     template: "public/index.html",
     //     filename: "search/index.html",
     // },
-    // // 公告
-    // notice: {
-    //     title: "公告资讯",
-    //     entry: "src/pages/notice.js",
-    //     template: "public/index.html",
-    //     filename: "notice/index.html",
-    // },
+    // 公告
+    notice: {
+        title: "公告资讯",
+        entry: "src/pages/notice.js",
+        template: "public/index.html",
+        filename: "notice/index.html",
+    },
     // // 头条
     // tv: {
     //     title: "魔盒电视台",

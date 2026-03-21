@@ -12,12 +12,6 @@ import { getArticle } from "@/service/about.js";
 import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "AboutText",
-    props: {
-        customType: {
-            type: String,
-            default: "",
-        },
-    },
     data: function () {
         return {
             data: "",

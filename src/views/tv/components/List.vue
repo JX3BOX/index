@@ -17,9 +17,11 @@
 <script>
 export default {
     name: "List",
-    props: ["data"],
-    data: function () {
-        return {};
+    props: {
+        data: {
+            type: Array,
+            default: () => [],
+        },
     },
     methods: {
         resolveImagePath(str) {
