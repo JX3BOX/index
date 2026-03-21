@@ -39,7 +39,6 @@ export default {
     padding-top: 48px;
     padding-bottom: 32px;
     width: 100%;
-    height: 50px;
     overflow: hidden;
     .nav-logo-wrap {
         min-width: 200px;
@@ -64,6 +63,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        padding-left: 45px;
         .sub-nav-item {
             list-style: none;
             margin: 0 10px;

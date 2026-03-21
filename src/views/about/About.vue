@@ -1,6 +1,6 @@
 <template>
-    <div class="about-wrapper">
-        <Header :overlayEnable="true"></Header>
+    <div class="p-about">
+        <CommonHeader :overlayEnable="true" />
         <div class="m-about-main" :style="{ backgroundImage: `url('${backgroundImage}')` }">
             <Breadcrumb
                 class="m-about-bread"
@@ -66,12 +66,18 @@
 <script>
 import SubNav from "./components/SubNav.vue";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
+import CommonHeader from "@jx3box/jx3box-ui/src/CommonHeader.vue";
+import CommonFooter from "@jx3box/jx3box-ui/src/CommonFooter.vue";
 
 const { __cdn, __imgPath } = JX3BOX;
 
 export default {
     name: "About",
-    components: { SubNav },
+    components: {
+        SubNav,
+        CommonHeader,
+        CommonFooter,
+    },
     data() {
         return {
             logoSrc: `${__imgPath}logo/logo.svg`,
