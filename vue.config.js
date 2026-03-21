@@ -6,13 +6,6 @@ const pages = {
         template: "public/index.html",
         filename: "index.html",
     },
-    // // 搜索
-    // search: {
-    //     title: "搜索",
-    //     entry: "src/pages/search.js",
-    //     template: "public/index.html",
-    //     filename: "search/index.html",
-    // },
     // 公告
     notice: {
         title: "公告资讯",
@@ -20,19 +13,26 @@ const pages = {
         template: "public/index.html",
         filename: "notice/index.html",
     },
-    // // 头条
-    // tv: {
-    //     title: "魔盒电视台",
-    //     entry: "src/pages/tv.js",
+    // 头条
+    tv: {
+        title: "魔盒电视台",
+        entry: "src/pages/tv.js",
+        template: "public/index.html",
+        filename: "tv/index.html",
+    },
+    // 关于
+    about: {
+        title: "关于我们",
+        entry: "src/pages/about.js",
+        template: "public/index.html",
+        filename: "about/index.html",
+    },
+    // // 搜索
+    // search: {
+    //     title: "搜索",
+    //     entry: "src/pages/search.js",
     //     template: "public/index.html",
-    //     filename: "tv/index.html",
-    // },
-    // // 关于
-    // about: {
-    //     title: "关于我们",
-    //     entry: "src/pages/about.js",
-    //     template: "public/index.html",
-    //     filename: "about/index.html",
+    //     filename: "search/index.html",
     // },
     // // 文章跳转
     // post: {
