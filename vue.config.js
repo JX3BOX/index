@@ -13,13 +13,6 @@ const pages = {
         template: "public/index.html",
         filename: "notice/index.html",
     },
-    // 头条
-    tv: {
-        title: "魔盒电视台",
-        entry: "src/pages/tv.js",
-        template: "public/index.html",
-        filename: "tv/index.html",
-    },
     // 关于
     about: {
         title: "关于我们",
