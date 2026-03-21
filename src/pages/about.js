@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import ElementPlus from "element-plus";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
-import "element-plus/dist/index.css";
 
 import { install as JX3BOX_UI } from "@jx3box/jx3box-ui";
 import "@jx3box/jx3box-common/css/normalize.css";

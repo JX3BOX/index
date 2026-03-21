@@ -12,10 +12,10 @@
                         <i class="el-icon-arrow-left text-sm"></i>
                     </button>
                     <span
-                        class="m-notice-detail__type inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-semibold rounded-sm"
+                        class="m-notice-detail__type inline-flex items-center px-3 py-1 bg-indigo-600 text-white text-sm font-semibold rounded-sm"
                         >{{ showType(post.post_subtype) }}</span
                     >
-                    <div class="m-notice-detail__divider h-7 w-1 bg-blue-500 hidden md:block"></div>
+                    <div class="m-notice-detail__divider h-7 w-1 bg-indigo-500 hidden md:block"></div>
                     <h1
                         class="m-notice-detail__title text-[20px] md:text-[30px] font-bold tracking-tight leading-[1.15] break-words"
                     >
@@ -43,7 +43,7 @@
 
                     <div class="m-notice-detail__admin flex items-center gap-2" v-if="isAdmin">
                         <a
-                            class="m-notice-detail__admin-btn inline-flex items-center h-10 px-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded transition-all text-sm"
+                            class="m-notice-detail__admin-btn inline-flex items-center h-10 px-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded transition-all text-sm text-slate-300"
                             :href="edit_link"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -75,14 +75,14 @@
                     class="m-notice-detail__actions mt-12 pt-6 border-t border-slate-100 flex justify-end items-center gap-3"
                 >
                     <button
-                        class="m-notice-detail__action-btn px-6 py-2 rounded-full border border-slate-200 text-sm hover:bg-slate-50 inline-flex items-center"
+                        class="m-notice-detail__action-btn px-6 py-2 rounded-full border border-slate-200 text-sm hover:bg-slate-50 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': liked }"
                         @click="toggleLike"
                     >
                         <i class="el-icon-thumb mr-2"></i>点赞 ({{ likeCount }})
                     </button>
                     <button
-                        class="m-notice-detail__action-btn m-notice-detail__action-btn--primary px-6 py-2 rounded-full bg-blue-600 text-white text-sm hover:bg-blue-700 inline-flex items-center"
+                        class="m-notice-detail__action-btn m-notice-detail__action-btn--primary px-6 py-2 rounded-full bg-indigo-600 text-white text-sm hover:bg-indigo-700 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': starred }"
                         @click="toggleStar"
                     >
@@ -381,6 +381,10 @@ export default {
         font-size: 14px;
         color: #69758d;
         line-height: 1.7;
+    }
+
+    .m-notice-detail__admin-btn {
+        .pointer;
     }
 
     .m-notice-detail__action-btn.is-active {

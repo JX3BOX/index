@@ -33,5 +33,10 @@ export default {
     .m-main {
         padding-top: 60px;
     }
+    @media screen and (max-width:@phone){
+        .m-sidebar{
+            .none;
+        }
+    }
 }
 </style>
