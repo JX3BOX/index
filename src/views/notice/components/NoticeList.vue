@@ -220,7 +220,7 @@ export default {
 .p-notice-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    // gap: 16px;
 
     .m-notice-list__header,
     .m-notice-list__body,
@@ -237,6 +237,10 @@ export default {
     .m-notice-list__header {
         padding: 20px 24px;
         background-color:@bg-black;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
     }
 
     .m-notice-list__title {
@@ -264,6 +268,8 @@ export default {
         border: 1px solid #e4e9f2;
         background: #f6f8fc;
         box-shadow: 0 1px 2px rgba(32, 56, 108, 0.05);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     .m-notice-list__tabs {
