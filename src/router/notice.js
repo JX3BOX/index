@@ -10,9 +10,25 @@ const routes = [
         component: List,
         meta: {
             keepAlive: true,
+            i18n: {
+                title: "pages.notice.title",
+                keywords: "pages.notice.keywords",
+                description: "pages.notice.description",
+            },
         },
     },
-    { name: "single", path: "/:id", component: Single },
+    {
+        name: "single",
+        path: "/:id",
+        component: Single,
+        meta: {
+            i18n: {
+                title: "pages.notice.single.title",
+                keywords: "pages.notice.single.keywords",
+                description: "pages.notice.single.description",
+            },
+        },
+    },
 ];
 
 const router = createRouter({

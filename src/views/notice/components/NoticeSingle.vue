@@ -6,7 +6,7 @@
                     <button
                         class="m-notice-detail__back inline-flex items-center justify-center h-7 min-w-7 px-2 rounded-sm border border-white/20 bg-white/5 hover:bg-white/10 cursor-pointer transition-all"
                         type="button"
-                        title="返回列表"
+                        :title="$t('notice.single.back')"
                         @click="$router.push({ name: 'list' })"
                     >
                         <i class="el-icon-arrow-left text-sm"></i>
@@ -27,18 +27,18 @@
                     class="m-notice-detail__meta-row flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/15"
                 >
                     <div class="m-notice-detail__meta-main flex items-center flex-wrap gap-6 text-slate-300 text-sm">
-                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
-                            <i class="el-icon-time"></i>
-                            最后更新：{{ showDate(post.post_modified) }}
-                        </span>
+	                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
+	                            <i class="el-icon-time"></i>
+	                            {{ $t("notice.single.lastUpdated", { date: showDate(post.post_modified) }) }}
+	                        </span>
                         <span class="m-notice-detail__meta-item inline-flex items-center gap-2" v-if="authorName">
                             <i class="el-icon-user"></i>
                             {{ authorName }}
                         </span>
-                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
-                            <i class="el-icon-view"></i>
-                            {{ formatNumber(stat.views) }} 阅读
-                        </span>
+	                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
+	                            <i class="el-icon-view"></i>
+	                            {{ $t("notice.single.views", { count: formatNumber(stat.views) }) }}
+	                        </span>
                     </div>
 
                     <div class="m-notice-detail__admin flex items-center gap-2" v-if="isAdmin">
@@ -47,16 +47,16 @@
                             :href="edit_link"
                             target="_blank"
                             rel="noopener noreferrer"
-                        >
-                            <i class="el-icon-edit-outline mr-2"></i>编辑
-                        </a>
+	                        >
+	                            <i class="el-icon-edit-outline mr-2"></i>{{ $t("notice.single.edit") }}
+	                        </a>
                         <button
                             class="m-notice-detail__admin-btn m-notice-detail__admin-btn--ghost inline-flex items-center h-10 px-5 bg-white/5 hover:bg-red-500/20 border border-white/20 hover:border-red-500/50 rounded transition-all text-sm text-slate-300 hover:text-red-300"
                             type="button"
                             @click="openAdminPanel"
-                        >
-                            <i class="el-icon-setting mr-2"></i>管理
-                        </button>
+	                        >
+	                            <i class="el-icon-setting mr-2"></i>{{ $t("notice.single.manage") }}
+	                        </button>
                     </div>
                 </div>
             </header>
@@ -78,17 +78,17 @@
                         class="m-notice-detail__action-btn px-6 py-2 rounded-full border border-slate-200 text-sm hover:bg-slate-50 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': liked }"
                         @click="toggleLike"
-                    >
-                        <i class="el-icon-thumb mr-2"></i>点赞 ({{ likeCount }})
-                    </button>
+	                    >
+	                        <i class="el-icon-thumb mr-2"></i>{{ $t("notice.single.like", { count: likeCount }) }}
+	                    </button>
                     <button
                         class="m-notice-detail__action-btn m-notice-detail__action-btn--primary px-6 py-2 rounded-full bg-indigo-600 text-white text-sm hover:bg-indigo-700 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': starred }"
                         @click="toggleStar"
-                    >
-                        <i :class="[starred ? 'el-icon-star-on' : 'el-icon-star-off', 'mr-2']"></i
-                        >{{ starred ? "已收藏" : "收藏" }}
-                    </button>
+	                    >
+	                        <i :class="[starred ? 'el-icon-star-on' : 'el-icon-star-off', 'mr-2']"></i
+	                        >{{ starred ? $t("notice.single.starred") : $t("notice.single.star") }}
+	                    </button>
                 </footer>
             </section>
         </article>
@@ -98,11 +98,13 @@
             ref="commentView"
             v-if="!loading"
         >
-            <h2 class="m-notice-detail__comment-title text-2xl md:text-3xl font-bold mb-6">评论</h2>
+	            <h2 class="m-notice-detail__comment-title text-2xl md:text-3xl font-bold mb-6">
+	                {{ $t("notice.single.comments") }}
+	            </h2>
             <div class="m-notice-detail__comment-box" v-if="id && !post.comment">
                 <Comment :id="id" category="post" />
             </div>
-            <div class="m-notice-detail__comment-placeholder" v-else>当前公告未开启评论功能</div>
+	            <div class="m-notice-detail__comment-placeholder" v-else>{{ $t("notice.single.commentsClosed") }}</div>
         </section>
 
         <right-affix
@@ -122,20 +124,16 @@
 
 <script>
 import User from "@jx3box/jx3box-common/js/user";
-import types from "@/assets/data/notice_types.json";
 import { getPost } from "@/service/cms.js";
 import { getStat, postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { hasFav, addFav, delFav } from "@jx3box/jx3box-ui/service/fav";
 import { showDate } from "@jx3box/jx3box-common/js/moment";
-import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { editLink } from "@jx3box/jx3box-common/js/utils";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
 import RightAffix from "@jx3box/jx3box-ui/src/single/RightAffix.vue";
 import Admin from "@jx3box/jx3box-ui/src/bread/Admin.vue";
 import Bus from "@jx3box/jx3box-ui/utils/bus";
-
-const { __visibleMap } = JX3BOX;
 
 export default {
     name: "NoticeSingle",
@@ -169,10 +167,8 @@ export default {
             return this.post?.post_content || "";
         },
         null_tip: function () {
-            let str = "作者设置了【";
-            str += __visibleMap[this.post.visible];
-            str += "】";
-            return str;
+            const visibleLabel = this.getVisibleLabel(this.post.visible);
+            return this.$t("notice.single.visibilityTip", { visibility: visibleLabel });
         },
         id() {
             return this.$route.params.id;
@@ -197,7 +193,26 @@ export default {
     methods: {
         showDate,
         showType(val) {
-            return types[val] || "公告动态";
+            const key =
+                {
+                    1: "notice.list.tabs.information",
+                    2: "notice.list.tabs.notice",
+                    3: "notice.list.tabs.feature",
+                    4: "notice.list.tabs.message",
+                }[val] || "notice.list.tabs.notice";
+            return this.$t(key);
+        },
+        getVisibleLabel(val) {
+            const key =
+                {
+                    0: "notice.single.visibility.public",
+                    1: "notice.single.visibility.self",
+                    2: "notice.single.visibility.friends",
+                    3: "notice.single.visibility.password",
+                    4: "notice.single.visibility.paid",
+                    5: "notice.single.visibility.fans",
+                }[val] || "notice.single.visibility.public";
+            return this.$t(key);
         },
         formatNumber(val) {
             const num = ~~val;
@@ -213,7 +228,7 @@ export default {
             getPost(this.id, this)
                 .then((res) => {
                     this.post = res?.data?.data || {};
-                    document.title = this.post.post_title || "公告详情";
+                    document.title = this.post.post_title || this.$t("pages.notice.single.title");
                 })
                 .finally(() => {
                     this.loading = false;

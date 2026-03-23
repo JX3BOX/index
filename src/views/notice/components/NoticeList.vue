@@ -1,8 +1,8 @@
 <template>
     <div class="p-notice-list">
         <section class="m-notice-list__header">
-            <h1 class="m-notice-list__title">公告中心</h1>
-            <p class="m-notice-list__desc">查看剑网3魔盒的最新动态、运营活动、功能更新与兑换通知。</p>
+            <h1 class="m-notice-list__title">{{ $t("notice.list.title") }}</h1>
+            <p class="m-notice-list__desc">{{ $t("notice.list.desc") }}</p>
         </section>
 
         <section class="m-notice-list__toolbar">
@@ -14,14 +14,14 @@
                     @click="change(item)"
                     :class="{ 'is-active': type == item.value }"
                 >
-                    {{ item.name }}
+                    {{ $t(item.i18nKey) }}
                 </button>
             </div>
             <el-input
                 class="m-notice-list__search"
                 size="large"
                 v-model="search"
-                placeholder="请输入关键词搜索"
+                :placeholder="$t('notice.list.searchPlaceholder')"
                 clearable
             >
                 <template #prefix>
@@ -41,7 +41,7 @@
                     <div class="m-notice-list__flags">
                         <span class="m-notice-list__type" :class="typeClass(item)">{{ showTag(item) }}</span>
                         <span class="m-notice-list__source">{{ showSource(item) }}</span>
-                        <span class="m-notice-list__sticky" v-if="item.sticky">置顶</span>
+                        <span class="m-notice-list__sticky" v-if="item.sticky">{{ $t("notice.list.sticky") }}</span>
                     </div>
                     <h3 class="m-notice-list__item-title">{{ item.post_title }}</h3>
                     <p class="m-notice-list__item-author">
@@ -55,7 +55,7 @@
                 </div>
             </router-link>
 
-            <div class="m-notice-list__empty" v-if="!list.length && !loading">当前分类暂无公告内容</div>
+            <div class="m-notice-list__empty" v-if="!list.length && !loading">{{ $t("notice.list.empty") }}</div>
         </section>
 
         <section class="m-notice-list__pager" v-if="pages > 1">
@@ -77,7 +77,7 @@
                     size="mini"
                     @keyup.enter="toJump"
                 />
-                <button class="m-notice-list__jump-btn" @click="toJump">跳转</button>
+                <button class="m-notice-list__jump-btn" @click="toJump">{{ $t("notice.list.jump") }}</button>
             </div>
         </section>
     </div>
@@ -102,17 +102,17 @@ export default {
             search: "",
             type: "",
             buttons: [
-                { name: "全部", key: "", value: "" },
-                { name: "公告动态", key: "notice", value: 2 },
-                { name: "运营活动", key: "information", value: 1 },
-                { name: "功能更新", key: "feature", value: 3 },
-                { name: "兑换通知", key: "message", value: 4 },
+                { i18nKey: "notice.list.tabs.all", key: "", value: "" },
+                { i18nKey: "notice.list.tabs.notice", key: "notice", value: 2 },
+                { i18nKey: "notice.list.tabs.information", key: "information", value: 1 },
+                { i18nKey: "notice.list.tabs.feature", key: "feature", value: 3 },
+                { i18nKey: "notice.list.tabs.message", key: "message", value: 4 },
             ],
             subtypeMap: {
-                1: { name: "运营活动", source: "EVENT", cls: "is-event" },
-                2: { name: "公告动态", source: "OFFICIAL", cls: "is-official" },
-                3: { name: "功能更新", source: "UPDATE", cls: "is-update" },
-                4: { name: "兑换通知", source: "NOTICE", cls: "is-notice" },
+                1: { i18nKey: "notice.list.tabs.information", source: "EVENT", cls: "is-event" },
+                2: { i18nKey: "notice.list.tabs.notice", source: "OFFICIAL", cls: "is-official" },
+                3: { i18nKey: "notice.list.tabs.feature", source: "UPDATE", cls: "is-update" },
+                4: { i18nKey: "notice.list.tabs.message", source: "NOTICE", cls: "is-notice" },
             },
         };
     },
@@ -178,7 +178,8 @@ export default {
             };
         },
         showTag(row) {
-            return this.subtypeMap[row.post_subtype]?.name || "公告动态";
+            const key = this.subtypeMap[row.post_subtype]?.i18nKey || "notice.list.tabs.notice";
+            return this.$t(key);
         },
         showSource(row) {
             return this.subtypeMap[row.post_subtype]?.source || "OFFICIAL";
@@ -187,7 +188,12 @@ export default {
             return this.subtypeMap[row.post_subtype]?.cls || "is-official";
         },
         showAuthor(row) {
-            return row?.author_info?.display_name || row?.user_nickname || row?.post_author_name || "魔盒";
+            return (
+                row?.author_info?.display_name ||
+                row?.user_nickname ||
+                row?.post_author_name ||
+                this.$t("notice.list.authorDefault")
+            );
         },
     },
     watch: {
