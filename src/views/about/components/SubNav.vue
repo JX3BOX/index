@@ -105,7 +105,7 @@ export default {
                 padding-left: 30px;
                 margin: 0;
                 &.router-link-exact-active {
-                    color: #0366d6;
+                    color: @v4primary;
                 }
             }
         }

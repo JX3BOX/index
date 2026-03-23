@@ -563,7 +563,7 @@ export default {
 
         .m-notice-list__toolbar {
             padding: 10px;
-            border-radius: 10px;
+            // border-radius: 10px;
         }
 
         .m-notice-list__tabs {
@@ -590,9 +590,9 @@ export default {
             margin-top: 8px;
         }
 
-        .m-notice-list__body {
-            padding: 10px;
-        }
+        // .m-notice-list__body {
+        //     padding: 10px;
+        // }
 
         .m-notice-list__item {
             flex-direction: column;

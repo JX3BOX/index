@@ -31,7 +31,7 @@ export default {
     },
     data: function () {
         return {
-            feedback: "/feedback",
+            feedback: "/dashboard/feedback",
         };
     },
 };
