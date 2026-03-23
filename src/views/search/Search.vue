@@ -1,8 +1,8 @@
 <template>
 	<div class="m-search">
-		<el-input placeholder="请输入内容" v-model="q" class="input-with-select" @change="search" clearable>
+		<el-input placeholder="请输入内容" size="large" v-model="q" class="input-with-select" @change="search" clearable>
 			<template #prepend>
-				<el-select v-model="type" placeholder="请选择" class="m-search-type">
+				<el-select v-model="type" size="large" placeholder="请选择" class="m-search-type">
 					<el-option label="全部" value="all">全部</el-option>
 					<el-option label="作品" value="post">作品</el-option>
 					<el-option label="百科" value="wiki">百科</el-option>
@@ -11,13 +11,14 @@
 				</el-select>
 			</template>
 			<template #append>
-				<el-button :icon="searchIcon" />
+				<el-button :icon="searchIcon" @click="search" />
 			</template>
 		</el-input>
 	</div>
 </template>
 
 <script>
+import { markRaw } from "vue";
 import { Search } from "@element-plus/icons-vue";
 export default {
 	name: "Search",
@@ -28,7 +29,7 @@ export default {
 			q: "",
 			//类型
 			type: "",
-			searchIcon: Search,
+			searchIcon: markRaw(Search),
 		};
 	},
 	watch: {

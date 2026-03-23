@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import { __Root, feedback } from "@jx3box/jx3box-common/data/jx3box";
+import jx3box from "@jx3box/jx3box-common/data/jx3box";
+const { __Root, feedback } = jx3box;
 export default {
 	name: "Bottom",
 	data: function () {

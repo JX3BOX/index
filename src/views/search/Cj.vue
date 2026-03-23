@@ -1,27 +1,29 @@
 <template>
 	<div class="m-cj m-block" v-loading="loading">
 		<ul class="u-list" v-if="data.length">
-			<a class="m-cj-item" v-for="(item, i) in data" :href="item.ID | url" :key="i" target="_blank">
-				<img class="u-icon" :src="item.IconID | icon" />
+			<a class="m-cj-item" v-for="(item, i) in data" :href="url(item.ID)" :key="i" target="_blank">
+				<img class="u-icon" :src="icon(item.IconID)" />
 				<span class="u-title">{{ item.Name }}</span>
 				<span class="u-desc">{{ item.ShortDesc }}</span>
 				<i class="u-point"><img src="../assets/img/point.png" />{{ item.Point }}</i>
 			</a>
 		</ul>
 		<el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
-		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" icon="el-icon-arrow-down">加载更多</el-button>
+		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" :icon="ArrowDown">加载更多</el-button>
 		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" v-model:current-page="page" @current-change="changePage"> </el-pagination>
 	</div>
 </template>
 
 <script>
 import { getCj } from "@/service/search";
+import { ArrowDown } from "@element-plus/icons-vue";
 import { __Root, __ossMirror, __iconPath, __ossRoot } from "@jx3box/jx3box-common/data/jx3box";
 export default {
 	name: "Cj",
 	props: [],
 	data: function () {
 		return {
+			ArrowDown,
 			loading: false,
 			data: [], //数据列表
 			total: 1, //总条目数

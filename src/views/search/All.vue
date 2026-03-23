@@ -1,11 +1,15 @@
 <template>
 	<div class="m-search_all" v-loading="loading">
 		<div class="m-filter" :class="{ show }">
-			<el-divider class="m-filter-folder" content-position="left" @click="changeShow">筛选 <i :class="show ? 'el-icon-caret-bottom' : 'el-icon-caret-top'"></i></el-divider>
+			<el-divider class="m-filter-folder" content-position="left" @click="changeShow">
+				筛选
+				<el-icon v-if="show"><CaretBottom /></el-icon>
+				<el-icon v-else><CaretTop /></el-icon>
+			</el-divider>
 			<div class="m-filter-box" v-for="(item, i) in search" :key="i" v-show="show">
 				<span class="u-label">{{ item.label }}</span>
 				<el-checkbox-group class="u-group" v-model="item.list">
-					<el-checkbox :label="check.label" v-for="(check, key) in filterItem(i)" :key="key">
+					<el-checkbox :value="check.label" v-for="(check, key) in filterItem(i)" :key="key">
 						{{ typeName[check.label] || check.label }}
 						<span class="u-count">({{ check.count }})</span>
 					</el-checkbox>
@@ -14,7 +18,7 @@
 			<div class="m-filter-box">
 				<span class="u-label">时间</span>
 				<el-radio-group class="u-group" v-model="filter_start_time">
-					<el-radio :label="item.value" v-for="(item, i) in filter_time.list" :key="i">{{ item.label }}</el-radio>
+					<el-radio :value="item.value" v-for="(item, i) in filter_time.list" :key="i">{{ item.label }}</el-radio>
 				</el-radio-group>
 			</div>
 		</div>
@@ -33,14 +37,16 @@
 			</li>
 		</ul>
 		<el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
-		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" icon="el-icon-arrow-down">加载更多</el-button>
+		<el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" :icon="ArrowDown">加载更多</el-button>
 		<el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" v-model:current-page="page" @current-change="changePage"> </el-pagination>
 		<el-backtop :bottom="40" :right="20"></el-backtop>
 	</div>
 </template>
 
 <script>
+import { markRaw } from "vue";
 import { geSearch } from "@/service/search";
+import { ArrowDown, CaretBottom, CaretTop } from "@element-plus/icons-vue";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import typeName from "@/assets/data/type.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
@@ -48,8 +54,13 @@ import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 const { __clients, __Root, __OriginRoot } = JX3BOX;
 export default {
 	name: "All",
+	components: {
+		CaretBottom,
+		CaretTop,
+	},
 	data: function () {
 		return {
+			ArrowDown: markRaw(ArrowDown),
 			loading: false,
 			data: [], //数据列表
 			distribution: [], //分布
@@ -240,6 +251,7 @@ export default {
 	}
 	.m-result {
 		padding: 0 20px;
+        margin-top: 20px;
 		.u-item {
 			.w(100%);
 			.flex;

@@ -3,8 +3,8 @@
 		<div class="m-item" v-if="data">
 			<a class="u-mark" href="https://剑网3.com" target="_blank">剑网3.com</a>
 			<div class="u-title">
-				<a :href="'https://剑网3.com/' + data.key" target="_blank">剑网3.com/{{ data.key }}</a
-				><span class="el-icon-postcard"></span>
+				<a :href="'https://剑网3.com/' + data.key" target="_blank">剑网3.com/{{ data.key }}</a>
+				<el-icon class="u-icon-postcard"><Postcard /></el-icon>
 			</div>
 
 			<div class="u-desc">
@@ -15,8 +15,12 @@
 </template>
 <script>
 import { getNamespace } from "@/service/search";
+import { Postcard } from "@element-plus/icons-vue";
 export default {
 	name: "Namespace",
+	components: {
+		Postcard,
+	},
 	data: function () {
 		return {
 			loading: false,
@@ -72,7 +76,7 @@ export default {
 				box-shadow: 0 1px 0 @hover;
 			}
 		}
-		.el-icon-postcard {
+		.u-icon-postcard {
 			.fz(16px);
 			.color(#555);
 		}

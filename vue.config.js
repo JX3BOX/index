@@ -21,19 +21,19 @@ const pages = {
         filename: "about/index.html",
     },
     // // 搜索
-    // search: {
-    //     title: "搜索",
-    //     entry: "src/pages/search.js",
-    //     template: "public/index.html",
-    //     filename: "search/index.html",
-    // },
+    search: {
+        title: "搜索",
+        entry: "src/pages/search.js",
+        template: "public/index.html",
+        filename: "search/index.html",
+    },
     // // 文章跳转
-    // post: {
-    //     title: "作品",
-    //     entry: "src/pages/post.js",
-    //     template: "public/index.html",
-    //     filename: "post/index.html",
-    // },
+    post: {
+        title: "作品",
+        entry: "src/pages/post.js",
+        template: "public/index.html",
+        filename: "post/index.html",
+    },
     // 铭牌跳转
     jx3: {
         title: "剑网3.com",
@@ -64,6 +64,15 @@ module.exports = {
         proxy: buildEnvProxy(),
         allowedHosts: "all",
         port: process.env.DEV_PORT || 12028,
+        // 避免 /macro 等其它应用路由被 index SPA 接管
+        historyApiFallback: {
+            rewrites: [
+                {
+                    from: /^\/macro(\/.*)?$/,
+                    to: (context) => context.parsedUrl.pathname,
+                },
+            ],
+        },
     },
 
     // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告
@@ -205,6 +214,7 @@ function buildEnvProxy() {
         lua: process.env.VUE_APP_LUA_API || commonDomains.__lua,
         node: process.env.VUE_APP_NODE_API || commonDomains.__node,
         helper: process.env.VUE_APP_HELPER_API || commonDomains.__helperUrl,
+        gs: process.env.VUE_APP_GS_API || "https://gs.jx3box.com",
     };
 
     return Object.keys(serviceTargets).reduce((acc, key) => Object.assign(acc, mk(key, serviceTargets[key])), {});

@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { __Root } from "@jx3box/jx3box-common/data/jx3box";
+import jx3box from "@jx3box/jx3box-common/data/jx3box";
+const { __Root } = jx3box;
 export default {
     name: "Logo",
     data: function() {
@@ -60,6 +61,7 @@ export default {
         display: inline-block;
         padding-left: @space;
         color: #777;
+        margin: 1em 0;
     }
 }
 @media screen and (max-width: @ipad-y) {
