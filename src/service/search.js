@@ -1,4 +1,4 @@
-import { $cms } from "@jx3box/jx3box-common/js/api";
+import { $cms, $next } from "@jx3box/jx3box-common/js/api";
 
 function getPost(title, page) {
     return $cms().get("/api/cms/posts", {
@@ -59,10 +59,11 @@ function getWiki(keyword, page) {
     });
 }
 
-const domain = "https://gs.jx3box.com/"
+const domain = "https://gs.jx3box.com";
+const gsRequest = $next({ domain, serviceKey: "gs" });
 
 function geSearch(params) {
-    return $cms({ domain }).get("api/search", { params });
+    return gsRequest.get("/api/search", { params });
 }
 
 export { getPost, getAuthor, getCj, getItem, getNamespace, getWiki, geSearch };

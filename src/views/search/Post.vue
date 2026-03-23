@@ -7,24 +7,44 @@
                     ><span class="u-text">{{ item.post_title || "无标题" }}</span></a
                 >
                 <span class="u-link"
-                    ><time class="u-date">{{ formatDate(item.post_modified || item.post_date) }} @ {{ getAuthorName(item) }}</time><span class="u-type">{{ formatType(item.post_type) }}</span></span
+                    ><time class="u-date"
+                        >{{ formatDate(item.post_modified || item.post_date) }} @ {{ getAuthorName(item) }}</time
+                    ><span class="u-type">{{ formatType(item.post_type) }}</span></span
                 >
                 <!-- <span class="u-desc">{{ item.post_content | formatContent }}</span> -->
             </li>
         </ul>
         <el-alert v-else class="m-archive-null" title="没有找到相关条目" type="info" center show-icon> </el-alert>
-        <el-button class="m-archive-more" type="primary" :class="{ show: hasNextPage }" :loading="loading" @click="appendPage(++page)" icon="el-icon-arrow-down">加载更多</el-button>
-        <el-pagination class="m-archive-pages" layout="prev, pager, next" background hide-on-single-page v-model:page-size="per" :total="total" v-model:current-page="page" @current-change="changePage">
+        <el-button
+            class="m-archive-more"
+            type="primary"
+            :class="{ show: hasNextPage }"
+            :loading="loading"
+            @click="appendPage(++page)"
+            :icon="ArrowDown"
+            >加载更多</el-button
+        >
+        <el-pagination
+            class="m-archive-pages"
+            layout="prev, pager, next"
+            background
+            hide-on-single-page
+            v-model:page-size="per"
+            :total="total"
+            v-model:current-page="page"
+            @current-change="changePage"
+        >
         </el-pagination>
     </div>
 </template>
 
 <script>
 import dateFormat from "@/utils/dateFormat";
+import { ArrowDown } from "@element-plus/icons-vue";
 
 import { getPost } from "@/service/search";
 import { getPostLink } from "@/utils/common.js";
-import {getTypeLabel} from '@jx3box/jx3box-common/js/utils'
+import { getTypeLabel } from "@jx3box/jx3box-common/js/utils";
 
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 
@@ -33,6 +53,7 @@ export default {
     name: "Post",
     data: function () {
         return {
+            ArrowDown,
             loading: false,
             data: [], //数据列表
             total: 1, //总条目数
@@ -100,9 +121,9 @@ export default {
             client = client || "std";
             return "i-client-" + client;
         },
-        getAuthorName : function (item){
-            return item.author_info?.display_name || item.author || "匿名"
-        }
+        getAuthorName: function (item) {
+            return item.author_info?.display_name || item.author || "匿名";
+        },
     },
     watch: {
         q: function () {

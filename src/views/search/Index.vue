@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div class="p-search">
 		<header>
 			<Top />
 			<Search />
@@ -63,6 +63,6 @@ export default {
 
 <style lang="less">
 @import "@jx3box/jx3box-common/css/preset.css";
-@import "@/assets/css/search/layout.less";
 @import "@/assets/css/search/post.less";
+@import "@/assets/css/search/layout.less";
 </style>

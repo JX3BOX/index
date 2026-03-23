@@ -30,7 +30,7 @@
         <div
             v-loading="loading"
             class="m-posts-v5__content"
-            :class="{ 'm-posts-v5__content--scroll': activeTab === 'all' && isLogin && !!displayData.length }"
+            :class="{ 'm-posts-v5__content--scroll': activeTab === 'follow' && isLogin && !!displayData.length }"
         >
             <a
                 v-for="item in displayData"
@@ -129,13 +129,14 @@ export default {
         },
         tabs: function () {
             return [
-                { label: this.isLogin ? "关注" : "全部", value: "all" },
+                { label: "全部", value: "all" },
+                this.isLogin ? { label: "关注", value: "follow" } : null,
                 { label: "作品", value: "works" },
                 { label: "帖子", value: "community" },
-            ];
+            ].filter(Boolean);
         },
         displayData: function () {
-            if (this.activeTab === "all" && this.isLogin) return this.feedData;
+            if (this.activeTab === "follow" && this.isLogin) return this.feedData;
             if (this.activeTab === "works") return this.sortByTime(this.worksData).slice(0, this.displayLimit);
             if (this.activeTab === "community") return this.sortByTime(this.communityData).slice(0, this.displayLimit);
             return this.sortByTime([...this.worksData, ...this.communityData]).slice(0, this.displayLimit);
@@ -151,7 +152,7 @@ export default {
             }, {});
         },
         showFeedLoadMore: function () {
-            return this.activeTab === "all" && this.isLogin && !!this.displayData.length && this.feedHasMore;
+            return this.activeTab === "follow" && this.isLogin && !!this.displayData.length && this.feedHasMore;
         },
         isLogin() {
             return User.isLogin();

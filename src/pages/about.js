@@ -9,8 +9,6 @@ import "@jx3box/jx3box-common/css/element-fonticon.css";
 import "@jx3box/jx3box-common/css/font.css";
 import "@/assets/css/tailwind.css";
 
-import reporter from "@jx3box/jx3box-common/js/reporter";
-
 import router from "@/router/about";
 import store from "@/store";
 import App from "@/views/about/About.vue";
@@ -21,6 +19,5 @@ app.use(router);
 app.use(store);
 app.use(JX3BOX_UI);
 app.use(ElementPlus, { locale: zhCn });
-reporter.installVue3(app);
 
 app.mount("#app");
