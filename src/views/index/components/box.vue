@@ -29,11 +29,11 @@
             :disabled="options.disabled"
             :animation="options.animation"
         >
-            <template #item="{ element: item }">
+            <template #item="{ element: item, index }">
                 <li
                     class="m-box-v5__item-wrapper"
                     :class="{
-                        'u-lf': isLF(item.uuid),
+                        'u-lf': computedIsLF(item, index),
                         hidden: !canSee(item.uuid),
                     }"
                     v-show="item.status"
@@ -63,26 +63,26 @@
                             </div>
                             <span class="u-txt">{{ showAbbr ? item.abbr : item.name }}</span>
 
-                            <span class="u-control" @click.stop>
+                            <span class="u-control" @click.stop.prevent>
                                 <el-icon
-                                    class="u-break el-icon-scissors"
+                                    class="u-break"
                                     :title="$t('index.box.tooltip.breakLine')"
                                     :class="{ on: isLF(item.uuid) }"
-                                    @click.prevent="cut(item.uuid)"
+                                    @click.stop.prevent="cut(item.uuid)"
                                     ><Scissor
                                 /></el-icon>
                                 <el-icon
-                                    class="u-hide el-icon-delete"
+                                    class="u-hide"
                                     :title="$t('index.box.tooltip.hide')"
                                     v-if="canSee(item.uuid)"
-                                    @click.prevent="hideIt(item.uuid)"
-                                    ><Hide
+                                    @click.stop.prevent="hideIt(item.uuid)"
+                                    ><Delete
                                 /></el-icon>
                                 <el-icon
-                                    class="u-show el-icon-view"
+                                    class="u-show"
                                     :title="$t('index.box.tooltip.show')"
                                     v-if="!canSee(item.uuid)"
-                                    @click.prevent="showIt(item.uuid)"
+                                    @click.stop.prevent="showIt(item.uuid)"
                                     ><View
                                 /></el-icon>
                             </span>
@@ -346,6 +346,31 @@ export default {
         isLF: function (uuid) {
             return this.lf.includes(uuid);
         },
+        computedIsLF: function (item, index) {
+            if (this.isLF(item.uuid)) return true;
+
+            for (let i = index - 1; i >= 0; i--) {
+                let prev = this.data[i];
+                let isPrevVisible = false;
+
+                if (!prev.status) {
+                    isPrevVisible = false;
+                } else if (!this.canSee(prev.uuid)) {
+                    isPrevVisible = !this.options.disabled;
+                } else {
+                    isPrevVisible = true;
+                }
+
+                if (isPrevVisible) {
+                    break;
+                }
+
+                if (this.isLF(prev.uuid)) {
+                    return true;
+                }
+            }
+            return false;
+        },
         cut: function (uuid) {
             if (this.isLF(uuid)) {
                 let i = this.lf.indexOf(uuid);
@@ -491,9 +516,9 @@ export default {
         padding: 0;
         list-style: none;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(5.6rem, 5.6rem));
+        grid-template-columns: repeat(auto-fill, minmax(5.6rem, 5.6rem));
         gap: clamp(0.75rem, 1.6vw, 1.5rem);
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .m-box-v5__item-wrapper {
@@ -504,6 +529,10 @@ export default {
 
         &.hidden {
             display: none;
+        }
+
+        &.u-lf {
+            grid-column-start: 1;
         }
     }
 
@@ -726,8 +755,9 @@ export default {
         }
 
         .m-box-v5__list {
-            grid-template-columns: repeat(auto-fit, minmax(4.8rem, 4.8rem));
+            grid-template-columns: repeat(auto-fill, minmax(4.8rem, 4.8rem));
             gap: 0.85rem;
+            justify-content: flex-start;
         }
 
         .m-box-v5__item-wrapper {

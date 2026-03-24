@@ -40,7 +40,7 @@ const pages = {
         entry: "src/pages/jx3.js",
         template: "public/index.html",
         filename: "jx3/index.html",
-    }
+    },
 };
 
 const path = require("path");
@@ -59,7 +59,6 @@ module.exports = {
     //🌈多页面配置，详见 https://cli.vuejs.org/zh/config/#pages
     pages: pages,
 
-
     //⚛️ Proxy ~
     devServer: {
         host: "localhost",
@@ -69,14 +68,34 @@ module.exports = {
         allowedHosts: "all",
         port: process.env.DEV_PORT || 12028,
         // 避免 /macro 等其它应用路由被 index SPA 接管
-        historyApiFallback: {
-            rewrites: [
-                {
-                    from: /^\/macro(\/.*)?$/,
-                    to: (context) => context.parsedUrl.pathname,
-                },
-            ],
-        },
+        // historyApiFallback: {
+        //     rewrites: [
+        //         {
+        //             from: /^\/macro(\/.*)?$/,
+        //             to: (context) => context.parsedUrl.pathname,
+        //         },
+        //         {
+        //             from: /^\/notice(\/.*)?$/,
+        //             to: "/notice/index.html",
+        //         },
+        //         {
+        //             from: /^\/about(\/.*)?$/,
+        //             to: "/about/index.html",
+        //         },
+        //         {
+        //             from: /^\/search(\/.*)?$/,
+        //             to: "/search/index.html",
+        //         },
+        //         {
+        //             from: /^\/post(\/.*)?$/,
+        //             to: "/post/index.html",
+        //         },
+        //         {
+        //             from: /^\/jx3(\/.*)?$/,
+        //             to: "/jx3/index.html",
+        //         },
+        //     ],
+        // },
     },
 
     // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告
@@ -105,7 +124,6 @@ module.exports = {
 
     //❤️ Webpack configuration
     chainWebpack: (config) => {
-
         //💝 in-line small imgs ~
         config.module.rule("images").set("parser", {
             dataUrlCondition: {
@@ -139,7 +157,7 @@ module.exports = {
 
         config.externals = {
             tinyMCE: "tinyMCE",
-        }
+        };
     },
 
     configureWebpack: {
@@ -162,13 +180,12 @@ function addStyleResource(rule) {
         path.resolve(__dirname, "./node_modules/@jx3box/jx3box-common/css/mixin.less"),
         path.resolve(__dirname, "./src/assets/css/var.less"),
         path.resolve(__dirname, "./src/assets/css/mixin.less"),
-        path.resolve(__dirname, "./node_modules/csslab/base.less"),
+        path.resolve(__dirname, "./node_modules/csslab/base.less")
     );
     rule.use("style-resource").loader("style-resources-loader").options({
         patterns: preload_styles,
     });
 }
-
 
 function normalizeTarget(value) {
     if (!value) return "";
