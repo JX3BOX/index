@@ -51,55 +51,63 @@
 
                     <div class="m-activity-v5__cards px-3 w-full">
                         <template v-if="activitiesByMonth[month] && activitiesByMonth[month].length">
-                            <a
+                            <el-tooltip
                                 v-for="item in activitiesByMonth[month]"
                                 :key="item.id"
-                                class="m-activity-v5__card group"
-                                :class="cardClass(month, item)"
-                                :href="item.link"
-                                :target="item.link ? '_blank' : null"
-                                :rel="item.link ? 'noopener noreferrer' : null"
+                                :content="isDisabledActivity(item) ? '敬请期待' : ''"
+                                placement="top"
+                                :disabled="!isDisabledActivity(item)"
                             >
-                                <div class="m-activity-v5__card-inner flex items-start">
-                                    <div class="m-activity-v5__cover rounded-lg overflow-hidden flex-shrink-0">
-                                        <img
-                                            v-if="item.cover"
-                                            class="u-cover block"
-                                            :class="{ 'is-inactive': !isCurrentActivity(item) }"
-                                            :src="item.cover"
-                                            :alt="item.name"
-                                        />
-                                        <div v-else class="u-cover u-cover--placeholder">
-                                            <i class="el-icon-picture-outline"></i>
+                                <component
+                                    :is="isDisabledActivity(item) ? 'div' : 'a'"
+                                    class="m-activity-v5__card group"
+                                    :class="[cardClass(month, item), { 'm-activity-v5__card--disabled': isDisabledActivity(item) }]"
+                                    :href="!isDisabledActivity(item) ? item.link : null"
+                                    :target="!isDisabledActivity(item) && item.link ? '_blank' : null"
+                                    :rel="!isDisabledActivity(item) && item.link ? 'noopener noreferrer' : null"
+                                    @click="handleCardClick($event, item)"
+                                >
+                                    <div class="m-activity-v5__card-inner flex items-start">
+                                        <div class="m-activity-v5__cover rounded-lg overflow-hidden flex-shrink-0">
+                                            <img
+                                                v-if="item.cover"
+                                                class="u-cover block"
+                                                :class="{ 'is-inactive': !isCurrentActivity(item) }"
+                                                :src="item.cover"
+                                                :alt="item.name"
+                                            />
+                                            <div v-else class="u-cover u-cover--placeholder">
+                                                <i class="el-icon-picture-outline"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-activity-v5__card-body">
+                                            <div class="m-activity-v5__card-meta flex items-center">
+                                                <span
+                                                    class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
+                                                    :class="typeClass(month)"
+                                                >
+                                                    {{ item.type }}
+                                                </span>
+                                                <i
+                                                    v-if="isActiveMonth(month)"
+                                                    class="u-star el-icon-star-on text-indigo-600 u-star--xs"
+                                                    aria-hidden="true"
+                                                ></i>
+                                            </div>
+
+                                            <h4 class="u-name text-sm font-bold truncate m-0 mt-1" :class="nameClass(item)">
+                                                {{ item.name }}
+                                            </h4>
+
+                                            <div class="u-date u-date--xs flex items-center text-gray-400 mt-1">
+                                                <i class="el-icon-time mr-1"></i>
+                                                {{ item.date }}
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="m-activity-v5__card-body">
-                                        <div class="m-activity-v5__card-meta flex items-center">
-                                            <span
-                                                class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
-                                                :class="typeClass(month)"
-                                            >
-                                                {{ item.type }}
-                                            </span>
-                                            <i
-                                                v-if="isActiveMonth(month)"
-                                                class="u-star el-icon-star-on text-indigo-600 u-star--xs"
-                                                aria-hidden="true"
-                                            ></i>
-                                        </div>
-
-                                        <h4 class="u-name text-sm font-bold truncate m-0 mt-1" :class="nameClass(item)">
-                                            {{ item.name }}
-                                        </h4>
-
-                                        <div class="u-date u-date--xs flex items-center text-gray-400 mt-1">
-                                            <i class="el-icon-time mr-1"></i>
-                                            {{ item.date }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                                </component>
+                            </el-tooltip>
                         </template>
 
                         <div
@@ -175,9 +183,7 @@ export default {
     methods: {
         async loadActivities() {
             try {
-                const res = await getPvxEvents({
-                    status: 1,
-                });
+                const res = await getPvxEvents();
                 this.apiActivities = this.normalizeActivities(res);
                 this.updateActiveMonth();
             } catch (e) {
@@ -210,6 +216,7 @@ export default {
                         start,
                         end,
                         status: this.getActivityStatus(start, end, now),
+                        _status: item.status, // 原始状态，供调试使用
                     };
                 })
                 .sort((a, b) => a.start.valueOf() - b.start.valueOf());
@@ -301,6 +308,16 @@ export default {
         },
         isCurrentActivity: function (item) {
             return item && item.status === "current";
+        },
+        isDisabledActivity: function (item) {
+            return item && item._status == 0;
+        },
+        handleCardClick: function (event, item) {
+            if (!this.isDisabledActivity(item)) return;
+            if (event && typeof event.preventDefault === "function") {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         },
         scroll: function (direction) {
             const el = this.$refs.scrollRef;

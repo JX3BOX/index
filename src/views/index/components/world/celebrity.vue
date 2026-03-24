@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div v-if="list.length" class="u-table-body">
-                <el-tooltip v-for="(item, i) in list" :key="i" placement="top" popper-class="celebrity-notice-tooltip">
+                <el-tooltip v-for="(item, i) in list" :key="i" placement="left" popper-class="celebrity-notice-tooltip">
                     <template #content>
                         <div>{{ item.desc }}</div>
                     </template>

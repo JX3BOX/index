@@ -173,7 +173,7 @@ export default {
             const d = dayjs(time);
             if (!d.isValid()) return { display: "--/--", stamp: "---. ----" };
             return {
-                display: d.format("DD/MM"),
+                display: d.format("MM/DD"),
                 stamp: d.format("MMM. YYYY").toUpperCase(),
             };
         },
