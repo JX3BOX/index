@@ -595,8 +595,8 @@ export default {
         display: block;
         width: 100%;
         text-align: center;
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 13px;
+        font-weight: 500;
         color: #334155;
         line-height: 1.2;
         letter-spacing: -0.02em;
