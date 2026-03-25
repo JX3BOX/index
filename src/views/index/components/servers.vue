@@ -423,7 +423,7 @@ export default {
 }
 
 .w-world-v5-sheet {
-    width: min(420px, calc(100vw - 12px));
+    width: min(420px, calc(100% - 12px));
     background: #f3f4f6;
     border-radius: 18px;
     padding: 20px;
@@ -547,7 +547,7 @@ export default {
 
 @media screen and (max-width: @phone) {
     .w-world-v5-sheet {
-        width: calc(100vw - 8px);
+        width: calc(100% - 8px);
     }
 }
 </style>
