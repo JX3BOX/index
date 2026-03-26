@@ -517,7 +517,7 @@ export default {
         list-style: none;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(5.6rem, 5.6rem));
-        gap: clamp(0.75rem, 1.6vw, 1.5rem);
+        gap: clamp(0.75rem, 1.6vw, 0.8rem);
         justify-content: flex-start;
     }
 
