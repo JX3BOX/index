@@ -1,11 +1,107 @@
 .m-jx3code {
+    padding: 0;
+    // overflow: hidden;
+
+    // 底部锯齿（券样式）- clip-path 裁切
+    // 说明：clip-path 会裁切 box-shadow，因此阴影用 filter: drop-shadow 保留并跟随锯齿轮廓
+    --jx3code-zigzag: 8px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.06)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+    @supports (clip-path: polygon(0 0)) {
+        clip-path: polygon(
+            0 0,
+            100% 0,
+            100% 100%,
+            97.5% calc(100% - var(--jx3code-zigzag)),
+            95% 100%,
+            92.5% calc(100% - var(--jx3code-zigzag)),
+            90% 100%,
+            87.5% calc(100% - var(--jx3code-zigzag)),
+            85% 100%,
+            82.5% calc(100% - var(--jx3code-zigzag)),
+            80% 100%,
+            77.5% calc(100% - var(--jx3code-zigzag)),
+            75% 100%,
+            72.5% calc(100% - var(--jx3code-zigzag)),
+            70% 100%,
+            67.5% calc(100% - var(--jx3code-zigzag)),
+            65% 100%,
+            62.5% calc(100% - var(--jx3code-zigzag)),
+            60% 100%,
+            57.5% calc(100% - var(--jx3code-zigzag)),
+            55% 100%,
+            52.5% calc(100% - var(--jx3code-zigzag)),
+            50% 100%,
+            47.5% calc(100% - var(--jx3code-zigzag)),
+            45% 100%,
+            42.5% calc(100% - var(--jx3code-zigzag)),
+            40% 100%,
+            37.5% calc(100% - var(--jx3code-zigzag)),
+            35% 100%,
+            32.5% calc(100% - var(--jx3code-zigzag)),
+            30% 100%,
+            27.5% calc(100% - var(--jx3code-zigzag)),
+            25% 100%,
+            22.5% calc(100% - var(--jx3code-zigzag)),
+            20% 100%,
+            17.5% calc(100% - var(--jx3code-zigzag)),
+            15% 100%,
+            12.5% calc(100% - var(--jx3code-zigzag)),
+            10% 100%,
+            7.5% calc(100% - var(--jx3code-zigzag)),
+            5% 100%,
+            2.5% calc(100% - var(--jx3code-zigzag)),
+            0% 100%
+        );
+    }
+
     .m-jx3code-header {
         .flex;
         justify-content: space-between;
+        padding: 15px 15px 10px 15px;
+
+        .pr;
+
+        @sunken: 4px;
 
         .u-left {
             .flex;
             align-items: center;
+            white-space: nowrap;
+
+            &::after {
+                content: "";
+                display: block;
+                width: @sunken*2;
+                height: @sunken*2;
+                background: @index-bg;
+                border-radius: 50%;
+                left: -@sunken;
+                bottom: -@sunken;
+                position: absolute;
+                z-index: 1;
+                box-shadow: inset -2px 0px 1px #d4dde7;
+            }
+        }
+
+        .u-right {
+            .flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+
+            &::after {
+                content: "";
+                display: block;
+                width: @sunken*2;
+                height: @sunken*2;
+                background: @index-bg;
+                border-radius: 50%;
+                right: -@sunken;
+                bottom: -@sunken;
+                position: absolute;
+                z-index: 1;
+                box-shadow: inset 2px 0px 1px #d4dde7;
+            }
         }
 
         .u-title {
@@ -17,16 +113,27 @@
             color: @v4tip;
         }
 
-        .u-right {
-            .flex;
-            align-items: center;
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            content: "";
+            .db;
+            height: 1px;
+            width: 100%;
+            background: repeating-linear-gradient(to right, #ececec 0 4px, transparent 4px 8px);
         }
     }
     .m-jx3code-content {
-        padding: 20px 0 10px 0;
+        padding-bottom: 10px;
         .u-codebox {
             .r(4px);
             .x;
+            padding:20px;
+
+            &:not(:first-child) {
+                border-top: 1px dotted #ddd;
+            }
         }
         .u-code {
             .fz(22px);
@@ -50,14 +157,15 @@
     }
 
     .pr;
-    .m-jx3code-placeholder {
+    &::before {
+        content: "";
         display: block;
         position: absolute;
         left: 0;
-        top: 0;
-        height: 100%;
-        width: 10px;
-        border-right: 1px dashed #fff8ca;
+        top: -1px;
+        height: 5px;
+        width: 100%;
         background: #ffe664;
+        .z(1);
     }
 }
