@@ -1,6 +1,6 @@
 <template>
     <div
-        class="m-jx3code relative bg-white p-5 border border-gray-200 border-opacity-60 mb-6"
+        class="m-jx3code relative bg-white p-5 shadow-xs border border-gray-200 border-opacity-60 mb-6"
         v-if="data && data.length"
     >
         <div class="m-jx3code-header">

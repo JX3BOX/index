@@ -755,14 +755,14 @@ export default {
         }
 
         .m-box-v5__list {
-            grid-template-columns: repeat(auto-fill, minmax(4.8rem, 4.8rem));
-            gap: 0.85rem;
+            grid-template-columns: repeat(auto-fill, minmax(4rem, 1fr));
+            gap: 0.5rem;
             justify-content: flex-start;
         }
 
         .m-box-v5__item-wrapper {
             width: 100%;
-            max-width: 4.8rem;
+            max-width: 4rem;
         }
 
         .m-box-v5__item {
