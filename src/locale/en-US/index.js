@@ -72,6 +72,7 @@ export default {
             noRemote: "No saved settings on the server",
             resetConfirmTitle: "Confirm",
             resetConfirmText: "Reset to default order?",
+            resetLocalConfirmText: "Restore defaults and clear local cache?",
             resetConfirmBtn: "OK",
             resetSuccess: "Matrix has been reset",
         },
@@ -163,4 +164,3 @@ export default {
         confirm: "Got it",
     },
 };
-

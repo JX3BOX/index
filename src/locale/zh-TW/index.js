@@ -72,6 +72,7 @@ export default {
             noRemote: "伺服器上沒有保存相關設定",
             resetConfirmTitle: "訊息",
             resetConfirmText: "確定重置為預設排序嗎？",
+            resetLocalConfirmText: "確定恢復預設並清空本地快取嗎？",
             resetConfirmBtn: "確定",
             resetSuccess: "魔盒矩陣已重置為預設狀態",
         },
@@ -162,4 +163,3 @@ export default {
         confirm: "確定收到",
     },
 };
-

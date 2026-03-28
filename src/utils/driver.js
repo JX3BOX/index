@@ -18,7 +18,7 @@ const driverObj = driver({
     showButtons: ["next", "previous", "close"],
     steps: [
         {
-            element: ".c-header-origin",
+            element: ".c-header-client",
             popover: {
                 title: "切换客户端",
                 description: "可以在此处全局切换正式服（重制版）和怀旧服（缘起）喔~",

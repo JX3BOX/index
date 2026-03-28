@@ -1,5 +1,5 @@
 <template>
-    <section v-if="data && data.length" class="m-box-v5 bg-white shadow-xs border border-gray-200">
+    <section v-if="data && data.length" class="m-box-v5 m-box bg-white shadow-xs border border-gray-200">
         <div class="m-box-v5__header flex items-center justify-between mb-8">
             <div class="m-box-v5__header-left flex items-center">
                 <div class="u-header-icon-wrap">
@@ -11,11 +11,16 @@
                 </div>
             </div>
 
-            <div class="m-box-v5__header-right flex items-center">
+            <div class="m-box-v5__header-right flex items-center gap-2">
                 <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
                     {{ $t("index.box.customize") }}
                 </button>
-                <button class="u-btn u-btn--dark" type="button" v-else @click="save">{{ $t("index.box.save") }}</button>
+                <template v-else>
+                    <button class="u-btn u-btn--light" type="button" @click="resetLocal">
+                        {{ $t("index.box.reset") }}
+                    </button>
+                    <button class="u-btn u-btn--dark" type="button" @click="save">{{ $t("index.box.save") }}</button>
+                </template>
             </div>
         </div>
 
@@ -95,8 +100,12 @@
         </draggable>
 
         <div class="m-box-v5__footer">
-            <button class="u-btn u-btn--light" type="button" v-if="defined" @click="reset">{{ $t("index.box.reset") }}</button>
-            <button class="u-btn u-btn--light" type="button" @click="downBoxSetting" v-if="isLogin">{{ $t("index.box.resync") }}</button>
+            <button class="u-btn u-btn--light" type="button" v-if="defined" @click="reset">
+                {{ $t("index.box.reset") }}
+            </button>
+            <button class="u-btn u-btn--light" type="button" @click="downBoxSetting" v-if="isLogin">
+                {{ $t("index.box.resync") }}
+            </button>
         </div>
     </section>
 </template>
@@ -303,6 +312,30 @@ export default {
                     setMeta(KEY, this.setting);
                 }
             }
+        },
+        resetLocal: function () {
+            this.$confirm(this.$t("index.box.notify.resetLocalConfirmText"), this.$t("index.box.notify.resetConfirmTitle"), {
+                confirmButtonText: this.$t("index.box.notify.resetConfirmBtn"),
+                type: "warning",
+            })
+                .then(() => {
+                    this.data = this.default_data;
+                    this.order = [];
+                    this.lf = this.default_lf;
+                    this.hide = [];
+                    this.defined = false;
+
+                    localStorage.removeItem(KEY);
+
+                    this.$forceUpdate();
+
+                    this.$notify({
+                        title: this.$t("index.box.notify.successTitle"),
+                        message: this.$t("index.box.notify.resetSuccess"),
+                        type: "success",
+                    });
+                })
+                .catch(() => {});
         },
         reset: function () {
             this.$alert(this.$t("index.box.notify.resetConfirmText"), this.$t("index.box.notify.resetConfirmTitle"), {
