@@ -48,7 +48,7 @@
             .h(100%);
             .auto(x);
             .db;
-            object-fit: cover;
+            object-fit: contain;
             // .r(4px);
             max-width: none;
             // .pa;
@@ -84,6 +84,13 @@
     .slick-prev:before,
     .slick-next:before {
         .fz(40px);
+    }
+}
+@media screen and (max-width: @pc) {
+    .m-slider {
+        .u-pic img{
+            object-fit: cover;
+        }
     }
 }
 @h: 45px;
