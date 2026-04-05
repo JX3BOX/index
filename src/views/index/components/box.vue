@@ -326,7 +326,6 @@ export default {
                     this.order = [...this.default_order];
                     this.lf = [...this.default_lf];
                     this.hide = [];
-                    this.defined = false;
                 })
                 .catch(() => {});
         },
@@ -341,18 +340,6 @@ export default {
                         this.hide = [];
                         this.defined = false;
 
-                        localStorage.removeItem(KEY);
-                        if (this.isLogin) {
-                            setMeta(KEY, "");
-                        }
-
-                        this.$forceUpdate();
-
-                        this.$notify({
-                            title: this.$t("index.box.notify.successTitle"),
-                            message: this.$t("index.box.notify.resetSuccess"),
-                            type: "success",
-                        });
                     }
                 },
             });
