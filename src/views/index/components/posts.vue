@@ -101,7 +101,13 @@ import { showRecently } from "@/utils/moment";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import User from "@jx3box/jx3box-common/js/user";
 import jx3box from "@jx3box/jx3box-common/data/jx3box.json";
-const {__postType} = jx3box;
+const { __postType } = jx3box;
+const communityTypes = {
+    "discuz": "论坛", // 交流讨论
+    "story": "论坛", // 江湖故事
+    "guide": "论坛", // 攻略心得
+    "help": "论坛", // 求助寻觅
+}
 
 export default {
     name: "IndexPostsV5",
@@ -158,7 +164,7 @@ export default {
         },
         isLogin() {
             return User.isLogin();
-        }
+        },
     },
     methods: {
         changeTab: function (tab) {
@@ -181,7 +187,7 @@ export default {
                 key: `feed-${item.id}`,
                 kind: "feed",
                 reportCategory: item.post_type,
-                typeLabel: getTypeLabel(item.post_type),
+                typeLabel: communityTypes[item.post_type] || getTypeLabel(item.post_type),
                 title: item.title || "无标题",
                 authorName: authorInfo.display_name || "匿名",
                 avatar: showAvatar(authorInfo.avatar, 112),
@@ -204,7 +210,7 @@ export default {
                 key: `work-${item.ID}`,
                 kind: "work",
                 reportCategory: item.post_type,
-                typeLabel: getTypeLabel(item.post_type),
+                typeLabel: communityTypes[item.post_type] || getTypeLabel(item.post_type),
                 title: item.post_title || "无标题",
                 authorName,
                 avatar,
@@ -273,9 +279,9 @@ export default {
         getCurrentCursorTime() {
             const date = new Date();
             const pad = (v) => String(v).padStart(2, "0");
-            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(
-                date.getMinutes()
-            )}:${pad(date.getSeconds())}`;
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(
+                date.getHours()
+            )}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
         },
         async loadCategoryList() {
             try {
@@ -373,7 +379,6 @@ export default {
         }
     }
 
-
     .u-more {
         .flex(y);
         font-weight: 400;
@@ -433,12 +438,12 @@ export default {
         padding: 10px;
         .x;
         .fz(12px);
-        color:#bbb;
+        color: #bbb;
         //background-color:#fafafa;
         .flex(o);
         &:hover {
             background-color: @bg-gray;
-            color:#aaa;
+            color: #aaa;
         }
     }
 }
