@@ -100,6 +100,8 @@ import { buildTarget, showAvatar, getLink, getTypeLabel } from "@jx3box/jx3box-c
 import { showRecently } from "@/utils/moment";
 import JX3_EMOTION from "@jx3box/jx3box-emotion";
 import User from "@jx3box/jx3box-common/js/user";
+import jx3box from "@jx3box/jx3box-common/data/jx3box.json";
+const {__postType} = jx3box;
 
 export default {
     name: "IndexPostsV5",
@@ -170,7 +172,8 @@ export default {
         },
         normalizeFeedItem: function (item) {
             const authorInfo = item.author_info || {};
-            const link = getLink(item.post_type, item.post_id || item.id);
+            const post_type = __postType[item.post_type] ? item.post_type : "community";
+            const link = getLink(post_type, item.post_id || item.id);
             const time = item.updated_at || item.created_at;
             const timestamp = new Date(time).getTime() || 0;
 
