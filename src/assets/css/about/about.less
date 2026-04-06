@@ -2,8 +2,8 @@
 
 .m-about-main {
     position: relative;
-    .pt(64px);
-    height: calc(100vh - 64px);
+    .pt(@header-height);
+    height: calc(100vh - @header-height);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,12 +12,17 @@
 }
 
 .m-about-content {
-    padding-top: 20px; //calc(100vh - @header-height - 20px);
+    padding-top: @bread-height;
     padding-bottom: 20px; //calc(100vh - @header-height - 20px);
 }
 @media screen and (max-width: @ipad-y) {
-    .m-about-content {
-        padding-top: @bread-height;
+    .m-about-main {
+        height: 100vh;
+    }
+    .p-about{
+        .c-footer--v4{
+            .none;
+        }
     }
 }
 
