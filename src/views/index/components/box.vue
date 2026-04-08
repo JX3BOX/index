@@ -599,8 +599,8 @@ export default {
     }
 
     .u-pic {
-        width: 1.85rem;
-        height: 1.85rem;
+        width: 2rem;
+        height: 2rem;
         display: block;
     }
 

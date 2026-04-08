@@ -45,8 +45,8 @@ initRouterI18nHead(router, __i18n, head);
 // 6.UI
 
 // 6.1 JX3BOX UI
-import "@jx3box/jx3box-common/css/normalize.css";
 import "@jx3box/jx3box-common/css/font.css";
+import "@jx3box/jx3box-common/css/normalize.css";
 import { install as JX3BOX_UI } from "@jx3box/jx3box-ui";
 app.use(JX3BOX_UI);
 
