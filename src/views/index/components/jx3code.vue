@@ -18,9 +18,11 @@
         </div>
         <div class="m-jx3code-content">
             <div class="u-codebox" v-for="(item, i) in data" :key="i">
-                <div class="u-code" @click="copy(item.title)" :style="{ color: item.color || '#fbc724' }">
-                    {{ item.title }}
-                </div>
+                <Copy :value="item.title">
+                    <div class="u-code" :style="{ color: item.color || '#fbc724' }">
+                        {{ item.title }}
+                    </div>
+                </Copy>
                 <a class="u-name" v-if="item.link" :href="item.link" target="_blank">
                     {{ item.desc }}
                 </a>
@@ -34,6 +36,7 @@
 <script>
 import { getConfigBanner } from "@/service/cms";
 import { showTime } from "@jx3box/jx3box-common/js/moment";
+import Copy from "@jx3box/jx3box-ui/src/interact/Copy.vue";
 export default {
     props: [],
     data: function () {
@@ -57,13 +60,6 @@ export default {
         },
     },
     methods: {
-        copy(text) {
-            navigator.clipboard.writeText(text);
-            this.$message({
-                message: this.$t("index.jx3code.copySuccess"),
-                type: "success",
-            });
-        },
         showTime,
     },
     created: function () {
@@ -71,7 +67,7 @@ export default {
             this.data = res.data.data.list || [];
         });
     },
-    components: {},
+    components: { Copy },
 };
 </script>
 <style lang="less">

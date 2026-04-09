@@ -94,6 +94,13 @@ export default {
         anonymous: "匿名",
         defaultContent: "師父問我為什麼110級了還沒見過活人，我看了看空蕩蕩的幫會領地，流下了兩行清淚。",
     },
+    database: {
+        versions: {
+            title: "劍三資料庫",
+            loading: "載入中...",
+            updatedAt: "{time} 更新",
+        },
+    },
     world: {
         bulletin: "江湖快報",
         entry: "進入江湖情報中央大廳",

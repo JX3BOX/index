@@ -1,11 +1,10 @@
-import moment, { fn } from "moment";
+import moment from "moment";
+import "moment/locale/zh-tw";
+import "moment/locale/vi";
+
 moment.locale("zh-cn", {
-    months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split(
-        "_"
-    ),
-    monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split(
-        "_"
-    ),
+    months: "一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月".split("_"),
+    monthsShort: "1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月".split("_"),
     weekdays: "星期日_星期一_星期二_星期三_星期四_星期五_星期六".split("_"),
     weekdaysShort: "周日_周一_周二_周三_周四_周五_周六".split("_"),
     weekdaysMin: "日_一_二_三_四_五_六".split("_"),
@@ -22,7 +21,7 @@ moment.locale("zh-cn", {
         llll: "YYYY年M月D日dddd HH:mm",
     },
     meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
-    meridiemHour: function(hour, meridiem) {
+    meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
@@ -35,7 +34,7 @@ moment.locale("zh-cn", {
             return hour >= 11 ? hour : hour + 12;
         }
     },
-    meridiem: function(hour, minute, isLower) {
+    meridiem: function (hour, minute, isLower) {
         const hm = hour * 100 + minute;
         if (hm < 600) {
             return "凌晨";
@@ -60,7 +59,7 @@ moment.locale("zh-cn", {
         sameElse: "L",
     },
     dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
-    ordinal: function(number, period) {
+    ordinal: function (number, period) {
         switch (period) {
             case "d":
             case "D":
@@ -97,6 +96,16 @@ moment.locale("zh-cn", {
         doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
 });
+
+const langKey = (localStorage.getItem("lang") || "zh-cn").toLowerCase();
+const langMap = {
+    "zh-cn": "zh-cn",
+    "en-us": "en",
+    "zh-tw": "zh-tw",
+    "vi": "vi",
+};
+moment.locale(langMap[langKey] || "zh-cn");
+
 function showRecently(val) {
     return moment(val).fromNow();
 }
