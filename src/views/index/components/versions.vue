@@ -2,7 +2,7 @@
     <div class="m-versions">
         <div class="m-versions-header">
             <h3 class="m-versions-title">
-                {{ $t("index.database.versions.title") }}
+                <a href="/app/database" target="_blank">{{ $t("index.database.versions.title") }}</a>
             </h3>
         </div>
         <div class="m-versions-content">
@@ -28,10 +28,10 @@
                             </p>
                         </div>
                     </template>
-                    <div class="u-item">
+                    <a class="u-item" href="/app/database" target="_blank">
                         <span class="u-item-type">{{ _type }}</span>
                         <span class="u-item-time">{{ showDisplayTime(_type) }}</span>
-                    </div>
+                    </a>
                 </el-tooltip>
             </div>
         </div>
@@ -115,9 +115,7 @@ export default {
 .m-versions-header {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #e5e7eb;
 }
 
 .m-versions-title {
@@ -144,7 +142,10 @@ export default {
 }
 
 .m-versions-content {
-    padding: 0;
+    padding: 10px 0;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
 
     .u-empty {
         text-align: center;
