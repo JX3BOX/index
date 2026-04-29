@@ -1,20 +1,24 @@
 <template>
     <div class="p-team about-detail-wrapper">
-        <div class="detail-title-list">
-            <div
-                class="title-item hvr-grow"
-                :class="active === item && 'title-active'"
-                v-for="(item, index) in titles"
-                :key="index"
-                @click="setTitle(item)"
-            >
-                {{ usergroups[item] }}
+        <div class="m-team-toolbar">
+            <div class="detail-title-list">
+                <button
+                    class="title-item"
+                    :class="{ 'title-active': active === item }"
+                    v-for="item in titles"
+                    :key="item"
+                    type="button"
+                    @click="setTitle(item)"
+                >
+                    {{ usergroups[item] }}
+                </button>
             </div>
+            <a class="u-team-join" href="https://www.jx3box.com/notice/21899" target="_blank" rel="noopener noreferrer">
+                <i class="el-icon-right"></i>
+                <span>加入我们</span>
+            </a>
         </div>
         <Member class="detail-content-wrap" :list="list"></Member>
-        <div class="m-about-button">
-            <a class="u-join" href="/notice/21899" target="_blank" rel="noopener noreferrer"><i class="el-icon-right"></i>加入我们</a>
-        </div>
     </div>
 </template>
 
@@ -26,7 +30,7 @@ export default {
     components: { Member },
     data() {
         return {
-            active: "developer",
+            active: "designer",
             titles: [],
             members: [],
             list: [],
@@ -65,13 +69,5 @@ export default {
 </script>
 
 <style lang="less">
-.p-team {
-    .u-join {
-        background-color: @bg-black;
-        color:#fff;
-        &:hover {
-            background-color: #000;
-        }
-    }
-}
+@import "~@/assets/css/about/team.less";
 </style>

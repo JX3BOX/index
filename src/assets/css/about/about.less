@@ -92,6 +92,43 @@
     pointer-events: none;
 }
 
+.about-mascot-enter-active {
+    animation: about-mascot-in 300ms cubic-bezier(0.2, 1.35, 0.38, 1) both;
+}
+
+.about-mascot-leave-active {
+    animation: about-mascot-out 300ms cubic-bezier(0.56, 0, 0.78, 0) both;
+}
+
+@keyframes about-mascot-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-90px) scale(0.96);
+    }
+
+    72% {
+        opacity: 1;
+        transform: translateX(8px) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes about-mascot-out {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-90px) scale(0.96);
+    }
+}
+
 .m-about-sidebar__item {
     display: flex;
     align-items: center;
@@ -165,10 +202,9 @@
 
 .m-about-group-bg {
     position: absolute;
-    bottom: -400px;
-    right: -240px;
+    bottom: -460px;
+    right: -330px;
     z-index: 1;
-    width: 980px;
     max-width: none;
     opacity: 0.2;
     pointer-events: none;
@@ -269,6 +305,50 @@
         padding-top: clamp(56px, 8vh, 104px);
         overflow: visible;
     }
+
+    .m-about-stage {
+        padding-right: clamp(40px, 4.17vw, 80px);
+    }
+}
+
+.m-about-main.is-author {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 100%),
+        linear-gradient(180deg, #e2cfa9 0%, #fff 100%);
+
+    &::before {
+        opacity: 0;
+    }
+
+    .m-about-stage {
+        padding-right: clamp(40px, 4.17vw, 80px);
+    }
+
+    .m-about-content {
+        padding-top: 32px;
+        overflow: visible;
+    }
+}
+
+.m-about-main.is-terms {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.75) 100%),
+        linear-gradient(180deg, #8f95ae 0%, #fff 100%);
+
+    &::before {
+        opacity: 0;
+    }
+
+    .m-about-stage {
+        padding-right: clamp(40px, 4.17vw, 80px);
+    }
+
+    .m-about-content {
+        padding-top: 32px;
+        overflow: hidden;
+    }
+
+    .m-about-heading__mark {
+        opacity: 0;
+    }
 }
 
 .m-about-bread,
@@ -359,6 +439,13 @@
 
     .m-about-heading__mark {
         font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-mascot-enter-active,
+    .about-mascot-leave-active {
+        animation: none;
     }
 }
 

@@ -34,17 +34,19 @@
                             <span class="u-nav-label">{{ route.meta.title }}</span>
                         </router-link>
                     </nav>
-                    <img
-                        v-if="showSidebarMascot"
-                        class="m-about-sidebar__mascot"
-                        src="@/assets/img/about/sidebar-girl.png"
-                        alt=""
-                    />
+                    <transition name="about-mascot">
+                        <img
+                            v-if="showSidebarMascot"
+                            class="m-about-sidebar__mascot"
+                            src="@/assets/img/about/sidebar-girl.png"
+                            alt=""
+                        />
+                    </transition>
                 </aside>
 
                 <main class="m-about-stage">
                     <img v-if="isIndexRoute" class="m-about-hero" src="@/assets/img/about/hero-girl.svg" alt="" />
-                    <img v-if="isGroupRoute" class="m-about-group-bg" src="@/assets/img/about/hero-girl.svg" alt="" />
+                    <img v-if="showGroupBg" class="m-about-group-bg" src="@/assets/img/about/hero-girl.svg" alt="" />
                     <section class="m-about-panel">
                         <div class="m-about-heading">
                             <div class="m-about-heading__title">
@@ -112,6 +114,9 @@ import CommonHeader from "@jx3box/jx3box-ui/src/CommonHeader.vue";
 import CommonFooter from "@jx3box/jx3box-ui/src/CommonFooter.vue";
 import cubeIcon from "@/assets/img/about/cube.svg";
 import coffeeIcon from "@/assets/img/about/icon-coffee.svg";
+import messageIcon from "@/assets/img/about/icon-message.svg";
+import awardIcon from "@/assets/img/about/icon-award.svg";
+import bookIcon from "@/assets/img/about/icon-book-open.svg";
 
 const { __imgPath } = JX3BOX;
 
@@ -153,10 +158,11 @@ export default {
     },
     computed: {
         name() {
+            if (this.isArticleRoute) return "服务条款";
             return this.$route.meta.title === "首页" ? "关于我们" : this.$route.meta.title;
         },
         mainClass() {
-            const routeName = this.$route.meta?.belongs || this.$route.name || "index";
+            const routeName = this.isArticleRoute ? "terms" : this.$route.meta?.belongs || this.$route.name || "index";
             return {
                 "is-index": this.isIndexRoute,
                 [`is-${routeName}`]: true,
@@ -171,13 +177,31 @@ export default {
         isGroupRoute() {
             return this.$route.name === "group";
         },
+        isTeamRoute() {
+            return this.$route.name === "team";
+        },
+        isAuthorRoute() {
+            return this.$route.name === "author";
+        },
+        isArticleRoute() {
+            return ["terms", "creation"].includes(this.$route.meta?.belongs) || ["terms", "creation"].includes(this.$route.name);
+        },
+        showGroupBg() {
+            return this.isGroupRoute || this.isTeamRoute || this.isAuthorRoute || this.isArticleRoute;
+        },
         showSidebarMascot() {
             return !this.isIndexRoute;
         },
         headingIconSrc() {
+            if (this.isArticleRoute) return bookIcon;
+            if (this.isAuthorRoute) return awardIcon;
+            if (this.isTeamRoute) return messageIcon;
             return this.isGroupRoute ? coffeeIcon : cubeIcon;
         },
         headingMark() {
+            if (this.isArticleRoute) return "";
+            if (this.isAuthorRoute) return "期待你的加入";
+            if (this.isTeamRoute) return "期待你的加入";
             return this.isGroupRoute ? "幸甚有你，共建美好社区" : "JX3BOX";
         },
         isCacheRoute() {
@@ -189,6 +213,7 @@ export default {
             return route.children ? route.children[0].path : route.path;
         },
         isDesktopRouteActive(route) {
+            if (route.name === "terms" && this.isArticleRoute) return true;
             return route.name === this.$route.name || route.name === this.$route.meta?.belongs;
         },
     },

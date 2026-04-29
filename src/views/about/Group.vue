@@ -177,6 +177,7 @@ export default {
     z-index: 2;
     width: 100%;
     max-width: 1176px;
+    margin: 0 auto;
 }
 
 .m-about-group__list {
@@ -198,6 +199,7 @@ export default {
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.9);
     transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    margin-bottom: 16px;
 
     &:hover,
     &:focus-within {
