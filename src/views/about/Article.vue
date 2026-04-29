@@ -60,7 +60,7 @@ export default {
     align-items: center;
     gap: clamp(40px, 5.56vw, 80px);
     flex: 0 0 auto;
-    min-height: 44px;
+    height: 44px;
     margin-bottom: 28px;
 }
 
@@ -93,7 +93,7 @@ export default {
 @media screen and (min-width: 721px) and (max-width: 1280px) {
     .m-article-tabs {
         gap: 34px;
-        min-height: 32px;
+        height: 32px;
         margin-bottom: 18px;
     }
 

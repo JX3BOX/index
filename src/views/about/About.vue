@@ -38,15 +38,15 @@
                         <img
                             v-if="showSidebarMascot"
                             class="m-about-sidebar__mascot"
-                            src="@/assets/img/about/sidebar-girl.png"
+                            :src="getCdnImage('/design/about/sidebar-girl.png')"
                             alt=""
                         />
                     </transition>
                 </aside>
 
                 <main class="m-about-stage">
-                    <img v-if="isIndexRoute" class="m-about-hero" src="@/assets/img/about/hero-girl.svg" alt="" />
-                    <img v-if="showGroupBg" class="m-about-group-bg" src="@/assets/img/about/hero-girl.svg" alt="" />
+                    <img v-if="isIndexRoute" class="m-about-hero" :src="getCdnImage('/design/about/hero-girl.svg')" alt="" />
+                    <img v-if="showGroupBg" class="m-about-group-bg" :src="getCdnImage('/design/about/hero-girl.svg')" alt="" />
                     <section class="m-about-panel">
                         <div class="m-about-heading">
                             <div class="m-about-heading__title">
@@ -118,7 +118,7 @@ import messageIcon from "@/assets/img/about/icon-message.svg";
 import awardIcon from "@/assets/img/about/icon-award.svg";
 import bookIcon from "@/assets/img/about/icon-book-open.svg";
 
-const { __imgPath } = JX3BOX;
+const { __imgPath,__cdn } = JX3BOX;
 
 export default {
     name: "About",
@@ -215,6 +215,9 @@ export default {
         isDesktopRouteActive(route) {
             if (route.name === "terms" && this.isArticleRoute) return true;
             return route.name === this.$route.name || route.name === this.$route.meta?.belongs;
+        },
+        getCdnImage(path) {
+            return `${__cdn}${path}`;
         },
     },
     mounted() {
