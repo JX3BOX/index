@@ -65,20 +65,25 @@ export default {
 }
 
 .m-article-tab {
-    color: rgba(255, 255, 255, 0.8);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 96px;
+    color: rgba(255, 255, 255, 0.64);
     font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 500;
     line-height: 1.35;
     text-decoration: none;
     white-space: nowrap;
-    transition: color 0.15s ease, font-size 0.15s ease, font-weight 0.15s ease;
+    transition: none;
 
     &:hover,
     &.router-link-exact-active {
         color: #fff;
-        font-size: 28px;
-        font-weight: 900;
+        font-size: 24px;
+        font-weight: 700;
     }
 }
 
@@ -98,11 +103,12 @@ export default {
     }
 
     .m-article-tab {
-        font-size: 16px;
+        width: 68px;
+        font-size: 14px;
 
         &:hover,
         &.router-link-exact-active {
-            font-size: 19px;
+            font-size: 16px;
         }
     }
 

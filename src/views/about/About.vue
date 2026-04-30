@@ -57,11 +57,12 @@
                         </div>
                         <div class="m-about-content">
                             <router-view v-slot="{ Component }">
-                                <transition name="about-page" mode="out-in">
+                                <component v-if="isArticleRoute" :is="Component" :key="viewKey" class="inner"></component>
+                                <transition v-else name="about-page" mode="out-in">
                                     <keep-alive v-if="isCacheRoute">
-                                        <component :is="Component" :key="$route.fullPath" class="inner"></component>
+                                        <component :is="Component" :key="viewKey" class="inner"></component>
                                     </keep-alive>
-                                    <component v-else :is="Component" :key="$route.fullPath" class="inner"></component>
+                                    <component v-else :is="Component" :key="viewKey" class="inner"></component>
                                 </transition>
                             </router-view>
                         </div>
@@ -203,6 +204,9 @@ export default {
             if (this.isAuthorRoute) return "期待你的加入";
             if (this.isTeamRoute) return "期待你的加入";
             return this.isGroupRoute ? "幸甚有你，共建美好社区" : "JX3BOX";
+        },
+        viewKey() {
+            return this.isArticleRoute ? "article" : this.$route.fullPath;
         },
         isCacheRoute() {
             return Boolean(this.$route.meta?.cache);

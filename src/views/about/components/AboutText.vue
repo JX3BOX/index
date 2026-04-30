@@ -27,7 +27,6 @@ export default {
     methods: {
         loadData: function () {
             this.loading = true;
-            this.data = "";
             this.id &&
                 getArticle(this.id)
                     .then((data) => {

@@ -189,6 +189,7 @@ export default {
 }
 
 .m-about-group__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -215,54 +216,56 @@ export default {
 
 .m-about-group__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 4px;
     min-width: 0;
 
     h3 {
+        min-width: 0;
         margin: 0;
         color: #333;
         font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
         font-size: 24px;
         font-weight: 700;
         line-height: 1.35;
-        white-space: nowrap;
+        word-break: break-word;
     }
 }
 
 .u-group-icon {
-    width: 36px;
-    height: 36px;
+    flex: 0 0 auto;
+    width: 2.25rem;
+    height: 2.25rem;
     object-fit: contain;
     &.el-icon-message {
-        width: 27px;
-        height: 21px;
+        width: 1.6875rem;
+        height: 1.3125rem;
     }
     &.el-icon-service {
-        width: 29px;
-        height: 24px;
+        width: 1.8125rem;
+        height: 1.5rem;
     }
     &.el-icon-user {
-        width: 27px;
-        height: 27px;
+        width: 1.6875rem;
+        height: 1.6875rem;
     }
 
     &.el-icon-position {
-        width: 27px;
-        height: 16px;
+        width: 1.6875rem;
+        height: 1rem;
     }
 
     &.el-icon-setting {
-        width: 24px;
-        height: 27px;
+        width: 1.5rem;
+        height: 1.6875rem;
     }
     &.el-icon-trophy {
-        width: 27px;
-        height: 25px;
+        width: 1.6875rem;
+        height: 1.5625rem;
     }
     &.el-icon-sugar {
-        width: 24px;
-        height: 21px;
+        width: 1.5rem;
+        height: 1.3125rem;
     }
 }
 
@@ -278,23 +281,27 @@ export default {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    flex-wrap: wrap;
     flex: 1 1 auto;
     gap: 16px;
     min-width: 0;
 }
 
 .u-group-value {
+    min-width: 0;
     color: #6690d3;
     font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
     font-size: 18px;
     font-weight: 900;
     line-height: 1.35;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .m-about-group__actions {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
     gap: 8px;
     opacity: 0;
     transition: opacity 0.15s ease;
@@ -350,12 +357,59 @@ export default {
         }
     }
 
+    .u-group-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+
+        &.el-icon-message {
+            width: 1.125rem;
+            height: 0.875rem;
+        }
+
+        &.el-icon-service {
+            width: 1.2083rem;
+            height: 1rem;
+        }
+
+        &.el-icon-user {
+            width: 1.125rem;
+            height: 1.125rem;
+        }
+
+        &.el-icon-position {
+            width: 1.125rem;
+            height: 0.6667rem;
+        }
+
+        &.el-icon-setting {
+            width: 1rem;
+            height: 1.125rem;
+        }
+
+        &.el-icon-trophy {
+            width: 1.125rem;
+            height: 1.0417rem;
+        }
+
+        &.el-icon-sugar {
+            width: 1rem;
+            height: 0.875rem;
+        }
+    }
+
     .u-group-desc {
         font-size: 12px;
     }
 
     .u-group-value {
         font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .m-about-group__actions {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
     }
 
     .u-group-action {
@@ -372,15 +426,53 @@ export default {
 
 @media screen and (max-width: @phone) {
     .p-about-group {
-        padding: 16px;
+        width: 100%;
+        max-width: none;
+        padding: 0;
     }
 
     .m-about-group__list {
         grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .m-about-group__item {
+        min-height: 132px;
+        margin-bottom: 0;
+        padding: 20px 56px 20px 20px;
+        border-radius: 16px;
+    }
+
+    .m-about-group__header {
+        h3 {
+            font-size: 22px;
+        }
+    }
+
+    .u-group-desc {
+        font-size: 15px;
+    }
+
+    .u-group-value {
+        font-size: 16px;
     }
 
     .m-about-group__actions {
+        position: absolute;
+        right: 16px;
+        bottom: 20px;
         opacity: 1;
+    }
+
+    .u-group-action {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+
+        img {
+            width: 22px;
+            height: 22px;
+        }
     }
 }
 </style>

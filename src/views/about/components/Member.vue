@@ -91,7 +91,7 @@ export default {
 
     .name {
         color: #000 !important;
-        font-size: 20px !important;
+        font-size: 1.25rem !important;
         font-weight: bold;
         line-height: 1.35;
         overflow: hidden;
@@ -102,7 +102,7 @@ export default {
     .desc,
     .hover-role {
         color: #888;
-        font-size: 13px;
+        font-size: 0.8125rem;
         font-weight: normal;
         line-height: 1.6;
         white-space: nowrap;
@@ -122,7 +122,7 @@ export default {
         display: -webkit-box;
         overflow: hidden;
         color: #666;
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.8;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -186,6 +186,36 @@ export default {
 
     &:focus-visible {
         box-shadow: 0 0 0 4px rgba(97, 95, 255, 0.16), 0 8px 2px 0 rgba(102, 100, 187, 0.25);
+    }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1280px) {
+    .m-detail-item {
+        .name {
+            font-size: 1rem !important;
+        }
+
+        .desc,
+        .hover-role,
+        .u-desc {
+            font-size: 0.75rem;
+        }
+
+        &:hover,
+        &:focus-visible {
+            .name {
+                font-size: 0.875rem !important;
+            }
+
+            .hover-detail {
+                margin-top: 6px;
+            }
+
+            .u-desc {
+                line-height: 1.55;
+                -webkit-line-clamp: 1;
+            }
+        }
     }
 }
 
