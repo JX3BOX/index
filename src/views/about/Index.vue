@@ -1,17 +1,12 @@
 <template>
-    <div class="about-detail-wrapper">
-        <div class="m-about-title">剑三真好玩 魔盒真好用</div>
-        <!-- <div class="index-title">
-            <div>游戏生活</div>
-            <div>由我亲手来掌控</div>
-        </div> -->
-        <!-- <div class="about-index-btn-list">
-            <a href="">用文章了解门派</a>
-            <a href="">用数据解决未知</a>
-            <a href="">用工具辅助开荒</a>
-            <a href="">带着友善分享讨论</a>
-            <a href="">带着和谐展现自我</a>
-        </div> -->
+    <div class="p-about-index">
+        <div class="m-about-slogan">
+            <h1>
+                <span>为侠者</span>
+                <em>筑魔盒</em>
+            </h1>
+            <p>剑网3玩家实用工具 · 专业 · 全面 · 热爱</p>
+        </div>
     </div>
 </template>
 
@@ -22,61 +17,105 @@ export default {
 </script>
 
 <style lang="less">
-.m-about-title {
-    background: url("@{cdn}design/about/title.png") no-repeat 0 0;
-    background-size: 100% auto;
-    width: 1095px / 2;
-    height: 641px / 2;
-    margin: 0 auto;
-    text-indent: -200%;
+.p-about-index {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-top: clamp(150px, 22vh, 240px);
 }
-.about-detail-wrapper {
-    color: #fff;
-    .index-title {
-        margin-left: 150px;
-        margin-top: 80px;
-        margin-bottom: 0;
-        font-size: 100px;
-        font-weight: bold;
-    }
-    .about-index-btn-list {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        a {
-            margin: 30px 10px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: 1px solid #fff;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-        }
-    }
-}
-.m-about-content-phone {
-    .about-detail-wrapper {
-        width: 100% !important;
-        .index-title {
-            margin-top: 150px;
-            margin-bottom: 50px;
-            margin-left: 0;
-            font-size: 40px;
-            text-align: center;
-            div {
-                margin-bottom: 10px;
-            }
-        }
-        .about-index-btn-list {
-            justify-content: flex-start;
-            align-items: flex-start;
 
-            a {
-                padding-top: 20px;
-                padding-bottom: 20px;
-                height: 200px;
-            }
+.m-about-slogan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: max-content;
+    max-width: 100%;
+
+    h1 {
+        display: flex;
+        align-items: flex-start;
+        gap: 32px;
+        margin: 0;
+        font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
+        font-size: clamp(64px, 6.25vw, 120px);
+        font-weight: 900;
+        line-height: 1;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    em {
+        font-style: normal;
+        color: transparent;
+        background: linear-gradient(90deg, #4b3bed 0%, #958bff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    p {
+        box-sizing: border-box;
+        width: 730px;
+        max-width: 100%;
+        margin: 0;
+        padding: 12px 80px;
+        border: 1px solid #989cb1;
+        border-radius: 99px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #666;
+        font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
+        font-size: clamp(18px, 1.67vw, 32px);
+        font-weight: 500;
+        line-height: 1.35;
+        text-align: center;
+        white-space: nowrap;
+    }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1279px) {
+    .p-about-index {
+        padding-top: clamp(120px, 21vh, 160px);
+    }
+
+    .m-about-slogan {
+        gap: 16px;
+        align-items: flex-start;
+
+        h1 {
+            gap: 18px;
+            font-size: clamp(48px, 5.3vw, 58px);
+        }
+
+        p {
+            width: 390px;
+            padding: 6px 22px;
+            font-size: 16px;
+        }
+    }
+}
+
+@media screen and (max-width: @phone) {
+    .p-about-index {
+        padding-top: 0;
+    }
+
+    .m-about-slogan {
+        width: 100%;
+        padding: 80px 20px 0;
+        box-sizing: border-box;
+
+        h1 {
+            justify-content: center;
+            gap: 14px;
+            width: 100%;
+            font-size: 42px;
+        }
+
+        p {
+            width: 100%;
+            padding: 10px 18px;
+            font-size: 16px;
+            white-space: normal;
         }
     }
 }

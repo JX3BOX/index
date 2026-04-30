@@ -1,7 +1,7 @@
 <template>
     <div class="p-about">
         <CommonHeader :overlayEnable="true" />
-        <div class="m-about-main" :style="{ backgroundImage: `url('${backgroundImage}')` }">
+        <div class="m-about-main" :class="mainClass">
             <Breadcrumb
                 class="m-about-bread"
                 icon="more"
@@ -14,17 +14,62 @@
             <LeftSidebar class="m-about-nav--left">
                 <SubNav :side="true"></SubNav>
             </LeftSidebar>
-            <SubNav class="m-about-nav--top"></SubNav>
-            <div class="m-about-content">
-                <router-view v-slot="{ Component }">
-                    <transition duration="550" name="nested" mode="out-in">
-                        <keep-alive v-if="isCacheRoute">
-                            <component :is="Component" class="inner"></component>
-                        </keep-alive>
-                        <component v-else :is="Component" class="inner"></component>
+
+            <div class="m-about-layout">
+                <aside class="m-about-sidebar" aria-label="关于我们导航">
+                    <div class="m-about-sidebar__title">
+                        <strong>关于</strong>
+                        <span>|</span>
+                        <em>ABOUT</em>
+                    </div>
+                    <nav class="m-about-sidebar__nav">
+                        <router-link
+                            v-for="route in desktopRoutes"
+                            :key="route.path"
+                            class="m-about-sidebar__item"
+                            :class="{ 'is-active': isDesktopRouteActive(route) }"
+                            :to="getRoutePath(route)"
+                        >
+                            <i class="u-nav-arrow" aria-hidden="true"></i>
+                            <span class="u-nav-label">{{ route.meta.title }}</span>
+                        </router-link>
+                    </nav>
+                    <transition name="about-mascot">
+                        <img
+                            v-if="showSidebarMascot"
+                            class="m-about-sidebar__mascot"
+                            :src="getCdnImage('/design/about/sidebar-girl.png')"
+                            alt=""
+                        />
                     </transition>
-                </router-view>
+                </aside>
+
+                <main class="m-about-stage">
+                    <img v-if="isIndexRoute" class="m-about-hero" :src="getCdnImage('/design/about/hero-girl.svg')" alt="" />
+                    <img v-if="showGroupBg" class="m-about-group-bg" :src="getCdnImage('/design/about/hero-girl.svg')" alt="" />
+                    <section class="m-about-panel">
+                        <div class="m-about-heading">
+                            <div class="m-about-heading__title">
+                                <img class="u-heading-icon" :src="headingIconSrc" alt="" />
+                                <span>{{ name }}</span>
+                            </div>
+                            <span class="m-about-heading__mark">{{ headingMark }}</span>
+                        </div>
+                        <div class="m-about-content">
+                            <router-view v-slot="{ Component }">
+                                <component v-if="isArticleRoute" :is="Component" :key="viewKey" class="inner"></component>
+                                <transition v-else name="about-page" mode="out-in">
+                                    <keep-alive v-if="isCacheRoute">
+                                        <component :is="Component" :key="viewKey" class="inner"></component>
+                                    </keep-alive>
+                                    <component v-else :is="Component" :key="viewKey" class="inner"></component>
+                                </transition>
+                            </router-view>
+                        </div>
+                    </section>
+                </main>
             </div>
+
             <div class="m-about-mobile">
                 <div class="m-about-mobile__header">
                     <div class="u-logo-wrap">
@@ -68,8 +113,13 @@ import SubNav from "./components/SubNav.vue";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import CommonHeader from "@jx3box/jx3box-ui/src/CommonHeader.vue";
 import CommonFooter from "@jx3box/jx3box-ui/src/CommonFooter.vue";
+import cubeIcon from "@/assets/img/about/cube.svg";
+import coffeeIcon from "@/assets/img/about/icon-coffee.svg";
+import messageIcon from "@/assets/img/about/icon-message.svg";
+import awardIcon from "@/assets/img/about/icon-award.svg";
+import bookIcon from "@/assets/img/about/icon-book-open.svg";
 
-const { __cdn, __imgPath } = JX3BOX;
+const { __imgPath,__cdn } = JX3BOX;
 
 export default {
     name: "About",
@@ -109,14 +159,69 @@ export default {
     },
     computed: {
         name() {
+            if (this.isArticleRoute) return "服务条款";
             return this.$route.meta.title === "首页" ? "关于我们" : this.$route.meta.title;
         },
-        backgroundImage() {
-            const routeName = this.$route.name || "index";
-            return `${__cdn}design/about/${routeName}.png`;
+        mainClass() {
+            const routeName = this.isArticleRoute ? "terms" : this.$route.meta?.belongs || this.$route.name || "index";
+            return {
+                "is-index": this.isIndexRoute,
+                [`is-${routeName}`]: true,
+            };
+        },
+        desktopRoutes() {
+            return this.$router.options.routes.filter((route) => !["creation"].includes(route.name));
+        },
+        isIndexRoute() {
+            return this.$route.name === "index";
+        },
+        isGroupRoute() {
+            return this.$route.name === "group";
+        },
+        isTeamRoute() {
+            return this.$route.name === "team";
+        },
+        isAuthorRoute() {
+            return this.$route.name === "author";
+        },
+        isArticleRoute() {
+            return ["terms", "creation"].includes(this.$route.meta?.belongs) || ["terms", "creation"].includes(this.$route.name);
+        },
+        showGroupBg() {
+            return this.isGroupRoute || this.isTeamRoute || this.isAuthorRoute || this.isArticleRoute;
+        },
+        showSidebarMascot() {
+            return !this.isIndexRoute;
+        },
+        headingIconSrc() {
+            if (this.isArticleRoute) return bookIcon;
+            if (this.isAuthorRoute) return awardIcon;
+            if (this.isTeamRoute) return messageIcon;
+            return this.isGroupRoute ? coffeeIcon : cubeIcon;
+        },
+        headingMark() {
+            if (this.isArticleRoute) return "";
+            if (this.isAuthorRoute) return "期待你的加入";
+            if (this.isTeamRoute) return "期待你的加入";
+            return this.isGroupRoute ? "幸甚有你，共建美好社区" : "JX3BOX";
+        },
+        viewKey() {
+            return this.isArticleRoute ? "article" : this.$route.fullPath;
         },
         isCacheRoute() {
             return Boolean(this.$route.meta?.cache);
+        },
+    },
+    methods: {
+        getRoutePath(route) {
+            return route.children ? route.children[0].path : route.path;
+        },
+        isDesktopRouteActive(route) {
+            if (route.name === "terms" && this.isArticleRoute) return true;
+            return route.name === this.$route.name || route.name === this.$route.meta?.belongs;
+        },
+        getCdnImage(path) {
+            return `${__cdn}${path}`;
         },
     },
     mounted() {
