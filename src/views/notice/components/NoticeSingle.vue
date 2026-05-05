@@ -102,7 +102,7 @@
 	                {{ $t("notice.single.comments") }}
 	            </h2>
             <div class="m-notice-detail__comment-box" v-if="id && !post.comment">
-                <Comment :id="id" category="post" />
+                <JxComment :id="id" category="post" />
             </div>
 	            <div class="m-notice-detail__comment-placeholder" v-else>{{ $t("notice.single.commentsClosed") }}</div>
         </section>
@@ -110,10 +110,10 @@
         <right-affix
             :key="rightAffixKey"
             class="m-notice-detail__affix"
-            :postId="id"
+            :postId="Number(id)"
             :postType="post.post_type"
             :postTitle="post.post_title"
-            :showComment="id"
+            :showComment="Number(id)"
             @toComment="toComment"
             :style="affixStyle"
         ></right-affix>
@@ -130,7 +130,7 @@ import { hasFav, addFav, delFav } from "@jx3box/jx3box-ui/service/fav";
 import { showDate } from "@jx3box/jx3box-common/js/moment";
 import { editLink } from "@jx3box/jx3box-common/js/utils";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import Comment from "@jx3box/jx3box-ui/src/single/Comment.vue";
+import JxComment from "@jx3box/jx3box-ui/src/single/Comment.vue";
 import RightAffix from "@jx3box/jx3box-ui/src/single/RightAffix.vue";
 import Admin from "@jx3box/jx3box-ui/src/bread/Admin.vue";
 import Bus from "@jx3box/jx3box-ui/utils/bus";
@@ -139,7 +139,7 @@ export default {
     name: "NoticeSingle",
     components: {
         Article,
-        Comment,
+        JxComment,
         RightAffix,
         Admin,
     },

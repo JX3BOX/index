@@ -74,7 +74,7 @@
                     v-model="index"
                     type="number"
                     class="m-notice-list__jump-input"
-                    size="mini"
+                    size="small"
                     @keyup.enter="toJump"
                 />
                 <button class="m-notice-list__jump-btn" @click="toJump">{{ $t("notice.list.jump") }}</button>
