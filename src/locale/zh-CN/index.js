@@ -94,6 +94,13 @@ export default {
         anonymous: "匿名",
         defaultContent: "师父问我为什么110级了还没见过活人，我看了看空荡荡的帮会领地，流下了两行清泪。",
     },
+    database: {
+        versions: {
+            title: "剑三数据库",
+            loading: "加载中...",
+            updatedAt: "{time} 更新",
+        },
+    },
     world: {
         bulletin: "江湖快报",
         entry: "进入江湖情报中央大厅",

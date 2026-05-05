@@ -10,6 +10,7 @@
 
         <div class="m-index-world-v5__content">
             <world-servers :selected-server="selectedServer" @change-server="handleServerChange"></world-servers>
+            <database-versions class="m-index-world-v5__versions" :client="client"></database-versions>
             <world-report
                 v-if="isStd"
                 :date="date"
@@ -31,12 +32,14 @@ import dayjs from "@/utils/day";
 import { formatTime } from "@/utils";
 import worldServers from "./servers.vue";
 import worldReport from "./world/report.vue";
+import DatabaseVersions from "./versions.vue";
 
 export default {
     name: "JX3WorldV5",
     components: {
         worldServers,
         worldReport,
+        DatabaseVersions,
     },
     data() {
         return {
@@ -132,6 +135,10 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.m-index-world-v5__versions {
+    overflow: hidden;
 }
 
 .m-index-world-v5__entry {

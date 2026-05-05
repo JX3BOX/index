@@ -202,7 +202,8 @@ export default {
                 raw?.filter((item) => {
                     return item.client == "all" ? true : item.client == client;
                 }) || [];
-            this.data = this.default_data = default_data;
+            this.default_data = default_data;
+            this.data = [...default_data];
 
             const default_map = {};
             const default_lf = [];
@@ -215,8 +216,10 @@ export default {
             });
 
             this.default_map = default_map;
-            this.lf = this.default_lf = default_lf;
-            this.order = this.default_order = default_order;
+            this.default_lf = default_lf;
+            this.lf = [...default_lf];
+            this.default_order = default_order;
+            this.order = [...default_order];
         },
         init: function () {
             getMenu("box")
@@ -319,21 +322,10 @@ export default {
                 type: "warning",
             })
                 .then(() => {
-                    this.data = this.default_data;
-                    this.order = [];
-                    this.lf = this.default_lf;
+                    this.data = [...this.default_data];
+                    this.order = [...this.default_order];
+                    this.lf = [...this.default_lf];
                     this.hide = [];
-                    this.defined = false;
-
-                    localStorage.removeItem(KEY);
-
-                    this.$forceUpdate();
-
-                    this.$notify({
-                        title: this.$t("index.box.notify.successTitle"),
-                        message: this.$t("index.box.notify.resetSuccess"),
-                        type: "success",
-                    });
                 })
                 .catch(() => {});
         },
@@ -348,18 +340,6 @@ export default {
                         this.hide = [];
                         this.defined = false;
 
-                        localStorage.removeItem(KEY);
-                        if (this.isLogin) {
-                            setMeta(KEY, "");
-                        }
-
-                        this.$forceUpdate();
-
-                        this.$notify({
-                            title: this.$t("index.box.notify.successTitle"),
-                            message: this.$t("index.box.notify.resetSuccess"),
-                            type: "success",
-                        });
                     }
                 },
             });
@@ -619,8 +599,8 @@ export default {
     }
 
     .u-pic {
-        width: 1.85rem;
-        height: 1.85rem;
+        width: 2rem;
+        height: 2rem;
         display: block;
     }
 

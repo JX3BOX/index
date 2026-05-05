@@ -50,6 +50,7 @@
 import { getServers } from "@/service/spider";
 import serverStd from "@jx3box/jx3box-data/data/server/server_std.json";
 import serverOrigin from "@jx3box/jx3box-data/data/server/server_origin.json";
+import serverInternational from "@jx3box/jx3box-data/data/server/server_international.json";
 
 export default {
     name: "IndexWorldServersV5",
@@ -149,7 +150,7 @@ export default {
         cansee: function (item) {
             const zoneName = (item && item.zoneName) || "";
             const clientType = zoneName === "缘起大区" ? "origin" : "std";
-            const serverList = clientType === "origin" ? serverOrigin : serverStd;
+            const serverList = clientType === "origin" ? serverOrigin : [...serverStd, ...serverInternational];
             return this.client === clientType && serverList.includes(item.serverName);
         },
         getHeatState(item) {

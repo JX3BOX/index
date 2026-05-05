@@ -49,6 +49,7 @@ const commonDomains = require("@jx3box/jx3box-common/data/jx3box.json");
 
 module.exports = {
     productionSourceMap: false,
+    transpileDependencies: true,
     //❤️ define path for static files ~
     publicPath: process.env.BUILD_PREVIEW
         ? "/" + process.env.APP_NAME
@@ -67,35 +68,6 @@ module.exports = {
         proxy: buildEnvProxy(),
         allowedHosts: "all",
         port: process.env.DEV_PORT || 12028,
-        // 避免 /macro 等其它应用路由被 index SPA 接管
-        // historyApiFallback: {
-        //     rewrites: [
-        //         {
-        //             from: /^\/macro(\/.*)?$/,
-        //             to: (context) => context.parsedUrl.pathname,
-        //         },
-        //         {
-        //             from: /^\/notice(\/.*)?$/,
-        //             to: "/notice/index.html",
-        //         },
-        //         {
-        //             from: /^\/about(\/.*)?$/,
-        //             to: "/about/index.html",
-        //         },
-        //         {
-        //             from: /^\/search(\/.*)?$/,
-        //             to: "/search/index.html",
-        //         },
-        //         {
-        //             from: /^\/post(\/.*)?$/,
-        //             to: "/post/index.html",
-        //         },
-        //         {
-        //             from: /^\/jx3(\/.*)?$/,
-        //             to: "/jx3/index.html",
-        //         },
-        //     ],
-        // },
     },
 
     // 依赖包（element-plus/theme-chalk 等）会输出大量 Sass deprecation 警告

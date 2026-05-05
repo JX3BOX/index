@@ -94,6 +94,13 @@ export default {
         defaultContent:
             "Sư phụ hỏi vì sao cấp 110 rồi mà vẫn chưa gặp người sống. Tôi nhìn lãnh địa bang hội trống vắng và rơi hai dòng lệ.",
     },
+    database: {
+        versions: {
+            title: "Kiếm Tam",
+            loading: "Đang tải...",
+            updatedAt: "Cập nhật {time}",
+        },
+    },
     world: {
         bulletin: "Bản tin giang hồ",
         entry: "Vào trung tâm tình báo",
@@ -163,4 +170,3 @@ export default {
         confirm: "Đã hiểu",
     },
 };
-

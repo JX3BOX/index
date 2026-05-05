@@ -95,6 +95,13 @@ export default {
         defaultContent:
             "My master asked why I still haven't met a single living soul at level 110. I glanced at the empty guild territory and shed two silent tears.",
     },
+    database: {
+        versions: {
+            title: "JX3 Database",
+            loading: "Loading...",
+            updatedAt: "Updated {time}",
+        },
+    },
     world: {
         bulletin: "World Bulletin",
         entry: "Enter the intelligence center",
