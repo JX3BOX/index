@@ -3,7 +3,9 @@
         <div class="m-about-group__list">
             <article v-for="(item, index) in group" :key="item.name" class="m-about-group__item">
                 <div class="m-about-group__header">
-                    <img class="u-group-icon" :class="item.icon" :src="getIcon(item, index)" alt="" />
+                    <span class="u-group-icon__wrap">
+                        <img class="u-group-icon" :class="item.icon" :src="getIcon(item, index)" alt="" />
+                    </span>
                     <h3>{{ getTitle(item) }}</h3>
                 </div>
                 <p class="u-group-desc">{{ getDesc(item) }}</p>
@@ -216,7 +218,7 @@ export default {
 
 .m-about-group__header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 4px;
     min-width: 0;
 
@@ -232,40 +234,57 @@ export default {
     }
 }
 
-.u-group-icon {
-    flex: 0 0 auto;
-    width: 2.25rem;
+.u-group-icon__wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.875rem;
+    width: 1.875rem;
     height: 2.25rem;
+}
+
+.u-group-icon {
+    display: block;
+    flex: 0 0 auto;
     object-fit: contain;
+    transform: translateY(0);
+
     &.el-icon-message {
         width: 1.6875rem;
         height: 1.3125rem;
+        transform: translateY(-1px);
     }
     &.el-icon-service {
         width: 1.8125rem;
         height: 1.5rem;
+        transform: translateY(-1px);
     }
     &.el-icon-user {
         width: 1.6875rem;
         height: 1.6875rem;
+        transform: translateY(-2px);
     }
 
     &.el-icon-position {
         width: 1.6875rem;
         height: 1rem;
+        transform: translateY(-1px);
     }
 
     &.el-icon-setting {
         width: 1.5rem;
         height: 1.6875rem;
+        transform: translateY(-1px);
     }
     &.el-icon-trophy {
         width: 1.6875rem;
         height: 1.5625rem;
+        transform: translateY(-2px);
     }
     &.el-icon-sugar {
         width: 1.5rem;
         height: 1.3125rem;
+        transform: translateY(-1px);
     }
 }
 
@@ -358,9 +377,6 @@ export default {
     }
 
     .u-group-icon {
-        width: 1.5rem;
-        height: 1.5rem;
-
         &.el-icon-message {
             width: 1.125rem;
             height: 0.875rem;
@@ -395,6 +411,12 @@ export default {
             width: 1rem;
             height: 0.875rem;
         }
+    }
+
+    .u-group-icon__wrap {
+        flex-basis: 1.25rem;
+        width: 1.25rem;
+        height: 1.5rem;
     }
 
     .u-group-desc {
