@@ -1,7 +1,7 @@
 <template>
     <el-dialog
-        v-model="showAlert"
-        custom-class="m-force-alert"
+        :model-value="showAlert"
+        class="m-force-alert"
         @close="onClose"
         :show-close="false"
         :close-on-click-modal="false"
