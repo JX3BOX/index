@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :visible="showAlert"
+        v-model="showAlert"
         custom-class="m-force-alert"
         @close="onClose"
         :show-close="false"
