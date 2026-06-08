@@ -1,7 +1,7 @@
 <template>
     <div class="p-index">
         <CommonHeader :overlayEnable="true" />
-        <div class="m-main">
+        <div class="m-main" ref="main">
             <div class="m-left m-sidebar">
                 <IndexLeftSidebar />
             </div>
@@ -21,6 +21,7 @@
             </div>
         </div>
         <CommonFooter />
+        <div ref="footerAnchor" style="display: none"></div>
 
         <Festival />
         <ForceAlert />
@@ -73,11 +74,32 @@ export default {
     data: function () {
         return {
             isMobile: window.innerWidth < 1280,
+            footerBreakpoint: 1133,
         };
     },
     computed: {},
     watch: {},
-    methods: {},
+    methods: {
+        syncFooterPosition() {
+            const main = this.$refs.main;
+            const root = this.$el;
+            const anchor = this.$refs.footerAnchor;
+            const footer = root?.querySelector(".c-footer, .c-footer--v4");
+            if (!main || !root || !anchor || !footer) return;
+
+            if (window.innerWidth <= this.footerBreakpoint) {
+                if (footer.parentElement !== main) {
+                    main.appendChild(footer);
+                }
+            } else if (footer.nextElementSibling !== anchor || footer.parentElement !== root) {
+                root.insertBefore(footer, anchor);
+            }
+        },
+        handleResize() {
+            this.isMobile = window.innerWidth < 1280;
+            this.syncFooterPosition();
+        },
+    },
     created: function () {
         if (User.isLogin()) {
             getProfile().then((data) => {
@@ -99,11 +121,9 @@ export default {
         });
     },
     mounted: function () {
-        if (window.innerWidth <= 1133) {
-            const main = document.querySelector(".m-main");
-            const footer = document.querySelector(".c-footer, .c-footer--v4");
-            if (main && footer) main.appendChild(footer);
-        }
+        this.syncFooterPosition();
+        window.addEventListener("resize", this.handleResize);
+
         if (!isMiniProgram() && !isApp()) {
             this.$nextTick(() => {
                 if (User.isLogin()) {
@@ -123,6 +143,9 @@ export default {
         if (location.href.indexOf("index/feature") > -1) {
             location.href = "/notice?tab=feature";
         }
+    },
+    beforeUnmount() {
+        window.removeEventListener("resize", this.handleResize);
     },
 };
 </script>
