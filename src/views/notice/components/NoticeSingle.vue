@@ -50,13 +50,25 @@
 	                        >
 	                            <i class="el-icon-edit-outline mr-2"></i>{{ $t("notice.single.edit") }}
 	                        </a>
-                        <button
-                            class="m-notice-detail__admin-btn m-notice-detail__admin-btn--ghost inline-flex items-center h-10 px-5 bg-white/5 hover:bg-red-500/20 border border-white/20 hover:border-red-500/50 rounded transition-all text-sm text-slate-300 hover:text-red-300"
-                            type="button"
-                            @click="openAdminPanel"
-	                        >
-	                            <i class="el-icon-setting mr-2"></i>{{ $t("notice.single.manage") }}
-	                        </button>
+                        <el-dropdown trigger="click" @command="handleAdminCommand">
+                            <button
+                                class="m-notice-detail__admin-btn m-notice-detail__admin-btn--ghost inline-flex items-center h-10 px-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded transition-all text-sm text-slate-300"
+                                type="button"
+                            >
+                                <i class="el-icon-setting mr-2"></i>{{ $t("notice.single.more") }}
+                                <i class="el-icon-arrow-down ml-2"></i>
+                            </button>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item command="openAdminPanel">
+                                        <i class="el-icon-setting mr-2"></i>{{ $t("notice.single.manage") }}
+                                    </el-dropdown-item>
+                                    <el-dropdown-item command="openDesignTask">
+                                        <i class="el-icon-upload mr-2"></i>{{ $t("notice.single.push") }}
+                                    </el-dropdown-item>
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
                     </div>
                 </div>
             </header>
@@ -119,6 +131,7 @@
         ></right-affix>
 
         <Admin class="m-notice-detail__admin-panel" :postId="id" app="notice" />
+        <DesignTask v-model="showDesignTask" :post="designTaskPost" />
     </div>
 </template>
 
@@ -133,6 +146,7 @@ import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import JxComment from "@jx3box/jx3box-ui/src/single/Comment.vue";
 import RightAffix from "@jx3box/jx3box-ui/src/single/RightAffix.vue";
 import Admin from "@jx3box/jx3box-ui/src/bread/Admin.vue";
+import DesignTask from "@jx3box/jx3box-ui/src/bread/DesignTask.vue";
 import Bus from "@jx3box/jx3box-ui/utils/bus";
 
 export default {
@@ -142,6 +156,7 @@ export default {
         JxComment,
         RightAffix,
         Admin,
+        DesignTask,
     },
     data: function () {
         return {
@@ -157,6 +172,7 @@ export default {
             rightAffixKey: 0,
             affixStyle: {},
             handleAffixFavoriteClick: null,
+            showDesignTask: false,
         };
     },
     computed: {
@@ -180,6 +196,12 @@ export default {
             return (
                 this.post?.author_info?.display_name || this.post?.user_nickname || this.post?.post_author_name || ""
             );
+        },
+        designTaskPost() {
+            return {
+                ...this.post,
+                subtype: "notice",
+            };
         },
     },
     watch: {
@@ -295,6 +317,14 @@ export default {
         },
         openAdminPanel() {
             Bus.emit("toggleAdminPanel");
+        },
+        openDesignTask() {
+            this.showDesignTask = true;
+        },
+        handleAdminCommand(command) {
+            if (typeof this[command] === "function") {
+                this[command]();
+            }
         },
         handleScroll() {
             const top = document.documentElement.scrollTop || document.body.scrollTop || 0;
