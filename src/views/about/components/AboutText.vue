@@ -18,6 +18,9 @@ export default {
         id: function () {
             return this.$route.meta.article_id;
         },
+        type: function () {
+            return this.$route.name || "";
+        },
     },
     methods: {
         loadData: function () {
