@@ -53,7 +53,18 @@
                                 <img class="u-heading-icon" :src="headingIconSrc" alt="" />
                                 <span>{{ name }}</span>
                             </div>
-                            <span class="m-about-heading__mark">{{ headingMark }}</span>
+                            <div class="m-about-heading__extra">
+                                <span v-if="headingMark" class="m-about-heading__mark">{{ headingMark }}</span>
+                                <a
+                                    v-if="showArticleEdit"
+                                    class="u-heading-edit"
+                                    :href="articleEditUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    编辑
+                                </a>
+                            </div>
                         </div>
                         <div class="m-about-content">
                             <router-view v-slot="{ Component }">
@@ -113,6 +124,7 @@ import SubNav from "./components/SubNav.vue";
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import CommonHeader from "@jx3box/jx3box-ui/src/CommonHeader.vue";
 import CommonFooter from "@jx3box/jx3box-ui/src/CommonFooter.vue";
+import User from "@jx3box/jx3box-common/js/user";
 import cubeIcon from "@/assets/img/about/cube.svg";
 import coffeeIcon from "@/assets/img/about/icon-coffee.svg";
 import messageIcon from "@/assets/img/about/icon-message.svg";
@@ -155,6 +167,7 @@ export default {
                 },
             ],
             version: "v0.0.0",
+            isSuperAdmin: User.isSuperAdmin(),
         };
     },
     computed: {
@@ -210,6 +223,13 @@ export default {
         },
         isCacheRoute() {
             return Boolean(this.$route.meta?.cache);
+        },
+        articleEditUrl() {
+            const articleId = this.$route.meta?.article_id;
+            return articleId ? `/notice/${articleId}` : "";
+        },
+        showArticleEdit() {
+            return this.isArticleRoute && this.isSuperAdmin && Boolean(this.articleEditUrl);
         },
     },
     methods: {

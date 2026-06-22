@@ -1,22 +1,17 @@
 <template>
     <div class="m-about-text" :class="'m-about-' + type" v-loading="loading">
-        <div class="m-about-meta">
-            <a :href="'/notice/' + id" target="_blank" v-if="isSuperAdmin">编辑</a>
-        </div>
         <div v-html="data"></div>
     </div>
 </template>
 
 <script>
 import { getArticle } from "@/service/about.js";
-import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "AboutText",
     data: function () {
         return {
             data: "",
             loading: false,
-            isSuperAdmin: User.isSuperAdmin(),
         };
     },
     computed: {

@@ -65,14 +65,14 @@
             <reputation :date="date" :client="client"></reputation>
         </div>
 
-        <div class="m-world-v5-report__card m-world-v5-report__card--mrt">
+        <!-- <div class="m-world-v5-report__card m-world-v5-report__card--mrt">
             <div class="m-world-v5-report__header">
                 <h3 class="m-world-v5-report__title">
                     {{ $t("index.world.report.meirentu", { server: selectedServer || "蝶恋花" }) }}
                 </h3>
             </div>
             <mrt :selected-server="selectedServer"></mrt>
-        </div>
+        </div> -->
     </section>
 </template>
 
@@ -81,7 +81,7 @@ import celebrity from "./celebrity.vue";
 import luckyPet from "./lucky_pet.vue";
 import reputation from "./reputation.vue";
 import baizhan from "./baizhan_mini.vue";
-import mrt from "./meirentu.vue";
+// import mrt from "./meirentu.vue";
 import horseNotice from "./horse_notice.vue";
 
 export default {
@@ -92,7 +92,7 @@ export default {
         luckyPet,
         reputation,
         baizhan,
-        mrt,
+        // mrt,
     },
     props: {
         date: {
