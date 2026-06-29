@@ -1,6 +1,6 @@
 <template>
     <div class="m-welcome">
-        <div class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
+        <div class="u-pic" :style="{ backgroundImage: `url(${bg})`, backgroundPosition: bgPosition }"></div>
         <i class="u-hook u-hook-left"><img src="@/assets/img/index/hook.png" /></i>
         <i class="u-hook u-hook-right"><img src="@/assets/img/index/hook.png" /></i>
         <a class="u-frame" :href="link" target="_blank"></a>
@@ -11,40 +11,37 @@
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
-import { getConfigBanner, getUserDecoration, getPublicDecoration } from "@/service/cms.js";
+import { getConfigBanner, getUserDecoration } from "@/service/cms.js";
 import { getUserConfig } from "@/service/user";
 
 const { __cdn } = JX3BOX;
 
-const DECORATION_KEY = "user_decoration_calendar";
-const DECORATION_LIST = "public_decoration";
+const DECORATION_KEY = "user_decoration_calendar_v2";
+const DEFAULT_DECORATION_IMAGE = `${__cdn}design/decoration/images/0_TESTSAMPLE/calendar.png`;
+const DEFAULT_DECORATION_POSITION = "center top";
+const DECORATION_POSITION = {
+    lt: "left top",
+    rt: "right top",
+    lb: "left bottom",
+    rb: "right bottom",
+    ct: "center top",
+    cc: "center center",
+    cb: "center bottom",
+};
 export default {
     name: "IndexWelcomeV4",
     components: {},
     data: function () {
         return {
             // 主题背景
-            bg: `${__cdn}design/decoration/images/0_TESTSAMPLE/calendar.png`,
-            user_decoration: "",
-
-            // 主题信息
-            public_decoration: "",
+            bg: DEFAULT_DECORATION_IMAGE,
+            bgPosition: DEFAULT_DECORATION_POSITION,
             link: "/dashboard",
         };
     },
     computed: {
         client: function () {
             return this.$store.state.client;
-        },
-    },
-    watch: {
-        user_decoration(val) {
-            // 如果设置值为空，则退回使用默认值
-            if (val) {
-                const webp = ["jx3box-birthday-5"];
-                this.bg = __cdn + `design/decoration/images/${val}/calendar.${webp.includes(val) ? "webp" : "png"}`;
-                this.renderDecoration(val);
-            }
         },
     },
     mounted: function () {
@@ -81,52 +78,93 @@ export default {
         },
         // B.加载用户主题
         loadUserDecoration() {
-            let decoration_calendar = sessionStorage.getItem(DECORATION_KEY);
+            const decoration_calendar = sessionStorage.getItem(DECORATION_KEY);
 
             // 1.已缓存设置为无主题
             if (decoration_calendar == "NULL") {
+                this.applyDefaultDecoration();
                 return;
             }
 
             // 2.已有缓存用户主题
             if (decoration_calendar) {
-                this.user_decoration = decoration_calendar;
-                return;
+                try {
+                    if (!this.applyDecoration(JSON.parse(decoration_calendar))) {
+                        this.applyDefaultDecoration();
+                    }
+                    return;
+                } catch (e) {
+                    sessionStorage.removeItem(DECORATION_KEY);
+                }
             }
 
             // 3.无缓存则请求服务端最新设置
-            getUserDecoration({ using: 1, type: "calendar" }).then((res) => {
-                decoration_calendar = res?.data?.data?.[0]?.["val"];
+            getUserDecoration({ using: 1, type: "calendar", subtype: "pc_calendar" }).then((res) => {
+                const decoration = res?.data?.data?.[0];
+                const decorationItem = this.resolveDecorationItem(decoration);
 
-                // 1.有 则为有主题，界面设对应主题KEY
-                if (decoration_calendar) {
-                    this.user_decoration = decoration_calendar;
-                    sessionStorage.setItem(DECORATION_KEY, decoration_calendar);
+                // 1.有 则使用v2装扮记录中的图片与位置
+                if (decorationItem?.image) {
+                    this.applyDecoration(decoration);
+                    sessionStorage.setItem(DECORATION_KEY, JSON.stringify(decoration));
                 } else {
-                    // 2.空 则为无主题，不再加载接口，界面设No
+                    // 2.空 则为无主题，不再加载接口
+                    this.applyDefaultDecoration();
                     sessionStorage.setItem(DECORATION_KEY, "NULL");
                 }
             });
         },
 
-        // C.渲染主题配色
-        // ========================
-        renderDecoration() {
-            // 1.本地缓存探测
-            const public_decoration = sessionStorage.getItem(DECORATION_LIST);
-            if (public_decoration) {
-                try {
-                    this.public_decoration = JSON.parse(public_decoration);
-                } catch (e) {
-                    console.log("[renderDecoration|公共装扮数据本地已损坏]:", e);
-                }
-                // 2.重新服务器同步
-            } else {
-                getPublicDecoration().then((res) => {
-                    this.public_decoration = res?.data || [];
-                    sessionStorage.setItem(DECORATION_LIST, JSON.stringify(this.public_decoration));
-                });
+        applyDefaultDecoration() {
+            this.bg = DEFAULT_DECORATION_IMAGE;
+            this.bgPosition = DEFAULT_DECORATION_POSITION;
+        },
+
+        applyDecoration(decoration) {
+            const decorationItem = this.resolveDecorationItem(decoration);
+            const image = this.resolveDecorationImage(decorationItem?.image);
+            if (!image) {
+                return false;
             }
+
+            this.bg = image;
+            this.bgPosition = this.resolveDecorationPosition(decorationItem?.position);
+            return true;
+        },
+
+        resolveDecorationItem(decoration) {
+            const decorations = Array.isArray(decoration?.decorations)
+                ? decoration.decorations
+                : Array.isArray(decoration?.decoration)
+                ? decoration.decoration
+                : [];
+            if (decorations.length) {
+                return {
+                    ...decoration,
+                    ...(decorations.find((item) => item?.image) || decorations[0]),
+                };
+            }
+            return {
+                ...decoration,
+                ...decoration?.decoration,
+            };
+        },
+
+        resolveDecorationImage(image) {
+            if (!image) {
+                return "";
+            }
+
+            const markdownLink = String(image).match(/\]\(([^)]+)\)/);
+            const url = markdownLink?.[1] || image;
+            if (url.startsWith("/")) {
+                return resolveImagePath(__cdn + url.replace(/^\/+/, ""));
+            }
+            return resolveImagePath(url);
+        },
+
+        resolveDecorationPosition(position) {
+            return DECORATION_POSITION[position] || DEFAULT_DECORATION_POSITION;
         },
 
         // D.获取用户配置
