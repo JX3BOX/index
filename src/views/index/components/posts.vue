@@ -285,7 +285,7 @@ export default {
         },
         async loadCategoryList() {
             try {
-                const res = await getTopicBucket({ type: "community" });
+                const res = await getTopicBucket({ type: "community", client: this.client });
                 this.categoryList = res?.data?.data || [];
             } catch (e) {
                 this.categoryList = [];
@@ -297,7 +297,7 @@ export default {
             this.worksData = list.map((item) => this.normalizeWorkItem(item));
         },
         async loadCommunity() {
-            const res = await getMixLatest();
+            const res = await getMixLatest({ client: this.client });
             const topicList = res?.data?.data?.topic_list || [];
             const replyList = res?.data?.data?.reply_list || [];
 

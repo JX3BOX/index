@@ -12,8 +12,8 @@ const getTopicList = (params) => {
 };
 
 // 获取最新讨论-主题帖和回复各4条
-const getMixLatest = () => {
-    return $next().get(`${API_PREFIX}/community/discussion/mix-latest`);
+const getMixLatest = (params) => {
+    return $next().get(`${API_PREFIX}/community/discussion/mix-latest`, { params });
 };
 
 export { getTopicList, getTopicBucket, getMixLatest };
