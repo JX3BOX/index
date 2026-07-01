@@ -116,6 +116,13 @@ function getUserDecoration(params) {
     });
 }
 
+// 获取用户启用皮肤
+function getUserSkin(params) {
+    return $cms().get(`/api/cms/user/skin`, {
+        params,
+    });
+}
+
 function getPublicDecoration() {
     let url = __cdn + "design/decoration/index.json";
     return axios.get(url);
@@ -184,6 +191,7 @@ export {
     getCalendarCount,
     getRangeCalendar,
     getUserDecoration,
+    getUserSkin,
     getPublicDecoration,
     getCelebrities,
     getConfigBanner,
@@ -191,5 +199,6 @@ export {
     getWikiPosts,
     getDbms,
     getBattles,
-    getPzs,getGameNews
+    getPzs,
+    getGameNews
 };
