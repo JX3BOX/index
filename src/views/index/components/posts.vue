@@ -285,7 +285,7 @@ export default {
         },
         async loadCategoryList() {
             try {
-                const res = await getTopicBucket({ type: "community", client: this.client });
+                const res = await getTopicBucket({ type: "community" });
                 this.categoryList = res?.data?.data || [];
             } catch (e) {
                 this.categoryList = [];
