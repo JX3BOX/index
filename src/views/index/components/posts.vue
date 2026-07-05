@@ -107,7 +107,7 @@ const communityTypes = {
     "story": "论坛", // 江湖故事
     "guide": "论坛", // 攻略心得
     "help": "论坛", // 求助寻觅
-}
+};
 
 export default {
     name: "IndexPostsV5",
@@ -175,6 +175,10 @@ export default {
         },
         sortByTime: function (list) {
             return [...(list || [])].sort((a, b) => b.timestamp - a.timestamp);
+        },
+        isCurrentClientItem: function (item, client = this.client) {
+            const itemClient = item?.client || item?.topic?.client || "";
+            return itemClient === "all" || itemClient === client;
         },
         normalizeFeedItem: function (item) {
             const authorInfo = item.author_info || {};
@@ -291,22 +295,24 @@ export default {
                 this.categoryList = [];
             }
         },
-        async loadWorks() {
-            const res = await getPosts(this.client, "", this.sourceLimit);
+        async loadWorks(client = this.client) {
+            const res = await getPosts(client, "", this.sourceLimit);
+            if (client !== this.client) return;
             const list = res?.data?.data?.list || [];
             this.worksData = list.map((item) => this.normalizeWorkItem(item));
         },
-        async loadCommunity() {
-            const res = await getMixLatest({ client: this.client });
-            const topicList = res?.data?.data?.topic_list || [];
-            const replyList = res?.data?.data?.reply_list || [];
+        async loadCommunity(client = this.client) {
+            const res = await getMixLatest({ client });
+            if (client !== this.client) return;
+            const topicList = (res?.data?.data?.topic_list || []).filter((item) => this.isCurrentClientItem(item, client));
+            const replyList = (res?.data?.data?.reply_list || []).filter((item) => this.isCurrentClientItem(item, client));
 
             const topicData = topicList.map((item) => this.normalizeCommunityTopic(item));
             const replyData = await Promise.all(replyList.map((item) => this.normalizeCommunityReply(item)));
 
             this.communityData = this.sortByTime([...topicData, ...replyData]).slice(0, this.sourceLimit);
         },
-        async loadFeed(reset = false) {
+        async loadFeed(reset = false, client = this.client) {
             if (reset) {
                 this.feedCursor = 0;
                 this.feedCursorTime = "";
@@ -315,11 +321,12 @@ export default {
             const cursor = reset ? 0 : this.feedCursor;
             const cursorTime = reset ? this.getCurrentCursorTime() : this.feedCursorTime || this.getCurrentCursorTime();
             const res = await getFeedList({
-                client: this.client,
+                client,
                 cursor,
                 cursor_time: cursorTime,
                 pageSize: this.feedPageSize,
             });
+            if (client !== this.client) return;
             const list = res?.data?.data?.list || [];
             const page = res?.data?.data?.page || {};
             const normalizedList = list.map((item) => this.normalizeFeedItem(item));
@@ -343,23 +350,33 @@ export default {
             }
         },
         async loadData() {
+            const client = this.client;
             this.loading = true;
             try {
                 await this.loadCategoryList();
-                const tasks = [this.loadWorks(), this.loadCommunity()];
+                const tasks = [this.loadWorks(client), this.loadCommunity(client)];
 
                 if (this.isLogin) {
-                    tasks.push(this.loadFeed(true));
+                    tasks.push(this.loadFeed(true, client));
                 }
 
                 await Promise.allSettled(tasks);
             } finally {
+                if (client !== this.client) return;
                 this.loading = false;
             }
         },
     },
     mounted: function () {
         this.loadData();
+    },
+    watch: {
+        client: function () {
+            this.worksData = [];
+            this.communityData = [];
+            this.feedData = [];
+            this.loadData();
+        },
     },
 };
 </script>
