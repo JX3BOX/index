@@ -111,7 +111,7 @@ function getMenus(key) {
 
 //获取装扮
 function getUserDecoration(params) {
-    return $cms().get(`/api/cms/user/decoration`, {
+    return $cms().get(`/api/cms/user/decoration/v2`, {
         params,
     });
 }
