@@ -14,4 +14,5 @@ export default {
             description: "公告详情页：阅读公告内容、查看更新信息与互动数据。",
         },
     },
+    about: { title: "关于我们", keywords: "剑网3魔盒,JX3BOX,关于我们,团队,联系我们", description: "了解剑网3魔盒、团队成员、签约作者与联系方式。" },
 };

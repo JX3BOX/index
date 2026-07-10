@@ -1,11 +1,11 @@
 <template>
-    <div class="p-about-index">
+    <div class="p-about-index" :class="`is-${$i18n.locale}`">
         <div class="m-about-slogan">
             <h1>
-                <span>为侠者</span>
-                <em>筑魔盒</em>
+                <span>{{ $t("about.home.sloganFirst") }}</span>
+                <em>{{ $t("about.home.sloganSecond") }}</em>
             </h1>
-            <p>剑网3玩家实用工具 · 专业 · 全面 · 热爱</p>
+            <p>{{ $t("about.home.subtitle") }}</p>
         </div>
     </div>
 </template>
@@ -72,6 +72,32 @@ export default {
     }
 }
 
+.p-about-index.is-en-US,
+.p-about-index.is-vi {
+    .m-about-slogan {
+        width: min(100%, 1100px);
+        align-items: stretch;
+
+        h1 {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0 0.22em;
+            font-size: clamp(48px, 4.2vw, 80px);
+            line-height: 1.08;
+            text-align: center;
+            white-space: normal;
+        }
+
+        p {
+            width: min(100%, 980px);
+            align-self: center;
+            padding: 12px 36px;
+            font-size: clamp(16px, 1.25vw, 24px);
+            white-space: normal;
+        }
+    }
+}
+
 @media screen and (min-width: 721px) and (max-width: 1279px) {
     .p-about-index {
         padding-top: clamp(120px, 21vh, 160px);
@@ -90,6 +116,24 @@ export default {
             width: 390px;
             padding: 6px 22px;
             font-size: 16px;
+        }
+    }
+
+    .p-about-index.is-en-US,
+    .p-about-index.is-vi {
+        .m-about-slogan {
+            align-items: stretch;
+
+            h1 {
+                gap: 0 0.2em;
+                font-size: clamp(34px, 4.1vw, 48px);
+            }
+
+            p {
+                width: min(100%, 680px);
+                padding: 8px 24px;
+                font-size: 15px;
+            }
         }
     }
 }
@@ -116,6 +160,22 @@ export default {
             padding: 10px 18px;
             font-size: 16px;
             white-space: normal;
+        }
+    }
+
+    .p-about-index.is-en-US,
+    .p-about-index.is-vi {
+        .m-about-slogan {
+            h1 {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                font-size: clamp(32px, 10vw, 42px);
+            }
+
+            p {
+                font-size: 14px;
+            }
         }
     }
 }

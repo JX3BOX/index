@@ -1,10 +1,12 @@
 export default {
+    retry: "Thử lại",
     list: {
         title: "Trung tâm thông báo",
         desc: "Xem các cập nhật mới nhất, sự kiện vận hành, cập nhật tính năng và thông báo đổi thưởng từ JX3BOX.",
         searchPlaceholder: "Tìm kiếm theo từ khóa",
         sticky: "Ghim",
         empty: "Danh mục này chưa có thông báo.",
+        loadError: "Không thể tải thông báo. Vui lòng thử lại sau.",
         jump: "Đi",
         authorDefault: "JX3BOX",
         tabs: {
@@ -16,6 +18,7 @@ export default {
         },
     },
     single: {
+        loadError: "Không thể tải thông báo này. Vui lòng thử lại sau.",
         back: "Quay lại danh sách",
         lastUpdated: "Cập nhật lần cuối: {date}",
         views: "{count} lượt xem",

@@ -1,10 +1,10 @@
 <template>
     <div class="p-author">
         <div class="m-author-intro">
-            <p>持续产出各项玩法的高质量攻略，助力广大侠士仗剑江湖。</p>
+            <p>{{ $t("about.author.intro") }}</p>
             <a class="u-author-join" href="https://www.jx3box.com/dashboard/cooperation" target="_blank" rel="noopener noreferrer">
                 <i class="el-icon-right"></i>
-                <span>成为签约作者</span>
+                <span>{{ $t("about.author.join") }}</span>
             </a>
         </div>
 

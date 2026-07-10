@@ -1,10 +1,12 @@
 export default {
+    retry: "重新加载",
     list: {
         title: "公告中心",
         desc: "查看剑网3魔盒的最新动态、运营活动、功能更新与兑换通知。",
         searchPlaceholder: "请输入关键词搜索",
         sticky: "置顶",
         empty: "当前分类暂无公告内容",
+        loadError: "公告加载失败，请稍后重试",
         jump: "跳转",
         authorDefault: "魔盒",
         tabs: {
@@ -16,6 +18,7 @@ export default {
         },
     },
     single: {
+        loadError: "公告详情加载失败，请稍后重试",
         back: "返回列表",
         lastUpdated: "最后更新：{date}",
         views: "{count} 阅读",

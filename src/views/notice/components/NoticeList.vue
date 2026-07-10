@@ -31,7 +31,14 @@
         </section>
 
         <section class="m-notice-list__body" v-loading="loading">
+            <div class="m-notice-list__empty" v-if="loadError && !loading">
+                <p>{{ $t("notice.list.loadError") }}</p>
+                <button class="m-notice-list__retry" type="button" @click="loadPosts">
+                    {{ $t("notice.retry") }}
+                </button>
+            </div>
             <router-link
+                v-else
                 class="m-notice-list__item"
                 v-for="item in list"
                 :key="item.ID"
@@ -55,7 +62,9 @@
                 </div>
             </router-link>
 
-            <div class="m-notice-list__empty" v-if="!list.length && !loading">{{ $t("notice.list.empty") }}</div>
+            <div class="m-notice-list__empty" v-if="!loadError && !list.length && !loading">
+                {{ $t("notice.list.empty") }}
+            </div>
         </section>
 
         <section class="m-notice-list__pager" v-if="pages > 1">
@@ -92,6 +101,7 @@ export default {
     data: function () {
         return {
             loading: false,
+            loadError: false,
             list: [],
             page: 1,
             total: 1,
@@ -114,6 +124,9 @@ export default {
                 3: { i18nKey: "notice.list.tabs.feature", source: "UPDATE", cls: "is-update" },
                 4: { i18nKey: "notice.list.tabs.message", source: "NOTICE", cls: "is-notice" },
             },
+            searchTimer: null,
+            requestId: 0,
+            skipPageLoad: false,
         };
     },
     computed: {
@@ -140,14 +153,25 @@ export default {
     },
     methods: {
         loadPosts: function () {
+            const requestId = ++this.requestId;
             this.loading = true;
+            this.loadError = false;
             getPosts(this.params, this)
                 .then((res) => {
+                    if (requestId !== this.requestId) return;
                     this.list = res?.data?.data?.list || [];
                     this.total = res?.data?.data?.total || 0;
                     this.pages = res?.data?.data?.pages || 1;
                 })
+                .catch(() => {
+                    if (requestId !== this.requestId) return;
+                    this.list = [];
+                    this.total = 0;
+                    this.pages = 1;
+                    this.loadError = true;
+                })
                 .finally(() => {
+                    if (requestId !== this.requestId) return;
                     this.loading = false;
                 });
         },
@@ -174,7 +198,7 @@ export default {
             if (!d.isValid()) return { display: "--/--", stamp: "---. ----" };
             return {
                 display: d.format("MM/DD"),
-                stamp: d.format("MMM. YYYY").toUpperCase(),
+                stamp: `${d.locale("en").format("MMM")}. ${d.format("YYYY")}`,
             };
         },
         showTag(row) {
@@ -197,15 +221,27 @@ export default {
         },
     },
     watch: {
-        params: {
-            deep: true,
-            immediate: true,
-            handler: function () {
-                this.loadPosts();
-            },
+        page() {
+            if (this.skipPageLoad) {
+                this.skipPageLoad = false;
+                return;
+            }
+            this.loadPosts();
         },
-        query() {
-            this.page = 1;
+        type() {
+            if (this.page !== 1) {
+                this.page = 1;
+            } else {
+                this.loadPosts();
+            }
+        },
+        search() {
+            if (this.page !== 1) {
+                this.skipPageLoad = true;
+                this.page = 1;
+            }
+            clearTimeout(this.searchTimer);
+            this.searchTimer = setTimeout(() => this.loadPosts(), 300);
         },
         "$route.query.tab"(val) {
             const current = this.buttons.find((item) => item.key == (val || ""));
@@ -214,10 +250,19 @@ export default {
     },
     mounted() {
         const tab = this.$route.query.tab;
+        let initializedByTab = false;
         if (tab) {
             const current = this.buttons.find((item) => item.key == tab);
-            if (current) this.type = current.value;
+            if (current && current.value !== this.type) {
+                this.type = current.value;
+                initializedByTab = true;
+            }
         }
+        if (!initializedByTab) this.loadPosts();
+    },
+    beforeUnmount() {
+        clearTimeout(this.searchTimer);
+        this.requestId++;
     },
 };
 </script>
@@ -319,6 +364,15 @@ export default {
     .m-notice-list__body {
         padding: 16px 0;
         min-height: 420px;
+    }
+
+    .m-notice-list__retry {
+        padding: 8px 20px;
+        border: 1px solid @v4primary;
+        border-radius: 4px;
+        background: #fff;
+        color: @v4primary;
+        cursor: pointer;
     }
 
     .m-notice-list__item {
@@ -460,10 +514,15 @@ export default {
     .m-notice-list__empty {
         height: 300px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         color: #818c9f;
         font-size: 15px;
+
+        p {
+            margin: 0 0 16px;
+        }
     }
 
     .m-notice-list__pager {

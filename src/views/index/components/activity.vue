@@ -54,7 +54,7 @@
                             <el-tooltip
                                 v-for="item in activitiesByMonth[month]"
                                 :key="item.id"
-                                :content="isDisabledActivity(item) ? '敬请期待' : ''"
+                                :content="isDisabledActivity(item) ? $t('index.activity.comingSoon') : ''"
                                 placement="top"
                                 :disabled="!isDisabledActivity(item)"
                             >

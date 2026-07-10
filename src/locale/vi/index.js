@@ -1,9 +1,11 @@
 export default {
+    ai: { title: "Trợ lý AI JX3BOX", placeholder: "Tìm kiếm trên JX3BOX" },
     news: {
         title: "Tin tức",
         categoryAria: "Danh mục tin",
         tabs: {
             all: "Tất cả",
+            follow: "Đang theo dõi",
             game: "Trò chơi",
             skillChange: "Cập nhật",
             box: "JX3BOX",
@@ -53,6 +55,8 @@ export default {
         noContent: "Không có nội dung",
         picture: "[Ảnh]",
         reply: "Trả lời",
+        loading: "Đang tải...",
+        loadMore: "Tải thêm",
     },
     box: {
         title: "Ma trận JX3BOX",
@@ -81,6 +85,7 @@ export default {
         copySuccess: "Đã sao chép",
     },
     activity: {
+        comingSoon: "Sắp ra mắt",
         subtitle: "Timeline",
         title: "Sự kiện",
         month: "Tháng {month}",
@@ -89,6 +94,7 @@ export default {
         defaultType: "Sự kiện",
     },
     joke: {
+        submit: "Gửi câu nói",
         title: "Câu nói hôm nay",
         anonymous: "Ẩn danh",
         defaultContent:

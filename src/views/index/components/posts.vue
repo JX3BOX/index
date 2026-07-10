@@ -1,6 +1,6 @@
 <template>
     <section class="m-posts-v5 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
-        <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" aria-label="内容分类">
+        <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" :aria-label="$t('index.posts.categoryAria')">
             <div class="m-posts-v5__tab-list flex items-center" role="tablist">
                 <button
                     v-for="tab in tabs"
@@ -23,7 +23,7 @@
                 rel="noopener noreferrer"
                 class="u-more text-xs text-gray-400 hover:text-yellow-600 no-underline flex-shrink-0"
             >
-                更多 <el-icon><DArrowRight /></el-icon>
+                {{ $t("index.posts.more") }} <el-icon><DArrowRight /></el-icon>
             </a>
         </div>
 
@@ -78,7 +78,7 @@
                 v-if="!loading && !displayData.length"
                 class="m-posts-v5__null px-6 py-10 text-center text-sm font-bold text-gray-400"
             >
-                暂无内容
+                {{ $t("index.posts.empty") }}
             </div>
         </div>
 
@@ -88,7 +88,7 @@
             :class="{ 'is-loading': feedLoadingMore }"
             @click="loadMoreFeed"
         >
-            {{ feedLoadingMore ? "加载中..." : "加载更多" }}
+            {{ feedLoadingMore ? $t("index.posts.loading") : $t("index.posts.loadMore") }}
         </div>
     </section>
 </template>
@@ -137,10 +137,10 @@ export default {
         },
         tabs: function () {
             return [
-                { label: "全部", value: "all" },
-                this.isLogin ? { label: "关注", value: "follow" } : null,
-                { label: "作品", value: "works" },
-                { label: "帖子", value: "community" },
+                { label: this.$t("index.posts.tabs.all"), value: "all" },
+                this.isLogin ? { label: this.$t("index.posts.tabs.follow"), value: "follow" } : null,
+                { label: this.$t("index.posts.tabs.works"), value: "works" },
+                { label: this.$t("index.posts.tabs.community"), value: "community" },
             ].filter(Boolean);
         },
         displayData: function () {
@@ -192,8 +192,8 @@ export default {
                 kind: "feed",
                 reportCategory: item.post_type,
                 typeLabel: communityTypes[item.post_type] || getTypeLabel(item.post_type),
-                title: item.title || "无标题",
-                authorName: authorInfo.display_name || "匿名",
+                title: item.title || this.$t("index.posts.noTitle"),
+                authorName: authorInfo.display_name || this.$t("index.posts.anonymous"),
                 avatar: showAvatar(authorInfo.avatar, 112),
                 time,
                 timestamp,
@@ -207,7 +207,7 @@ export default {
             const link = getLink(item.post_type, item.ID);
             const time = item.post_modified;
             const timestamp = new Date(time).getTime() || 0;
-            const authorName = (item.author_info && item.author_info.display_name) || "匿名";
+            const authorName = (item.author_info && item.author_info.display_name) || this.$t("index.posts.anonymous");
             const avatar = showAvatar(item.author_info && item.author_info.user_avatar, 112);
 
             return {
@@ -215,7 +215,7 @@ export default {
                 kind: "work",
                 reportCategory: item.post_type,
                 typeLabel: communityTypes[item.post_type] || getTypeLabel(item.post_type),
-                title: item.post_title || "无标题",
+                title: item.post_title || this.$t("index.posts.noTitle"),
                 authorName,
                 avatar,
                 time,
@@ -233,9 +233,9 @@ export default {
                 key: `topic-${item.id}`,
                 kind: "community",
                 reportCategory: "community",
-                typeLabel: this.categoryMap[item.category] || "讨论",
-                title: item.title || "无内容",
-                authorName: info.display_name || "匿名",
+                typeLabel: this.categoryMap[item.category] || this.$t("index.posts.discussion"),
+                title: item.title || this.$t("index.posts.noContent"),
+                authorName: info.display_name || this.$t("index.posts.anonymous"),
                 avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
@@ -247,7 +247,7 @@ export default {
         async normalizeCommunityReply(item) {
             const topic = item.topic || {};
             const info = item.ext_user_info || {};
-            const text = (item.content || "").replace(/<img[^>]*>/g, "[图片]");
+            const text = (item.content || "").replace(/<img[^>]*>/g, this.$t("index.posts.picture"));
             const content = await new JX3_EMOTION(text)._renderHTML();
             const link = getLink("community", topic.id);
             const time = item.latest_reply_at || item.created_at;
@@ -256,15 +256,15 @@ export default {
                 key: `reply-${item.id || topic.id}-${time}`,
                 kind: "community",
                 reportCategory: "community",
-                typeLabel: this.categoryMap[topic.category] || "讨论",
-                title: this.br2nl(content || "无内容"),
-                authorName: info.display_name || "匿名",
+                typeLabel: this.categoryMap[topic.category] || this.$t("index.posts.discussion"),
+                title: this.br2nl(content || this.$t("index.posts.noContent")),
+                authorName: info.display_name || this.$t("index.posts.anonymous"),
                 avatar: showAvatar(info.avatar, 112),
                 time,
                 timestamp: new Date(time).getTime() || 0,
                 link,
                 viewText: "--",
-                replyText: "回帖",
+                replyText: this.$t("index.posts.reply"),
             };
         },
         formatCount: function (val) {

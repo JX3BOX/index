@@ -1,6 +1,10 @@
 <template>
     <div class="p-notice-detail" v-loading="loading">
-        <article class="m-notice-detail__article bg-white rounded-xl shadow-sm overflow-hidden" v-if="!loading">
+        <section class="m-notice-detail__error" v-if="loadError && !loading">
+            <p>{{ $t("notice.single.loadError") }}</p>
+            <button type="button" @click="load">{{ $t("notice.retry") }}</button>
+        </section>
+        <article class="m-notice-detail__article bg-white rounded-xl shadow-sm overflow-hidden" v-else-if="!loading">
             <header class="m-notice-detail__header article-header-bg text-white px-8 py-7 md:px-10 md:py-8">
                 <div class="m-notice-detail__headline flex items-center gap-4 mb-10">
                     <button
@@ -108,7 +112,7 @@
         <section
             class="m-notice-detail__comment bg-white rounded-xl shadow-sm mt-1 p-8"
             ref="commentView"
-            v-if="!loading"
+            v-if="!loading && !loadError"
         >
 	            <h2 class="m-notice-detail__comment-title text-2xl md:text-3xl font-bold mb-6">
 	                {{ $t("notice.single.comments") }}
@@ -120,6 +124,7 @@
         </section>
 
         <right-affix
+            v-if="!loading && !loadError"
             :key="rightAffixKey"
             class="m-notice-detail__affix"
             :postId="Number(id)"
@@ -130,8 +135,8 @@
             :style="affixStyle"
         ></right-affix>
 
-        <Admin class="m-notice-detail__admin-panel" :postId="id" app="notice" />
-        <DesignTask v-model="showDesignTask" :post="designTaskPost" />
+        <Admin v-if="!loadError" class="m-notice-detail__admin-panel" :postId="id" app="notice" />
+        <DesignTask v-if="!loadError" v-model="showDesignTask" :post="designTaskPost" />
     </div>
 </template>
 
@@ -161,6 +166,7 @@ export default {
     data: function () {
         return {
             loading: true,
+            loadError: false,
             post: {},
             stat: {},
             liked: false,
@@ -242,6 +248,7 @@ export default {
         },
         load() {
             this.loading = true;
+            this.loadError = false;
             this.liked = false;
             this.likeStatus = true;
             this.starred = false;
@@ -251,6 +258,11 @@ export default {
                 .then((res) => {
                     this.post = res?.data?.data || {};
                     document.title = this.post.post_title || this.$t("pages.notice.single.title");
+                })
+                .catch(() => {
+                    this.post = {};
+                    this.loadError = true;
+                    document.title = this.$t("pages.notice.single.title");
                 })
                 .finally(() => {
                     this.loading = false;
@@ -458,6 +470,27 @@ export default {
 
     .m-notice-detail__admin-panel {
         top: 64px !important;
+    }
+}
+
+.m-notice-detail__error {
+    padding: 100px 24px;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    color: #8491a8;
+
+    p {
+        margin: 0 0 16px;
+    }
+
+    button {
+        padding: 8px 20px;
+        border: 1px solid @v4primary;
+        border-radius: 4px;
+        background: #fff;
+        color: @v4primary;
+        cursor: pointer;
     }
 }
 

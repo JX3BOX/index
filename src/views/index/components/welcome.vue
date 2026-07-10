@@ -1,9 +1,19 @@
 <template>
     <div class="m-welcome">
-        <div class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
+        <el-carousel v-if="banners.length > 1" class="u-calendar-slider" height="100px" :interval="5000" arrow="hover">
+            <el-carousel-item v-for="item in banners" :key="item.ID || item.id || item.img">
+                <a class="u-calendar-banner" :href="item.link || '/dashboard'" target="_blank">
+                    <img :src="resolveBannerImage(item.img)" alt="" />
+                </a>
+            </el-carousel-item>
+        </el-carousel>
+        <a v-else-if="banners.length === 1" class="u-calendar-banner" :href="banners[0].link || '/dashboard'" target="_blank">
+            <img :src="resolveBannerImage(banners[0].img)" alt="" />
+        </a>
+        <div v-else class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
         <i class="u-hook u-hook-left"><img src="@/assets/img/index/hook.png" /></i>
         <i class="u-hook u-hook-right"><img src="@/assets/img/index/hook.png" /></i>
-        <a class="u-frame" :href="link" target="_blank"></a>
+        <a v-if="!banners.length" class="u-frame" :href="link" target="_blank"></a>
     </div>
 </template>
 
@@ -11,7 +21,7 @@
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
-import { getUserSkin } from "@/service/cms.js";
+import { getConfigBanner, getUserSkin } from "@/service/cms.js";
 import { getUserConfig } from "@/service/user";
 
 const { __cdn } = JX3BOX;
@@ -26,12 +36,34 @@ export default {
         return {
             bg: DEFAULT_CALENDAR_SKIN,
             link: "/dashboard",
+            banners: [],
         };
     },
     mounted: function () {
-        this.loadCalendarSkin();
+        this.loadCalendarBanner();
     },
     methods: {
+        loadCalendarBanner() {
+            getConfigBanner({
+                client: "std",
+                type: "banner",
+                subtype: "calendar",
+                status: 1,
+                page: 1,
+                per: 8,
+            })
+                .then((res) => {
+                    const list = res?.data?.data?.list;
+                    this.banners = Array.isArray(list) ? list.filter((item) => item?.img) : [];
+                    if (!this.banners.length) {
+                        this.loadCalendarSkin();
+                    }
+                })
+                .catch(() => {
+                    this.banners = [];
+                    this.loadCalendarSkin();
+                });
+        },
         loadCalendarSkin() {
             this.bg = DEFAULT_CALENDAR_SKIN;
             if (!User.isLogin()) {
@@ -117,6 +149,9 @@ export default {
             }
             const cdnBase = String(__cdn || "https://cdn.jx3box.com/").replace(/\/+$/, "");
             return resolveImagePath(`${cdnBase}/${raw.replace(/^\/+/, "")}`);
+        },
+        resolveBannerImage(image = "") {
+            return resolveImagePath(image);
         },
 
         loadUserConfig() {

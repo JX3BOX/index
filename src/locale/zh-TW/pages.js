@@ -14,4 +14,5 @@ export default {
             description: "公告詳情頁：閱讀公告內容、查看更新資訊與互動數據。",
         },
     },
+    about: { title: "關於我們", keywords: "劍網3魔盒,JX3BOX,關於我們,團隊,聯絡我們", description: "瞭解劍網3魔盒、團隊成員、簽約作者與聯絡方式。" },
 };

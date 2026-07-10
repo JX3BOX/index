@@ -10,12 +10,12 @@
                     type="button"
                     @click="setTitle(item)"
                 >
-                    {{ usergroups[item] }}
+                    {{ groupName(item) }}
                 </button>
             </div>
             <a class="u-team-join" href="https://www.jx3box.com/notice/21899" target="_blank" rel="noopener noreferrer">
                 <i class="el-icon-right"></i>
-                <span>加入我们</span>
+                <span>{{ $t("about.team.join") }}</span>
             </a>
         </div>
         <Member class="detail-content-wrap" :list="list"></Member>
@@ -34,16 +34,10 @@ export default {
             titles: [],
             members: [],
             list: [],
-            usergroups: {
-                designer: "创意部",
-                mp: "运营部",
-                developer: "研发部",
-                editor: "编辑部",
-                contributors: "贡献名单",
-            },
         };
     },
     methods: {
+        groupName(key) { return this.$t(`about.team.groups.${key}`); },
         loadTeammates: function () {
             getTeammates().then((res) => {
                 this.members = res.data.data;
@@ -62,7 +56,7 @@ export default {
         },
     },
     mounted: function () {
-        this.titles = Object.keys(this.usergroups);
+        this.titles = ["designer", "mp", "developer", "editor", "contributors"];
         this.loadTeammates();
     },
 };

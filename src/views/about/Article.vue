@@ -1,5 +1,5 @@
 <template>
-    <div class="p-article">
+    <div class="p-article" :class="`is-${$i18n.locale}`">
         <div class="m-article-tabs">
             <router-link
                 class="m-article-tab"
@@ -7,7 +7,7 @@
                 :key="item.type"
                 :to="{ name: item.type }"
             >
-                {{ item.title }}
+                {{ $t(item.titleKey) }}
             </router-link>
         </div>
         <div class="m-article-panel">
@@ -26,19 +26,19 @@ export default {
         return {
             tabs: [
                 {
-                    title: "用户协议",
+                    titleKey: "about.routes.license",
                     type: "license",
                 },
                 {
-                    title: "隐私政策",
+                    titleKey: "about.routes.privacy",
                     type: "privacy",
                 },
                 {
-                    title: "创作公约",
+                    titleKey: "about.routes.treaty",
                     type: "treaty",
                 },
                 {
-                    title: "创作激励",
+                    titleKey: "about.routes.incentives",
                     type: "incentives",
                 },
             ],
@@ -56,11 +56,12 @@ export default {
 }
 
 .m-article-tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
-    gap: clamp(40px, 5.56vw, 80px);
+    gap: clamp(12px, 2vw, 32px);
     flex: 0 0 auto;
-    height: 44px;
+    min-height: 44px;
     margin-bottom: 28px;
 }
 
@@ -69,7 +70,8 @@ export default {
     align-items: center;
     justify-content: center;
     height: 100%;
-    width: 96px;
+    width: 100%;
+    min-width: 0;
     color: rgba(255, 255, 255, 0.64);
     font-family: "OPPOSans", "Microsoft YaHei", sans-serif;
     font-size: 22px;
@@ -87,6 +89,27 @@ export default {
     }
 }
 
+.p-article.is-en-US,
+.p-article.is-vi {
+    .m-article-tabs {
+        gap: 12px;
+    }
+
+    .m-article-tab {
+        padding: 0 4px;
+        box-sizing: border-box;
+        font-size: clamp(14px, 1.25vw, 18px);
+        line-height: 1.2;
+        text-align: center;
+        white-space: normal;
+
+        &:hover,
+        &.router-link-exact-active {
+            font-size: clamp(15px, 1.4vw, 20px);
+        }
+    }
+}
+
 .m-article-panel {
     flex: 1 1 auto;
     min-height: 0;
@@ -97,18 +120,30 @@ export default {
 
 @media screen and (min-width: 721px) and (max-width: 1280px) {
     .m-article-tabs {
-        gap: 34px;
-        height: 32px;
+        gap: 10px;
+        min-height: 32px;
         margin-bottom: 18px;
     }
 
     .m-article-tab {
-        width: 68px;
+        width: 100%;
         font-size: 14px;
 
         &:hover,
         &.router-link-exact-active {
             font-size: 16px;
+        }
+    }
+
+    .p-article.is-en-US,
+    .p-article.is-vi {
+        .m-article-tab {
+            font-size: 12px;
+
+            &:hover,
+            &.router-link-exact-active {
+                font-size: 13px;
+            }
         }
     }
 

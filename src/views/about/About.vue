@@ -16,9 +16,9 @@
             </LeftSidebar>
 
             <div class="m-about-layout">
-                <aside class="m-about-sidebar" aria-label="关于我们导航">
+                <aside class="m-about-sidebar" :aria-label="$t('about.navAria')">
                     <div class="m-about-sidebar__title">
-                        <strong>关于</strong>
+                        <strong>{{ $t("about.shortTitle") }}</strong>
                         <span>|</span>
                         <em>ABOUT</em>
                     </div>
@@ -31,7 +31,7 @@
                             :to="getRoutePath(route)"
                         >
                             <i class="u-nav-arrow" aria-hidden="true"></i>
-                            <span class="u-nav-label">{{ route.meta.title }}</span>
+                            <span class="u-nav-label">{{ routeTitle(route) }}</span>
                         </router-link>
                     </nav>
                     <transition name="about-mascot">
@@ -62,7 +62,7 @@
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    编辑
+                                    {{ $t("about.edit") }}
                                 </a>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                 <div class="m-about-mobile__action">
                     <a class="u-website-btn" href="https://rx-planet.com" target="_blank" rel="noopener noreferrer">
                         <i class="u-btn-icon">🌐</i>
-                        <span>访问公司官网</span>
+                        <span>{{ $t("about.visitWebsite") }}</span>
                     </a>
                 </div>
 
@@ -143,27 +143,27 @@ export default {
     data() {
         return {
             logoSrc: `${__imgPath}logo/logo.svg`,
-            copyInfo: [
+            copyInfoSource: [
                 {
                     key: "cooperation",
-                    label: "渠道合作",
+                    labelKey: "about.mobile.cooperation",
                     value: "rx6@qq.com",
                 },
                 {
                     key: "join",
-                    label: "加入我们",
+                    labelKey: "about.mobile.join",
                     value: "",
                     link: "https://www.jx3box.com/notice/21899",
                 },
                 {
                     key: "beian",
-                    label: "备案信息",
+                    labelKey: "about.mobile.registration",
                     value: "湘ICP备2021002288号",
                 },
                 {
                     key: "dev",
-                    label: "技术支持",
-                    value: "湖南浮烟科技有限公司",
+                    labelKey: "about.mobile.support",
+                    valueKey: "about.mobile.company",
                 },
             ],
             version: "v0.0.0",
@@ -171,9 +171,12 @@ export default {
         };
     },
     computed: {
+        copyInfo() {
+            return this.copyInfoSource.map((item) => ({ ...item, label: this.$t(item.labelKey), value: item.valueKey ? this.$t(item.valueKey) : item.value }));
+        },
         name() {
-            if (this.isArticleRoute) return "服务条款";
-            return this.$route.meta.title === "首页" ? "关于我们" : this.$route.meta.title;
+            if (this.isArticleRoute) return this.$t("about.routes.terms");
+            return this.$t(this.$route.meta.titleKey || "about.routes.index");
         },
         mainClass() {
             const routeName = this.isArticleRoute ? "terms" : this.$route.meta?.belongs || this.$route.name || "index";
@@ -214,9 +217,8 @@ export default {
         },
         headingMark() {
             if (this.isArticleRoute) return "";
-            if (this.isAuthorRoute) return "期待你的加入";
-            if (this.isTeamRoute) return "期待你的加入";
-            return this.isGroupRoute ? "幸甚有你，共建美好社区" : "JX3BOX";
+            if (this.isAuthorRoute || this.isTeamRoute) return this.$t("about.heading.join");
+            return this.isGroupRoute ? this.$t("about.heading.community") : "JX3BOX";
         },
         viewKey() {
             return this.isArticleRoute ? "article" : this.$route.fullPath;
@@ -233,6 +235,9 @@ export default {
         },
     },
     methods: {
+        routeTitle(route) {
+            return this.$t(route.meta.titleKey || "about.routes.index");
+        },
         getRoutePath(route) {
             return route.children ? route.children[0].path : route.path;
         },

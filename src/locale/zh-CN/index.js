@@ -1,9 +1,11 @@
 export default {
+    ai: { title: "魔盒 AI 助手", placeholder: "快捷全站检索" },
     news: {
         title: "公告资讯",
         categoryAria: "公告分类",
         tabs: {
             all: "全部",
+            follow: "关注",
             game: "游戏",
             skillChange: "技改",
             box: "魔盒",
@@ -53,6 +55,8 @@ export default {
         noContent: "无内容",
         picture: "[图片]",
         reply: "回帖",
+        loading: "加载中...",
+        loadMore: "加载更多",
     },
     box: {
         title: "魔盒矩阵",
@@ -82,6 +86,7 @@ export default {
         copySuccess: "复制成功",
     },
     activity: {
+        comingSoon: "敬请期待",
         subtitle: "Timeline",
         title: "活动",
         month: "{month}月",
@@ -90,6 +95,7 @@ export default {
         defaultType: "活动",
     },
     joke: {
+        submit: "投喂骚话",
         title: "今日骚话",
         anonymous: "匿名",
         defaultContent: "师父问我为什么110级了还没见过活人，我看了看空荡荡的帮会领地，流下了两行清泪。",

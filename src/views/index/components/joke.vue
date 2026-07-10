@@ -49,7 +49,7 @@
 
             <div class="u-actions flex items-center gap-3 ml-10">
                 <!-- <span class="u-tip text-[12px] text-purple-500 font-bold hidden md:block opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                    投喂骚话
+                    {{ $t("index.joke.submit") }}
                 </span> -->
                 <a
                     href="/joke"

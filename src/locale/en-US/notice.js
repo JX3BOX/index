@@ -1,10 +1,12 @@
 export default {
+    retry: "Retry",
     list: {
         title: "Notice Center",
         desc: "Browse the latest updates, events, feature changes, and redemption notices from JX3BOX.",
         searchPlaceholder: "Search by keyword",
         sticky: "Pinned",
         empty: "No notices in this category.",
+        loadError: "Failed to load notices. Please try again later.",
         jump: "Go",
         authorDefault: "JX3BOX",
         tabs: {
@@ -16,6 +18,7 @@ export default {
         },
     },
     single: {
+        loadError: "Failed to load this notice. Please try again later.",
         back: "Back to list",
         lastUpdated: "Last updated: {date}",
         views: "{count} views",

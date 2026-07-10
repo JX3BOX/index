@@ -1,9 +1,11 @@
 export default {
+    ai: { title: "JX3BOX AI Assistant", placeholder: "Search JX3BOX" },
     news: {
         title: "News",
         categoryAria: "News categories",
         tabs: {
             all: "All",
+            follow: "Following",
             game: "Game",
             skillChange: "Patch",
             box: "JX3BOX",
@@ -53,6 +55,8 @@ export default {
         noContent: "No content",
         picture: "[Image]",
         reply: "Reply",
+        loading: "Loading...",
+        loadMore: "Load more",
     },
     box: {
         title: "JX3BOX Matrix",
@@ -82,6 +86,7 @@ export default {
         copySuccess: "Copied",
     },
     activity: {
+        comingSoon: "Coming soon",
         subtitle: "Timeline",
         title: "Events",
         month: "{month}",
@@ -90,6 +95,7 @@ export default {
         defaultType: "Event",
     },
     joke: {
+        submit: "Submit a quote",
         title: "Quote of the Day",
         anonymous: "Anonymous",
         defaultContent:

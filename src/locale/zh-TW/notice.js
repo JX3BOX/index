@@ -1,10 +1,12 @@
 export default {
+    retry: "重新載入",
     list: {
         title: "公告中心",
         desc: "查看劍網3魔盒的最新動態、營運活動、功能更新與兌換通知。",
         searchPlaceholder: "請輸入關鍵字搜尋",
         sticky: "置頂",
         empty: "當前分類暫無公告內容",
+        loadError: "公告載入失敗，請稍後重試",
         jump: "跳轉",
         authorDefault: "魔盒",
         tabs: {
@@ -16,6 +18,7 @@ export default {
         },
     },
     single: {
+        loadError: "公告詳情載入失敗，請稍後重試",
         back: "返回列表",
         lastUpdated: "最後更新：{date}",
         views: "{count} 閱讀",

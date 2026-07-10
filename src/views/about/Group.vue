@@ -1,7 +1,7 @@
 <template>
     <div class="p-about-group">
         <div class="m-about-group__list">
-            <article v-for="(item, index) in group" :key="item.name" class="m-about-group__item">
+            <article v-for="(item, index) in group" :key="item.nameKey" class="m-about-group__item">
                 <div class="m-about-group__header">
                     <span class="u-group-icon__wrap">
                         <img class="u-group-icon" :class="item.icon" :src="getIcon(item, index)" alt="" />
@@ -15,7 +15,7 @@
                         <button
                             class="u-group-action u-group-action--copy"
                             type="button"
-                            title="复制"
+                            :title="$t('about.group.copy')"
                             @click="copyValue(item)"
                         >
                             <img :src="copyIcon" alt="" />
@@ -26,7 +26,7 @@
                             :href="getActionLink(item)"
                             target="_blank"
                             rel="noopener noreferrer"
-                            title="前往"
+                            :title="$t('about.group.go')"
                         >
                             <img :src="arrowIcon" alt="" />
                         </a>
@@ -57,54 +57,54 @@ export default {
             arrowIcon: iconArrowCircle,
             group: [
                 {
-                    name: "官方邮箱",
+                    nameKey: "email",
                     email: "service@jx3box.com",
                     icon: "el-icon-message",
                 },
                 {
-                    name: "正式服交流群（反馈/兑奖）",
+                    nameKey: "stdChat",
                     qq: 2471800,
                     link: "https://jq.qq.com/?_wv=1027&k=k1aSaI93",
                     icon: "el-icon-service",
                 },
                 {
-                    name: "怀旧服交流群（反馈/兑奖）",
+                    nameKey: "originChat",
                     qq: 590349918,
                     link: "https://jq.qq.com/?_wv=1027&k=oohQF6Yu",
                     icon: "el-icon-service",
                 },
                 {
-                    name: "正式服团长群（副本/赛事）",
+                    nameKey: "stdLeader",
                     qq: 785597424,
                     link: "https://jq.qq.com/?_wv=1027&k=bpNtDAzA",
                     icon: "el-icon-user",
                 },
                 {
-                    name: "怀旧服团长群（萌新教学）",
+                    nameKey: "originLeader",
                     qq: 528707506,
                     link: "https://jq.qq.com/?_wv=1027&k=XiDy5ZKI",
                     icon: "el-icon-user",
                 },
                 {
-                    name: "宏作者群（宏库/职业）",
+                    nameKey: "macro",
                     qq: 297985102,
                     link: "https://jq.qq.com/?_wv=1027&k=ypz3InIy",
                     icon: "el-icon-position",
                 },
                 {
-                    name: "数据作者群（技术帝）",
+                    nameKey: "data",
                     qq: 608303480,
                     link: "https://jq.qq.com/?_wv=1027&k=uSHHxdmd",
                     icon: "el-icon-setting",
                 },
                 {
-                    name: "百科小分队（资历党）",
+                    nameKey: "wiki",
                     qq: 614370825,
                     link: "https://jq.qq.com/?_wv=1027&k=MFwMNVRb",
                     icon: "el-icon-trophy",
                 },
                 {
-                    name: "休闲交流群（颜控党）",
+                    nameKey: "casual",
                     qq: 658035079,
                     link: "https://jq.qq.com/?_wv=1027&k=mA07EfW3",
                     icon: "el-icon-sugar",
@@ -120,12 +120,10 @@ export default {
     },
     methods: {
         getTitle(item) {
-            return item.name.replace(/（.*?）/g, "");
+            return this.$t(`about.group.items.${item.nameKey}.title`);
         },
         getDesc(item) {
-            const matched = item.name.match(/（(.*?)）/);
-            if (matched) return matched[1].replace("/", " / ");
-            return item.email ? "反馈或商务问题建议" : "社群交流";
+            return this.$t(`about.group.items.${item.nameKey}.desc`);
         },
         getValue(item) {
             return String(item.qq || item.email || "");
@@ -167,7 +165,7 @@ export default {
                 document.body.removeChild(input);
             }
 
-            ElMessage.success("已复制");
+            ElMessage.success(this.$t("about.group.copied"));
         },
     },
 };

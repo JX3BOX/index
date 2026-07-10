@@ -14,4 +14,5 @@ export default {
             description: "Notice details: read full content and view update info and engagement stats.",
         },
     },
+    about: { title: "About Us", keywords: "JX3BOX,about,team,authors,contact", description: "Learn about JX3BOX, our team, featured authors, and contact information." },
 };

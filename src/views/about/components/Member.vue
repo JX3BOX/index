@@ -13,7 +13,7 @@
                     <span class="hover-role">{{ item.remark }}</span>
                 </div>
                 <div class="hover-detail">
-                    <div class="u-desc" v-html="item.desc || '暂无介绍'"></div>
+                    <div class="u-desc" v-html="item.desc || $t('about.team.noIntro')"></div>
                 </div>
             </a>
         </el-col>

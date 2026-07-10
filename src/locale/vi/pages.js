@@ -14,4 +14,5 @@ export default {
             description: "Chi tiết thông báo: đọc nội dung đầy đủ và xem thông tin cập nhật, thống kê tương tác.",
         },
     },
+    about: { title: "Về chúng tôi", keywords: "JX3BOX,giới thiệu,đội ngũ,tác giả,liên hệ", description: "Tìm hiểu về JX3BOX, đội ngũ, tác giả nổi bật và thông tin liên hệ." },
 };

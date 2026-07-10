@@ -3,7 +3,7 @@
         <div class="nav-logo-wrap">
             <router-link to="/">
                 <img class="u-logo" svg-inline fill="white" src="@/assets/img/common/logo.svg" />
-                <span class="about-title">关于我们</span>
+                <span class="about-title">{{ $t("about.routes.index") }}</span>
             </router-link>
         </div>
         <ul class="sub-nav-list">
@@ -13,7 +13,7 @@
                 :key="route.path"
                 class="sub-nav-item hvr-underline-from-center"
             >
-                {{ route.meta.title }}
+                {{ $t(route.meta.titleKey || "about.routes.index") }}
             </router-link>
         </ul>
     </nav>

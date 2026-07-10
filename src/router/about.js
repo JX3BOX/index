@@ -7,6 +7,8 @@ const routes = [
         name: "index",
         meta: {
             title: "关于我们",
+            titleKey: "about.routes.index",
+            i18n: { title: "pages.about.title", keywords: "pages.about.keywords", description: "pages.about.description" },
             cache: true,
         },
     },
@@ -16,6 +18,7 @@ const routes = [
         name: "group",
         meta: {
             title: "联系我们",
+            titleKey: "about.routes.group",
             cache: true,
         },
     },
@@ -25,6 +28,7 @@ const routes = [
         name: "team",
         meta: {
             title: "加入团队",
+            titleKey: "about.routes.team",
             cache: true,
         },
     },
@@ -34,6 +38,7 @@ const routes = [
         name: "author",
         meta: {
             title: "签约作者",
+            titleKey: "about.routes.author",
             cache: true,
         },
     },
@@ -44,6 +49,7 @@ const routes = [
         name: "terms",
         meta: {
             title: "服务条款",
+            titleKey: "about.routes.terms",
             cache: true,
         },
         children: [
@@ -53,6 +59,7 @@ const routes = [
                 name: "license",
                 meta: {
                     title: "用户协议",
+                    titleKey: "about.routes.license",
                     cache: true,
                     belongs: "terms",
                     article_id: 21020,
@@ -64,6 +71,7 @@ const routes = [
                 name: "privacy",
                 meta: {
                     title: "隐私政策",
+                    titleKey: "about.routes.privacy",
                     cache: true,
                     belongs: "terms",
                     article_id: 21021,
@@ -78,6 +86,7 @@ const routes = [
         name: "creation",
         meta: {
             title: "创作扶持",
+            titleKey: "about.routes.creation",
             cache: true,
         },
         children: [
@@ -87,6 +96,7 @@ const routes = [
                 name: "treaty",
                 meta: {
                     title: "创作公约",
+                    titleKey: "about.routes.treaty",
                     cache: true,
                     belongs: "creation",
                     article_id: 21022,
@@ -98,6 +108,7 @@ const routes = [
                 name: "incentives",
                 meta: {
                     title: "创作激励",
+                    titleKey: "about.routes.incentives",
                     cache: true,
                     belongs: "creation",
                     article_id: 28917,
