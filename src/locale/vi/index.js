@@ -45,6 +45,7 @@ export default {
         more: "Xem thêm >>",
         tabs: {
             all: "Tất cả",
+            follow: "Đang theo dõi",
             works: "Tác phẩm",
             community: "Bài viết",
         },

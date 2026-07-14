@@ -45,6 +45,7 @@ export default {
         more: "更多 >>",
         tabs: {
             all: "全部",
+            follow: "關注",
             works: "作品",
             community: "帖子",
         },

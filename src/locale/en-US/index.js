@@ -45,6 +45,7 @@ export default {
         more: "More >>",
         tabs: {
             all: "All",
+            follow: "Following",
             works: "Post",
             community: "Forum",
         },
