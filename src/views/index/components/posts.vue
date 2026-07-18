@@ -1,6 +1,9 @@
 <template>
     <section class="m-posts-v5 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-6">
-        <div class="m-posts-v5__tabs flex items-center justify-between px-6 py-5" :aria-label="$t('index.posts.categoryAria')">
+        <div
+            class="m-posts-v5__tabs flex items-center justify-between px-6 py-5"
+            :aria-label="$t('index.posts.categoryAria')"
+        >
             <div class="m-posts-v5__tab-list flex items-center" role="tablist">
                 <button
                     v-for="tab in tabs"
@@ -28,58 +31,79 @@
         </div>
 
         <div
-            v-loading="loading"
             class="m-posts-v5__content"
             :class="{ 'm-posts-v5__content--scroll': activeTab === 'follow' && isLogin && !!displayData.length }"
+            :aria-busy="loading"
         >
-            <a
-                v-for="item in displayData"
-                :key="item.key"
-                class="m-posts-v5__item p-6 hover:bg-gray-50 transition-all flex space-x-5 group cursor-pointer no-underline"
-                :href="item.link"
-                :target="target"
-            >
-                <div class="relative flex-shrink-0">
-                    <div class="m-posts-v5__avatar w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden shadow-inner">
-                        <img :src="item.avatar" :alt="item.authorName" class="w-full h-full object-cover" />
+            <div v-if="loading" class="m-posts-v5__skeleton" aria-hidden="true">
+                <div v-for="item in displayLimit" :key="item" class="m-posts-v5__skeleton-item p-6 flex space-x-5">
+                    <div class="u-skeleton u-skeleton--avatar flex-shrink-0"></div>
+                    <div class="m-posts-v5__skeleton-main flex-1 min-w-0">
+                        <div class="m-posts-v5__skeleton-meta flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <span class="u-skeleton u-skeleton--type mr-3"></span>
+                                <span class="u-skeleton u-skeleton--author"></span>
+                            </div>
+                            <span class="u-skeleton u-skeleton--time"></span>
+                        </div>
+                        <div
+                            class="u-skeleton u-skeleton--title"
+                            :class="{ 'u-skeleton--title-short': item % 3 === 0 }"
+                        ></div>
                     </div>
-                    <!-- <div class="u-badge absolute -bottom-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white flex items-center justify-center text-xs font-black text-gray-900">
+                </div>
+            </div>
+
+            <template v-else>
+                <a
+                    v-for="item in displayData"
+                    :key="item.key"
+                    class="m-posts-v5__item p-6 hover:bg-gray-50 transition-all flex space-x-5 group cursor-pointer no-underline"
+                    :href="item.link"
+                    :target="target"
+                >
+                    <div class="relative flex-shrink-0">
+                        <div class="m-posts-v5__avatar w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden shadow-inner">
+                            <img :src="item.avatar" :alt="item.authorName" class="w-full h-full object-cover" />
+                        </div>
+                        <!-- <div class="u-badge absolute -bottom-1 -right-1 w-6 h-6 bg-yellow-400 rounded-full border-2 border-white flex items-center justify-center text-xs font-black text-gray-900">
                         {{ item.kind === 'work' ? '作' : '帖' }}
                     </div> -->
-                </div>
-
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center flex-wrap">
-                            <span class="u-type text-xs px-2 py-1 rounded mr-2 mb-1">
-                                {{ item.typeLabel }}
-                            </span>
-                            <span class="text-xs text-gray-400 mb-1 italic"> @{{ item.authorName }} </span>
-                        </div>
-                        <time class="text-xs text-gray-300 ml-2">{{ dateFormat(item.time) }}</time>
                     </div>
 
-                    <h4
-                        class="m-posts-v5__title text-lg font-bold text-gray-800 mb-3 mt-0 leading-snug group-hover:text-yellow-600 transition-colors"
-                        :title="item.title"
-                    >
-                        {{ item.title }}
-                    </h4>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center flex-wrap">
+                                <span class="u-type text-xs px-2 py-1 rounded mr-2 mb-1">
+                                    {{ item.typeLabel }}
+                                </span>
+                                <span class="text-xs text-gray-400 mb-1 italic"> @{{ item.authorName }} </span>
+                            </div>
+                            <time class="text-xs text-gray-300 ml-2">{{ dateFormat(item.time) }}</time>
+                        </div>
 
-                    <!-- <div class="flex items-center text-xs font-bold text-gray-400">
+                        <h4
+                            class="m-posts-v5__title text-lg font-bold text-gray-800 mb-3 mt-0 leading-snug group-hover:text-yellow-600 transition-colors"
+                            :title="item.title"
+                        >
+                            {{ item.title }}
+                        </h4>
+
+                        <!-- <div class="flex items-center text-xs font-bold text-gray-400">
                         <span class="u-meta mr-6"><i class="el-icon-view mr-1"></i>{{ item.viewText }}</span>
                         <span class="u-meta mr-6"><i class="el-icon-chat-dot-round mr-1"></i>{{ item.replyText }}</span>
                         <span class="u-meta"><i class="el-icon-share mr-1"></i>分享</span>
                     </div> -->
-                </div>
-            </a>
+                    </div>
+                </a>
 
-            <div
-                v-if="!loading && !displayData.length"
-                class="m-posts-v5__null px-6 py-10 text-center text-sm font-bold text-gray-400"
-            >
-                {{ $t("index.posts.empty") }}
-            </div>
+                <div
+                    v-if="!displayData.length"
+                    class="m-posts-v5__null px-6 py-10 text-center text-sm font-bold text-gray-400"
+                >
+                    {{ $t("index.posts.empty") }}
+                </div>
+            </template>
         </div>
 
         <div
@@ -103,10 +127,10 @@ import User from "@jx3box/jx3box-common/js/user";
 import jx3box from "@jx3box/jx3box-common/data/jx3box.json";
 const { __postType } = jx3box;
 const communityTypes = {
-    "discuz": "论坛", // 交流讨论
-    "story": "论坛", // 江湖故事
-    "guide": "论坛", // 攻略心得
-    "help": "论坛", // 求助寻觅
+    discuz: "论坛", // 交流讨论
+    story: "论坛", // 江湖故事
+    guide: "论坛", // 攻略心得
+    help: "论坛", // 求助寻觅
 };
 
 export default {
@@ -115,7 +139,7 @@ export default {
         return {
             activeTab: "all",
             target: buildTarget(),
-            loading: false,
+            loading: true,
             worksData: [],
             communityData: [],
             feedData: [],
@@ -304,8 +328,12 @@ export default {
         async loadCommunity(client = this.client) {
             const res = await getMixLatest({ client });
             if (client !== this.client) return;
-            const topicList = (res?.data?.data?.topic_list || []).filter((item) => this.isCurrentClientItem(item, client));
-            const replyList = (res?.data?.data?.reply_list || []).filter((item) => this.isCurrentClientItem(item, client));
+            const topicList = (res?.data?.data?.topic_list || []).filter((item) =>
+                this.isCurrentClientItem(item, client)
+            );
+            const replyList = (res?.data?.data?.reply_list || []).filter((item) =>
+                this.isCurrentClientItem(item, client)
+            );
 
             const topicData = topicList.map((item) => this.normalizeCommunityTopic(item));
             const replyData = await Promise.all(replyList.map((item) => this.normalizeCommunityReply(item)));
@@ -429,6 +457,70 @@ export default {
     .m-posts-v5__content--scroll {
         max-height: 36rem;
         overflow-y: auto;
+    }
+
+    .m-posts-v5__skeleton-item {
+        border-bottom: 1px solid #e5e7eb;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .u-skeleton {
+        display: block;
+        background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+        background-size: 400% 100%;
+        animation: posts-skeleton-loading 1.4s ease infinite;
+    }
+
+    .u-skeleton--avatar {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1rem;
+    }
+
+    .u-skeleton--type {
+        width: 3.25rem;
+        height: 1.25rem;
+        border-radius: 0.25rem;
+    }
+
+    .u-skeleton--author {
+        width: 5rem;
+        height: 0.75rem;
+        border-radius: 999px;
+    }
+
+    .u-skeleton--time {
+        width: 3.75rem;
+        height: 0.75rem;
+        border-radius: 999px;
+    }
+
+    .u-skeleton--title {
+        width: 72%;
+        height: 1.25rem;
+        border-radius: 0.375rem;
+    }
+
+    .u-skeleton--title-short {
+        width: 48%;
+    }
+
+    @keyframes posts-skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .u-skeleton {
+            animation: none;
+        }
     }
 
     .m-posts-v5__avatar {

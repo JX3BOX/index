@@ -1,10 +1,37 @@
 <template>
-    <div class="p-notice-detail" v-loading="loading">
-        <section class="m-notice-detail__error" v-if="loadError && !loading">
+    <div class="p-notice-detail" :aria-busy="loading">
+        <article
+            v-if="loading"
+            class="m-notice-detail__skeleton bg-white rounded-xl shadow-sm overflow-hidden"
+            aria-hidden="true"
+        >
+            <header class="m-notice-detail__skeleton-header article-header-bg px-8 py-7 md:px-10 md:py-8">
+                <div class="m-notice-detail__skeleton-headline flex items-center gap-4 mb-10">
+                    <span class="u-detail-skeleton u-detail-skeleton--back"></span>
+                    <span class="u-detail-skeleton u-detail-skeleton--type"></span>
+                    <span class="u-detail-skeleton u-detail-skeleton--title"></span>
+                </div>
+                <div class="m-notice-detail__skeleton-meta flex items-center gap-6 pt-6">
+                    <span class="u-detail-skeleton u-detail-skeleton--meta"></span>
+                    <span class="u-detail-skeleton u-detail-skeleton--meta u-detail-skeleton--meta-short"></span>
+                    <span class="u-detail-skeleton u-detail-skeleton--meta u-detail-skeleton--meta-short"></span>
+                </div>
+            </header>
+            <section class="m-notice-detail__skeleton-body p-8 md:p-10">
+                <span class="u-detail-skeleton u-detail-skeleton--excerpt"></span>
+                <span
+                    v-for="item in 8"
+                    :key="item"
+                    class="u-detail-skeleton u-detail-skeleton--line"
+                    :class="{ 'u-detail-skeleton--line-short': item === 3 || item === 8 }"
+                ></span>
+            </section>
+        </article>
+        <section class="m-notice-detail__error" v-else-if="loadError">
             <p>{{ $t("notice.single.loadError") }}</p>
             <button type="button" @click="load">{{ $t("notice.retry") }}</button>
         </section>
-        <article class="m-notice-detail__article bg-white rounded-xl shadow-sm overflow-hidden" v-else-if="!loading">
+        <article class="m-notice-detail__article bg-white rounded-xl shadow-sm overflow-hidden" v-else>
             <header class="m-notice-detail__header article-header-bg text-white px-8 py-7 md:px-10 md:py-8">
                 <div class="m-notice-detail__headline flex items-center gap-4 mb-10">
                     <button
@@ -31,18 +58,18 @@
                     class="m-notice-detail__meta-row flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/15"
                 >
                     <div class="m-notice-detail__meta-main flex items-center flex-wrap gap-6 text-slate-300 text-sm">
-	                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
-	                            <i class="el-icon-time"></i>
-	                            {{ $t("notice.single.lastUpdated", { date: showDate(post.post_modified) }) }}
-	                        </span>
+                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
+                            <i class="el-icon-time"></i>
+                            {{ $t("notice.single.lastUpdated", { date: showDate(post.post_modified) }) }}
+                        </span>
                         <span class="m-notice-detail__meta-item inline-flex items-center gap-2" v-if="authorName">
                             <i class="el-icon-user"></i>
                             {{ authorName }}
                         </span>
-	                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
-	                            <i class="el-icon-view"></i>
-	                            {{ $t("notice.single.views", { count: formatNumber(stat.views) }) }}
-	                        </span>
+                        <span class="m-notice-detail__meta-item inline-flex items-center gap-2">
+                            <i class="el-icon-view"></i>
+                            {{ $t("notice.single.views", { count: formatNumber(stat.views) }) }}
+                        </span>
                     </div>
 
                     <div class="m-notice-detail__admin flex items-center gap-2" v-if="isAdmin">
@@ -51,9 +78,9 @@
                             :href="edit_link"
                             target="_blank"
                             rel="noopener noreferrer"
-	                        >
-	                            <i class="el-icon-edit-outline mr-2"></i>{{ $t("notice.single.edit") }}
-	                        </a>
+                        >
+                            <i class="el-icon-edit-outline mr-2"></i>{{ $t("notice.single.edit") }}
+                        </a>
                         <el-dropdown trigger="click" @command="handleAdminCommand">
                             <button
                                 class="m-notice-detail__admin-btn m-notice-detail__admin-btn--ghost inline-flex items-center h-10 px-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded transition-all text-sm text-slate-300"
@@ -94,17 +121,17 @@
                         class="m-notice-detail__action-btn px-6 py-2 rounded-full border border-slate-200 text-sm hover:bg-slate-50 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': liked }"
                         @click="toggleLike"
-	                    >
-	                        <i class="el-icon-thumb mr-2"></i>{{ $t("notice.single.like", { count: likeCount }) }}
-	                    </button>
+                    >
+                        <i class="el-icon-thumb mr-2"></i>{{ $t("notice.single.like", { count: likeCount }) }}
+                    </button>
                     <button
                         class="m-notice-detail__action-btn m-notice-detail__action-btn--primary px-6 py-2 rounded-full bg-indigo-600 text-white text-sm hover:bg-indigo-700 inline-flex items-center cursor-pointer"
                         :class="{ 'is-active': starred }"
                         @click="toggleStar"
-	                    >
-	                        <i :class="[starred ? 'el-icon-star-on' : 'el-icon-star-off', 'mr-2']"></i
-	                        >{{ starred ? $t("notice.single.starred") : $t("notice.single.star") }}
-	                    </button>
+                    >
+                        <i :class="[starred ? 'el-icon-star-on' : 'el-icon-star-off', 'mr-2']"></i
+                        >{{ starred ? $t("notice.single.starred") : $t("notice.single.star") }}
+                    </button>
                 </footer>
             </section>
         </article>
@@ -114,13 +141,13 @@
             ref="commentView"
             v-if="!loading && !loadError"
         >
-	            <h2 class="m-notice-detail__comment-title text-2xl md:text-3xl font-bold mb-6">
-	                {{ $t("notice.single.comments") }}
-	            </h2>
+            <h2 class="m-notice-detail__comment-title text-2xl md:text-3xl font-bold mb-6">
+                {{ $t("notice.single.comments") }}
+            </h2>
             <div class="m-notice-detail__comment-box" v-if="id && !post.comment">
                 <JxComment :id="id" category="post" />
             </div>
-	            <div class="m-notice-detail__comment-placeholder" v-else>{{ $t("notice.single.commentsClosed") }}</div>
+            <div class="m-notice-detail__comment-placeholder" v-else>{{ $t("notice.single.commentsClosed") }}</div>
         </section>
 
         <right-affix
@@ -135,8 +162,8 @@
             :style="affixStyle"
         ></right-affix>
 
-        <Admin v-if="!loadError" class="m-notice-detail__admin-panel" :postId="id" app="notice" />
-        <DesignTask v-if="!loadError" v-model="showDesignTask" :post="designTaskPost" />
+        <Admin v-if="!loading && !loadError" class="m-notice-detail__admin-panel" :postId="id" app="notice" />
+        <DesignTask v-if="!loading && !loadError" v-model="showDesignTask" :post="designTaskPost" />
     </div>
 </template>
 
@@ -385,6 +412,85 @@ export default {
         background-size: 20px 20px;
     }
 
+    .m-notice-detail__skeleton-headline {
+        min-height: 36px;
+    }
+
+    .m-notice-detail__skeleton-meta {
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .u-detail-skeleton {
+        display: block;
+        border-radius: 4px;
+        background: linear-gradient(90deg, #eef2f7 25%, #dfe6ef 37%, #eef2f7 63%);
+        background-size: 400% 100%;
+        animation: detail-skeleton-loading 1.4s ease infinite;
+    }
+
+    .m-notice-detail__skeleton-header .u-detail-skeleton {
+        background: linear-gradient(90deg, #303744 25%, #434b59 37%, #303744 63%);
+        background-size: 400% 100%;
+    }
+
+    .u-detail-skeleton--back {
+        width: 32px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .u-detail-skeleton--type {
+        width: 64px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .u-detail-skeleton--title {
+        width: min(62%, 580px);
+        height: 32px;
+    }
+
+    .u-detail-skeleton--meta {
+        width: 180px;
+        height: 14px;
+    }
+
+    .u-detail-skeleton--meta-short {
+        width: 96px;
+    }
+
+    .u-detail-skeleton--excerpt {
+        width: 100%;
+        height: 68px;
+        margin-bottom: 32px;
+    }
+
+    .u-detail-skeleton--line {
+        width: 100%;
+        height: 16px;
+        margin-bottom: 18px;
+    }
+
+    .u-detail-skeleton--line-short {
+        width: 58%;
+        margin-bottom: 32px;
+    }
+
+    @keyframes detail-skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .u-detail-skeleton {
+            animation: none;
+        }
+    }
+
     .m-notice-detail__type {
         white-space: nowrap;
         word-break: keep-all;
@@ -504,6 +610,33 @@ export default {
 
         .m-notice-detail__header {
             padding: 14px 12px 16px !important;
+        }
+
+        .m-notice-detail__skeleton-header {
+            padding: 14px 12px 16px !important;
+        }
+
+        .m-notice-detail__skeleton-headline {
+            display: grid !important;
+            grid-template-columns: auto auto 1fr;
+            gap: 8px !important;
+            margin-bottom: 12px !important;
+        }
+
+        .u-detail-skeleton--title {
+            grid-column: 1 / -1;
+            width: 88%;
+            height: 24px;
+        }
+
+        .m-notice-detail__skeleton-meta {
+            flex-wrap: wrap;
+            gap: 8px 12px !important;
+            padding-top: 12px !important;
+        }
+
+        .m-notice-detail__skeleton-body {
+            padding: 14px !important;
         }
 
         .m-notice-detail__headline {

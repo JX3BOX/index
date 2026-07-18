@@ -30,8 +30,27 @@
             </el-input>
         </section>
 
-        <section class="m-notice-list__body" v-loading="loading">
-            <div class="m-notice-list__empty" v-if="loadError && !loading">
+        <section class="m-notice-list__body" :aria-busy="loading">
+            <div v-if="loading" class="m-notice-list__skeleton" aria-hidden="true">
+                <div v-for="item in per" :key="item" class="m-notice-list__skeleton-item">
+                    <div class="m-notice-list__skeleton-meta">
+                        <div class="m-notice-list__skeleton-flags">
+                            <span class="u-notice-skeleton u-notice-skeleton--tag"></span>
+                            <span class="u-notice-skeleton u-notice-skeleton--source"></span>
+                        </div>
+                        <span
+                            class="u-notice-skeleton u-notice-skeleton--title"
+                            :class="{ 'u-notice-skeleton--title-short': item % 3 === 0 }"
+                        ></span>
+                        <span class="u-notice-skeleton u-notice-skeleton--author"></span>
+                    </div>
+                    <div class="m-notice-list__skeleton-date">
+                        <span class="u-notice-skeleton u-notice-skeleton--day"></span>
+                        <span class="u-notice-skeleton u-notice-skeleton--stamp"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="m-notice-list__empty" v-else-if="loadError">
                 <p>{{ $t("notice.list.loadError") }}</p>
                 <button class="m-notice-list__retry" type="button" @click="loadPosts">
                     {{ $t("notice.retry") }}
@@ -100,7 +119,7 @@ export default {
     name: "NoticeList",
     data: function () {
         return {
-            loading: false,
+            loading: true,
             loadError: false,
             list: [],
             page: 1,
@@ -287,10 +306,11 @@ export default {
 
     .m-notice-list__header {
         padding: 20px 24px;
-        background-color:@bg-black;
+        background-color: @bg-black;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
         background-size: 20px 20px;
     }
 
@@ -364,6 +384,105 @@ export default {
     .m-notice-list__body {
         padding: 16px 0;
         min-height: 420px;
+    }
+
+    .m-notice-list__skeleton-item {
+        display: flex;
+        gap: 22px;
+        justify-content: space-between;
+        min-height: 116px;
+        margin-bottom: 14px;
+        padding: 18px 26px;
+        border: 1px solid #e8edf6;
+        border-radius: 0 72px 0 0;
+        background: #fdfefe;
+        box-sizing: border-box;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .m-notice-list__skeleton-meta {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .m-notice-list__skeleton-flags {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 11px;
+    }
+
+    .m-notice-list__skeleton-date {
+        width: 168px;
+        padding-left: 24px;
+        border-left: 1px solid #eef2f8;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .u-notice-skeleton {
+        display: block;
+        border-radius: 4px;
+        background: linear-gradient(90deg, #f1f4f8 25%, #e3e9f1 37%, #f1f4f8 63%);
+        background-size: 400% 100%;
+        animation: notice-skeleton-loading 1.4s ease infinite;
+    }
+
+    .u-notice-skeleton--tag {
+        width: 64px;
+        height: 28px;
+    }
+
+    .u-notice-skeleton--source {
+        width: 58px;
+        height: 12px;
+    }
+
+    .u-notice-skeleton--title {
+        width: 68%;
+        height: 22px;
+    }
+
+    .u-notice-skeleton--title-short {
+        width: 48%;
+    }
+
+    .u-notice-skeleton--author {
+        width: 92px;
+        height: 13px;
+        margin-top: 12px;
+    }
+
+    .u-notice-skeleton--day {
+        width: 104px;
+        height: 42px;
+    }
+
+    .u-notice-skeleton--stamp {
+        width: 76px;
+        height: 14px;
+    }
+
+    @keyframes notice-skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .u-notice-skeleton {
+            animation: none;
+        }
     }
 
     .m-notice-list__retry {
@@ -596,6 +715,18 @@ export default {
             padding: 12px;
             border-radius: 10px;
             gap: 12px;
+        }
+
+        .m-notice-list__skeleton-item {
+            min-height: 104px;
+            padding: 12px;
+            border-radius: 10px;
+            gap: 12px;
+        }
+
+        .m-notice-list__skeleton-date {
+            width: 90px;
+            padding-left: 12px;
         }
 
         .m-notice-list__item-title {
