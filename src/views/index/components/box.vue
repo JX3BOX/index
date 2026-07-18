@@ -1,5 +1,9 @@
 <template>
-    <section v-if="data && data.length" class="m-box-v5 m-box bg-white shadow-xs border border-gray-200">
+    <section
+        v-if="loading || (data && data.length)"
+        class="m-box-v5 m-box bg-white shadow-xs border border-gray-200"
+        :aria-busy="loading"
+    >
         <div class="m-box-v5__header flex items-center justify-between mb-8">
             <div class="m-box-v5__header-left flex items-center">
                 <div class="u-header-icon-wrap">
@@ -12,19 +16,32 @@
             </div>
 
             <div class="m-box-v5__header-right flex items-center gap-2">
-                <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
-                    {{ $t("index.box.customize") }}
-                </button>
+                <span v-if="loading" class="u-box-skeleton u-box-skeleton--button" aria-hidden="true"></span>
                 <template v-else>
-                    <button class="u-btn u-btn--light" type="button" @click="resetLocal">
-                        {{ $t("index.box.reset") }}
+                    <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
+                        {{ $t("index.box.customize") }}
                     </button>
-                    <button class="u-btn u-btn--dark" type="button" @click="save">{{ $t("index.box.save") }}</button>
+                    <template v-else>
+                        <button class="u-btn u-btn--light" type="button" @click="resetLocal">
+                            {{ $t("index.box.reset") }}
+                        </button>
+                        <button class="u-btn u-btn--dark" type="button" @click="save">
+                            {{ $t("index.box.save") }}
+                        </button>
+                    </template>
                 </template>
             </div>
         </div>
 
+        <div v-if="loading" class="m-box-v5__list m-box-v5__skeleton-list" aria-hidden="true">
+            <div v-for="item in skeletonItemCount" :key="item" class="m-box-v5__skeleton-item">
+                <span class="u-box-skeleton u-box-skeleton--icon"></span>
+                <span class="u-box-skeleton u-box-skeleton--text"></span>
+            </div>
+        </div>
+
         <draggable
+            v-else
             class="m-box-v5__list"
             :class="{ isEditMode: !options.disabled }"
             tag="ul"
@@ -99,7 +116,7 @@
             </template>
         </draggable>
 
-        <div class="m-box-v5__footer">
+        <div v-if="!loading" class="m-box-v5__footer">
             <button class="u-btn u-btn--light" type="button" v-if="defined" @click="reset">
                 {{ $t("index.box.reset") }}
             </button>
@@ -139,6 +156,7 @@ export default {
         return {
             // 数据
             data: [],
+            loading: true,
 
             // 默认
             default_map: {},
@@ -194,6 +212,9 @@ export default {
         prefix: function () {
             return this.client === "std" ? "www" : "origin";
         },
+        skeletonItemCount: function () {
+            return this.data.filter((item) => item.status && this.canSee(item.uuid)).length || 12;
+        },
     },
     methods: {
         buildRawData(raw) {
@@ -229,6 +250,7 @@ export default {
                 })
                 .finally(() => {
                     this.getBoxSetting();
+                    this.loading = false;
                 });
         },
         getBoxSetting: function () {
@@ -524,6 +546,58 @@ export default {
         }
     }
 
+    .u-box-skeleton {
+        display: block;
+        background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+        background-size: 400% 100%;
+        animation: box-skeleton-loading 1.4s ease infinite;
+    }
+
+    .u-box-skeleton--button {
+        width: 6rem;
+        height: 2.25rem;
+        border-radius: 1rem;
+    }
+
+    .m-box-v5__skeleton-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 5.6rem;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .u-box-skeleton--icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+    }
+
+    .u-box-skeleton--text {
+        width: 65%;
+        height: 10px;
+        margin: 2.8px 0;
+        border-radius: 999px;
+    }
+
+    @keyframes box-skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .u-box-skeleton {
+            animation: none;
+        }
+    }
+
     .m-box-v5__list {
         margin: 0;
         padding: 0;
@@ -752,6 +826,11 @@ export default {
             white-space: nowrap;
         }
 
+        .u-box-skeleton--button {
+            width: 4.75rem;
+            height: 2rem;
+        }
+
         .u-header-icon-wrap {
             width: 2.5rem;
             height: 2.5rem;
@@ -778,6 +857,11 @@ export default {
             max-width: 4rem;
         }
 
+        .m-box-v5__skeleton-item {
+            max-width: 4rem;
+            padding: 0.75rem 0.45rem;
+        }
+
         .m-box-v5__item {
             border-radius: 1.2rem;
             padding: 0.75rem 0.45rem;
@@ -789,6 +873,17 @@ export default {
             height: 3rem;
             border-radius: 0.85rem;
             margin-bottom: 0.5rem;
+        }
+
+        .u-box-skeleton--icon {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.85rem;
+        }
+
+        .u-box-skeleton--text {
+            margin: 1px 0;
         }
 
         .u-pic {

@@ -1,28 +1,41 @@
 <template>
-    <div class="m-slider-box shadow-s">
-        <div class="m-tv-station">
-            <div class="m-slider" v-if="ready" id="m-home-slider">
-                <div class="u-slider" v-for="(item, i) in data" :key="i" :style="{ backgroundColor: item.bgcolor }">
-                    <a class="u-pic" :href="item.link" :target="target">
-                        <img :src="showSlider(item.img)" />
+    <div class="m-slider-box shadow-s" :aria-busy="loading">
+        <div v-if="loading" class="m-slider-skeleton" aria-hidden="true">
+            <div class="u-slider-skeleton u-slider-skeleton--main"></div>
+            <div class="m-slider-skeleton__thumbnails">
+                <span v-for="item in 8" :key="item" class="u-slider-skeleton u-slider-skeleton--thumbnail"></span>
+            </div>
+        </div>
+        <template v-else>
+            <div class="m-tv-station">
+                <div class="m-slider" v-if="ready" id="m-home-slider">
+                    <div
+                        class="u-slider"
+                        v-for="(item, i) in data"
+                        :key="i"
+                        :style="{ backgroundColor: item.bgcolor }"
+                    >
+                        <a class="u-pic" :href="item.link" :target="target">
+                            <img :src="showSlider(item.img)" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="m-slider-thumbnail">
+                <div
+                    class="u-thumbnail"
+                    :class="{ active: active === i }"
+                    v-for="(item, i) in data"
+                    :key="i"
+                    :style="{ backgroundColor: item.bgcolor }"
+                    @click="setActive(i)"
+                >
+                    <a class="u-pic">
+                        <img :src="showThumbnail(item.img)" />
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="m-slider-thumbnail">
-            <div
-                class="u-thumbnail"
-                :class="{ active: active === i }"
-                v-for="(item, i) in data"
-                :key="i"
-                :style="{ backgroundColor: item.bgcolor }"
-                @click="setActive(i)"
-            >
-                <a class="u-pic">
-                    <img :src="showThumbnail(item.img)" />
-                </a>
-            </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -37,6 +50,7 @@ export default {
         return {
             data: [],
             active: 0,
+            loading: true,
             ratio: window.devicePixelRatio || 1,
             w: window.innerWidth,
 
@@ -93,9 +107,13 @@ export default {
                 type: "slider",
                 per: 8,
                 status: 1,
-            }).then((res) => {
-                this.data = this.sortWithPowerShuffle(res.data.data.list);
-            });
+            })
+                .then((res) => {
+                    this.data = this.sortWithPowerShuffle(res.data.data.list);
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
         sortWithPowerShuffle(list) {
             return _.chain(list)

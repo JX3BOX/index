@@ -1,5 +1,8 @@
 <template>
-    <div class="m-news bg-white p-5 shadow-xs border border-gray-200 border-opacity-60 mb-6">
+    <div
+        class="m-news bg-white p-5 shadow-xs border border-gray-200 border-opacity-60 mb-6"
+        :aria-busy="isLoading"
+    >
         <div class="m-news-header">
             <div class="u-left">
                 <a
@@ -31,7 +34,13 @@
                 </button>
             </div>
         </div>
-        <ul class="m-news-list m-sideblock-list" v-if="data">
+        <ul v-if="isLoading" class="m-news-list m-sideblock-list m-news-skeleton" aria-hidden="true">
+            <li v-for="item in 5" :key="item">
+                <span class="u-news-skeleton u-news-skeleton--time"></span>
+                <span class="u-news-skeleton u-news-skeleton--title"></span>
+            </li>
+        </ul>
+        <ul v-else class="m-news-list m-sideblock-list">
             <li v-for="(item, i) in data" :key="i">
                 <em v-if="item.time" class="u-time font-sans tabular-nums">{{ dateFormat(item.time) }}</em>
                 <a
@@ -87,6 +96,12 @@ export default {
 
             // 技改
             skill_change_data: [],
+
+            loading: {
+                game: true,
+                box: true,
+                skill_change: true,
+            },
         };
     },
     computed: {
@@ -114,6 +129,12 @@ export default {
         data: function () {
             return this.mode == "all" ? this.all_data : this[this.mode + "_data"];
         },
+        isLoading: function () {
+            if (this.mode === "all") {
+                return this.loading.game || this.loading.box;
+            }
+            return this.loading[this.mode];
+        },
         zlp_map() {
             // 生成对象 {key: value}
             return all_map.reduce((obj, item) => {
@@ -137,17 +158,21 @@ export default {
             this.mode = val;
         },
         loadGameData: function () {
-            getGameNews({ client: this.client }).then((res) => {
-                this.game_data = res?.data.data.list
-                    .map((item) => {
-                        item.time = dayjs(item.post_date).toDate();
-                        item.type = "game";
-                        item.title = item.post_title;
-                        item.url = item.post_url;
-                        return item;
-                    })
-                    .slice(0, 5);
-            });
+            getGameNews({ client: this.client })
+                .then((res) => {
+                    this.game_data = res?.data.data.list
+                        .map((item) => {
+                            item.time = dayjs(item.post_date).toDate();
+                            item.type = "game";
+                            item.title = item.post_title;
+                            item.url = item.post_url;
+                            return item;
+                        })
+                        .slice(0, 5);
+                })
+                .finally(() => {
+                    this.loading.game = false;
+                });
         },
         loadBoxData: function () {
             getPostsFree({
@@ -155,29 +180,37 @@ export default {
                 type: "notice",
                 per: 5,
                 sticky: 1,
-            }).then((res) => {
-                this.box_data = res.data.data?.list?.map((item) => {
-                    item.title = item.post_title;
-                    item.url = `/notice/${item.ID}`;
-                    item.time = new Date(item.post_modified);
-                    item.type = "box";
-                    return item;
+            })
+                .then((res) => {
+                    this.box_data = res.data.data?.list?.map((item) => {
+                        item.title = item.post_title;
+                        item.url = `/notice/${item.ID}`;
+                        item.time = new Date(item.post_modified);
+                        item.type = "box";
+                        return item;
+                    });
+                })
+                .finally(() => {
+                    this.loading.box = false;
                 });
-            });
         },
         loadSkillChangeData: function () {
             const params = {
                 client: this.client,
             };
-            getChangelog(params).then((res) => {
-                this.skill_change_data = (res.data.data?.list || []).slice(0, 5).map((item) => {
-                    item.title = `【${this.zlp_map[item.zlp]}】${item.title}`;
-                    item.url = item.link || getLink("bps", item.post_id);
-                    item.time = new Date(item.date);
-                    item.type = "skill_change";
-                    return item;
+            getChangelog(params)
+                .then((res) => {
+                    this.skill_change_data = (res.data.data?.list || []).slice(0, 5).map((item) => {
+                        item.title = `【${this.zlp_map[item.zlp]}】${item.title}`;
+                        item.url = item.link || getLink("bps", item.post_id);
+                        item.time = new Date(item.date);
+                        item.type = "skill_change";
+                        return item;
+                    });
+                })
+                .finally(() => {
+                    this.loading.skill_change = false;
                 });
-            });
         },
         itemStyle(item) {
             if (item?.color) {

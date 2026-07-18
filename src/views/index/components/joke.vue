@@ -1,5 +1,5 @@
 <template>
-    <section class="m-joke-v5-purple group">
+    <section class="m-joke-v5-purple group" :aria-busy="loading">
         <div class="u-container flex items-center px-6 py-3 my-6">
             <a
                 class="u-label flex-shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 mr-6 no-underline text-white font-bold rounded-xl transition-transform hover:scale-105"
@@ -24,7 +24,12 @@
                 <span>{{ $t("index.joke.title") }}</span>
             </a>
 
-            <div class="u-content flex-1 min-w-0 relative z-10">
+            <div v-if="loading" class="u-content u-joke-skeleton flex-1 min-w-0 relative z-10" aria-hidden="true">
+                <span class="u-joke-skeleton__bar u-joke-skeleton__bar--author"></span>
+                <span class="u-joke-skeleton__bar u-joke-skeleton__bar--content"></span>
+            </div>
+
+            <div v-else class="u-content flex-1 min-w-0 relative z-10">
                 <el-carousel
                     height="48px"
                     direction="vertical"
@@ -91,6 +96,7 @@ export default {
     data: function () {
         return {
             data: [],
+            loading: true,
         };
     },
     computed: {
@@ -118,6 +124,9 @@ export default {
                 })
                 .catch(() => {
                     this.data = [];
+                })
+                .finally(() => {
+                    this.loading = false;
                 });
         },
         render: function () {
@@ -181,6 +190,47 @@ export default {
     .u-quote {
         color: #5b5cf5;
         opacity: 0.6;
+    }
+
+    .u-joke-skeleton {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        height: 48px;
+    }
+
+    .u-joke-skeleton__bar {
+        display: block;
+        height: 12px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+        background-size: 400% 100%;
+        animation: joke-skeleton-loading 1.4s ease infinite;
+    }
+
+    .u-joke-skeleton__bar--author {
+        width: 6rem;
+        flex-shrink: 0;
+    }
+
+    .u-joke-skeleton__bar--content {
+        width: 60%;
+        max-width: 32rem;
+    }
+
+    @keyframes joke-skeleton-loading {
+        0% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .u-joke-skeleton__bar {
+            animation: none;
+        }
     }
 
     .el-carousel__container {
