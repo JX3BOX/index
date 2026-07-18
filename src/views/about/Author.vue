@@ -1,5 +1,5 @@
 <template>
-    <div class="p-author">
+    <div class="p-author" :aria-busy="loading">
         <div class="m-author-intro">
             <p>{{ $t("about.author.intro") }}</p>
             <a class="u-author-join" href="https://www.jx3box.com/dashboard/cooperation" target="_blank" rel="noopener noreferrer">
@@ -8,7 +8,15 @@
             </a>
         </div>
 
-        <div class="m-author-panel" v-if="list.length">
+        <div v-if="loading" class="m-author-skeleton" aria-hidden="true">
+            <div class="m-author-skeleton__grid">
+                <div v-for="item in 20" :key="item" class="m-author-skeleton__card">
+                    <span class="u-author-skeleton u-author-skeleton--avatar"></span>
+                    <span class="u-author-skeleton u-author-skeleton--name"></span>
+                </div>
+            </div>
+        </div>
+        <div class="m-author-panel" v-else-if="list.length">
             <div class="m-author-list">
                 <a
                     v-for="item in list"
@@ -35,12 +43,15 @@ export default {
     data() {
         return {
             list: [],
+            loading: true,
         };
     },
     methods: {
         load() {
             getSuperAuthor().then((data) => {
                 this.list = data || [];
+            }).finally(() => {
+                this.loading = false;
             });
         },
         showAvatar(url) {
@@ -173,6 +184,62 @@ export default {
     white-space: nowrap;
 }
 
+.m-author-skeleton {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.m-author-skeleton__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.m-author-skeleton__card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 48px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.u-author-skeleton {
+    display: block;
+    background: linear-gradient(90deg, rgba(121, 130, 148, 0.1) 25%, rgba(121, 130, 148, 0.2) 37%, rgba(121, 130, 148, 0.1) 63%);
+    background-size: 400% 100%;
+    animation: author-skeleton-loading 1.4s ease infinite;
+}
+
+.u-author-skeleton--avatar {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.u-author-skeleton--name {
+    width: 62%;
+    height: 14px;
+    border-radius: 999px;
+}
+
+@keyframes author-skeleton-loading {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
 @media screen and (min-width: 721px) and (max-width: 1280px) {
     .m-author-intro {
         gap: 16px;
@@ -196,6 +263,20 @@ export default {
     .m-author-panel {
         padding: 16px;
         border-radius: 18px;
+    }
+
+    .m-author-skeleton {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .m-author-skeleton__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .m-author-skeleton__card {
+        min-height: 40px;
+        padding: 8px 10px;
     }
 
     .m-author-list {
@@ -240,12 +321,26 @@ export default {
         padding: 12px;
     }
 
+    .m-author-skeleton {
+        padding: 12px;
+    }
+
+    .m-author-skeleton__grid {
+        grid-template-columns: 1fr;
+    }
+
     .m-author-list {
         grid-template-columns: 1fr;
         width: 100%;
         max-height: none;
         margin-right: 0;
         padding: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .u-author-skeleton {
+        animation: none;
     }
 }
 </style>
