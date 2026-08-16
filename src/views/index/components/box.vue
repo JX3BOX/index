@@ -22,10 +22,10 @@
                         {{ $t("index.box.customize") }}
                     </button>
                     <template v-else>
-                        <button class="u-btn u-btn--light" type="button" @click="resetLocal">
+                        <button class="u-btn u-btn--light" type="button" :disabled="saving" @click="resetLocal">
                             {{ $t("index.box.reset") }}
                         </button>
-                        <button class="u-btn u-btn--dark" type="button" @click="save">
+                        <button class="u-btn u-btn--dark" type="button" :disabled="saving" @click="save">
                             {{ $t("index.box.save") }}
                         </button>
                     </template>
@@ -70,10 +70,11 @@
                         :open-delay="50"
                     >
                         <a
-                            :href="!options.disabled ? '' : item.href"
+                            :href="options.disabled ? item.href : null"
                             :target="item.href.startsWith('/') ? target : '_blank'"
                             class="m-box-v5__item group"
                             :class="{ 'u-doing': !item.status }"
+                            @click="markAsSeen(item)"
                         >
                             <div class="m-box-v5__icon-box">
                                 <img
@@ -81,7 +82,7 @@
                                     :src="getBoxIcon(item.img)"
                                     :class="{ hidden: !canSee(item.uuid) }"
                                 />
-                                <span v-if="item.hasMark" class="u-mark-dot"></span>
+                                <span v-if="shouldShowMark(item)" class="u-mark-dot"></span>
                             </div>
                             <span class="u-txt">{{ showAbbr ? item.abbr : item.name }}</span>
 
@@ -144,6 +145,8 @@ import Mini_bread from "./mini_bread.vue";
 const { __cdn } = JX3BOX;
 
 const KEY = "boxmatrix";
+const MARK_SEEN_KEY = "boxmatrix_seen_marks_v1";
+const LEGACY_MARK_VERSION = 1;
 
 export default {
     name: "box",
@@ -174,7 +177,9 @@ export default {
                 disabled: true,
                 animation: 150,
             },
+            saving: false,
             showAbbr: true,
+            seenMarks: {},
 
             // 云端
             isLogin: User.isLogin(),
@@ -219,8 +224,9 @@ export default {
     methods: {
         buildRawData(raw) {
             const client = location.href.includes("origin") ? "origin" : "std";
+            const source = Array.isArray(raw) ? raw : box;
             const default_data =
-                raw?.filter((item) => {
+                source.filter((item) => {
                     return item.client == "all" ? true : item.client == client;
                 }) || [];
             this.default_data = default_data;
@@ -291,30 +297,31 @@ export default {
             });
         },
         buildData: function (data) {
-            if (data.order && data.order.length) {
-                this.defined = true;
+            if (!data || typeof data !== "object") return;
 
-                if (data.order.length != this.default_order.length) {
-                    let diff = _.difference(this.default_order, data.order);
-                    this.order = data.order.concat(diff);
-                } else {
-                    this.order = data.order;
-                }
+            this.data = [...this.default_data];
+            this.order = [...this.default_order];
+            this.hide = [];
+            this.lf = [...this.default_lf];
+            this.defined = false;
 
-                let custom_data = [];
-                this.order.forEach((uuid) => {
-                    if (this.default_map[uuid]) {
-                        custom_data.push(this.default_map[uuid]);
-                    }
-                });
-                this.data = custom_data;
-            }
-            if (data.hide && data.hide.length) {
-                this.hide = data.hide;
+            const normalizeUuids = (value) => {
+                if (!Array.isArray(value)) return [];
+                return _.uniq(value.filter((uuid) => typeof uuid === "string" && this.default_map[uuid]));
+            };
+
+            if (Array.isArray(data.order)) {
+                const savedOrder = normalizeUuids(data.order);
+                this.order = savedOrder.concat(_.difference(this.default_order, savedOrder));
+                this.data = this.order.map((uuid) => this.default_map[uuid]);
                 this.defined = true;
             }
-            if (data.lf && data.lf.length) {
-                this.lf = data.lf;
+            if (Array.isArray(data.hide)) {
+                this.hide = normalizeUuids(data.hide);
+                this.defined = true;
+            }
+            if (Array.isArray(data.lf)) {
+                this.lf = normalizeUuids(data.lf);
                 this.defined = true;
             }
         },
@@ -329,13 +336,35 @@ export default {
             this.order = order;
             this.defined = true;
         },
-        save: function () {
-            this.options.disabled = true;
-            if (this.defined) {
-                localStorage.setItem(KEY, this.setting);
+        save: async function () {
+            if (this.saving) return;
+            if (!this.defined) {
+                this.options.disabled = true;
+                return;
+            }
+
+            this.saving = true;
+            try {
+                const setting = this.setting;
+                localStorage.setItem(KEY, setting);
                 if (this.isLogin) {
-                    setMeta(KEY, this.setting);
+                    await setMeta(KEY, setting);
                 }
+                this.options.disabled = true;
+                this.$notify({
+                    title: this.$t("index.box.notify.successTitle"),
+                    message: this.$t("index.box.notify.saveSuccess"),
+                    type: "success",
+                });
+            } catch (e) {
+                console.error("[saveBoxSetting]保存设置失败", e);
+                this.$notify({
+                    title: this.$t("index.box.notify.errorTitle"),
+                    message: this.$t("index.box.notify.saveFailed"),
+                    type: "error",
+                });
+            } finally {
+                this.saving = false;
             }
         },
         resetLocal: function () {
@@ -348,6 +377,7 @@ export default {
                     this.order = [...this.default_order];
                     this.lf = [...this.default_lf];
                     this.hide = [];
+                    this.defined = true;
                 })
                 .catch(() => {});
         },
@@ -356,12 +386,12 @@ export default {
                 confirmButtonText: this.$t("index.box.notify.resetConfirmBtn"),
                 callback: (action) => {
                     if (action == "confirm") {
-                        this.data = this.default_data;
-                        this.order = [];
-                        this.lf = this.default_lf;
+                        this.data = [...this.default_data];
+                        this.order = [...this.default_order];
+                        this.lf = [...this.default_lf];
                         this.hide = [];
-                        this.defined = false;
-
+                        this.defined = true;
+                        this.save();
                     }
                 },
             });
@@ -415,6 +445,53 @@ export default {
             }
             this.defined = true;
         },
+        normalizeMarkTime(value) {
+            if (value === null || value === undefined || value === "") return 0;
+
+            const numericValue = Number(value);
+            const time = Number.isFinite(numericValue) ? numericValue : Date.parse(value);
+            return Number.isFinite(time) && time > 0 ? time : 0;
+        },
+        getMarkVersion(item) {
+            if (!item?.hasMark) return 0;
+            return this.normalizeMarkTime(item.markTime) || LEGACY_MARK_VERSION;
+        },
+        loadSeenMarks() {
+            try {
+                const value = JSON.parse(localStorage.getItem(MARK_SEEN_KEY) || "{}");
+                if (!value || typeof value !== "object" || Array.isArray(value)) return;
+
+                this.seenMarks = Object.fromEntries(
+                    Object.entries(value).filter(
+                        ([uuid, version]) => typeof uuid === "string" && this.normalizeMarkTime(version)
+                    )
+                );
+            } catch (e) {
+                console.warn("[loadBoxSeenMarks]红点阅读记录解析失败", e);
+                this.seenMarks = {};
+            }
+        },
+        shouldShowMark(item) {
+            const markVersion = this.getMarkVersion(item);
+            const seenVersion = this.normalizeMarkTime(this.seenMarks[item?.uuid]);
+            return markVersion > seenVersion;
+        },
+        markAsSeen(item) {
+            if (!this.options.disabled) return;
+
+            const markVersion = this.getMarkVersion(item);
+            if (!markVersion || !this.shouldShowMark(item)) return;
+
+            this.seenMarks = {
+                ...this.seenMarks,
+                [item.uuid]: markVersion,
+            };
+            try {
+                localStorage.setItem(MARK_SEEN_KEY, JSON.stringify(this.seenMarks));
+            } catch (e) {
+                console.warn("[saveBoxSeenMarks]红点阅读记录保存失败", e);
+            }
+        },
         getPop: function () {
             getHelperPnt().then((res) => {
                 let data = res.data.data;
@@ -445,6 +522,7 @@ export default {
         },
     },
     created: function () {
+        this.loadSeenMarks();
         this.buildRawData(box);
     },
     mounted: function () {
@@ -516,6 +594,11 @@ export default {
         line-height: 1;
         transition: all 0.2s ease;
         cursor: pointer;
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
     }
 
     .u-btn--ghost {
