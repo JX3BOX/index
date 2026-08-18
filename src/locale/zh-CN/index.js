@@ -42,7 +42,7 @@ export default {
     },
     posts: {
         categoryAria: "内容分类",
-        more: "更多 >>",
+        more: "更多",
         tabs: {
             all: "全部",
             follow: "关注",

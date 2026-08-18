@@ -42,7 +42,7 @@ export default {
     },
     posts: {
         categoryAria: "Content categories",
-        more: "More >>",
+        more: "More",
         tabs: {
             all: "All",
             follow: "Following",

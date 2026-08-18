@@ -1,13 +1,11 @@
 import { createApp } from "vue";
 import Notice from "../views/notice/Notice";
-import NoticeMini from "../views/notice/NoticeMini";
 
 import router from "../router/notice";
 import store from "../store";
 
 import { createHead } from "@vueuse/head";
 import { createJx3boxUiI18n, getJx3boxUiAvailableLocales, install as JX3BOX_UI } from "@jx3box/jx3box-ui";
-import { isMiniProgram } from "@jx3box/jx3box-common/js/utils";
 import { mergeAppLocaleMessages } from "@/locale";
 import { initRouterI18nHead } from "@/router/i18n-head";
 
@@ -25,8 +23,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import "@/assets/css/tailwind.css";
 
-const RootComponent = isMiniProgram() ? NoticeMini : Notice;
-const app = createApp(RootComponent);
+const app = createApp(Notice);
 
 app.use(router);
 app.use(store);

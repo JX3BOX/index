@@ -252,5 +252,36 @@ export default {
     .u-deco {
         right: 4rem;
     }
+
+    @media screen and (max-width: @phone) {
+        .u-container {
+            padding: 10px 8px 10px 12px;
+        }
+
+        .u-label {
+            margin-right: 10px;
+            padding: 6px 10px;
+        }
+
+        .u-author,
+        .u-deco,
+        .u-joke-skeleton__bar--author {
+            display: none;
+        }
+
+        .u-actions {
+            gap: 0;
+            margin-left: 2px;
+        }
+
+        .u-go {
+            width: 32px;
+            height: 32px;
+        }
+
+        .u-joke-skeleton__bar--content {
+            width: 100%;
+        }
+    }
 }
 </style>

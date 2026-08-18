@@ -42,7 +42,7 @@ export default {
     },
     posts: {
         categoryAria: "Danh mục nội dung",
-        more: "Xem thêm >>",
+        more: "Xem thêm",
         tabs: {
             all: "Tất cả",
             follow: "Đang theo dõi",

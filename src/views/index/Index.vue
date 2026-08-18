@@ -52,7 +52,7 @@ import User from "@jx3box/jx3box-common/js/user";
 import { getProfile, getMeta } from "@/service/user";
 import { getConfig } from "@/service/setting.js";
 import driver from "@/utils/driver.js";
-import { isMiniProgram, isApp } from "@jx3box/jx3box-common/js/utils";
+import { isApp } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "Index",
@@ -124,7 +124,7 @@ export default {
         this.syncFooterPosition();
         window.addEventListener("resize", this.handleResize);
 
-        if (!isMiniProgram() && !isApp()) {
+        if (!isApp()) {
             this.$nextTick(() => {
                 if (User.isLogin()) {
                     getMeta("new_user_guide").then((res) => {
