@@ -151,4 +151,57 @@ export default {
         border-radius: 16px;
     }
 }
+
+@media screen and (max-width: @phone) {
+    .p-article {
+        height: auto;
+    }
+
+    .m-article-tabs {
+        grid-template-columns: repeat(4, minmax(72px, 1fr));
+        gap: 4px;
+        box-sizing: border-box;
+        min-height: 44px;
+        margin-bottom: 12px;
+        padding: 4px;
+        border: 1px solid rgba(97, 95, 255, 0.08);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.72);
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .m-article-tab,
+    .p-article.is-en-US .m-article-tab,
+    .p-article.is-vi .m-article-tab {
+        box-sizing: border-box;
+        min-height: 36px;
+        padding: 7px 6px;
+        border-radius: 8px;
+        color: #666878;
+        font-size: 13px;
+        line-height: 1.3;
+        white-space: nowrap;
+
+        &:hover,
+        &.router-link-exact-active {
+            background: #fff;
+            color: @v4primary500;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(65, 63, 140, 0.1);
+        }
+    }
+
+    .m-article-panel {
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        overflow: visible;
+        box-shadow: 0 10px 30px rgba(46, 52, 73, 0.06);
+    }
+}
 </style>

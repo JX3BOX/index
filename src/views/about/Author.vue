@@ -296,33 +296,41 @@ export default {
 
 @media screen and (max-width: @phone) {
     .p-author {
-        padding: 0 12px;
+        padding: 0;
     }
 
     .m-author-intro {
         align-items: stretch;
         flex-direction: column;
-        gap: 14px;
-        margin-bottom: 16px;
+        gap: 12px;
+        margin-bottom: 14px;
 
         p {
+            padding: 0 2px;
+            color: #655d50;
             font-size: 14px;
+            line-height: 1.7;
         }
     }
 
     .u-author-join {
         width: 100%;
         min-width: 0;
-        padding: 10px 20px;
-        font-size: 16px;
+        min-height: 42px;
+        padding: 9px 20px;
+        font-size: 15px;
+        box-shadow: 0 8px 18px rgba(176, 148, 97, 0.18);
     }
 
     .m-author-panel {
-        padding: 12px;
+        padding: 8px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.62);
     }
 
     .m-author-skeleton {
-        padding: 12px;
+        padding: 8px;
+        border-radius: 16px;
     }
 
     .m-author-skeleton__grid {
@@ -331,10 +339,29 @@ export default {
 
     .m-author-list {
         grid-template-columns: 1fr;
+        gap: 6px;
         width: 100%;
         max-height: none;
         margin-right: 0;
         padding: 0;
+    }
+
+    .m-author-card,
+    .m-author-skeleton__card {
+        min-height: 48px;
+        padding: 10px 12px;
+        border-radius: 10px;
+    }
+
+    .m-author-card {
+        font-size: 15px;
+    }
+
+    .p-author .u-avatar,
+    .u-author-skeleton--avatar {
+        flex-basis: 28px;
+        width: 28px;
+        height: 28px;
     }
 }
 

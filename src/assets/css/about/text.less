@@ -200,13 +200,17 @@
 
 @media screen and (max-width: 720px) {
     .m-about-text {
-        padding: 22px 18px 30px;
+        height: auto;
+        padding: 22px 18px 32px;
         font-size: 14px;
-        line-height: 1.85;
+        line-height: 1.8;
+        overflow: visible;
+        overflow-wrap: anywhere;
 
         h1 {
-            margin-bottom: 20px;
-            font-size: 22px;
+            margin-bottom: 18px;
+            font-size: 20px;
+            line-height: 1.45;
         }
 
         h2 {
@@ -224,6 +228,7 @@
         }
 
         blockquote {
+            margin-bottom: 22px;
             padding: 14px 16px;
             border-radius: 8px;
         }

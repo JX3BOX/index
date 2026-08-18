@@ -493,10 +493,11 @@
 
 @media screen and (max-width: @phone) {
     .m-about-main {
-        .pt(64px);
-        height: calc(100vh - 64px);
-        min-height: 0;
-        overflow: auto;
+        box-sizing: content-box;
+        padding-top: 64px;
+        height: auto;
+        min-height: calc(100vh - 64px);
+        overflow: visible;
 
         &::before {
             .none;
@@ -527,9 +528,34 @@
     }
 
     .m-about-content {
-        padding-top: @bread-height;
-        padding: 20px;
+        padding: calc(@bread-height + 16px) 16px 24px;
         overflow: visible;
+    }
+
+    .m-about-main.is-author {
+        background: linear-gradient(180deg, #f6eddb 0%, #faf8f3 320px, #fff 100%);
+
+        .m-about-stage {
+            padding: 0;
+        }
+
+        .m-about-content {
+            padding: calc(@bread-height + 16px) 16px 24px;
+            overflow: visible;
+        }
+    }
+
+    .m-about-main.is-terms {
+        background: linear-gradient(180deg, #eef0f7 0%, #f7f8fb 320px, #fff 100%);
+
+        .m-about-stage {
+            padding: 0;
+        }
+
+        .m-about-content {
+            padding: calc(@bread-height + 16px) 16px 24px;
+            overflow: visible;
+        }
     }
 
     .m-about-main.is-group {

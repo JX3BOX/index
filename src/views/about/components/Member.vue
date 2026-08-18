@@ -226,6 +226,23 @@ export default {
 
     .about-detail-wrapper .detail-content-wrap .m-detail-item {
         .ml(0);
+        min-height: 76px;
+        height: 76px;
+        padding: 12px 14px;
+        border-radius: 14px;
+
+        .u-profile {
+            gap: 12px;
+        }
+
+        .u-avatar {
+            flex-basis: 48px;
+            .size(48px);
+        }
+
+        .name {
+            font-size: 1rem !important;
+        }
     }
 }
 </style>
