@@ -84,10 +84,12 @@
                                         <div class="m-activity-v5__card-body">
                                             <div class="m-activity-v5__card-meta flex items-center">
                                                 <span
+                                                    v-for="tag in item.tags"
+                                                    :key="tag"
                                                     class="u-type u-type--xs font-bold px-1.5 py-0.5 rounded"
                                                     :class="typeClass(month)"
                                                 >
-                                                    {{ item.type }}
+                                                    {{ tag }}
                                                 </span>
                                                 <i
                                                     v-if="isActiveMonth(month)"
@@ -198,7 +200,7 @@ export default {
             const now = dayjs();
 
             return list
-                .filter((item) => item && item.start_time)
+                .filter((item) => item && item.start_time && item.is_show_index != 0)
                 .map((item, index) => {
                     const start = this.parseActivityTime(item.start_time, false);
                     const end = this.parseActivityTime(item.end_time || item.start_time, true);
@@ -232,10 +234,19 @@ export default {
             return parsed.valueOf();
         },
         resolveTags: function (item) {
-            const tags = [];
-            if (item.type) tags.push(item.type);
-            if (item.category) tags.push(item.category);
-            return tags.slice(0, 3);
+            let tags = item.tags;
+            if (typeof tags === "string") {
+                try {
+                    tags = JSON.parse(tags);
+                } catch (e) {
+                    tags = tags.split(",");
+                }
+            }
+            if (!Array.isArray(tags)) return [];
+            return tags
+                .map((tag) => String(tag).trim())
+                .filter(Boolean)
+                .slice(0, 3);
         },
         resolveCover: function (cover) {
             if (!cover) return "";
