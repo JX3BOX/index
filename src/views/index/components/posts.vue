@@ -559,6 +559,10 @@ export default {
 
 @media screen and (max-width: @phone) {
     .m-posts-v5 {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+        box-sizing: border-box;
         border-radius: 1.25rem;
 
         .m-posts-v5__tabs {
