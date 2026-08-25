@@ -80,6 +80,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
+import { createIndexAnalytics } from "@/utils/analytics";
+const { plugin: analyticsPlugin } = createIndexAnalytics(store);
+app.use(analyticsPlugin);
 
 
 // Final.Mount DOM

@@ -1,21 +1,70 @@
 <template>
-    <div class="p-index">
+    <div class="p-index" v-track-page="analyticsPage">
         <CommonHeader :overlayEnable="true" />
         <div class="m-main" ref="main">
             <div class="m-left m-sidebar">
-                <IndexLeftSidebar />
+                <IndexLeftSidebar
+                    v-track-id="'index.sidebar'"
+                    v-track:exposure.once="{
+                        name: 'index_module_exposure',
+                        id: 'index.sidebar',
+                        props: { module_id: 'sidebar' },
+                    }"
+                />
             </div>
             <div class="m-primary">
-                <Slider />
+                <Slider
+                    v-track-id="'index.slider'"
+                    v-track:exposure.once="{
+                        name: 'index_module_exposure',
+                        id: 'index.slider',
+                        props: { module_id: 'slider' },
+                    }"
+                />
                 <div class="m-primary__main">
                     <div class="m-primary__main-left">
-                        <Box />
-                        <Joke />
-                        <Activity />
-                        <Posts />
+                        <Box
+                            v-track-id="'index.box'"
+                            v-track:exposure.once="{
+                                name: 'index_module_exposure',
+                                id: 'index.box',
+                                props: { module_id: 'box' },
+                            }"
+                        />
+                        <Joke
+                            v-track-id="'index.joke'"
+                            v-track:exposure.once="{
+                                name: 'index_module_exposure',
+                                id: 'index.joke',
+                                props: { module_id: 'joke' },
+                            }"
+                        />
+                        <Activity
+                            v-track-id="'index.activity'"
+                            v-track:exposure.once="{
+                                name: 'index_module_exposure',
+                                id: 'index.activity',
+                                props: { module_id: 'activity' },
+                            }"
+                        />
+                        <Posts
+                            v-track-id="'index.posts'"
+                            v-track:exposure.once="{
+                                name: 'index_module_exposure',
+                                id: 'index.posts',
+                                props: { module_id: 'posts' },
+                            }"
+                        />
                     </div>
                     <div class="m-primary__main-right">
-                        <Jx3world />
+                        <Jx3world
+                            v-track-id="'index.world'"
+                            v-track:exposure.once="{
+                                name: 'index_module_exposure',
+                                id: 'index.world',
+                                props: { module_id: 'world' },
+                            }"
+                        />
                     </div>
                 </div>
             </div>
@@ -77,7 +126,18 @@ export default {
             footerBreakpoint: 1133,
         };
     },
-    computed: {},
+    computed: {
+        analyticsPage() {
+            return {
+                page_key: "index.home",
+                route_name: "index",
+                route_pattern: "/index",
+                route_path: "/index",
+                layout_version: "index-home-v1",
+                event_types: ["page_view", "click", "exposure", "scroll_depth"],
+            };
+        },
+    },
     watch: {},
     methods: {
         syncFooterPosition() {
