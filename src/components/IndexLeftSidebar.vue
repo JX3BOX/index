@@ -3,6 +3,7 @@
         <Welcome />
         <News />
         <Jx3code />
+        <IndexBanner />
         <Followus />
         <Feedback />
     </aside>
@@ -12,6 +13,7 @@
 import Welcome from "@/views/index/components/welcome.vue";
 import News from "@/views/index/components/news.vue";
 import Jx3code from "@/views/index/components/jx3code.vue";
+import IndexBanner from "@/views/index/components/index_banner.vue";
 import Followus from "@/views/index/components/followus.vue";
 import Feedback from "@/views/index/components/feedback.vue";
 
@@ -27,6 +29,7 @@ export default {
         Welcome,
         News,
         Jx3code,
+        IndexBanner,
         Followus,
         Feedback,
     },

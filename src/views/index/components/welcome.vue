@@ -2,18 +2,26 @@
     <div class="m-welcome">
         <el-carousel v-if="banners.length > 1" class="u-calendar-slider" height="100px" :interval="5000" arrow="hover">
             <el-carousel-item v-for="item in banners" :key="item.ID || item.id || item.img">
-                <a class="u-calendar-banner" :href="item.link || '/dashboard'" target="_blank">
+                <a class="u-calendar-banner" href="/index/download">
                     <img :src="resolveBannerImage(item.img)" alt="" />
                 </a>
             </el-carousel-item>
         </el-carousel>
-        <a v-else-if="banners.length === 1" class="u-calendar-banner" :href="banners[0].link || '/dashboard'" target="_blank">
+        <a v-else-if="banners.length === 1" class="u-calendar-banner" href="/index/download">
             <img :src="resolveBannerImage(banners[0].img)" alt="" />
         </a>
         <div v-else class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
+        <span class="u-download-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <rect x="5" y="3" width="14" height="18" rx="3"></rect>
+                <path d="M12 7v7m-3-3 3 3 3-3"></path>
+                <path d="M10 18h4"></path>
+            </svg>
+            <span>下载 App</span>
+        </span>
         <i class="u-hook u-hook-left"><img src="@/assets/img/index/hook.png" /></i>
         <i class="u-hook u-hook-right"><img src="@/assets/img/index/hook.png" /></i>
-        <a v-if="!banners.length" class="u-frame" :href="link" target="_blank"></a>
+        <a v-if="!banners.length" class="u-frame" href="/index/download" aria-label="下载魔盒 App"></a>
     </div>
 </template>
 
@@ -22,7 +30,6 @@ import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
 import { getConfigBanner, getUserSkin } from "@/service/cms.js";
-import { getUserConfig } from "@/service/user";
 
 const { __cdn } = JX3BOX;
 
@@ -35,7 +42,6 @@ export default {
     data: function () {
         return {
             bg: DEFAULT_CALENDAR_SKIN,
-            link: "/dashboard",
             banners: [],
         };
     },
@@ -75,7 +81,6 @@ export default {
                 return;
             }
 
-            this.loadUserConfig();
             getUserSkin({ user_id: uid })
                 .then((res) => {
                     const skins = this.getSkinParts(res?.data?.data);
@@ -152,14 +157,6 @@ export default {
         },
         resolveBannerImage(image = "") {
             return resolveImagePath(image);
-        },
-
-        loadUserConfig() {
-            getUserConfig().then((res) => {
-                if (res.data.data) {
-                    this.link = res.data.data.fav_link || "/dashboard";
-                }
-            });
         },
     },
 };
