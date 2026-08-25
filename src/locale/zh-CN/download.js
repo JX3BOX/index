@@ -1,0 +1,45 @@
+export default {
+    meta: {
+        title: "魔盒下载中心",
+        keywords: "剑网3魔盒下载,剑网3魔盒App,魔盒鸿蒙版,魔盒苹果版",
+        description: "下载剑网3魔盒 App，获取 iOS、HarmonyOS NEXT 及即将上线的 Android 商店版本。",
+    },
+    hero: {
+        eyebrow: "JX3BOX DOWNLOAD",
+        title: "把魔盒，装进口袋",
+        description: "随时查看攻略、资讯与角色数据。选择你的设备平台，下载剑网3魔盒官方 App。",
+        free: "免费下载",
+        sync: "多端体验",
+        secure: "官方正版",
+    },
+    available: {
+        kicker: "AVAILABLE NOW",
+        title: "选择下载平台",
+        description: "Android 可直接下载安装包；Apple 与 HarmonyOS NEXT 可前往对应的官方应用商店。",
+        androidName: "Android 版本",
+        androidDescription: "直接下载官方 Android 安装包，支持 Android 10 及以上系统。",
+        androidAction: "立即下载 Android",
+        appleDescription: "适用于 iPhone 与 iPad，在 App Store 获取最新正式版本。",
+        appleAction: "前往 App Store",
+        harmonyName: "鸿蒙应用市场",
+        harmonyDescription: "专为 HarmonyOS NEXT 打造，在鸿蒙应用市场获取最新版本。",
+        harmonyAction: "前往鸿蒙应用市场",
+    },
+    coming: {
+        kicker: "COMING NEXT",
+        title: "其他应用市场",
+        description: "Android 版本将陆续登陆主流应用商店",
+        android: "Android 版本",
+    },
+    status: {
+        available: "已上线",
+        comingSoon: "即将上线",
+        loading: "正在获取地址",
+        maintaining: "暂时维护中",
+    },
+    note: {
+        title: "下载或使用 App 时遇到问题？",
+        description: "无论是下载安装，还是 App 内的使用问题，都可以提交反馈，我们会尽快为你处理。",
+        action: "提交反馈",
+    },
+};

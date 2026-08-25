@@ -23,6 +23,18 @@ const routes = [
             },
         },
     },
+    {
+        name: "download",
+        path: "/download",
+        component: () => import("@/views/download/Download.vue"),
+        meta: {
+            i18n: {
+                title: "download.meta.title",
+                keywords: "download.meta.keywords",
+                description: "download.meta.description",
+            },
+        },
+    },
 ];
 
 const router = createRouter({

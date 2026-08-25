@@ -1,0 +1,40 @@
+export default {
+    meta: {
+        title: "魔盒下載中心",
+        keywords: "劍網3魔盒下載,劍網3魔盒App,魔盒鴻蒙版,魔盒蘋果版",
+        description: "下載劍網3魔盒 App，取得 iOS、HarmonyOS NEXT 及即將推出的 Android 商店版本。",
+    },
+    hero: {
+        eyebrow: "JX3BOX DOWNLOAD",
+        title: "把魔盒，裝進口袋",
+        description: "隨時查看攻略、資訊與角色資料。選擇你的裝置平台，下載劍網3魔盒官方 App。",
+        free: "免費下載",
+        sync: "多端體驗",
+        secure: "官方正版",
+    },
+    available: {
+        kicker: "AVAILABLE NOW",
+        title: "選擇下載平台",
+        description: "Android 可直接下載安裝檔；Apple 與 HarmonyOS NEXT 可前往對應的官方應用程式商店。",
+        androidName: "Android 版本",
+        androidDescription: "直接下載官方 Android 安裝檔，支援 Android 10 及以上系統。",
+        androidAction: "立即下載 Android",
+        appleDescription: "適用於 iPhone 與 iPad，前往 App Store 取得最新正式版本。",
+        appleAction: "前往 App Store",
+        harmonyName: "鴻蒙應用市場",
+        harmonyDescription: "專為 HarmonyOS NEXT 打造，前往鴻蒙應用市場取得最新版本。",
+        harmonyAction: "前往鴻蒙應用市場",
+    },
+    coming: {
+        kicker: "COMING NEXT",
+        title: "其他應用程式商店",
+        description: "Android 版本將陸續登上主流應用程式商店，正式開放後可直接從本頁取得。",
+        android: "Android 版本",
+    },
+    status: { available: "已上線", comingSoon: "即將上線", loading: "正在取得連結", maintaining: "暫時維護中" },
+    note: {
+        title: "下載或使用 App 時遇到問題？",
+        description: "無論是下載安裝，還是 App 內的使用問題，都可以提交意見回饋，我們會儘快為你處理。",
+        action: "提交意見回饋",
+    },
+};

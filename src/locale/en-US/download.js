@@ -1,0 +1,40 @@
+export default {
+    meta: {
+        title: "JX3BOX Download Center",
+        keywords: "JX3BOX download,JX3BOX App,iOS,HarmonyOS,Android",
+        description: "Download the official JX3BOX app for iOS and HarmonyOS NEXT, with Android stores coming soon.",
+    },
+    hero: {
+        eyebrow: "JX3BOX DOWNLOAD",
+        title: "Take JX3BOX with you",
+        description: "Access guides, news, and character data anywhere. Choose your platform to get the official JX3BOX app.",
+        free: "Free download",
+        sync: "Cross-device",
+        secure: "Official release",
+    },
+    available: {
+        kicker: "AVAILABLE NOW",
+        title: "Choose your platform",
+        description: "Download the Android package directly, or visit the official stores for Apple and HarmonyOS NEXT.",
+        androidName: "Android",
+        androidDescription: "Download the official Android package directly. Android 10 or later is required.",
+        androidAction: "Download Android",
+        appleDescription: "For iPhone and iPad. Get the latest release from the App Store.",
+        appleAction: "Open App Store",
+        harmonyName: "Huawei AppGallery",
+        harmonyDescription: "Built for HarmonyOS NEXT. Get the latest release from AppGallery.",
+        harmonyAction: "Open AppGallery",
+    },
+    coming: {
+        kicker: "COMING NEXT",
+        title: "Other Android stores",
+        description: "The Android app will be available through major stores and linked here when released.",
+        android: "Android",
+    },
+    status: { available: "Available", comingSoon: "Coming soon", loading: "Loading link", maintaining: "Temporarily unavailable" },
+    note: {
+        title: "Need help downloading or using the app?",
+        description: "If you run into trouble downloading, installing, or using the app, send us feedback and we will follow up.",
+        action: "Submit feedback",
+    },
+};

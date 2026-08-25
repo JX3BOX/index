@@ -1,0 +1,40 @@
+export default {
+    meta: {
+        title: "Trung tâm tải xuống JX3BOX",
+        keywords: "tải JX3BOX,JX3BOX App,iOS,HarmonyOS,Android",
+        description: "Tải ứng dụng JX3BOX chính thức cho iOS và HarmonyOS NEXT. Phiên bản Android sắp ra mắt.",
+    },
+    hero: {
+        eyebrow: "JX3BOX DOWNLOAD",
+        title: "Mang JX3BOX theo bạn",
+        description: "Xem hướng dẫn, tin tức và dữ liệu nhân vật mọi lúc. Chọn nền tảng để tải ứng dụng JX3BOX chính thức.",
+        free: "Tải miễn phí",
+        sync: "Đa thiết bị",
+        secure: "Bản chính thức",
+    },
+    available: {
+        kicker: "AVAILABLE NOW",
+        title: "Chọn nền tảng",
+        description: "Tải trực tiếp gói Android hoặc truy cập cửa hàng chính thức cho Apple và HarmonyOS NEXT.",
+        androidName: "Android",
+        androidDescription: "Tải trực tiếp gói Android chính thức. Yêu cầu Android 10 trở lên.",
+        androidAction: "Tải Android ngay",
+        appleDescription: "Dành cho iPhone và iPad. Tải bản mới nhất từ App Store.",
+        appleAction: "Mở App Store",
+        harmonyName: "Huawei AppGallery",
+        harmonyDescription: "Được thiết kế cho HarmonyOS NEXT. Tải bản mới nhất từ AppGallery.",
+        harmonyAction: "Mở AppGallery",
+    },
+    coming: {
+        kicker: "COMING NEXT",
+        title: "Các cửa hàng Android khác",
+        description: "Ứng dụng Android sẽ có mặt trên các cửa hàng lớn và được liên kết tại đây khi phát hành.",
+        android: "Android",
+    },
+    status: { available: "Đã phát hành", comingSoon: "Sắp ra mắt", loading: "Đang tải liên kết", maintaining: "Tạm thời không khả dụng" },
+    note: {
+        title: "Bạn gặp vấn đề khi tải xuống hoặc sử dụng ứng dụng?",
+        description: "Nếu gặp sự cố khi tải xuống, cài đặt hoặc sử dụng ứng dụng, hãy gửi phản hồi để được hỗ trợ.",
+        action: "Gửi phản hồi",
+    },
+};
