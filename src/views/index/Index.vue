@@ -130,11 +130,7 @@ export default {
         analyticsPage() {
             return {
                 page_key: "index.home",
-                route_name: "index",
-                route_pattern: "/index",
-                route_path: "/index",
                 layout_version: "index-home-v1",
-                event_types: ["page_view", "click", "exposure", "scroll_depth"],
             };
         },
     },

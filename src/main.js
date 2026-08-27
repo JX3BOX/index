@@ -81,8 +81,8 @@ import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
 import { createIndexAnalytics } from "@/utils/analytics";
-const { plugin: analyticsPlugin } = createIndexAnalytics(store);
-app.use(analyticsPlugin);
+const { plugin: analyticsPlugin } = createIndexAnalytics(store, router);
+if (analyticsPlugin) app.use(analyticsPlugin);
 
 
 // Final.Mount DOM

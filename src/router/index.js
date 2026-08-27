@@ -6,6 +6,12 @@ const routes = [
         path: "/",
         component: () => import("@/views/index/Index.vue"),
         meta: {
+            analytics: {
+                page_key: "index.home",
+                route_pattern: "/index",
+                route_path: "/index",
+                layout_version: "index-home-v1",
+            },
             i18n: {
                 title: "pages.index.title",
                 keywords: "pages.index.keywords",
@@ -38,7 +44,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory('/index/'),
+    history: createWebHistory("/index/"),
     routes,
 });
 
