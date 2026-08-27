@@ -125,7 +125,9 @@ function getUserSkin(params) {
 
 function getPublicDecoration() {
     let url = __cdn + "design/decoration/index.json";
-    return axios.get(url);
+    return axios.get(url, {
+        telemetry: false,
+    });
 }
 
 // 名望

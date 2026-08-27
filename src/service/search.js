@@ -60,10 +60,15 @@ function getWiki(keyword, page) {
 }
 
 const domain = "https://gs.jx3box.com";
-const gsRequest = $next({ domain, serviceKey: "gs" });
+let gsRequest = null;
+
+function getGsRequest() {
+    if (!gsRequest) gsRequest = $next({ domain, serviceKey: "gs" });
+    return gsRequest;
+}
 
 function geSearch(params) {
-    return gsRequest.get("/api/search", { params });
+    return getGsRequest().get("/api/search", { params });
 }
 
 export { getPost, getAuthor, getCj, getItem, getNamespace, getWiki, geSearch };

@@ -6,6 +6,14 @@ const $spider = axios.create({
     baseURL: __spider2,
 });
 
+// 独立 Axios 实例不受 common 请求器注册表管理，需由主 Router App 显式接入。
+function observeSpiderRequests(observer) {
+    if (!observer || typeof observer.observeAxios !== "function") return () => {};
+    return observer.observeAxios($spider, {
+        serviceKey: "spider",
+    });
+}
+
 // 日常 - os
 function getDailyFromOs(params = {}) {
     params.status = 1;
@@ -57,7 +65,9 @@ function getPrice() {
 
 // 宠物福缘
 function getPetLucky() {
-    return axios.get(__dataPath + "pvx/pet/output/pet_lucky.json");
+    return axios.get(__dataPath + "pvx/pet/output/pet_lucky.json", {
+        telemetry: false,
+    });
 }
 
 function getPets(petids, client = "std") {
@@ -126,5 +136,6 @@ export {
     getHomeReputation,
     getItem,
     getItems,
-    getMeirentuNew
+    getMeirentuNew,
+    observeSpiderRequests,
 };

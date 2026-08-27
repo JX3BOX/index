@@ -84,6 +84,9 @@ import { createIndexAnalytics } from "@/utils/analytics";
 const { plugin: analyticsPlugin } = createIndexAnalytics(store, router);
 if (analyticsPlugin) app.use(analyticsPlugin);
 
+// 7.2 前端异常与接口健康（仅 production 构建显式开启）
+import { installIndexObserver } from "@/utils/observability";
+installIndexObserver(app, router);
 
 // Final.Mount DOM
 app.mount("#app");
