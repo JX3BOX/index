@@ -808,6 +808,35 @@ export default {
             }
         }
 
+        .m-notice-list__skeleton-item {
+            flex-direction: column;
+            min-height: 0;
+            padding: 10px 10px 8px 14px;
+            gap: 8px;
+        }
+
+        .m-notice-list__skeleton-date {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 6px 0 0;
+            border-top: 1px solid #eef2f8;
+            border-left: 0;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+        .u-notice-skeleton--day {
+            width: 72px;
+            height: 32px;
+        }
+
+        .u-notice-skeleton--stamp {
+            width: 62px;
+            height: 12px;
+        }
+
         .m-notice-list__flags {
             margin-bottom: 4px;
             gap: 6px;
