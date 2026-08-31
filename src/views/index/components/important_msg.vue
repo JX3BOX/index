@@ -75,8 +75,10 @@ export default {
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 500px;
+        width: min(500px, calc(100vw - 32px));
         height: 240px;
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
         transform: translate(-50%, -50%);
         border-radius: 10px;
         background-color: #fff;
@@ -90,6 +92,8 @@ export default {
             margin-top: 10px;
             width: 100%;
             height: 120px;
+            max-height: calc(100vh - 152px);
+            max-height: calc(100dvh - 152px);
             padding: 10px;
             overflow: auto;
             box-sizing: border-box;

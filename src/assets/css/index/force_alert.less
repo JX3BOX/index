@@ -31,8 +31,8 @@
     .el-dialog__body {
         .pr;
         padding: 0;
-        height: 600px;
-        width: 1000px;
+        height: auto;
+        width: min(1000px, 95vw);
         left: 50%;
         transform: translateX(-50%);
     }
@@ -40,6 +40,7 @@
     .u-main-img {
         width: 100%;
         height: 100%;
+        object-fit: contain;
     }
 
     .u-close {
@@ -62,12 +63,10 @@
         width: 99%;
         .el-dialog__body {
             max-width: 95%;
-            height: 267px;
         }
 
         .u-main-img {
             max-width: 100%;
-            object-fit: contain;
         }
         .u-close {
             height: 40px;

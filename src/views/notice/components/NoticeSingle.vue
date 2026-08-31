@@ -710,13 +710,38 @@ export default {
         }
 
         .m-notice-detail__content {
+            min-width: 0;
             font-size: 14px;
             line-height: 1.75;
+            overflow-wrap: anywhere;
 
-            :deep(p) {
+            p {
                 font-size: 14px;
                 line-height: 1.75;
                 margin-bottom: 1rem;
+            }
+
+            // 公告正文允许运营侧通过内联样式编排多列内容；手机端强制收拢为单列，
+            // 避免 Grid 子项的 min-content 宽度被外层 overflow 隐式裁掉。
+            [style*="grid-template-columns:repeat"],
+            [style*="grid-template-columns: repeat"] {
+                grid-template-columns: minmax(0, 1fr) !important;
+                gap: 24px;
+
+                > * {
+                    min-width: 0;
+                }
+            }
+
+            img,
+            video,
+            iframe {
+                max-width: 100%;
+            }
+
+            img,
+            video {
+                height: auto;
             }
         }
 

@@ -25,7 +25,7 @@ export default {
     data: function () {
         return {
             data: [],
-            height: "300px",
+            height: "600px",
         };
     },
     computed: {
@@ -42,15 +42,20 @@ export default {
     },
     mounted() {
         this.loadEvent();
-
-        if (window.innerWidth < 768) {
-            this.height = "300px";
-        } else {
-            this.height = "600px";
-        }
+        this.syncAlertHeight();
+        window.addEventListener("resize", this.syncAlertHeight);
+    },
+    beforeUnmount() {
+        window.removeEventListener("resize", this.syncAlertHeight);
     },
     methods: {
         ...mapMutations(["setShowAlert"]),
+        syncAlertHeight() {
+            const availableWidth = Math.min(1000, window.innerWidth * 0.95);
+            const availableHeight = Math.max(120, window.innerHeight - 48);
+            const height = Math.min(600, availableWidth * 0.6, availableHeight);
+            this.height = `${Math.round(height)}px`;
+        },
         onClose() {
             this.setShowAlert(false);
             this.data.forEach((item) => {
