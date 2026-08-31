@@ -227,6 +227,12 @@ export default {
     }
 
     .m-versions-content {
+        .u-item {
+            min-width: 0;
+            padding-right: 4px;
+            padding-left: 4px;
+        }
+
         .u-item + .u-item::before {
             height: 24px;
         }
