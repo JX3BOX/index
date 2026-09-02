@@ -26,7 +26,7 @@ assert.strictEqual(installedCommon.version, "9.5.2");
 assert(mainSource.includes("createIndexAnalytics(store, router)"));
 assert(mainSource.includes("if (analyticsPlugin) app.use(analyticsPlugin)"));
 assert(mainSource.includes("installIndexObserver(app, router)"));
-assert(productionEnv.includes("VUE_APP_OBSERVABILITY_ENABLED=1"));
+assert(!/^VUE_APP_OBSERVABILITY_ENABLED=1$/m.test(productionEnv));
 assert(publicIndex.includes("clarity.ms/tag/"));
 assert(publicIndex.includes("hm.baidu.com/hm.js"));
 assert(publishedObserverSource.includes('sessionNamespace: "observability"'));
