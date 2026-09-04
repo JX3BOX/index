@@ -30,7 +30,7 @@ export default {
         },
         wechat: {
             name: "微信公众号",
-            desc: "@剑三魔盒",
+            desc: "@剑网3魔盒",
             alt: "微信公众号",
             qrcodeAlt: "二维码",
             qrcodeImageAlt: "微信公众号二维码",

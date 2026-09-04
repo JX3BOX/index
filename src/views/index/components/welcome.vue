@@ -11,14 +11,22 @@
             <img :src="resolveBannerImage(banners[0].img)" alt="" />
         </a>
         <div v-else class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
-        <span class="u-download-badge" aria-hidden="true">
+        <a
+            class="u-download-badge"
+            :class="{ 'is-expanded': isDownloadBadgeExpanded }"
+            href="/index/download"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="下载魔盒 App"
+            @click="markDownloadBadgeClicked"
+        >
             <svg viewBox="0 0 24 24">
                 <rect x="5" y="3" width="14" height="18" rx="3"></rect>
                 <path d="M12 7v7m-3-3 3 3 3-3"></path>
                 <path d="M10 18h4"></path>
             </svg>
             <span>下载 App</span>
-        </span>
+        </a>
         <i class="u-hook u-hook-left"><img src="@/assets/img/index/hook.png" /></i>
         <i class="u-hook u-hook-right"><img src="@/assets/img/index/hook.png" /></i>
         <a v-if="!banners.length" class="u-frame" href="/index/download" aria-label="下载魔盒 App"></a>
@@ -35,6 +43,7 @@ const { __cdn } = JX3BOX;
 
 const DEFAULT_CALENDAR_SKIN = `${__cdn}design/skin/default/pc_calendar.png`;
 const PC_CALENDAR_SUBTYPE = "pc_calendar";
+const DOWNLOAD_BADGE_CLICKED_KEY = "index_download_badge_clicked";
 
 export default {
     name: "IndexWelcomeV4",
@@ -43,12 +52,29 @@ export default {
         return {
             bg: DEFAULT_CALENDAR_SKIN,
             banners: [],
+            isDownloadBadgeExpanded: false,
         };
     },
     mounted: function () {
+        this.restoreDownloadBadgeState();
         this.loadCalendarBanner();
     },
     methods: {
+        restoreDownloadBadgeState() {
+            try {
+                this.isDownloadBadgeExpanded = !localStorage.getItem(DOWNLOAD_BADGE_CLICKED_KEY);
+            } catch (e) {
+                this.isDownloadBadgeExpanded = true;
+            }
+        },
+        markDownloadBadgeClicked() {
+            this.isDownloadBadgeExpanded = false;
+            try {
+                localStorage.setItem(DOWNLOAD_BADGE_CLICKED_KEY, "1");
+            } catch (e) {
+                // localStorage 不可用时仍允许正常跳转下载页
+            }
+        },
         loadCalendarBanner() {
             getConfigBanner({
                 client: "std",

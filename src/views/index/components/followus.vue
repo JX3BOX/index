@@ -109,7 +109,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs font-bold">{{ $t("index.followus.wechat.name") }}</span>
                         <span class="m-followus__desc text-xs opacity-50 group-hover:opacity-100 tracking-tight"
-                            >@剑三魔盒</span
+                            >@剑网3魔盒</span
                         >
                     </div>
                 </div>

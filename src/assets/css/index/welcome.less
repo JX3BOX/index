@@ -83,8 +83,8 @@
         font-size: 12px;
         font-weight: 600;
         line-height: 1;
+        text-decoration: none;
         white-space: nowrap;
-        pointer-events: none;
         transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
 
         svg {
@@ -109,9 +109,11 @@
         }
     }
 
+    .u-download-badge.is-expanded,
     &:hover .u-download-badge,
     &:focus-within .u-download-badge {
-        width: 82px;
+        width: 90px;
+        padding-right: 8px;
         box-shadow: 0 6px 16px rgba(15, 23, 42, 0.3);
 
         svg {
