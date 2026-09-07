@@ -252,7 +252,11 @@ export default {
                     icon: require("@/assets/img/download/stores/oppo.svg"),
                     name: "OPPO 软件商店",
                 },
-                { key: "honor", mark: "H", name: "荣耀应用市场" },
+                {
+                    key: "honor",
+                    icon: require("@/assets/img/download/stores/honor.svg"),
+                    name: "荣耀应用市场",
+                },
             ],
         };
     },
