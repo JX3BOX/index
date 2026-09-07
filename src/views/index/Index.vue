@@ -1,70 +1,21 @@
 <template>
     <div class="p-index" v-track-page="analyticsPage">
-        <CommonHeader :overlayEnable="true" />
+        <CommonHeader :overlayEnable="true" :traffic-enabled="!trackingPreview" />
         <div class="m-main" ref="main">
             <div class="m-left m-sidebar">
-                <IndexLeftSidebar
-                    v-track-id="'index.sidebar'"
-                    v-track:exposure.once="{
-                        name: 'index_module_exposure',
-                        id: 'index.sidebar',
-                        props: { module_id: 'sidebar' },
-                    }"
-                />
+                <IndexLeftSidebar />
             </div>
             <div class="m-primary">
-                <Slider
-                    v-track-id="'index.slider'"
-                    v-track:exposure.once="{
-                        name: 'index_module_exposure',
-                        id: 'index.slider',
-                        props: { module_id: 'slider' },
-                    }"
-                />
+                <Slider />
                 <div class="m-primary__main">
                     <div class="m-primary__main-left">
-                        <Box
-                            v-track-id="'index.box'"
-                            v-track:exposure.once="{
-                                name: 'index_module_exposure',
-                                id: 'index.box',
-                                props: { module_id: 'box' },
-                            }"
-                        />
-                        <Joke
-                            v-track-id="'index.joke'"
-                            v-track:exposure.once="{
-                                name: 'index_module_exposure',
-                                id: 'index.joke',
-                                props: { module_id: 'joke' },
-                            }"
-                        />
-                        <Activity
-                            v-track-id="'index.activity'"
-                            v-track:exposure.once="{
-                                name: 'index_module_exposure',
-                                id: 'index.activity',
-                                props: { module_id: 'activity' },
-                            }"
-                        />
-                        <Posts
-                            v-track-id="'index.posts'"
-                            v-track:exposure.once="{
-                                name: 'index_module_exposure',
-                                id: 'index.posts',
-                                props: { module_id: 'posts' },
-                            }"
-                        />
+                        <Box />
+                        <Joke />
+                        <Activity />
+                        <Posts />
                     </div>
                     <div class="m-primary__main-right">
-                        <Jx3world
-                            v-track-id="'index.world'"
-                            v-track:exposure.once="{
-                                name: 'index_module_exposure',
-                                id: 'index.world',
-                                props: { module_id: 'world' },
-                            }"
-                        />
+                        <Jx3world />
                     </div>
                 </div>
             </div>
@@ -79,7 +30,7 @@
 </template>
 
 <script>
-
+import IndexHeader from "@/components/IndexHeader";
 import IndexLeftSidebar from "@/components/IndexLeftSidebar.vue";
 
 // 中间
@@ -97,6 +48,7 @@ import Festival from "./components/festival.vue";
 import ForceAlert from "./components/force_alert.vue";
 import ImportantMsg from "./components/important_msg.vue";
 
+import { isTrackingPreview } from "@/utils/page-tracking";
 import User from "@jx3box/jx3box-common/js/user";
 import { getProfile, getMeta } from "@/service/user";
 import { getConfig } from "@/service/setting.js";
@@ -107,6 +59,7 @@ export default {
     name: "Index",
     props: [],
     components: {
+        CommonHeader: IndexHeader,
         IndexLeftSidebar,
 
         Slider,
@@ -127,10 +80,13 @@ export default {
         };
     },
     computed: {
+        trackingPreview() {
+            return isTrackingPreview();
+        },
         analyticsPage() {
             return {
                 page_key: "index.home",
-                layout_version: "index-home-v1",
+                layout_version: "index-home-v2",
             };
         },
     },
@@ -180,7 +136,7 @@ export default {
         this.syncFooterPosition();
         window.addEventListener("resize", this.handleResize);
 
-        if (!isApp()) {
+        if (!isApp() && !this.trackingPreview) {
             this.$nextTick(() => {
                 if (User.isLogin()) {
                     getMeta("new_user_guide").then((res) => {

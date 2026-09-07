@@ -15,12 +15,14 @@
                             : 'bg-transparent text-gray-400 hover:text-gray-700 hover:bg-gray-100'
                     "
                     :aria-pressed="activeTab === tab.value"
+                    v-track:click="'index.posts.tab'"
                     @click="changeTab(tab.value)"
                 >
                     {{ tab.label }}
                 </button>
             </div>
             <a
+                v-track:click="'index.posts.more'"
                 href="/community"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -56,6 +58,7 @@
 
             <template v-else>
                 <a
+                    v-track:click="'index.posts.open'"
                     v-for="item in displayData"
                     :key="item.key"
                     class="m-posts-v5__item p-6 hover:bg-gray-50 transition-all flex space-x-5 group cursor-pointer no-underline"

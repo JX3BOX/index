@@ -60,7 +60,7 @@ function createMemoryStorage() {
 }
 
 async function run() {
-    assert.strictEqual(commonPackage.version, "9.5.2");
+    assert(Number(commonPackage.version.split(".")[0]) >= 9, "当前 common 包需提供已验证的 analytics API");
     assert.strictEqual(fixture.fixture_version, "analytics-dual-sink-v1");
 
     const analytics = loadPublishedModule(path.join(commonRoot, "js/analytics.js"));

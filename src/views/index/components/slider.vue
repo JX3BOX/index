@@ -9,13 +9,8 @@
         <template v-else>
             <div class="m-tv-station">
                 <div class="m-slider" v-if="ready" id="m-home-slider">
-                    <div
-                        class="u-slider"
-                        v-for="(item, i) in data"
-                        :key="i"
-                        :style="{ backgroundColor: item.bgcolor }"
-                    >
-                        <a class="u-pic" :href="item.link" :target="target">
+                    <div class="u-slider" v-for="(item, i) in data" :key="i" :style="{ backgroundColor: item.bgcolor }">
+                        <a v-track:click="'index.banner.open'" class="u-pic" :href="item.link" :target="target">
                             <img :src="showSlider(item.img)" />
                         </a>
                     </div>
@@ -28,6 +23,7 @@
                     v-for="(item, i) in data"
                     :key="i"
                     :style="{ backgroundColor: item.bgcolor }"
+                    v-track:click="'index.banner.switch'"
                     @click="setActive(i)"
                 >
                     <a class="u-pic">

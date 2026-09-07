@@ -18,7 +18,13 @@
             <div class="m-box-v5__header-right flex items-center gap-2">
                 <span v-if="loading" class="u-box-skeleton u-box-skeleton--button" aria-hidden="true"></span>
                 <template v-else>
-                    <button class="u-btn u-btn--ghost" type="button" v-if="!!options.disabled" @click="active">
+                    <button
+                        class="u-btn u-btn--ghost"
+                        type="button"
+                        v-if="!!options.disabled"
+                        v-track:click="'index.tools.customize'"
+                        @click="active"
+                    >
                         {{ $t("index.box.customize") }}
                     </button>
                     <template v-else>
@@ -70,6 +76,7 @@
                         :open-delay="50"
                     >
                         <a
+                            v-track:click="options.disabled ? 'index.tools.open' : null"
                             :href="options.disabled ? item.href : null"
                             :target="item.href.startsWith('/') ? target : '_blank'"
                             class="m-box-v5__item group"
@@ -368,10 +375,14 @@ export default {
             }
         },
         resetLocal: function () {
-            this.$confirm(this.$t("index.box.notify.resetLocalConfirmText"), this.$t("index.box.notify.resetConfirmTitle"), {
-                confirmButtonText: this.$t("index.box.notify.resetConfirmBtn"),
-                type: "warning",
-            })
+            this.$confirm(
+                this.$t("index.box.notify.resetLocalConfirmText"),
+                this.$t("index.box.notify.resetConfirmTitle"),
+                {
+                    confirmButtonText: this.$t("index.box.notify.resetConfirmBtn"),
+                    type: "warning",
+                }
+            )
                 .then(() => {
                     this.data = [...this.default_data];
                     this.order = [...this.default_order];

@@ -7,27 +7,15 @@ import {
     createIdentity,
     createQueueStorage,
     createRemoteRuleResolver,
-    createTrackingSink,
     createTrafficSink,
     createVue3AnalyticsPlugin,
 } from "@jx3box/jx3box-common/js/analytics.js";
+import { createPageTracker, DEFAULT_LAYOUT_VERSION } from "./page-tracking";
 import packageInfo from "../../package.json";
 
 const INDEX_PAGE_KEY = "index.home";
 const INDEX_ROUTE_NAME = "index";
 const INDEX_ROUTE_PATTERN = "/index";
-const INDEX_EVENT_TYPES = Object.freeze(["page_view", "click", "exposure", "scroll_depth"]);
-const INDEX_PROPERTY_KEYS = Object.freeze(["module_id", "position", "depth_percent"]);
-const INDEX_MODULE_TARGETS = new Set([
-    "index.sidebar",
-    "index.slider",
-    "index.box",
-    "index.joke",
-    "index.activity",
-    "index.posts",
-    "index.world",
-]);
-
 function trimSlash(value) {
     return String(value || "")
         .trim()
@@ -63,9 +51,8 @@ export function resolveWebEnvironment(runtime = window) {
     else if (/Macintosh|MacIntel/i.test(userAgent) || navigatorPlatform === "MacIntel") platform = "macos";
     else if (/Linux/i.test(userAgent)) platform = "linux";
 
-    const client = ["harmony", "ios", "android"].includes(platform) || /Mobile|Tablet/i.test(userAgent)
-        ? "mobile_web"
-        : "pc_web";
+    const client =
+        ["harmony", "ios", "android"].includes(platform) || /Mobile|Tablet/i.test(userAgent) ? "mobile_web" : "pc_web";
     return { client, platform };
 }
 
@@ -106,27 +93,6 @@ function isIndexRuleRequest(request) {
     );
 }
 
-function constrainTrackingRule(rule) {
-    if (!rule || typeof rule !== "object") return null;
-    return {
-        enabled: rule.enabled === true,
-        page_key: rule.page_key,
-        route_pattern: rule.route_pattern,
-        layout_version: rule.layout_version,
-        sample_rate: rule.sample_rate,
-        event_types: Array.isArray(rule.event_types)
-            ? rule.event_types.filter((type) => INDEX_EVENT_TYPES.includes(type))
-            : [],
-        property_keys: Array.isArray(rule.property_keys)
-            ? rule.property_keys.filter((key) => INDEX_PROPERTY_KEYS.includes(key))
-            : [],
-        interaction_target_rules: Array.isArray(rule.interaction_target_rules)
-            ? rule.interaction_target_rules.filter((item) => item && INDEX_MODULE_TARGETS.has(item.target_key))
-            : [],
-        rule_version: rule.rule_version,
-    };
-}
-
 function constrainTrafficRule(rule) {
     if (!rule || typeof rule !== "object") return null;
     return {
@@ -151,23 +117,30 @@ function createIndexOnlyResolver(remoteResolver, constrainRule) {
 
 export function createIndexAnalytics(store, router, options = {}) {
     const runtime = options.runtime || window;
+    const getLayoutVersion = () =>
+        router.currentRoute?.value?.meta?.analytics?.layout_version || DEFAULT_LAYOUT_VERSION;
     // 管理端 iframe 只展示页面基准图；命中固定 flag 时不读取 identity、
     // Journal、UA，也不创建任何 Analytics/Traffic 资源。
     if (isIndexAnalyticsPreview(runtime)) {
-        return { analytics: null, identity: null, plugin: null, queue: null };
+        const tracker = createPageTracker({ runtime, getLayoutVersion });
+        return {
+            analytics: null,
+            identity: null,
+            queue: null,
+            plugin: {
+                install(app) {
+                    app.directive("track-page", {});
+                    app.use(tracker);
+                },
+            },
+        };
     }
     const cmsApiBase = options.cmsApiBase || resolveCmsApiBase();
-    const trackingBase = `${trimSlash(cmsApiBase)}/system/stat/tracking`;
+    const trackingBase = `${trimSlash(cmsApiBase)}/system/stat/tracking/v2`;
     const trafficBase = `${trimSlash(cmsApiBase)}/system/traffic`;
     const environment = resolveWebEnvironment(runtime);
     const headersProvider = createHeadersProvider(runtime);
 
-    const trackingSink = createTrackingSink({
-        runtime,
-        endpoint: `${trackingBase}/batch`,
-        credentials: "include",
-        headersProvider,
-    });
     const trafficSink = createTrafficSink({
         runtime,
         endpoint: `${trafficBase}/visits/batch`,
@@ -178,17 +151,10 @@ export function createIndexAnalytics(store, router, options = {}) {
     const queue = createEventQueue({
         runtime,
         storage: createQueueStorage({ storage: runtime.localStorage }),
-        sinks: [trackingSink, trafficSink],
+        sinks: [trafficSink],
     });
     const ruleResolver = createCompositeRuleResolver({
-        tracking: createIndexOnlyResolver(
-            createRemoteRuleResolver({
-                runtime,
-                endpoint: `${trackingBase}/config`,
-                credentials: "include",
-            }),
-            constrainTrackingRule
-        ),
+        tracking: async () => null,
         traffic: createIndexOnlyResolver(
             createRemoteRuleResolver({
                 runtime,
@@ -214,10 +180,22 @@ export function createIndexAnalytics(store, router, options = {}) {
         displayMode: "browser",
         sampleSalt: "jx3box-analytics-v1",
     });
-    const plugin = createVue3AnalyticsPlugin(analytics, {
+    const trafficPlugin = createVue3AnalyticsPlugin(analytics, {
         runtime,
         router,
     });
+
+    const tracker = createPageTracker({ runtime, identity, endpoint: trackingBase, headersProvider, getLayoutVersion });
+    const plugin = {
+        install(app) {
+            app.directive("track-page", trafficPlugin.directives.trackPage);
+            app.use(tracker);
+        },
+        destroy() {
+            tracker.unmount();
+            trafficPlugin.destroy();
+        },
+    };
 
     return {
         analytics,

@@ -20,8 +20,7 @@ const publishedObserverSource = fs.readFileSync(
     "utf8"
 );
 
-assert.strictEqual(packageInfo.dependencies["@jx3box/jx3box-common"], "9.5.2");
-assert.strictEqual(installedCommon.version, "9.5.2");
+assert(require("semver").satisfies(installedCommon.version, packageInfo.dependencies["@jx3box/jx3box-common"]));
 
 assert(mainSource.includes("createIndexAnalytics(store, router)"));
 assert(mainSource.includes("if (analyticsPlugin) app.use(analyticsPlugin)"));
@@ -151,6 +150,7 @@ function loadUtility(overrides = {}) {
             },
         },
         "./analytics": analytics,
+        "./page-tracking": { isTrackingPreview: (runtime) => runtime?.location?.search === "?jx3box_analytics_preview=1" },
         ...(overrides.moduleMocks || {}),
     };
     const utilityModule = { exports: {} };

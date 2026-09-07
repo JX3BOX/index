@@ -93,6 +93,9 @@ module.exports = {
 
     // 过滤依赖包里的已知兼容性 warning（不影响运行，但会刷屏）
     configureWebpack: {
+        plugins: [new webpack.NormalModuleReplacementPlugin(/^\.\/utils\/client-stat$/, (resource) => {
+            if (resource.context.includes("jx3box-ui")) resource.request = path.resolve(__dirname, "src/utils/preview-client-stat.js");
+        })],
         stats: {
             warningsFilter: [/node_modules[\\\\/]+@jx3box[\\\\/]+jx3box-common[\\\\/]+/],
         },

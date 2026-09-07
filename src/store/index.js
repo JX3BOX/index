@@ -1,8 +1,9 @@
+import { resolveGameClient } from "@/utils/page-tracking";
 import { createStore } from "vuex";
 
 const store = {
     state: () => ({
-        client: location.href.includes("origin") ? "origin" : "std",
+        client: resolveGameClient(),
         profile: {
             server: "蝶恋花",
         },

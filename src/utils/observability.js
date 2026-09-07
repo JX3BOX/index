@@ -1,3 +1,4 @@
+import { isTrackingPreview } from "./page-tracking";
 import {
     createClientObserver,
     createVue3ErrorObserverPlugin,
@@ -28,7 +29,7 @@ export function resolveIndexObserverEnvironment(runtime = window) {
 
 export function createIndexObserver(router, options = {}) {
     // 开关判断必须先于 UA、版本、identity 和本地队列读取。
-    if (!isIndexObserverEnabled(options)) return null;
+    if (!isIndexObserverEnabled(options) || isTrackingPreview(options.runtime || window)) return null;
 
     const runtime = options.runtime || window;
     const cmsApiBase = options.cmsApiBase || resolveCmsApiBase();
