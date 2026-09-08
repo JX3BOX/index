@@ -342,7 +342,7 @@
 
 .m-download-platforms {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 22px;
 }
 
@@ -415,7 +415,7 @@
     }
 }
 
-.m-android-direct__meta {
+.m-platform-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -434,122 +434,60 @@
     }
 }
 
-.m-android-stores {
-    padding: 25px 30px 30px;
-    border-top: 1px solid #ededf3;
-    background: #fafbfe;
-}
-
-.m-android-stores__head {
+.m-android-direct__actions {
+    min-width: 0;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 28px;
-    margin: 0 2px 18px;
-
-    h3 {
-        margin: 5px 0 0;
-        font-size: 19px;
-    }
-
-    p {
-        max-width: 540px;
-        margin: 0;
-        color: #858b9d;
-        font-size: 12px;
-        line-height: 1.65;
-        text-align: right;
-    }
-}
-
-.m-store-list {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    flex-direction: column;
     gap: 12px;
 }
 
-.m-store-item {
-    min-width: 0;
-    min-height: 106px;
+.u-google-play-button {
+    width: 100%;
+    min-height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    padding: 14px;
+    padding: 12px 18px;
     box-sizing: border-box;
-    border: 1px solid #eceef4;
-    border-radius: 16px;
-    background: #fff;
-
-    > div {
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    strong {
-        overflow: hidden;
-        font-size: 12px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+    border: 1px solid var(--download-line);
+    border-radius: 14px;
+    color: var(--download-muted);
+    background: rgba(255, 255, 255, 0.88);
+    font: inherit;
+    font-size: 14px;
+    cursor: not-allowed;
+    opacity: 1;
 }
 
-.u-store-icon-wrap {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-    display: grid;
-    place-items: center;
-    border: 1px solid #eff0f5;
-    border-radius: 13px;
-    background: #f8f9fc;
-}
-
-.u-store-mark,
-.u-store-icon {
-    width: 31px;
-    height: 31px;
-    box-sizing: border-box;
-}
-
-.u-store-icon {
-    display: block;
-    object-fit: contain;
-}
-
-.u-store-mark {
-    display: inline-grid;
-    place-items: center;
-    border-radius: 10px;
-    color: #fff;
-    background: #16171d;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.u-store-state {
+.u-google-play-button__label {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    color: #a0a5b3;
-    font-size: 10px;
+    gap: 10px;
+    font-weight: 650;
 
-    i {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: #c9ccd5;
+    img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        opacity: 0.65;
     }
+}
+
+.u-google-play-button__state {
+    flex-shrink: 0;
+    color: #9299a9;
+    font-size: 11px;
 }
 
 .m-platform-card {
     position: relative;
-    min-height: 312px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(230px, 300px);
+    align-items: center;
+    gap: 26px;
     overflow: hidden;
-    padding: 30px;
+    padding: 30px 40px;
     border-radius: 24px;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 
@@ -558,14 +496,6 @@
         border-color: rgba(105, 84, 232, 0.22);
         box-shadow: 0 22px 50px rgba(44, 37, 82, 0.1);
     }
-}
-
-.m-platform-card__top {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
 }
 
 .u-platform-icon {
@@ -617,8 +547,7 @@
 .m-platform-card__body {
     position: relative;
     z-index: 1;
-    flex: 1;
-    padding-top: 25px;
+    min-width: 0;
 
     h3 {
         margin: 7px 0 10px;
@@ -627,16 +556,10 @@
     }
 
     p {
-        max-width: 430px;
         margin: 0;
         color: var(--download-muted);
         line-height: 1.7;
     }
-}
-
-.m-platform-card.is-harmony .m-platform-card__body p {
-    max-width: none;
-    white-space: nowrap;
 }
 
 .u-platform-overline {
@@ -892,15 +815,10 @@
         width: 202px;
     }
 
-    .m-android-direct {
+    .m-android-direct,
+    .m-platform-card {
         grid-template-columns: auto minmax(0, 1fr) 240px;
         padding: 34px;
-    }
-
-    .m-store-item {
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
     }
 }
 
@@ -922,8 +840,7 @@
         left: -12px;
     }
 
-    .m-download-section__head,
-    .m-android-stores__head {
+    .m-download-section__head {
         align-items: flex-start;
         flex-direction: column;
         gap: 10px;
@@ -937,20 +854,20 @@
         white-space: normal;
     }
 
-    .m-platform-card.is-harmony .m-platform-card__body p {
-        white-space: normal;
+    .m-platform-card {
+        grid-template-columns: auto minmax(0, 1fr);
+
+        > .u-download-button {
+            grid-column: 1 / -1;
+        }
     }
 
     .m-android-direct {
         grid-template-columns: auto minmax(0, 1fr);
 
-        .u-download-button {
+        .m-android-direct__actions {
             grid-column: 1 / -1;
         }
-    }
-
-    .m-store-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -1086,7 +1003,8 @@
         padding: 26px 22px 23px;
     }
 
-    .m-android-direct__icon {
+    .m-android-direct__icon,
+    .m-platform-card > .u-platform-icon {
         width: 60px;
         height: 60px;
         border-radius: 18px;
@@ -1097,7 +1015,8 @@
         }
     }
 
-    .m-android-direct__content {
+    .m-android-direct__content,
+    .m-platform-card__body {
         h3 {
             margin-top: 7px;
             font-size: 23px;
@@ -1114,27 +1033,9 @@
         gap: 7px;
     }
 
-    .m-android-direct .u-download-button {
-        grid-column: 1 / -1;
-    }
-
-    .m-android-stores {
-        padding: 22px;
-    }
-
-    .m-store-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-    }
-
-    .m-store-item {
-        min-height: 110px;
-        padding: 12px 8px;
-    }
-
     .m-platform-card {
-        min-height: 286px;
-        padding: 25px;
+        gap: 16px;
+        padding: 24px 22px;
     }
 
     .m-download-note {

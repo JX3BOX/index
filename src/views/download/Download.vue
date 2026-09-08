@@ -69,96 +69,83 @@
                                 </div>
                                 <h3 id="android-download-title">{{ androidPlatform.name }}</h3>
                                 <p>{{ androidPlatform.description }}</p>
-                                <div class="m-android-direct__meta">
+                                <div class="m-platform-meta">
                                     <span v-if="appVersion"><el-icon><CollectionTag /></el-icon>{{ appVersion }}</span>
                                     <span><el-icon><Cellphone /></el-icon>Android 10+</span>
                                 </div>
                             </div>
-                            <a
-                                class="u-download-button u-download-button--primary"
-                                :class="{ 'is-disabled': !androidPlatform.url || configLoading }"
-                                :href="androidPlatform.url || undefined"
-                                :aria-disabled="!androidPlatform.url || configLoading"
-                                @click="handleDownloadClick($event, androidPlatform)"
-                            >
-                                <span class="u-download-button__label">{{ getDownloadButtonText(androidPlatform) }}</span>
-                                <svg
-                                    class="u-download-button__ribbons"
-                                    viewBox="0 0 320 56"
-                                    preserveAspectRatio="none"
-                                    aria-hidden="true"
-                                    focusable="false"
+                            <div class="m-android-direct__actions">
+                                <a
+                                    class="u-download-button u-download-button--primary"
+                                    :class="{ 'is-disabled': !androidPlatform.url || configLoading }"
+                                    :href="androidPlatform.url || undefined"
+                                    :aria-disabled="!androidPlatform.url || configLoading"
+                                    @click="handleDownloadClick($event, androidPlatform)"
                                 >
-                                    <defs>
-                                        <linearGradient id="download-ribbon-light" x1="0" y1="0" x2="320" y2="0">
-                                            <stop offset="0" stop-color="#ffffff" stop-opacity="0" />
-                                            <stop offset="0.2" stop-color="#ffffff" stop-opacity="0.13" />
-                                            <stop offset="0.58" stop-color="#ffffff" stop-opacity="0.2" />
-                                            <stop offset="0.86" stop-color="#ffffff" stop-opacity="0.09" />
-                                            <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
-                                        </linearGradient>
-                                        <linearGradient id="download-ribbon-warm" x1="0" y1="0" x2="320" y2="0">
-                                            <stop offset="0" stop-color="#ffe9a6" stop-opacity="0" />
-                                            <stop offset="0.3" stop-color="#ffe9a6" stop-opacity="0.09" />
-                                            <stop offset="0.72" stop-color="#ffe9a6" stop-opacity="0.15" />
-                                            <stop offset="1" stop-color="#ffe9a6" stop-opacity="0" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path
-                                        class="is-primary"
-                                        stroke="url(#download-ribbon-light)"
-                                        d="M-36 44 C24 2 80 0 126 31 C171 61 224 58 274 24 C300 7 326 4 356 10"
-                                    />
-                                    <path
-                                        class="is-secondary"
-                                        stroke="url(#download-ribbon-warm)"
-                                        d="M-34 11 C30 47 88 64 144 30 C197 -2 250 2 294 35 C317 52 340 51 360 44"
-                                    />
-                                    <g transform="translate(205 12)">
+                                    <span class="u-download-button__label">{{ getDownloadButtonText(androidPlatform) }}</span>
+                                    <svg
+                                        class="u-download-button__ribbons"
+                                        viewBox="0 0 320 56"
+                                        preserveAspectRatio="none"
+                                        aria-hidden="true"
+                                        focusable="false"
+                                    >
+                                        <defs>
+                                            <linearGradient id="download-ribbon-light" x1="0" y1="0" x2="320" y2="0">
+                                                <stop offset="0" stop-color="#ffffff" stop-opacity="0" />
+                                                <stop offset="0.2" stop-color="#ffffff" stop-opacity="0.13" />
+                                                <stop offset="0.58" stop-color="#ffffff" stop-opacity="0.2" />
+                                                <stop offset="0.86" stop-color="#ffffff" stop-opacity="0.09" />
+                                                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                                            </linearGradient>
+                                            <linearGradient id="download-ribbon-warm" x1="0" y1="0" x2="320" y2="0">
+                                                <stop offset="0" stop-color="#ffe9a6" stop-opacity="0" />
+                                                <stop offset="0.3" stop-color="#ffe9a6" stop-opacity="0.09" />
+                                                <stop offset="0.72" stop-color="#ffe9a6" stop-opacity="0.15" />
+                                                <stop offset="1" stop-color="#ffe9a6" stop-opacity="0" />
+                                            </linearGradient>
+                                        </defs>
                                         <path
-                                            class="u-download-button__sparkle is-sparkle-a"
-                                            d="M0 -5 C0 -1.6 -1.6 0 -5 0 C-1.6 0 0 1.6 0 5 C0 1.6 1.6 0 5 0 C1.6 0 0 -1.6 0 -5Z"
+                                            class="is-primary"
+                                            stroke="url(#download-ribbon-light)"
+                                            d="M-36 44 C24 2 80 0 126 31 C171 61 224 58 274 24 C300 7 326 4 356 10"
                                         />
-                                    </g>
-                                    <g transform="translate(252 42)">
                                         <path
-                                            class="u-download-button__sparkle is-sparkle-b"
-                                            d="M0 -3.6 C0 -1.1 -1.1 0 -3.6 0 C-1.1 0 0 1.1 0 3.6 C0 1.1 1.1 0 3.6 0 C1.1 0 0 -1.1 0 -3.6Z"
+                                            class="is-secondary"
+                                            stroke="url(#download-ribbon-warm)"
+                                            d="M-34 11 C30 47 88 64 144 30 C197 -2 250 2 294 35 C317 52 340 51 360 44"
                                         />
-                                    </g>
-                                    <g transform="translate(174 47)">
-                                        <path
-                                            class="u-download-button__sparkle is-sparkle-c"
-                                            d="M0 -2.6 C0 -0.8 -0.8 0 -2.6 0 C-0.8 0 0 0.8 0 2.6 C0 0.8 0.8 0 2.6 0 C0.8 0 0 -0.8 0 -2.6Z"
-                                        />
-                                    </g>
-                                </svg>
-                                <el-icon v-if="configLoading" class="u-download-button__icon is-loading">
-                                    <Loading />
-                                </el-icon>
-                                <el-icon v-else class="u-download-button__icon"><Bottom /></el-icon>
-                            </a>
-                        </div>
-
-                        <div class="m-android-stores">
-                            <div class="m-android-stores__head">
-                                <div>
-                                    <span class="u-platform-overline">ANDROID STORES</span>
-                                    <h3>{{ $t("download.coming.title") }}</h3>
-                                </div>
-                                <p>{{ $t("download.coming.description") }}</p>
-                            </div>
-                            <div class="m-store-list">
-                                <div v-for="store in androidStores" :key="store.key" class="m-store-item">
-                                    <span class="u-store-icon-wrap">
-                                        <img v-if="store.icon" class="u-store-icon" :src="store.icon" alt="" />
-                                        <span v-else class="u-store-mark" :class="`is-${store.key}`">{{ store.mark }}</span>
+                                        <g transform="translate(205 12)">
+                                            <path
+                                                class="u-download-button__sparkle is-sparkle-a"
+                                                d="M0 -5 C0 -1.6 -1.6 0 -5 0 C-1.6 0 0 1.6 0 5 C0 1.6 1.6 0 5 0 C1.6 0 0 -1.6 0 -5Z"
+                                            />
+                                        </g>
+                                        <g transform="translate(252 42)">
+                                            <path
+                                                class="u-download-button__sparkle is-sparkle-b"
+                                                d="M0 -3.6 C0 -1.1 -1.1 0 -3.6 0 C-1.1 0 0 1.1 0 3.6 C0 1.1 1.1 0 3.6 0 C1.1 0 0 -1.1 0 -3.6Z"
+                                            />
+                                        </g>
+                                        <g transform="translate(174 47)">
+                                            <path
+                                                class="u-download-button__sparkle is-sparkle-c"
+                                                d="M0 -2.6 C0 -0.8 -0.8 0 -2.6 0 C-0.8 0 0 0.8 0 2.6 C0 0.8 0.8 0 2.6 0 C0.8 0 0 -0.8 0 -2.6Z"
+                                            />
+                                        </g>
+                                    </svg>
+                                    <el-icon v-if="configLoading" class="u-download-button__icon is-loading">
+                                        <Loading />
+                                    </el-icon>
+                                    <el-icon v-else class="u-download-button__icon"><Bottom /></el-icon>
+                                </a>
+                                <button class="u-google-play-button" type="button" disabled>
+                                    <span class="u-google-play-button__label">
+                                        <img :src="googlePlayIcon" alt="" />
+                                        Google Play
                                     </span>
-                                    <div>
-                                        <strong>{{ store.name }}</strong>
-                                        <span class="u-store-state"><i></i>{{ $t("download.status.comingSoon") }}</span>
-                                    </div>
-                                </div>
+                                    <span class="u-google-play-button__state">{{ $t("download.status.comingSoon") }}</span>
+                                </button>
                             </div>
                         </div>
                     </section>
@@ -169,18 +156,22 @@
                         class="m-platform-card"
                         :class="`is-${platform.key}`"
                     >
-                        <div class="m-platform-card__top">
-                            <div class="u-platform-icon" :class="`is-${platform.key}`">
-                                <img :src="platform.icon" alt="" />
-                            </div>
-                            <span class="u-status u-status--online">
-                                <i></i>{{ $t("download.status.available") }}
-                            </span>
+                        <div class="u-platform-icon" :class="`is-${platform.key}`">
+                            <img :src="platform.icon" alt="" />
                         </div>
                         <div class="m-platform-card__body">
-                            <span class="u-platform-overline">{{ platform.overline }}</span>
+                            <div class="m-platform-title-line">
+                                <span class="u-platform-overline">{{ platform.overline }}</span>
+                                <span class="u-status u-status--online">
+                                    <i></i>{{ $t("download.status.available") }}
+                                </span>
+                            </div>
                             <h3>{{ platform.name }}</h3>
                             <p>{{ platform.description }}</p>
+                            <div class="m-platform-meta">
+                                <span v-if="appVersion"><el-icon><CollectionTag /></el-icon>{{ appVersion }}</span>
+                                <span><el-icon><Cellphone /></el-icon>{{ platform.systemRequirement }}</span>
+                            </div>
                         </div>
                         <a
                             class="u-download-button"
@@ -231,33 +222,7 @@ export default {
                 harmony: require("@jx3box/jx3box-ui/assets/img/common/harmony.svg"),
                 android: require("@jx3box/jx3box-ui/assets/img/common/android.svg"),
             },
-            androidStores: [
-                {
-                    key: "google",
-                    icon: require("@/assets/img/download/stores/google-play.svg"),
-                    name: "Google Play",
-                },
-                {
-                    key: "xiaomi",
-                    icon: require("@/assets/img/download/stores/xiaomi.svg"),
-                    name: "小米应用商店",
-                },
-                {
-                    key: "vivo",
-                    icon: require("@/assets/img/download/stores/vivo.svg"),
-                    name: "vivo 应用商店",
-                },
-                {
-                    key: "oppo",
-                    icon: require("@/assets/img/download/stores/oppo.svg"),
-                    name: "OPPO 软件商店",
-                },
-                {
-                    key: "honor",
-                    icon: require("@/assets/img/download/stores/honor.svg"),
-                    name: "荣耀应用市场",
-                },
-            ],
+            googlePlayIcon: require("@/assets/img/download/stores/google-play.svg"),
         };
     },
     computed: {
@@ -279,6 +244,7 @@ export default {
                 {
                     key: "apple",
                     overline: "iPhone & iPad",
+                    systemRequirement: "iOS / iPadOS 15+",
                     name: "App Store",
                     description: this.$t("download.available.appleDescription"),
                     button: this.$t("download.available.appleAction"),
@@ -288,6 +254,7 @@ export default {
                 {
                     key: "harmony",
                     overline: "HarmonyOS NEXT",
+                    systemRequirement: "HarmonyOS NEXT 6+",
                     name: this.$t("download.available.harmonyName"),
                     description: this.$t("download.available.harmonyDescription"),
                     button: this.$t("download.available.harmonyAction"),
