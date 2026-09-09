@@ -1,4 +1,4 @@
-import { resolveGameClient } from "@/utils/page-tracking";
+import { resolveGameClient } from "@/utils/game-client";
 import { createStore } from "vuex";
 
 const store = {

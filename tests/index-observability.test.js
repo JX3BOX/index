@@ -22,8 +22,8 @@ const publishedObserverSource = fs.readFileSync(
 
 assert(require("semver").satisfies(installedCommon.version, packageInfo.dependencies["@jx3box/jx3box-common"]));
 
-assert(mainSource.includes("createIndexAnalytics(store, router)"));
-assert(mainSource.includes("if (analyticsPlugin) app.use(analyticsPlugin)"));
+assert(mainSource.includes("createIndexPageTracking(router)"));
+assert(mainSource.includes("if (pageTrackingPlugin) app.use(pageTrackingPlugin)"));
 assert(mainSource.includes("installIndexObserver(app, router)"));
 assert(!/^VUE_APP_OBSERVABILITY_ENABLED=1$/m.test(productionEnv));
 assert(publicIndex.includes("clarity.ms/tag/"));
@@ -150,7 +150,7 @@ function loadUtility(overrides = {}) {
             },
         },
         "./analytics": analytics,
-        "./page-tracking": { isTrackingPreview: (runtime) => runtime?.location?.search === "?jx3box_analytics_preview=1" },
+        "@jx3box/jx3box-common/js/page-tracking.js": { isTrackingPreview: (runtime) => runtime?.location?.search === "?jx3box_analytics_preview=1" },
         ...(overrides.moduleMocks || {}),
     };
     const utilityModule = { exports: {} };

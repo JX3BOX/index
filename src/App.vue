@@ -1,7 +1,5 @@
 <template>
-    <div v-page-tracking="$route.path" class="c-page-tracking-root">
-        <router-view :class="pageClass" />
-    </div>
+    <router-view :class="pageClass" />
 </template>
 
 <script>
@@ -23,7 +21,4 @@ export default {
 
 <style lang="less">
 @import "@/assets/css/app.less";
-.c-page-tracking-root {
-    display: contents;
-}
 </style>

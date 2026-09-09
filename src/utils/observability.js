@@ -1,4 +1,4 @@
-import { isTrackingPreview } from "./page-tracking";
+import { isTrackingPreview } from "@jx3box/jx3box-common/js/page-tracking.js";
 import {
     createClientObserver,
     createVue3ErrorObserverPlugin,

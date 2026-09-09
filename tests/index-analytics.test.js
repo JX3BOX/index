@@ -16,19 +16,7 @@ const record =
         return result;
     };
 const common = {
-    createAnalyticsCore: record("core", { track() {} }),
-    createCompositeRuleResolver: record("resolver"),
     createIdentity: record("identity", { getInstanceId: () => "shared-instance" }),
-    createEventQueue: record("queue"),
-    createQueueStorage: record("storage"),
-    createRemoteRuleResolver: () => async () => ({
-        enabled: true,
-        event_types: ["page_view", "click"],
-        page_key: "index.home",
-        route_pattern: "/index",
-    }),
-    createTrafficSink: record("traffic", { key: "traffic" }),
-    createVue3AnalyticsPlugin: () => ({ directives: { trackPage: {} }, destroy() {} }),
 };
 const moduleObject = { exports: {} };
 vm.runInThisContext(`(function(require,module,exports,process){${code}\n})`)(
@@ -36,10 +24,11 @@ vm.runInThisContext(`(function(require,module,exports,process){${code}\n})`)(
         if (name.endsWith("data/jx3box.json")) return { __cms: "https://cms.jx3box.com" };
         if (name.endsWith("js/utils")) return { getTokenFromUrl: () => "" };
         if (name.endsWith("js/analytics.js")) return common;
-        if (name === "./page-tracking")
+        if (name === "./game-client") return { resolveGameClient: () => "std" };
+        if (name === "@jx3box/jx3box-common/js/page-tracking.js")
             return {
                 DEFAULT_LAYOUT_VERSION: "web-v1",
-                createPageTracker: record("tracker", { install() {}, unmount() {} }),
+                createPageTracker: record("tracker", { install() {}, destroy() {} }),
             };
         if (name.endsWith("package.json")) return { version: "4.0.0" };
         throw new Error(name);
@@ -59,28 +48,21 @@ vm.runInThisContext(`(function(require,module,exports,process){${code}\n})`)(
         },
     };
     const router = { currentRoute: { value: { meta: { analytics: { layout_version: "index-home-v2" } } } } };
-    const result = moduleObject.exports.createIndexAnalytics({ state: { client: "origin" } }, router, { runtime });
+    const result = moduleObject.exports.createIndexPageTracking(router, { runtime });
     assert.equal(calls.tracker.getLayoutVersion(), "index-home-v2");
+    assert.equal(calls.tracker.router, router);
     router.currentRoute.value = { meta: {} };
     assert.equal(calls.tracker.getLayoutVersion(), "web-v1");
-    assert.deepEqual(calls.queue.sinks, [{ key: "traffic" }], "公共 SDK 继续负责 Traffic，旧 Tracking sink 已移除");
     assert.equal(calls.tracker.identity.getInstanceId(), "shared-instance");
     assert(calls.tracker.endpoint.endsWith("/system/stat/tracking/v2"));
-    assert.equal(calls.core.gameClient(), "origin");
-    assert.equal(await calls.resolver.tracking({}), null);
-    assert.deepEqual(
-        (await calls.resolver.traffic({ page_key: "index.home", route_name: "index", route_pattern: "/index" }))
-            .event_types,
-        ["page_view"]
-    );
-    assert.equal(await calls.resolver.traffic({ page_key: "index.tv", route_name: "tv", route_pattern: "/tv" }), null);
+    assert.equal(router.__jx3boxAnalyticsRouterOwner__, undefined, "首页不占用 Traffic Router，交由公共头安装");
+    assert.equal(result.queue, undefined, "首页不再创建独立 Traffic 队列");
     const installed = [];
     result.plugin.install({ directive: (name) => installed.push(name), use: () => installed.push("v2") });
-    assert.deepEqual(installed, ["track-page", "v2"], "保留 Traffic 页面元数据，v-track 由 V2 负责");
+    assert.deepEqual(installed, ["v2"], "首页不再注册重复的 track-page 指令");
     delete calls.identity;
     delete calls.queue;
-    const preview = moduleObject.exports.createIndexAnalytics(
-        {},
+    const preview = moduleObject.exports.createIndexPageTracking(
         {},
         { runtime: { location: { search: "?jx3box_analytics_preview=1" } } }
     );
@@ -88,7 +70,7 @@ vm.runInThisContext(`(function(require,module,exports,process){${code}\n})`)(
     assert.equal(calls.identity, undefined);
     assert.equal(calls.queue, undefined);
     assert.equal(calls.tracker.identity, undefined, "预览只安装无采集布局桥");
-    console.log("首页 Traffic 保留、V2 接入、预览隔离通过");
+    console.log("首页仅安装页面追踪，Traffic 交由公共头，预览隔离通过");
 })().catch((error) => {
     console.error(error);
     process.exitCode = 1;

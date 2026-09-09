@@ -1,5 +1,5 @@
 <template>
-    <div class="p-index" v-track-page="analyticsPage">
+    <div class="p-index">
         <CommonHeader :overlayEnable="true" :traffic-enabled="!trackingPreview" />
         <div class="m-main" ref="main">
             <div class="m-left m-sidebar">
@@ -48,7 +48,7 @@ import Festival from "./components/festival.vue";
 import ForceAlert from "./components/force_alert.vue";
 import ImportantMsg from "./components/important_msg.vue";
 
-import { isTrackingPreview } from "@/utils/page-tracking";
+import { isTrackingPreview } from "@jx3box/jx3box-common/js/page-tracking.js";
 import User from "@jx3box/jx3box-common/js/user";
 import { getProfile, getMeta } from "@/service/user";
 import { getConfig } from "@/service/setting.js";
@@ -82,12 +82,6 @@ export default {
     computed: {
         trackingPreview() {
             return isTrackingPreview();
-        },
-        analyticsPage() {
-            return {
-                page_key: "index.home",
-                layout_version: "index-home-v2",
-            };
         },
     },
     watch: {},

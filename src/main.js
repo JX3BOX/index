@@ -80,9 +80,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 import "@/assets/css/tailwind.css";
 
 // 7. 其它扩展
-import { createIndexAnalytics } from "@/utils/analytics";
-const { plugin: analyticsPlugin } = createIndexAnalytics(store, router);
-if (analyticsPlugin) app.use(analyticsPlugin);
+import { createIndexPageTracking } from "@/utils/analytics";
+const { plugin: pageTrackingPlugin } = createIndexPageTracking(router);
+if (pageTrackingPlugin) app.use(pageTrackingPlugin);
 
 // 7.2 前端异常与接口健康（仅 production 构建显式开启）
 import { installIndexObserver } from "@/utils/observability";

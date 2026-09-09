@@ -22,7 +22,6 @@
                         class="u-btn u-btn--ghost"
                         type="button"
                         v-if="!!options.disabled"
-                        v-track:click="'index.tools.customize'"
                         @click="active"
                     >
                         {{ $t("index.box.customize") }}

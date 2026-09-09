@@ -60,6 +60,7 @@
                             >
                                 <component
                                     :is="isDisabledActivity(item) ? 'div' : 'a'"
+                                    v-track:click="!isDisabledActivity(item) && item.link ? 'index.activity.open' : null"
                                     class="m-activity-v5__card group"
                                     :class="[cardClass(month, item), { 'm-activity-v5__card--disabled': isDisabledActivity(item) }]"
                                     :href="!isDisabledActivity(item) ? item.link : null"

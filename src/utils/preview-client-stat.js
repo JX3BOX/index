@@ -1,6 +1,6 @@
 // 仅替换公共头的统计入口，正常访问继续调用 UI 包原实现。
 import * as clientStat from "@jx3box/jx3box-ui/src/utils/client-stat";
-import { isTrackingPreview } from "./page-tracking";
+import { isTrackingPreview } from "@jx3box/jx3box-common/js/page-tracking.js";
 export const checkClientStatOnVisible = (...args) => {
     if (!isTrackingPreview()) return clientStat.checkClientStatOnVisible(...args);
 };

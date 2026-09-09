@@ -1,21 +1,10 @@
 import JX3BOX from "@jx3box/jx3box-common/data/jx3box.json";
 import { getTokenFromUrl } from "@jx3box/jx3box-common/js/utils";
-import {
-    createAnalyticsCore,
-    createCompositeRuleResolver,
-    createEventQueue,
-    createIdentity,
-    createQueueStorage,
-    createRemoteRuleResolver,
-    createTrafficSink,
-    createVue3AnalyticsPlugin,
-} from "@jx3box/jx3box-common/js/analytics.js";
-import { createPageTracker, DEFAULT_LAYOUT_VERSION } from "./page-tracking";
+import { createIdentity } from "@jx3box/jx3box-common/js/analytics.js";
+import { createPageTracker, DEFAULT_LAYOUT_VERSION } from "@jx3box/jx3box-common/js/page-tracking.js";
+import { resolveGameClient } from "./game-client";
 import packageInfo from "../../package.json";
 
-const INDEX_PAGE_KEY = "index.home";
-const INDEX_ROUTE_NAME = "index";
-const INDEX_ROUTE_PATTERN = "/index";
 function trimSlash(value) {
     return String(value || "")
         .trim()
@@ -84,52 +73,18 @@ function createHeadersProvider(runtime) {
     };
 }
 
-function isIndexRuleRequest(request) {
-    return (
-        !!request &&
-        request.page_key === INDEX_PAGE_KEY &&
-        request.route_name === INDEX_ROUTE_NAME &&
-        request.route_pattern === INDEX_ROUTE_PATTERN
-    );
-}
-
-function constrainTrafficRule(rule) {
-    if (!rule || typeof rule !== "object") return null;
-    return {
-        enabled: rule.enabled === true,
-        page_key: rule.page_key,
-        route_pattern: rule.route_pattern,
-        sample_rate: rule.sample_rate,
-        event_types: Array.isArray(rule.event_types) && rule.event_types.includes("page_view") ? ["page_view"] : [],
-        require_public_target: rule.require_public_target === true,
-        rule_version: rule.rule_version,
-    };
-}
-
-function createIndexOnlyResolver(remoteResolver, constrainRule) {
-    return async function resolveIndexRule(request) {
-        // `/tv`、`/download` 以及未来新增路由都在发起配置请求前失败关闭。
-        if (!isIndexRuleRequest(request)) return null;
-        const rule = await remoteResolver(request);
-        return constrainRule(rule);
-    };
-}
-
-export function createIndexAnalytics(store, router, options = {}) {
+export function createIndexPageTracking(router, options = {}) {
     const runtime = options.runtime || window;
     const getLayoutVersion = () =>
         router.currentRoute?.value?.meta?.analytics?.layout_version || DEFAULT_LAYOUT_VERSION;
     // 管理端 iframe 只展示页面基准图；命中固定 flag 时不读取 identity、
     // Journal、UA，也不创建任何 Analytics/Traffic 资源。
     if (isIndexAnalyticsPreview(runtime)) {
-        const tracker = createPageTracker({ runtime, getLayoutVersion });
+        const tracker = createPageTracker({ runtime, router, getLayoutVersion });
         return {
-            analytics: null,
             identity: null,
-            queue: null,
             plugin: {
                 install(app) {
-                    app.directive("track-page", {});
                     app.use(tracker);
                 },
             },
@@ -137,70 +92,27 @@ export function createIndexAnalytics(store, router, options = {}) {
     }
     const cmsApiBase = options.cmsApiBase || resolveCmsApiBase();
     const trackingBase = `${trimSlash(cmsApiBase)}/system/stat/tracking/v2`;
-    const trafficBase = `${trimSlash(cmsApiBase)}/system/traffic`;
-    const environment = resolveWebEnvironment(runtime);
     const headersProvider = createHeadersProvider(runtime);
-
-    const trafficSink = createTrafficSink({
-        runtime,
-        endpoint: `${trafficBase}/visits/batch`,
-        credentials: "include",
-        headersProvider,
-    });
     const identity = createIdentity({ runtime });
-    const queue = createEventQueue({
-        runtime,
-        storage: createQueueStorage({ storage: runtime.localStorage }),
-        sinks: [trafficSink],
-    });
-    const ruleResolver = createCompositeRuleResolver({
-        tracking: async () => null,
-        traffic: createIndexOnlyResolver(
-            createRemoteRuleResolver({
-                runtime,
-                endpoint: `${trafficBase}/config`,
-                credentials: "include",
-            }),
-            constrainTrafficRule
-        ),
-    });
-    const analytics = createAnalyticsCore({
-        runtime,
-        identity,
-        queue,
-        ruleResolver,
-        enabled: options.enabled,
-        product: "jx3box",
-        project: "index",
-        client: environment.client,
-        surface: environment.client,
-        platform: environment.platform,
-        gameClient: () => (store.state.client === "origin" ? "origin" : "std"),
-        webVersion: resolveWebVersion(runtime),
-        displayMode: "browser",
-        sampleSalt: "jx3box-analytics-v1",
-    });
-    const trafficPlugin = createVue3AnalyticsPlugin(analytics, {
-        runtime,
-        router,
-    });
 
-    const tracker = createPageTracker({ runtime, identity, endpoint: trackingBase, headersProvider, getLayoutVersion });
+    const tracker = createPageTracker({
+        runtime, router, identity, endpoint: trackingBase, headersProvider, getLayoutVersion,
+        // 本地联调显式指定所模拟的注册域名；线上使用当前域名。
+        getDomain: () => ["localhost", "127.0.0.1", "[::1]", "::1"].includes(runtime.location.hostname)
+            ? (resolveGameClient(runtime) === "origin" ? "origin.jx3box.com" : "www.jx3box.com")
+            : runtime.location.hostname,
+    });
     const plugin = {
         install(app) {
-            app.directive("track-page", trafficPlugin.directives.trackPage);
             app.use(tracker);
         },
         destroy() {
-            tracker.unmount();
-            trafficPlugin.destroy();
+            tracker.destroy();
         },
     };
 
     return {
-        analytics,
         identity,
         plugin,
-        queue,
     };
 }

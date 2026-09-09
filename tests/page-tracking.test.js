@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const load = () =>
     import(
         `data:text/javascript;base64,${Buffer.from(
-            fs.readFileSync(require.resolve("../src/utils/page-tracking.js"), "utf8")
+            fs.readFileSync(require.resolve("@jx3box/jx3box-common/js/page-tracking.js"), "utf8")
         ).toString("base64")}`
     );
 const tick = () => new Promise(setImmediate);
@@ -113,13 +113,13 @@ function setup() {
     };
 }
 test("正式/怀旧按域名区分，本地 query 模拟；PC/mobile 使用 1133px media query", async () => {
-    const { resolveGameClient, resolvePageScope } = await load();
+    const { resolvePageScope } = await load();
     const { runtime } = setup();
     runtime.location.search = "?client=origin";
-    assert.equal(resolveGameClient(runtime), "std");
+    assert.equal(resolvePageScope(runtime).domain, "www.jx3box.com");
     runtime.location.hostname = "localhost";
-    assert.equal(resolveGameClient(runtime), "origin");
-    assert.equal(resolvePageScope(runtime).game_client, "origin");
+    assert.equal(resolvePageScope(runtime, { domain: "origin.jx3box.com" }).domain, "origin.jx3box.com");
+    assert.equal(resolvePageScope(runtime).game_client, undefined);
     assert.equal(resolvePageScope(runtime).page_key, undefined, "页面标识只由服务端返回");
     runtime.innerWidth = 1133;
     assert.equal(resolvePageScope(runtime).surface, "mobile_web");
@@ -132,7 +132,7 @@ test("正式/怀旧按域名区分，本地 query 模拟；PC/mobile 使用 1133
     runtime.location.pathname = "/";
     assert.equal(resolvePageScope(runtime).route_path, "/", "按真实地址查询，不擅自映射到首页");
     runtime.location.hostname = "unregistered.example";
-    assert.equal(resolvePageScope(runtime), null);
+    assert.equal(resolvePageScope(runtime).domain, "unregistered.example", "域名是否注册由服务端配置决定");
 });
 test("按地址获取注册配置，上报使用服务端页面标识；范围变化时隔离访问", async () => {
     const { createPageTracker } = await load();
@@ -328,13 +328,7 @@ test("应用根指令在路由更新时检查注册范围，同一范围的两�
             },
         },
     });
-    const directives = {};
-    tracker.install({
-        directive: (name, hooks) => {
-            directives[name] = hooks;
-        },
-    });
-    const root = directives["page-tracking"];
+    const root = { mounted: tracker.mount, updated: tracker.refresh, beforeUnmount: tracker.destroy };
     root.mounted(env.root);
     env.runtime.location.pathname = "/macro/123";
     root.updated(env.root);
@@ -417,4 +411,38 @@ test("应用入口与页面渲染使用同一布局版本，预览只监听文�
     assert.equal(env.requests.length, 0, "预览滚动不写入采集接口");
     stop();
     assert.equal(env.listeners.has("scroll"), false);
+});
+
+test("main.js 安装后自动挂载、路由刷新与卸载，无需页面指令", async () => {
+    const { createPageTracker } = await load();
+    const env = setup();
+    Object.assign(env.runtime.document.documentElement, env.root);
+    let afterEach, removed = 0, mixin;
+    const router = { afterEach(fn) { afterEach = fn; return () => { removed++; }; } };
+    const tracker = createPageTracker({ ...env, router, endpoint: "/tracking/v2" });
+    const directives = [];
+    const app = { directive(name) { directives.push(name); }, mixin(value) { mixin = value; } };
+    tracker.install(app);
+    tracker.install(app);
+    assert.deepEqual(directives, ["track"]);
+    const vm = { $nextTick: (fn) => Promise.resolve().then(fn) };
+    vm.$root = vm;
+    mixin.mounted.call({ $root: vm });
+    assert.equal(env.configRequests.length, 0, "子组件不启动采集");
+    mixin.mounted.call(vm);
+    await tick();
+    assert.equal(env.configRequests.length, 1);
+    env.runtime.location.pathname = "/macro/123";
+    afterEach({}, {}, new Error("cancelled"));
+    await tick();
+    assert.equal(env.configRequests.length, 1);
+    afterEach({}, {}, undefined);
+    await tick();
+    assert.equal(env.configRequests.length, 2);
+    mixin.beforeUnmount.call(vm);
+    assert.equal(removed, 1);
+    assert.equal(env.listeners.has("interval"), false);
+    afterEach({}, {}, undefined);
+    await tick();
+    assert.equal(env.configRequests.length, 2, "卸载后的回调不重启采集");
 });

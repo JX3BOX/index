@@ -12,6 +12,7 @@
         </a>
         <div v-else class="u-pic" :style="{ backgroundImage: `url(${bg})` }"></div>
         <a
+            v-track:click="'index.app.download'"
             class="u-download-badge"
             :class="{ 'is-expanded': isDownloadBadgeExpanded }"
             href="/index/download"

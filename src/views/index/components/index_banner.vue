@@ -29,6 +29,7 @@
                     ></iframe>
                     <a
                         v-else
+                        v-track:click="'index.showcase.click'"
                         class="m-index-banner__link"
                         :href="item.link || undefined"
                         :target="item.link ? '_blank' : undefined"

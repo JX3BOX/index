@@ -85,6 +85,9 @@ export default {
                     infinite: true,
                     autoplay: true,
                     dots: false,
+                    // Slick 动态生成的按钮不经过 Vue 指令编译，使用同一采集属性。
+                    prevArrow: '<button type="button" class="slick-prev" aria-label="Previous" data-page-track-event="index.banner.switch">Previous</button>',
+                    nextArrow: '<button type="button" class="slick-next" aria-label="Next" data-page-track-event="index.banner.switch">Next</button>',
                 })
                 .on("afterChange", () => {
                     this.active = $slider.slick("slickCurrentSlide");

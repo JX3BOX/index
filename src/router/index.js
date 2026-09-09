@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { INDEX_LAYOUT_VERSION } from "@/utils/page-tracking";
 
 const routes = [
     {
@@ -8,10 +7,7 @@ const routes = [
         component: () => import("@/views/index/Index.vue"),
         meta: {
             analytics: {
-                page_key: "index.home",
-                route_pattern: "/index",
-                route_path: "/index",
-                layout_version: INDEX_LAYOUT_VERSION,
+                layout_version: "index-home-v2",
             },
             i18n: {
                 title: "pages.index.title",

@@ -2,6 +2,7 @@
     <section class="m-joke-v5-purple group" :aria-busy="loading">
         <div class="u-container flex items-center px-6 py-3 my-6">
             <a
+                v-track:click="'index.joke.open'"
                 class="u-label flex-shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 mr-6 no-underline text-white font-bold rounded-xl transition-transform hover:scale-105"
                 href="/joke"
                 target="_blank"
@@ -39,7 +40,7 @@
                     arrow="never"
                 >
                     <el-carousel-item v-for="(item, i) in list" :key="i">
-                        <a class="u-item block no-underline truncate" :href="getLink(item.id)" target="_blank">
+                        <a v-track:click="'index.joke.open'" class="u-item block no-underline truncate" :href="getLink(item.id)" target="_blank">
                             <span class="u-author text-gray-400 font-medium mr-1"
                                 >{{ item.author || $t("index.joke.anonymous") }}：</span
                             >
@@ -57,6 +58,7 @@
                     {{ $t("index.joke.submit") }}
                 </span> -->
                 <a
+                    v-track:click="'index.joke.open'"
                     href="/joke"
                     target="_blank"
                     class="u-go cursor-pointer flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-indigo-500 transition-all duration-300 hover:bg-indigo-500 hover:text-white group-hover:shadow-lg group-hover:shadow-purple-100"
