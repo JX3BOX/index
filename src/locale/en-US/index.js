@@ -117,6 +117,8 @@ export default {
         entry: "Enter the intelligence center",
         serversTitle: "Server Status",
         chooseServer: "Choose Server",
+        cancel: "Cancel",
+        confirm: "Confirm",
         state: {
             open: "Smooth",
             busy: "Busy",

@@ -21,28 +21,46 @@
             </div>
         </div>
 
-        <transition name="w-world-v5-sheet-fade">
-            <div class="w-world-v5-sheet__mask" v-if="sheetVisible" @click.self="closeSheet">
-                <div class="w-world-v5-sheet">
-                    <div class="w-world-v5-sheet__title">{{ $t("index.world.chooseServer") }}</div>
-                    <div class="w-world-v5-sheet__list">
-                        <button
-                            class="w-world-v5-sheet__item"
-                            :class="[getHeatState(item).class, { 'is-active': item.serverName === currentServerName }]"
-                            v-for="(item, i) in visibleServers"
-                            :key="i"
-                            @click="selectServer(item.serverName)"
-                        >
-                            <span class="u-name">{{ item.serverName }}</span>
-                            <span class="u-right">
-                                <span class="u-dot"></span>
-                                <!-- <span class="u-state-text">{{ getHeatState(item).label }}</span> -->
-                            </span>
-                        </button>
-                    </div>
-                </div>
+        <el-dialog
+            v-model="sheetVisible"
+            class="w-world-v5-server-dialog"
+            :title="$t('index.world.chooseServer')"
+            width="560px"
+            align-center
+            append-to-body
+            :show-close="true"
+            :close-on-click-modal="true"
+            :close-on-press-escape="true"
+            @open="pendingServer = currentServerName"
+            @closed="pendingServer = ''"
+        >
+            <div class="w-world-v5-sheet__list">
+                <button
+                    type="button"
+                    class="w-world-v5-sheet__item"
+                    :class="[getHeatState(item).class, { 'is-active': item.serverName === pendingServer }]"
+                    :aria-pressed="item.serverName === pendingServer"
+                    v-for="item in visibleServers"
+                    :key="item.serverName"
+                    @click="selectServer(item.serverName)"
+                >
+                    <span class="u-name">{{ item.serverName }}</span>
+                    <span class="u-right">
+                        <span class="u-dot" aria-hidden="true"></span>
+                        <span class="u-state-text">{{ getHeatState(item).label }}</span>
+                    </span>
+                    <svg v-if="item.serverName === pendingServer" class="u-selected" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
             </div>
-        </transition>
+            <template #footer>
+                <el-button @click="closeSheet">{{ $t("index.world.cancel") }}</el-button>
+                <el-button type="primary" :disabled="!pendingServer" @click="confirmServer">
+                    {{ $t("index.world.confirm") }}
+                </el-button>
+            </template>
+        </el-dialog>
     </section>
 </template>
 
@@ -64,6 +82,7 @@ export default {
         return {
             serversData: [],
             sheetVisible: false,
+            pendingServer: "",
             localSelectedServer: "",
             heatStateArr: [
                 {
@@ -237,6 +256,11 @@ export default {
             this.sheetVisible = false;
         },
         selectServer: function (serverName) {
+            this.pendingServer = serverName;
+        },
+        confirmServer: function () {
+            const serverName = this.pendingServer;
+            if (!this.visibleServers.some((item) => item.serverName === serverName)) return;
             this.localSelectedServer = serverName;
             this.$store.state.server = serverName;
             this.$emit("change-server", serverName);
@@ -413,34 +437,92 @@ export default {
     }
 }
 
-.w-world-v5-sheet__mask {
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    background: rgba(15, 23, 42, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+.w-world-v5-server-dialog.el-dialog {
+    max-width: calc(100vw - 32px);
+    padding: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 24px 64px rgba(15, 23, 42, 0.16);
+    overflow: hidden;
 
-.w-world-v5-sheet {
-    width: min(420px, calc(100% - 12px));
-    background: #f3f4f6;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
-    transform: translateY(0);
-}
-
-.w-world-v5-sheet__title {
-    text-align: center;
-    font-size: 24px;
-    line-height: 1;
-    transform: scale(0.5);
-    transform-origin: center;
-    margin: -6px 0 10px;
-    color: #1f2937;
-    font-weight: 700;
+    .el-dialog__header {
+        margin: 0;
+        padding: 24px 64px 20px 28px;
+        border-bottom: 1px solid #f0f1f5;
+    }
+    .el-dialog__title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #1f2937;
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 700;
+        &::before {
+            content: "";
+            width: 4px;
+            height: 18px;
+            border-radius: 4px;
+            background: @v4primary;
+        }
+    }
+    .el-dialog__headerbtn {
+        top: 19px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        line-height: 1;
+        border-radius: 10px;
+        background: #f8fafc;
+        transition: background-color 0.15s;
+        .el-dialog__close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            color: #64748b;
+            font-size: 20px;
+            line-height: 1;
+            svg { display: block; }
+        }
+        &:hover, &:focus-visible {
+            background: @v4bg;
+            .el-dialog__close { color: @v4primary; }
+        }
+    }
+    .el-dialog__footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 18px 28px;
+        border-top: 1px solid #f0f1f5;
+        .el-button {
+            min-width: 80px;
+            margin: 0;
+            border-radius: 8px;
+        }
+        .el-button--primary {
+            --el-button-bg-color: @v4primary;
+            --el-button-border-color: @v4primary;
+            --el-button-hover-bg-color: lighten(@v4primary, 6%);
+            --el-button-hover-border-color: lighten(@v4primary, 6%);
+            --el-button-active-bg-color: darken(@v4primary, 6%);
+            --el-button-active-border-color: darken(@v4primary, 6%);
+        }
+    }
+    .el-dialog__body {
+        padding: 24px 28px 28px;
+        max-height: calc(100vh - 260px);
+        max-height: calc(100dvh - 260px);
+        overflow-y: auto;
+    }
 }
 
 .w-world-v5-sheet__list {
@@ -450,105 +532,84 @@ export default {
 }
 
 .w-world-v5-sheet__item {
-    border: none;
-    background: #e9eaec;
-    border-radius: 10px;
-    padding: 8px 12px 8px 10px;
-    min-height: 52px;
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 1px solid #e8ebf0;
+    border-radius: 12px;
+    background: #fff;
+    font-family: inherit;
     text-align: left;
     cursor: pointer;
-}
+    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
 
-.w-world-v5-sheet__item .u-name {
-    font-size: 13px;
-    color: #2f3948;
-    .nobreak;
-}
-
-.w-world-v5-sheet__item .u-right {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #50aa7b;
-}
-
-.w-world-v5-sheet__item .u-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: currentColor;
-}
-
-.w-world-v5-sheet__item.is-close .u-right {
-    color: #808080;
-}
-
-.w-world-v5-sheet__item.is-open .u-right {
-    color: #50aa7b;
-}
-
-.w-world-v5-sheet__item.is-busy .u-right {
-    color: #ab6e34;
-}
-
-.w-world-v5-sheet__item.is-full-load .u-right {
-    color: #ea6567;
-}
-
-.w-world-v5-sheet__item .u-state-text {
-    font-size: 11px;
-    color: currentColor;
-    font-weight: 600;
-}
-
-.w-world-v5-sheet__item.is-active {
-    box-shadow: inset 0 0 0 1px @v4primary;
-    background-color:@v4bg;
-}
-
-.w-world-v5-sheet-fade-enter-active,
-.w-world-v5-sheet-fade-leave-active {
-    transition: opacity 0.22s ease;
-}
-
-.w-world-v5-sheet-fade-enter,
-.w-world-v5-sheet-fade-leave-to {
-    opacity: 0;
-}
-
-.w-world-v5-sheet-fade-enter-active .w-world-v5-sheet {
-    animation: w-world-v5-sheet-up 0.22s ease;
-}
-
-.w-world-v5-sheet-fade-leave-active .w-world-v5-sheet {
-    animation: w-world-v5-sheet-down 0.16s ease;
-}
-
-@keyframes w-world-v5-sheet-up {
-    from {
-        transform: translateY(8px) scale(0.98);
+    .u-name {
+        max-width: 100%;
+        color: #374151;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        .nobreak;
     }
-    to {
-        transform: translateY(0) scale(1);
+    .u-right {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #20ad83;
+    }
+    .u-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+    .u-state-text {
+        color: #6b7280;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .u-selected {
+        position: absolute;
+        right: 10px;
+        bottom: 12px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        color: #fff;
+        background: @v4primary;
+    }
+    &.is-close .u-right { color: #94a3b8; }
+    &.is-busy .u-right { color: #f59e0b; }
+    &.is-full-load .u-right { color: #f06478; }
+    &:hover {
+        background: #fafaff;
+        border-color: #d4d1f5;
+    }
+    &:focus-visible {
+        outline: 2px solid @v4primary;
+        outline-offset: 3px;
+    }
+    &.is-active {
+        border-color: fade(@v4primary, 65%);
+        background: #f7f6ff;
+        box-shadow: none;
+        .u-name { color: @v4primary; }
     }
 }
 
-@keyframes w-world-v5-sheet-down {
-    from {
-        transform: translateY(0) scale(1);
+@media screen and (max-width: 480px) {
+    .w-world-v5-server-dialog.el-dialog {
+        border-radius: 20px;
+        .el-dialog__header { padding-left: 20px; }
+        .el-dialog__body { padding: 20px; }
     }
-    to {
-        transform: translateY(8px) scale(0.98);
-    }
-}
-
-@media screen and (max-width: @phone) {
-    .w-world-v5-sheet {
-        width: calc(100% - 8px);
+    .w-world-v5-sheet__list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
     }
 }
 </style>

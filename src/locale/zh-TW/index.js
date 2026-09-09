@@ -116,6 +116,8 @@ export default {
         entry: "進入江湖情報中央大廳",
         serversTitle: "即時服況",
         chooseServer: "選擇伺服器",
+        cancel: "取消",
+        confirm: "確定",
         state: {
             open: "流暢",
             busy: "繁忙",

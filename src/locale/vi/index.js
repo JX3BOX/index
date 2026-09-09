@@ -117,6 +117,8 @@ export default {
         entry: "Vào trung tâm tình báo",
         serversTitle: "Tình trạng máy chủ",
         chooseServer: "Chọn máy chủ",
+        cancel: "Hủy",
+        confirm: "Xác nhận",
         state: {
             open: "Mượt",
             busy: "Bận",
