@@ -139,7 +139,7 @@
                                     </el-icon>
                                     <el-icon v-else class="u-download-button__icon"><Bottom /></el-icon>
                                 </a>
-                                <button class="u-google-play-button" type="button" disabled>
+                                <button v-if="false" class="u-google-play-button" type="button" disabled>
                                     <span class="u-google-play-button__label">
                                         <img :src="googlePlayIcon" alt="" />
                                         Google Play
