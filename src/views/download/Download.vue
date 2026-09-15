@@ -70,7 +70,6 @@
                                 <h3 id="android-download-title">{{ androidPlatform.name }}</h3>
                                 <p>{{ androidPlatform.description }}</p>
                                 <div class="m-platform-meta">
-                                    <span v-if="appVersion"><el-icon><CollectionTag /></el-icon>{{ appVersion }}</span>
                                     <span><el-icon><Cellphone /></el-icon>Android 10+</span>
                                 </div>
                             </div>
@@ -169,7 +168,6 @@
                             <h3>{{ platform.name }}</h3>
                             <p>{{ platform.description }}</p>
                             <div class="m-platform-meta">
-                                <span v-if="appVersion"><el-icon><CollectionTag /></el-icon>{{ appVersion }}</span>
                                 <span><el-icon><Cellphone /></el-icon>{{ platform.systemRequirement }}</span>
                             </div>
                         </div>
@@ -226,9 +224,6 @@ export default {
         };
     },
     computed: {
-        appVersion() {
-            return this.appConfig.app_versions || "";
-        },
         androidPlatform() {
             return {
                 key: "android",
