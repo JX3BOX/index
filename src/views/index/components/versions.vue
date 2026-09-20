@@ -161,7 +161,7 @@ export default {
         justify-content: space-between;
         gap: 0;
         flex-wrap: nowrap;
-        overflow-x: auto;
+        overflow: hidden;
     }
 
     .u-item {
