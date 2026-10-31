@@ -108,7 +108,12 @@ export default {
                 status: 1,
             })
                 .then((res) => {
-                    this.data = this.sortWithPowerShuffle(res.data.data.list);
+                    const list = res.data.data.list.map((item) => ({
+                        ...item,
+                        // 兼容接口中尚未补齐 dbm 前缀的包链接。
+                        link: item.source_type === "pkg" ? item.link?.replace(/^\/pkg\//, "/dbm/pkg/") : item.link,
+                    }));
+                    this.data = this.sortWithPowerShuffle(list);
                 })
                 .finally(() => {
                     this.loading = false;
